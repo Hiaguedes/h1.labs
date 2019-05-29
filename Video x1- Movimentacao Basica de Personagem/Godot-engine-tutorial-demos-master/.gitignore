@@ -1,0 +1,11 @@
+.import
+
+ref/
+tutorial/
+bad/
+logs/
+
+assets/icon/
+*.psd
+
+.vscode/
