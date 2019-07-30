@@ -1,0 +1,24 @@
+main
+	__CC2DW
+		____DoICP
+	SPI1_Init
+	max7219_init
+		SPI1_Write
+	Clear_Matrix
+		Write_Byte
+			SPI1_Write
+	Write_acento
+		Clear_Matrix
+			Write_Byte
+				SPI1_Write
+		____DoICP
+		Write_Byte
+			SPI1_Write
+	Write_Num
+		Clear_Matrix
+			Write_Byte
+				SPI1_Write
+		Mul_8X8_U
+		____DoICP
+		Write_Byte
+			SPI1_Write
