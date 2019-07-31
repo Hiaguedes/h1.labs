@@ -25,6 +25,21 @@ namespace Primeiro_App
         public MainPage()
         {
             this.InitializeComponent();
+            Hello();
+
+        }
+        public void Hello()
+        {
+            int a = 3;
+            int b = 4;
+            int c = a + b;
+            if (c == 7)
+            {
+                System.Diagnostics.Debug.WriteLine("Success!");
+            }else
+            {
+                System.Diagnostics.Debug.WriteLine("Try Again!");
+            }
         }
     }
 }
