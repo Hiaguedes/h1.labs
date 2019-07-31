@@ -1,13 +1,28 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset=utf-8">
-    <title>Página do Hiago</title>
+    <meta charset="utf-8">
+    <title id="titulo">Página do Hiago</title>
+    <script type="text/javascript" src="js/main.js" charset="utf-8"></script>
 </head>
-<body>
+<body onload="load()">
+    <style>
+        div.centralizar {
+            text-align: center
+        }
 
+        div.background {
+            background-color: darkgray
+        }
+    </style>
 
-<h1>Minha Página</h1>
+    <div class="centralizar">
+        <h1 id="Nome">Minha Página</h1>
+    </div>
+    <button type="button" onclick="clicou()"> <h1>Clica Aew</h1>  </button>
+    <button type="button" onclick="muahaha()"> <h1 id="Botao2" onmouseover="trocar_texto()" onmouseout="voltar_texto()">Não Clique aqui :(</h1>  </button>
+
 </body>
+  
 
 </html>
