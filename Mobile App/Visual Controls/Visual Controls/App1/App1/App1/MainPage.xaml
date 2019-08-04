@@ -3,19 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp;assembly=SkiaSharp"
+             xmlns:skia_views_forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              mc:Ignorable="d"
              x:Class="App1.MainPage">
 
-    <StackLayout AutomationId="StackLayout" Margin="10" >
-        <!-- Place new controls here -->
-        <Label Text="h1.labs" 
-           HorizontalOptions="Fill"
-           VerticalOptions="StartAndExpand" TextColor="#FCFF20" FontSize="Medium" />
-        
-        
-<Button Text="Click Me!" AutomationId="Button_Id" FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" TextColor="#AF0909" />
-        
-        
-    </StackLayout>
+    <skia_views_forms:SKCanvasView x:Name="canvas" PaintSurface="canvas_surface" />
 
 </ContentPage>
+
+<!--     <AbsoluteLayout AutomationId="AbsoluteLayout" >
+
+    <skia_views_forms:SKCanvasView x:Name="canvas" PaintSurface="canvas_surface" /> -->
+   
+
+
+   <!-- <Label Text="h1.labs" 
+           HorizontalOptions="Center"
+           VerticalOptions="StartAndExpand" TextColor="#FCFF20" FontSize="Medium" />
+
+
+    <Button Text="Click Me!" AutomationId="Button_Id" FontSize="9" HorizontalOptions="Fill" VerticalOptions="Fill" TextColor="#DED9D9" TranslationY="25" BackgroundColor="#323436" />
+
+
+    </AbsoluteLayout> --> 
