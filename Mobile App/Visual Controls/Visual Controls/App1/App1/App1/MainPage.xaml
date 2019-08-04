@@ -8,7 +8,9 @@
              mc:Ignorable="d"
              x:Class="App1.MainPage">
 
-    <skia_views_forms:SKCanvasView x:Name="canvas" PaintSurface="canvas_surface" />
+    <skia_views_forms:SKCanvasView x:Name="canvas" PaintSurface="canvas_surface" EnableTouchEvents="True" Touch="canvas_interface"/>
+    
+ 
 
 </ContentPage>
 
