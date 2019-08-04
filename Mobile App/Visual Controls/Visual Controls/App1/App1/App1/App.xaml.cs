@@ -4,13 +4,15 @@ using Xamarin.Forms.Xaml;
 
 namespace App1
 {
+
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
+           
 
-            MainPage = new MainPage();
+            MainPage = new MainPage() {BackgroundColor = Color.FromHex("323436") };
         }
 
         protected override void OnStart()

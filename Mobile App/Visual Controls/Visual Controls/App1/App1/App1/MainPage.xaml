@@ -6,11 +6,16 @@
              mc:Ignorable="d"
              x:Class="App1.MainPage">
 
-    <StackLayout>
+    <StackLayout AutomationId="StackLayout" Margin="10" >
         <!-- Place new controls here -->
-        <Label Text="Hello World" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <Label Text="h1.labs" 
+           HorizontalOptions="Fill"
+           VerticalOptions="StartAndExpand" TextColor="#FCFF20" FontSize="Medium" />
+        
+        
+<Button Text="Click Me!" AutomationId="Button_Id" FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" TextColor="#AF0909" />
+        
+        
     </StackLayout>
 
 </ContentPage>
