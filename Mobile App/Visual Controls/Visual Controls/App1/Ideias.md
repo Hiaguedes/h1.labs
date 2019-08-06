@@ -1,7 +1,7 @@
 # Objetivos
 - Página Simples onde o botão troca a cor de background
 - Mostrar o Logo h1.labs
- - Mostrar Redes Sociais
+- Mostrar Redes Sociais
 
 
 # Dificuldades
@@ -10,6 +10,7 @@
 - Inserir Links
 - Alterar Fonte
 - Pode se usar dois estilos de container??
+- Utilizar Altura e Comprimento do Sistema
 
 ```sh
 x Não conseguiu 
