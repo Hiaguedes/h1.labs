@@ -1,6 +1,6 @@
 ﻿#Java Script Essencial
 
-###app.js contém:
+app.js
 
 - Array
 - String
