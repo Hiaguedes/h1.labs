@@ -98,4 +98,13 @@ const soma_idade_par = pessoa1
     idade += person.idade;
     return idade;
     }, 0);
-console.log('Retorna somatória de uma atributo filtrado: ',soma_idade_par);
+console.log('Retorna somatória de uma atributo filtrado: ', soma_idade_par);
+console.log();
+var vetor = [1, 2, 3, 4, 5, 6];
+  vetor.forEach(item => {
+    if (item % 2 == 0) {
+        console.log('Par');
+    
+    }else {  console.log('Impar'); }
+  });
+
