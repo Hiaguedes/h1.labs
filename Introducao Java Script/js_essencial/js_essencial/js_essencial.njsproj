@@ -29,7 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="car.js" />
-    <Content Include="funcs_operator.js">
+    <Content Include="funcs.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="var.js" />

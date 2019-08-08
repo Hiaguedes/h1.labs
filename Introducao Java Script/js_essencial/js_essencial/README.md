@@ -1,7 +1,6 @@
 
 #Java Script Essencial
 
-###app.js
 
 - Array
 - String
