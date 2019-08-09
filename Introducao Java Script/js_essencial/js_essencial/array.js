@@ -88,4 +88,27 @@ console.log('Outra Ordenacao: ', student.sort((current, next) => next.nota - cur
 console.log('Inverter Valores de um vetor:', arr1.reverse());
 console.log('Se cquiser concatenar os valores de um array em um unico elemento so: ', arr1.join(), ' | ', arr1.join('-'));
 console.log('Somar todos os valores de um array: ', arr1.reduce((total, value) => total += value, 0));
-console.log('Media dos alunos: ',student.reduce((total,student) => total += student.nota,0)/student.length);
+console.log('Media dos alunos: ', student.reduce((total, student) => total += student.nota, 0) / student.length);
+
+const alunos = [    { nome: "Cris", nota: 10 },    { nome: "Alexandre", nota: 7 },    { nome: "Pablo", nota: 4 }];function alunoAprovado(aluno) {    return aluno.nota >= 7;}console.log(alunos.filter(alunoAprovado));console.log(alunos.some(alunoAprovado));console.log(alunos.every(alunoAprovado)); //[ { nome: 'Cris', nota: 10 }, { nome: 'Alexandre', nota: 7 } ]
+//true
+//false
+
+const frutas = ["amora", "laranja", "melancia", "acerola"];frutas.sort();frutas.reverse();
+console.log(frutas);//[ 'melancia', 'laranja', 'amora', 'acerola' ]
+
+const familiaPai = ["Avó Zeca", "Avô Aroldo"];const familiaMae = ["Avô Carlos", "Primo João Paulo"];const familiaFilho = familiaPai.concat(familiaMae);console.log(familiaPai);console.log(familiaMae);console.log(familiaFilho);//[ 'Avó Zeca', 'Avô Aroldo' ]
+//['Avô Carlos', 'Primo João Paulo']
+//['Avó Zeca', 'Avô Aroldo', 'Avô Carlos', 'Primo João Paulo']
+
+const pessoas = ["Cris", "Alexandre", "Pablo", "Cris"];console.log(pessoas.indexOf("Cris"));console.log(pessoas.findIndex(nome => nome === "Cris"));console.log(pessoas.lastIndexOf("Cris"));console.log(pessoas.find(nome => nome === "Cris"));
+//0
+//0
+//3
+//Cris
+
+const colaboradores = [    { nome: "Cris", horasTrabalhadas: 220 },    { nome: "Rebeca", horasTrabalhadas: 210 }];function adicionaSalario(colaborador) {    const salario = colaborador.horasTrabalhadas * 50;    colaborador.salario = salario;    return {        salario: salario    };}const colaboradoresComSalario = colaboradores.map(adicionaSalario);console.log(colaboradoresComSalario);
+//[ { salario: 11000 }, { salario: 10500 } ]
+
+const person = ["Cris"];person.push("James", "Jenny");person.push("John");console.log(person); //[ 'Cris', 'James', 'Jenny', 'John' ]
+
