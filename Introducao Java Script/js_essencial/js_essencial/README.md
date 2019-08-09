@@ -1,11 +1,11 @@
-#Java Script Essencial
+# Java Script Essencial
 
 
-- Array
-- String
-- Operator
-- Functions
+- Array(array.js)
+- String e numbers (var.js)
+- Operator(operators.js)
+- Functions(funcs.js)
+- hoisting, curring(more.js)
+- Classes (class.js)
 
 
-
-## Criar outro js com hoisting , curring, imutabilidade

@@ -28,8 +28,19 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="car.js" />
     <Content Include="funcs.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="class.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="array.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="more.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="operators.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="var.js" />
