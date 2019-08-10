@@ -5,37 +5,80 @@
     <title id="titulo_index">h1.labs</title>
     <script type="text/javascript" src="js/main.js" charset="utf-8"></script>
 </head>
-<body>
+<body bgcolor="#6b6363">
 
     <style>
+
+        		body {
+			padding:0px;
+			margin:0px;
+		}
+
+
+
         div.centralizar {
             text-align: center
         }
 
-        div.background {
-            background-color: darkgray
-        }
+
+        		#menu ul {
+			padding:0px;
+			margin:0px;
+			float: left;
+			width: 100%;
+			background-color:#EDEDED;
+			list-style:none;
+			font:80% Tahoma;
+		}
+
+		#menu ul li { display: inline; }
+
+		#menu ul li a {
+			background-color:#EDEDED;
+			color: #333;
+			text-decoration: none;
+			border-bottom:3px solid #EDEDED;
+			padding: 2px 10px;
+			float:left;
+		}
+
+		#menu ul li a:hover {
+			background-color:#D6D6D6;
+			color: #6D6D6D;
+			border-bottom:3px solid #EA0000;
+		}
+	
+
     </style>
 
     <div class="centralizar">
-        <h1 id="Nome">Minha Página</h1>
+        <h1 id="Nome"><samp>Minha Página</samp></h1>
     </div>
 
     <nav>
         <a href="index.html"><img src="img/logo.png" width="100px" height="100px" /></a>
-        <p>h1.labs</p>
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="Historia.html">História</a></li>
-            <li><a href="Projetos.html">Projetos</a></li>
-            <li><a href="Artigos_Noticias.html">Artigos e Notícias</a></li>
-            <li><a href="contato.html">Contato</a></li>
-        </ul>
+        <p><samp>h1.labs</samp></p>
+        <div id="menu">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="Historia.html">História</a></li>
+                <li><a href="Projetos.html">Projetos</a></li>
+                <li><a href="Artigos_Noticias.html">Artigos e Notícias</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </div>
     </nav>
-    <button type="button" onclick="clicou()"> <h1>Clica Aew</h1>  </button>
-    <button type="button" onclick="muahaha()"> <h1 id="Botao2" onmouseover="trocar_texto()" onmouseout="voltar_texto()">Não Clique aqui :(</h1>  </button>
 
-<section><h2>Introdução</h2></section>
+    <hr />
+    <div style="background: #2e2a2a; height: 1300px ">
+
+        <button type="button" onclick="clicou()"> <h1>Clica Aew</h1>  </button>
+        <button type="button" onclick="muahaha()"> <h1 id="Botao2" onmouseover="trocar_texto()" onmouseout="voltar_texto()">Não Clique aqui :(</h1>  </button>
+
+        <section><h2 style="color: #e6e035">Introdução</h2></section>
+
+
+    </div>
 </body>
 
 
