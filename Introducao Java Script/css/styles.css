@@ -37,6 +37,10 @@ div.centralizar {
 html {
   height: 105%;
 }
+.contato{
+    height: 80%;
+}
+
 #header{
         background-color: #dbdbd7;
 }
@@ -69,7 +73,7 @@ h1 {
 h2 {
     margin-left: 20px;
     color: #e6e035;
-    margin-top: 10px;
+    padding-top: 20px;
 }
 
 .logo{
@@ -79,6 +83,16 @@ h2 {
     height: 100px
 }
 
+.container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
 
+.imagem_contato{
+    padding-top:200px;
+    padding-bottom: 350px;
+
+}
 
    
