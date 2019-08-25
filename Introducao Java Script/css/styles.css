@@ -77,22 +77,29 @@ h2 {
 }
 
 .logo{
-    margin-left:20px;
-    margin-bottom:20px;
-    width: 100px;
-    height: 100px
+    margin-left:10px;
+    padding-bottom:10px;
+    width: 70px;
+    height: 70px
 }
 
 .container {
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
 .imagem_contato{
     padding-top:200px;
     padding-bottom: 350px;
-
 }
 
-   
+rodape{
+    padding-top:10px;
+}
+.navbar {
+    background-color: #dbdbd7;  
+}
+.navbar-brand, .nav-link {
+    color: #474746;
+}
