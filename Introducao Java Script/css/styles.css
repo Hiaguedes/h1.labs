@@ -35,7 +35,7 @@ div.centralizar {
 
 
 html {
-  height: 105%;
+  height: 100%;
 }
 .contato{
     height: 80%;
@@ -95,11 +95,14 @@ h2 {
 }
 
 rodape{
-    padding-top:10px;
+    padding-top:0px;
 }
 .navbar {
     background-color: #dbdbd7;  
 }
 .navbar-brand, .nav-link {
     color: #474746;
+}
+float-left{
+    text-align:left;
 }

@@ -3,6 +3,7 @@
 console.log(lista[1]);
 console.log(lista.join(" | "));
 console.log(lista);*/
+
 function setReplace(frase, nome, troca) {
     return frase.setReplace(troca,nome);
 }
