@@ -1,5 +1,19 @@
 ﻿//funcoes sao objetos
 
+
+function num_aleatório(min,max) {
+
+    if(min>max){
+a=min;
+min=max;
+max=a;
+    }
+
+    return Math.random()*(max-min)+min;
+    };
+
+console.log(num_aleatório());
+
 function fn() {
 
     return console.log('Hello!');
