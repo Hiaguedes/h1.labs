@@ -11,15 +11,15 @@ var comparar=(a, b) => {
 };
 comparar(2, 4);
 
-var time_ou_selecao = (text='default') => {
+var time_ou_selecao = text => {
     
-    if (text == 'flamengo' || 'Flamengo') { console.log(text, 'e selecao porra!') }else 
-        if (text == 'vasco' || 'Vasco' || 'Vice da Gama' || "vice" || 'Vice') { console.log(text, 'e timinho!') }
+(text==('flamengo' || 'Flamengo')) ? (console.log('flamengo é seleção porraaaa')) : (console.log(text,'é timinho'))
 };
 
-time_ou_selecao('flamengo');
+time_ou_selecao('vasco');
 
-// Nao pode criar objetos e nem ter hoisting com arrow functions
+console.log(' ');
+// Nao pode construir objetos e nem ter hoisting com arrow functions
 
 setTimeout(() => {
     console.log('E ai! Entrei atrasado?');

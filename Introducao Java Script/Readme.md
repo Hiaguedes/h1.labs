@@ -1,6 +1,6 @@
-# Página Principal h1.labs
+# PÃ¡gina Principal h1.labs
 
-Nada muito sério, só treinamento
+Nada muito sÃ©rio, sÃ³ treinamento
 
 Desenvolvimento Web
 
