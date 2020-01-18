@@ -21,3 +21,49 @@ function soma(...args){
  arr2=[...arr,...arr1];
 
  console.log(arr2);
+
+ //Destructuring
+
+ console.log('');
+
+[var1,var2,var3]=['Apple','Banana','Orange'];
+
+//Válido para n dimensoes
+
+ console.log(var1,var2,var3);
+
+ var Pessoa={
+   nome: 'Hiago',
+   Rg: '123456789-0'
+ }
+
+ var {nome}=Pessoa;
+ var {Rg}=Pessoa;
+
+ var {nome: nome2}=Pessoa; //outra forma 
+
+ //declarar que é var
+
+ console.log(nome, Rg);
+ console.log(nome2);
+
+ var Pessoa1={
+nome: 'Lauro',
+Rg: 124356789-0,
+
+props:{
+  idade: 25,
+  peso: 85,
+  notas: [77,62,89,51,70]
+}
+
+ }
+
+ var {props:{idade}}=Pessoa1;
+ var{props:{notas:[Matemática,Física,Química,Português,Geografia]}}=Pessoa1;
+
+ console.log(idade);
+ console.log(Matemática,Português); 
+
+ let [one, two, three, four] = ['Digital', 'Innovation', 'One'];
+ console.log(four);
