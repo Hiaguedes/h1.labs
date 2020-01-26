@@ -57,6 +57,3 @@ settled (estabelecida): Que foi realizada ou rejeitada
 */
 
 //Ambas as funçoes sao uteis para programacao assincrona mas o Promise é mais fácil de se lidar com o erro.
-
-
-

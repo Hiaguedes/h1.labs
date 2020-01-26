@@ -1,0 +1,16 @@
+Principais conceitos do Webpack
+
+Entry- Utilizando grafo, o Webpack precisa de um ponto de entrada para buscar todos os módulos e dependências
+
+Output- É para determinar quais são os bundlers (builders) que o Webpack irá emitir
+
+Loaders- É para permitir que o Webpack gerencia arquivos que não são js
+
+Plugins- Plugins podem ser utilizados para otimizaçao de pacotes, minificação, injeção de scripts e muito mais.
+
+Mode- Utilizados para abordagem de configuração zero. 
+
+é possível configurar módulos como production, development ou none.
+
+Production- Trás otimizaçoes internas
+development- é executado com três plugins: UglifyJsPlugin, ModuleConcatenationPlugin e NoEmitOnErrorsPlugin.
