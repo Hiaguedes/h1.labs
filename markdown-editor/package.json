@@ -1,0 +1,20 @@
+{
+  "name": "h1.labs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+
+  "scripts": {
+    "start": "set DEBUG=true & electron ."
+  },
+  "keywords": [],
+  "author": "Lockheart",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.2.1",
+    "electron-builder": "^22.4.1"
+  },
+  "dependencies": {
+    "simplemde": "^1.11.2"
+  }
+}
