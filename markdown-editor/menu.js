@@ -1,8 +1,29 @@
-const { app, Menu, shell, ipcMain, BrowserWindow , globalShortcut,dialog} = require('electron');
-const window = BrowserWindow.getFocusedWindow();
+const { app, Menu, shell, ipcMain,
+ BrowserWindow , globalShortcut, dialog} = require('electron');
+
+ const fs = require('fs');
+
 const template = [
     
     {
+        label: 'File',
+        submenu: [
+          {
+            label: 'Open',
+            accelerator: 'CommandOrControl+L',
+            click() {
+              loadFile();
+            }
+          },
+          {
+            label: 'Save',
+            accelerator: 'CommandOrControl+S',
+            click() {
+              saveFile();
+            }
+          }
+        ]
+      },{
     role: 'help',
     
     submenu: [
@@ -66,37 +87,67 @@ const template = [
         });
         }
 
+//=====================================================
 
-        app.on('ready', () => {
-            globalShortcut.register('CommandOrControl+S', () => {
-            console.log('Saving the file');
+function saveFile() {
+    console.log('Saving the file');
+    const window = BrowserWindow.getFocusedWindow();
+    window.webContents.send('editor-event', 'save');
+  }
+  
+  function loadFile() {
+    const window = BrowserWindow.getFocusedWindow();
+  console.log('Loading File...');
+  }
 
 
-            ipcMain.on('save', (event, arg) => {
-            console.log(`Saving content of the file`);
-            console.log(arg);
-            });
+  app.on('ready', () => {
+    globalShortcut.register('CommandOrControl+S', () => {
+      saveFile();
+    });
+  
+    globalShortcut.register('CommandOrControl+L', () => {
+      loadFile();
+    });
+  });
 
-            ipcMain.on('editor-reply', (event, arg) => {
-            console.log(`Received reply from web page: ${arg}`);
-            });
+
+ipcMain.on('save', (event, arg) => {
+  console.log(`Salvando o conteudo do aquivo: `);
+  console.log(arg);
+
+  const window = BrowserWindow.getFocusedWindow();
+  const options = {
+    title: 'Salvar arquivo md',
+    defautPath: '~/file.md',
+    buttonLabel:'Salvar Arquivo do App',
+    filters: [
+      {
+        name: '.md, File',
+        extensions: ['md'],
+        defautPath: '/Desktop/my-file.md'
+      }
+    ]
+  };
+
+  dialog.showSaveDialog( window,options, (filename) => {
+    console.log(filename);
+    if(filename){
+      console.log(`Saving content to the file: ${filename}`);
+    fs.writeFileSync(filename, arg,(err)=>{
+      if(err){
+        alert('Ocorreu um erro ao salvar o arquivo'+err.message)
+      }
+      alert('Arquivo criado com sucesso :)');
+    });
+  }
+  });
+});
+
+ipcMain.on('editor-reply', (event, arg) => {
+  console.log(`Received reply from web page: ${arg}`);
+});
            
-            const window = BrowserWindow.getFocusedWindow();
-            window.webContents.send('editor-event', 'save');
-            const options = {
-            title: 'Save markdown file',
-            filters: [
-            {
-            name: 'MyFile',
-            extensions: ['md']
-            }
-            ]
-            };
-            dialog.showSaveDialog(window, options, filename=>{
-                console.log(filename);
-            });
-           });
-        }); 
 
     const menu = Menu.buildFromTemplate(template);
 

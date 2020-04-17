@@ -10,7 +10,7 @@ initial-scale=1.0">
 http-equiv="Content-Security-Policy"
 content="script-src 'self' 'unsafe-inline';"
 />
-<title>Editor</title>
+<title>Editor de Markdown</title>
 <link rel="stylesheet" href="./node_modules/simplemde
 /dist/simplemde.min.css">
 <script src="./node_modules/simplemde/dist
@@ -19,6 +19,7 @@ content="script-src 'self' 'unsafe-inline';"
 
 <body>
 <textarea id="editor"></textarea>
+<!-- Script========================================== -->
 <script>
 
 var editor = new SimpleMDE({ 
@@ -26,6 +27,7 @@ var editor = new SimpleMDE({
  });
 
  const { ipcRenderer } = require('electron');
+
  ipcRenderer.on('editor-event', (event, arg) => {
  console.log(arg);
  event.sender.send('editor-reply', `Received ${arg}`);
@@ -33,15 +35,15 @@ var editor = new SimpleMDE({
  if (arg === 'toggle-bold') {
  editor.toggleBold();
  }
- });
 
  if (arg === 'save') {
- event.sender.send('save', editor.getValue());
+ event.sender.send('save', editor.value());
  }
 
+ });
 
  ipcRenderer.send('editor-reply', 'Page Loaded');
 
-    </script>
-</body>
-</html>
+</script>
+    </body>
+        </html>

@@ -1,7 +1,8 @@
 const { app, BrowserWindow, Menu } = require('electron');
-
 const menu = require('./menu');
+
  let window;
+
  app.on('ready', () => {
  window = new BrowserWindow({
  width: 800,
