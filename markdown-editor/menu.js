@@ -1,7 +1,18 @@
 const { app, Menu, shell, ipcMain,
- BrowserWindow , globalShortcut, dialog} = require('electron');
+ BrowserWindow , globalShortcut, remote,dialog} = require('electron');
 
  const fs = require('fs');
+
+ function saveFile() {
+  console.log('Saving the file');
+  const window = BrowserWindow.getFocusedWindow();
+  window.webContents.send('editor-event', 'save');
+}
+
+function loadFile() {
+  const window = BrowserWindow.getFocusedWindow();
+console.log('Loading File...');
+}
 
 const template = [
     
@@ -68,7 +79,7 @@ const template = [
         { role: 'quit' }
         ]
         })
-        }
+        };
     
     if (process.env.DEBUG) {
         template.push({
@@ -85,20 +96,11 @@ const template = [
         }
         ]
         });
-        }
+        };
 
 //=====================================================
 
-function saveFile() {
-    console.log('Saving the file');
-    const window = BrowserWindow.getFocusedWindow();
-    window.webContents.send('editor-event', 'save');
-  }
-  
-  function loadFile() {
-    const window = BrowserWindow.getFocusedWindow();
-  console.log('Loading File...');
-  }
+
 
 
   app.on('ready', () => {
