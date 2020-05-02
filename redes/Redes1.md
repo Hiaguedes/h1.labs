@@ -110,6 +110,9 @@ Esse comando nos dá uma série de coisas legais, tais como endereço IP (IPV4 e
 
 Alguns termos para rede
 * O Hub é um equipamento utilizado para interconectar diversos dispositivos finais. Para conectar dois computadores em rede basta apenas um cabo de rede, para conectar mais de um aí sim precisa-se de um hub. Ou um roteador.
+
+![Ligação de Pcs a um hub e seus protocolos](assets/3pc-icmp-ping-hub.png)
+
 * NAT é um método de tradução de endereços privados e públicos.
 * Servidor é uma máquina centralizada que oferece serviços a um cliente (ex: computador)
 * Máscara de rede é usado para determinar se dois equipamentos estão na mesma rede
@@ -142,6 +145,9 @@ Padrão T568B
 
 Os dois padrão chamados de padrão feito pela TIA
 
+![Padrão de ligação dos filamentos do cabo de rede no RJ45](assets/padrao_caboderede.jpg)
+
+
 Basicamente inverte o laranja com o verde (a transmissão ocorre de uma cor para a mesma cor), e para esse sentido de cabo com um lado seguindo o padrão T568A  e o outro lado do cabo com padrão T568B nós temos um ***Cabo Cruzado***. A transmissão ocorre somente com os fios verdes e laranjas.
 
 Algumas placas de rede tem via software uma forma de corrigir eventuais erros de padrão mas isso tem que ser verificado se há um padrão **auto-MDIX**.
@@ -173,8 +179,8 @@ A forma de filtrar no wireshark os protocolos sendo trocados entre um site qq é
 ```
 ip.addr== IP do site
 ```
-Depois para eu ver o que tem nele é só clicar dar Follow/TCP Stream
 
+Depois para eu ver o que tem nele é só clicar dar Follow/TCP Stream
 
 E é para isso que significa o s no final do https de alguns sites pois isso significa uma camada de criptografia que o site e quando formos analisar o um protocolo de TCP que a minha máquina faz com o site não consigamos entender nada. Enquanto num site http podemos ver certas informações.
 
@@ -192,11 +198,9 @@ O protocolo TCP encontra-se acima da camada onde o IP está localizado e ele é 
 
 Agora temos um dispositivo que conecta os três laptops e ''aprende'' onde está o endereço da máquina que eu quero mandar a informação 
 
-
 Endereço MAC é único e é válido para uma rede local enquanto o IP é um identificador global a analogia seria que o MAC é o RG e o IP o passaporte. E o switch grava esse MAC do dispositivo com IP específico. E é por isso que quando acesso um site que já acessei antes que sabemos o endereço IP dele.
 
-
-![a](assets/3pc-icmp-ping-switch.png)
+![Ligação de Pcs a um switch e seus protocolos](assets/3pc-icmp-ping-switch.png)
 
 Problema do Switch, o switch tem capacidade de gravar o endereço MAC dos dispositivos, mas e se ele lotar? Então o carinha malicioso lota o switch de endereço falso lotando a memória do sistema e fazendo com que o switch aja como um hub e assim ele se conecta a uma das portas e rastreie o que você está fazendo. Bad Bad. Mas aí você faz a segurança da porta de modo que somente alguns MACs específicos tenham acesso a essas portas, se o hacker quiser fazer a enxurrada de MACs a porta se desliga sozinha.
 
@@ -216,7 +220,8 @@ Equipamento feito para conectar equipamentos com redes diferentes. É bom para s
 
 A função do roteador é interconectar redes encaminhando seus pacotes de dados, os Switches e hubs são usados somente para conexão na minha rede local.
 
-
 Lembre-se da regra: - Dois equipamentos iguais estão interconectados? Se sim, eles tem o mesmo tipo de placa, então devo usar o cabo crossover. Se não, faço a pergunta abaixo - Dois equipamentos diferentes estão conectados? Essa conexão representa o que naturalmente o equipamento foi desenvolvido para fazer?
 
 Por exemplo ao interconectar o computador ao hub e o computador ao switch, o computador foi feito para se comunicar com várias máquinas e o hub e switch foram feitos para interconectar diversas máquinas. Dessa forma ao conectarmos os dois, vamos estar explorando o que os dois foram fabricados para fazer naturalmente. Porém o roteador foi feito para interconectar redes, se eu coloco somente um dispositivo, não terei como inserir outros dispositivos para o roteador encaminhar os pacotes e então a totalidade de sua função não está sendo explorada. Devemos usar cabo crossover.
+
+Para que possamos configurar um roteador nós deveremos conectar um cabo de console do roteador (usb-RJ45) a um laptop qualquer e fazer os códigos necessários. Os roteadores da nossa casa vem com roteador e switch integrado, já os de empresa tem que ter uma separação por que normalmente você quer um switch com muitas portas, o de casa normalmente nem se usa o switch hahahah.
