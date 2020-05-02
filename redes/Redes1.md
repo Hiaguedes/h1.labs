@@ -196,6 +196,8 @@ Agora temos um dispositivo que conecta os três laptops e ''aprende'' onde está
 Endereço MAC é único e é válido para uma rede local enquanto o IP é um identificador global a analogia seria que o MAC é o RG e o IP o passaporte. E o switch grava esse MAC do dispositivo com IP específico. E é por isso que quando acesso um site que já acessei antes que sabemos o endereço IP dele.
 
 
+![a](redes/assets/3pc-icmp-ping-switch.png)
+
 Problema do Switch, o switch tem capacidade de gravar o endereço MAC dos dispositivos, mas e se ele lotar? Então o carinha malicioso lota o switch de endereço falso lotando a memória do sistema e fazendo com que o switch aja como um hub e assim ele se conecta a uma das portas e rastreie o que você está fazendo. Bad Bad. Mas aí você faz a segurança da porta de modo que somente alguns MACs específicos tenham acesso a essas portas, se o hacker quiser fazer a enxurrada de MACs a porta se desliga sozinha.
 
 ## Máscara de Rede
