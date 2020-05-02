@@ -1,9 +1,9 @@
-module XOR(output wire S,
-input wire A,B
-    
-);
+`timescale 1ns / 1ns
 
-assign S=(A  && !B) || (B && !A);
+module porta_XOR(input  A,B,
+output  S);
+
+assign S=(A  & ~B) | (~A & B);
 
 endmodule /*
 
@@ -15,5 +15,7 @@ Tabela Verdade
             0   |   1   |  1
             1   |   0   |  1
             1   |   1   |  0
+            
+            
 
-Porta XOR
+Porta XOR*/

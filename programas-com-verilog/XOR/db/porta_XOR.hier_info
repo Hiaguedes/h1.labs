@@ -1,0 +1,6 @@
+|porta_XOR
+A => S~0.IN0
+B => S~0.IN1
+S <= S~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
