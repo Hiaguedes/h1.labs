@@ -15,3 +15,31 @@ Para criar um botão simples basta selecionar uma forma e inserir uma imagem dep
 Você pode esconder o nome das planilhas (na parte de baixo da planilha) ao passar o mouse nos três pontinhos e arrastar a barra de navegação da seguinte forma:
 
 ![Basta clicar nesses três pontos e esconder os nomes dessas planilhas](assets/esconder.png)
+
+Apertando  CRTRL e depois clicanda na planilha (na parte de baixo na guia de planilhas) eu consigo replicar a mesma planilha deixando da seguinte forma:
+
+![CTRL+clique a arrasta na Planilha 1 para o lado](assets/nova-planilha.png)
+
+## Gráficos
+
+Você deve ter uma planilha de dados tal como na imagem abaixo
+
+![Dados mês a mês dividida em anos](assets/vendas.png)
+
+Você vai para uma nova planilha de gráficos e vai inserir um novo gráfico de linha, lá você seleciona o eixo y Como sendo os dados de A e B com os dados de um ano qualquer e pro eixo x você seleciona os meses.
+
+Formas de deixar o gráfico mais visual
+
+- Tirar as linhas do gráfico, clica onde está os gráficos e aparecerá umas bolas azuis em casa linha clica em uma deles e aperte DELETE
+
+- Tirar o contorno da forma ao clicar no contorno da forma, aba formatar e tirar o contorno em estilos de forma
+
+## Controles
+
+Para habilitar os botões você tem que habilitar o modo de desenvolvedor e para isso voê vai em Arquivos>Opções> Barra de Ferramentas de Acesso Rápido e vai marcar a opção desenvolvedor, nela nós poderemos habilitar macros e botões.
+
+Nisso nós podemos clicar na guia desenvolvedor e depois inserir controles para a nossa planilha, inicialmente vamos ver os controles de formulários apenas.
+
+Clique em caixa de combinação e selecione uma área, depois clique em formatar controle e selecione as marcas que queremos e em vínculo de controle clique numa célula qualquer e que seja fácil de lembrar. A mesma lógica para caixa de listagem o que nos deixa com a seguinte coisa:
+
+![Informações de controle](assets/caixas.png)
