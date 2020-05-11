@@ -43,3 +43,7 @@ Nisso nós podemos clicar na guia desenvolvedor e depois inserir controles para 
 Clique em caixa de combinação e selecione uma área, depois clique em formatar controle e selecione as marcas que queremos e em vínculo de controle clique numa célula qualquer e que seja fácil de lembrar. A mesma lógica para caixa de listagem o que nos deixa com a seguinte coisa:
 
 ![Informações de controle](assets/caixas.png)
+
+Para criar uma célula que dependa do nome de A,B,C e D eu crio uma célula com a fórmula índice , onde a matriz será A,B,C e D e o controle da linha será a que está apontando para o número 4.
+
+Fórmula, clique na célula com a fórmula e aperte F2 para ver a fórmula, para trancar a célula ao arrastar para a direita ou para baixo uma célula com fórmula aperta F4, assim a célula que tem que ficar fica vai ficar fixa e não ser adicionado 1 linha ou 1 coluna na hora do arraste.)
