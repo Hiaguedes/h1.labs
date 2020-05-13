@@ -236,7 +236,7 @@ Para que possamos configurar um roteador nós deveremos conectar um cabo de cons
 
 Programa terminal para comunicação com Roteador (PUTTY) é um programa simples e muito bom para acesso remoto com o roteador. E pra poder me comunicar com o roteador preciso de uma ligação entre meu roteador e uma máquina qualquer.
 
-Para congigurar duas redes de dois setores diferentes em um roteador nós devemos fazer no software da Cisco (para um roteador GigaEternet e talvez sendo válido somente para os roteadores da Cisco)
+Para configurar duas redes de dois setores diferentes em um roteador nós devemos fazer no software da Cisco (para um roteador GigaEternet e talvez sendo válido somente para os roteadores da Cisco)
 
 ```
 enable (para ter um privilégio a mais), ENTER

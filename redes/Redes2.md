@@ -174,6 +174,152 @@ Então se uma dessas linhas cair a linha que está laranja (linha de backup) que
 
 Para verificar o estado de nossa STP nos switches nós temos o comando:
 
-```
+```cisco
 show spanning-tree (filtro de vlan- no caso pode ser vlan 2)
 ```
+
+Para alterar o switch root, basta entrar no CLI do switch que queremos que seja o root e digitarmos.
+
+```cisco
+enable
+configure terminal
+spanning-tree vlan 2 priority 0
+spanning-tree vlan 3 priority 0 (o menor que manda)
+```
+
+No software da cisco fica um pequeno bug mostrando que todas as portas estão ligadas, mas se formos no CLI de um desses switches vemos que uma das portas está em modo alternativo (portanto desligada/bloqueada) pelo STP.
+
+## Endereços B e C
+
+Beleza, temos nossos IPs setados certinhos no DHCP do roteador da nossa empresa, mas e se quisermos alocar 300 máquinas para um setor da nossa empresa? O endereço de classe C por ter uma rede igual a 192.168.x.1 até 192.168.x.254 só podemos alocar 254 máquinas para a nossa rede. Isso é um problema que pode ser resolvido alocando outros tipos de endereço para as nossas máquinas. O endereço privado da classe B tem forma de:
+
+```
+172.16.x.x
+Máscara de Rede: 255.255.0.0
+
+Endereço de Rede 172.16.0.0
+Endereço de Broadcast 172.16.255.255
+```
+
+Fazendo a transformação em binário da máscara de rede da classe B (que fica 11111111.11111111.00000000.0000000) nós temos que o número de redes disponível será de 2^(16)-2=65534 redes (número de zeros nos hosts elevado a dois, lembrando que temos que descontar os IPs de rede e de broadcast).
+
+Tem muita rede disponível mas não é muito eficiente (pois abre muita brecha para comunicação externa).
+
+Por ventura a classe A teria 2^(24)-2=16777214 endereços, e justamente por esses tipos terem um diferença tão grande de endereços disponíveis que elas sao chamadas de **Classful**, então uma empresa que quisesse 2000 endereços IP, teria que comprar endereço de uma classe B e enfiar todas as restantes no lugar nenhum. E para isso você alterará os bits da máscara de rede para que uma classe atenda melhor ao que queremos.
+
+Supondo que queremos 300 máquinas com endereços IP, para isso temos que usar endereços de classe B, porém nossa máscara de rede ficará da seguinte maneira
+
+```bin
+300 = ‭0001 0010 1100‬ (9 bits)
+Como precisamos de 9 bits então a nova máscara de rede fica 1111111.11111111.11111110.0000000
+
+O que em decimal nos dá:
+255.255.254.0
+Isso nos dá um número de endereços IP iguais a 2^9 -2 = 510
+```
+
+Essa seria a máscara de rede que nos daria uma melhor eficiência na hora de distribuir 300 IPs. E para essa mudança na máscara dew rede nós dizemos que ela segue um padrão **Classless**
+
+### Classless Inter-Domain Routing
+
+No exemplo anterior se contássemos os números de 1's da mascara de rede nós encontraríamos 23 e como o IP de rede é 172.16.0.0, então o Classlesse Inter-Domain Routing é dado por
+
+```
+CIDR: 172.16.0.0/23 
+```
+
+A representação /x refere-se a x números 1 que temos na máscara de rede para x<32 >, o restante seria 0 (32-x zeros, a direita dos 1s), então uma máscara de rede /19 seria
+
+```
+11111111.11111111.11100000.00000000
+255.255.224.0
+```
+
+Aí para encontrar os valores das sub-redes seguintes eu teria que encontrar o valor em decimal de onde tem a transição de 0 para 1, exemplos:
+
+```
+1111111.11111111.11111110.0000000->transição no bit 1 do terceiro octeto, portanto o número decimal 2 no terceiro octeto
+
+
+11111111.11111111.11100000.00000000->transição no bit 5 do terceiro octeto, então 32 no terceiro octeto
+```
+
+O que nos deixa com os seguintes valores de subredes:
+
+Endereço IP de rede 172.16.0.0
+Endereço IP de broadcast 172.16.255.255
+
+Para a máscara de rede 1111111.11111111.11111110.0000000
+|número da sub rede|Sub-rede|sub-rede de broadcast
+|---|---|---|
+|Sub rede 1|172.16.0.0|172.16.1.255|
+|Sub rede 2|172.16.2.0|172.16.3.255|
+|Sub rede 3|172.16.4.0|172.16.5.255|
+
+Para a máscara de rede 11111111.11111111.11100000.00000000
+|número da sub rede|Sub-rede|sub-rede de broadcast
+|---|---|---|
+|Sub rede 1|172.16.0.0|172.16.31.255|
+|Sub rede 2|172.16.32.0|172.16.63.255|
+|sub rede 3|172.16.64.0|172.16.95.255|
+
+E por aí vai. Desde que o octeto não passe de 255. O endereço de broadcast da subrede atual é sempre 1 endereço antes do endereço de rede posterior. Um site que faz essa conta automaticamente para gente é o 
+
+Online IP subnet calculator https://wintelguy.com/subnetcalc.pl
+, por exemplo para o com máscara de rede 11111111.11111111.11100000.00000000 ou /19
+
+![Cálculo das subnets](assets/subnetting.png)
+
+Só que nesse exemplo aqui nós passamos de 172.16.x.x, o que já deixa de ser uma rede privada. Mas pra exemplo didático tá de boa.
+
+Alocando no endereço de classe B 172.16.2.0, queremos alocar IP em 100 computadores e nisso nós teríamos nós teríamos:
+
+```
+100 = 110 0100
+Máscara de rede: 11111111.11111111.1111111.1000000=255.255.255.128
+
+transição no bit 7 do quarto octeto
+```
+
+Para um ip 172.16.2.0
+
+|número da sub rede|Sub-rede|sub-rede de broadcast
+|---|---|---|
+|Sub rede 1|172.16.2.0|172.16.2.127|
+|Sub rede 2|172.16.2.128|172.16.2.255|
+|sub rede 3|172.16.3.0|172.16.3.127|
+
+### Configuração das sub-redes no Packet Tracer
+
+No roteador a gente faz:
+
+```
+enable
+configure terminal
+ip dhcp pool VLAN2
+network 172.16.0.0 255.255.254.0
+default-router 172.16.0.1
+exit
+
+ip dhcp pool VLAN3
+network 172.16.2.128 255.255.255.128
+default-router 172.16.2.129
+CTRL+Z
+```
+
+Só que falta habilitar as portas de modo a trabalhar de acordo com o default-router que especificamos
+
+subinterface 0/0.1->finanças
+
+0/0.2->vendas
+
+```
+interface fa 0/0.1
+ip address 172.16.0.1 255.255.254.0
+exit
+interface fa 0/0.2
+ip address 172.16.2.129 255.255.255.128
+```
+E dessa forma tenho comunicação com todo mundo
+
+![Comunicação das máquinas com nova IP otimizada](assets/subnet-com.png)
