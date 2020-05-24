@@ -150,6 +150,8 @@ Supondo que alguém desconecte o cabo que liga os switchs entre os setores e aca
 
 Assim eu garanto que se uma das linhas do triângulo for cortada eu ainda tenho um caminho pro nosso dado seguir. Isso quebre a nossa transmissão um pouco, mas é só habilitar o modo trunk em todas as linhas do novo switch. Porém note que há um ponto laranja em um switch, isso quer dizer que o dado do switch novo com esse não será transmido.
 
+Não esquecer de configurar a porta trunk para todas as ligações
+
 ## STP
 
 Quando estabelecemos a comunicação com sucesso com uma máquina e o TTL não se zera é capaz de termos um looping da informação rodando entre os nossos switchs, e como temos uma redundância é capaz de termos essa informação para sempre guardada no looping formada entre elas, e é aí que temos o protocolo STP que quebra a informação de um desses links entre os switches, fazendo com que nosso sistema não se sobrecarregue quando vem uma nova requisição do nosso sistema.
