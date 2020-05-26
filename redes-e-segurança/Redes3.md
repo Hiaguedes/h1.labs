@@ -49,7 +49,7 @@ name SERVIDORES
 
 E aí eu consigo acessar o site dos 4 computadores
 
-![acesso ao site](/assets/acesso.png)
+![acesso ao site](assets/acesso.png)
 
 código html
 
@@ -117,7 +117,7 @@ E dessa forma tenho o acesso somente para os gerentes. E quando temos um IP inv�
 
 Só que se requisitarmos a comunicação de um pc de um para o outro do lado nós temos
 
-![Comunicação passou a não ser mais estabelecida](/assets/unreachable.png)
+![Comunicação passou a não ser mais estabelecida](assets/unreachable.png)
 
 ## Como habilitar outros tráfegos de rede
 
@@ -172,7 +172,7 @@ Hoje em dia, essa conexão serial foi substituída pela conexão com o cabo de r
 
 O ponto demarcador seria um ponto instalado nas premissas do cliente o qual divide as responsabilidades na rede entre o provedor de serviços e o cliente final. Caso ocorra algum problema do ponto de demarcação para a rede interna, seria responsabilidade do cliente. Caso ocorra algum problema do ponto de demarcação para a rede externa, seria responsabilidade do provedor de serviços.
 
-![Conectando o roteador da empresa com o provedor de serviços](/assets/internet.png)
+![Conectando o roteador da empresa com o provedor de serviços](assets/internet.png)
 
 ### Conectando o roteador
 
@@ -194,7 +194,7 @@ Entre na interface serial utilizada para conectar ao roteador interno (por exemp
 Na sequência, clique no roteador interno digite enable para entrar na parte privilegiada e posteriormente coloque configure terminal para entrar na parte de configuração. Entre em seguida na interface serial (por exemplo: interface serial 0/1/0) e coloque o endereço IP 150.1.1.2, digitando: ip address 150.1.1.2 255.255.255.252.
 Teste a conectividade com o roteador do provedor de serviços, digitando: do ping 150.1.1.1
 
-![Conectando placa serial](/assets/roteador-serial.png)
+![Conectando placa serial](assets/roteador-serial.png)
 
 ### Configurando sub-redes
 
@@ -270,7 +270,7 @@ Router(config)#ip nat inside source list NAT interface serial 0/1/0 overload
 
 Onde eu digo a porta serial que está em contato com o provedor de serviços e digo `overload` pois as máquinas nessa rede interna podem estar acessando o roteador de maneira simultânea.
 
-![Traducao de um pc para um roteador](/assets/traducao-nat.png)
+![Traducao de um pc para um roteador](assets/traducao-nat.png)
 
 E com isso temos a tradução de um pc para um endereço configurado no roteador da empresa para outro
 
