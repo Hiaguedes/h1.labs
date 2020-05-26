@@ -157,7 +157,7 @@ Então primeiro eu ligo a porta com:
 
 ```cisco
 enable
-cpnfigure terminal
+configure terminal
 interface serial 0/1/0
 no shutdown
 ```
@@ -169,3 +169,115 @@ Os endereços IP privados são usados somente para comunicação em uma rede int
 A conexão desse ponto demarcador era realizada com um equipamento chamado de CSU/DSU (Channel Service Unit/Data Service Unit). Tal equipamento era responsável por converter o sinal fornecido pelo provedor de serviços para uma transmissão serial, atuando como um modem. Dessa forma, utilizava-se um cabo serial, sendo o mais comum um cabo chamado de V.35 para conexão com uma placa serial presente no roteador.
 
 Hoje em dia, essa conexão serial foi substituída pela conexão com o cabo de rede que estamos acostumados uma vez que o equipamento CSU/DSU já está presente nas placas de redes dos roteadores empresariais mais modernos, não sendo necessário mais o uso dos cabos seriais. Embora, os cabos seriais hoje em dia não sejam mais utilizados, sua representação é comum em diagramas de rede como referência a conexão a rede de uma outra empresa.
+
+O ponto demarcador seria um ponto instalado nas premissas do cliente o qual divide as responsabilidades na rede entre o provedor de serviços e o cliente final. Caso ocorra algum problema do ponto de demarcação para a rede interna, seria responsabilidade do cliente. Caso ocorra algum problema do ponto de demarcação para a rede externa, seria responsabilidade do provedor de serviços.
+
+![Conectando o roteador da empresa com o provedor de serviços](/assets/internet.png)
+
+### Conectando o roteador
+
+Iremos agora conectar nossa rede com a do provedor de serviços, ganhando assim acesso a internet.
+
+- Arraste para a área de trabalho o roteador modelo 1841. Embora a conexão serial do modem chamado CSU/DSU para o roteador interno não seja mais utilizada nos dias de hoje, essa representação é comum em diagramas para mostrar que estamos nos conectando a uma rede externa, de um outro provedor, empresa, etc. Para isso, nós clicamos nesse novo roteador, vamos até a aba Physical e precisamos desligar esse roteador. Em seguida clicamos na placa de rede serial WIC-1T e arrastamos para o slot vazio do roteador. Por fim devemos, ligar o roteador novamente.
+serial
+
+- Devemos inserir essa placa serial no roteador interno, porém antes nós devemos salvar as configurações na memória não volátil do roteador. Clique no roteador e vá até a aba CLI. Digite enable para entrar na parte privilegiada e em seguida digitamos wr
+Agora podemos desligar o roteador e inserir a placa de rede. Clique na aba Physical, desligue o roteador e arraste a placa WIC-1T para um slot disponível e ligue o roteador.
+
+- Na sequência, devemos conectar esses dois roteadores. Clicamos no símbolo do raio e escolhemos a opção Serial DCE (oitava opção da esquerda para a direita). O DCE será o equipamento o qual irá enviar a taxa de transmissão, que virá do provedor de serviços. Clicamos primeiro no roteador do provedor de serviços escolhemos a porta serial que implementamos e na sequência clicamos no roteador interno e escolhemos a porta serial que configuramos. Devemos ter no fim esse cenário:
+provedor_servicos
+
+- Devemos agora habilitar as portas dos dois roteadores e configurar os endereços IP. O provedor de serviços pagou pelos endereços IP públicos, então ele vai tentar usar da forma mais eficiente possível. No nosso cenário, precisamos somente de dois endereços IP um para o provedor de serviços e outro para a interface serial do roteador interno.
+
+- Clique no roteador do provedor de serviços e vá até a aba CLI. Entre na parte privilegiada digitando enable e na sequência entre na parte de configuração digitando configure terminal
+Entre na interface serial utilizada para conectar ao roteador interno (por exemplo: interface serial 0/1/0) e habilite essa interface colocando no shutdown e insira o endereço IP 150.1.1.1, digitando: ip address 150.1.1.1 255.255.255.252.
+Na sequência, clique no roteador interno digite enable para entrar na parte privilegiada e posteriormente coloque configure terminal para entrar na parte de configuração. Entre em seguida na interface serial (por exemplo: interface serial 0/1/0) e coloque o endereço IP 150.1.1.2, digitando: ip address 150.1.1.2 255.255.255.252.
+Teste a conectividade com o roteador do provedor de serviços, digitando: do ping 150.1.1.1
+
+![Conectando placa serial](/assets/roteador-serial.png)
+
+### Configurando sub-redes
+
+Eu contratei um serviço de internet para a empresa e quero alocar o melhor número possível de endereços IPs públicos para a empresa (pois são esses os IPs que se comunicam com a internet) e na configuração dada eu precisarei de dois endereços, um para a interface do roteador com o provedor de serviços e outro do roteador para a empresa toda.
+
+Como preciso de apenas dois endereços então o número de bits necessários na máscara de rede fica 11111111.11111111.11111111.11111100 ou em decimal 255.255.255.252, e com isso vemos que a transição do bit 0 para o bit 1 se dá no bit 3 no octeto 4 que em decimal é o numero 4. Escolhendo arbritariamente um IP 150.1.1.0 para a subrede 1, então temos
+
+||Ip sub rede |IP broadcast sub-rede 1|
+|--|--|--|
+|Sub-rede 1|150.1.1.0|150.1.1.3|
+|Sub-rede 2|150.1.1.4|150.1.1.7|
+
+Então mãos a obra, vamos configurar os dois roteadores, no roteador do provedor
+
+```cisco
+Router(config)#interface serial 0/1/0
+Router(config-if)#ip address 150.1.1.1 255.255.255.252
+```
+
+E pro roteador da empresa
+
+```cisco
+Router(config)#interface serial 0/1/0
+Router(config-if)#ip address 150.1.1.2 255.255.255.252
+```
+
+Isso tudo utilizando a interface serial dos dois roteadores
+
+E com isso os dois roteadores estão se comunicando.
+
+Só que eu tenho endereços IPs privados na minha rede local e eu não consigo usar esses endereços para me comunicar com a rede externa, pra isso eu tenho o protocolo NAT. Que faz a tradução desses endereços privados para IPs públicos
+
+## NAT
+
+O NAT (Network Address Translation) é usado para realizar a tradução de endereços IP privados, que só podem ser usados em uma rede interna para endereços IP públicos que podem ser usados para acessar a internet.
+
+Então no meu roteador faço
+
+```cisco
+Router>enable
+Router#conf
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip acc
+Router(config)#ip access-list standard NAT
+Router(config-std-nacl)#permit 172.16.0.0 0.0.255.255
+```
+
+Na lista de acesso o standard tá mais preocupado com a origem da requisição enquanto o extended está preocupado com a origem e o destino. E como todos os IPs privados da rede estão com 172.16.x.x então o wildcard dele é 0.0.255.255.
+
+O tipo standard analisa a origem dos endereços e nesse caso estamos só preocupados com a origem e não com o possível destino que esses endereços planejam acessar
+
+Agora temos que configurar as interfaces internas e externas no roteador da empresa para que o roteador saiba diferenciar um do outro e fazemos
+
+```cisco
+Router(config)#interface fa 0/0.1
+Router(config-subif)#ip nat inside
+Router(config-subif)#exit
+Router(config)#int
+Router(config)#interface fa 0/0.2
+Router(config-subif)#ip nat inside
+Router(config-subif)#exit
+Router(config)#inter
+Router(config)#interface serial 0/1/0
+Router(config-if)#ip nat outside
+```
+
+Agora tenho que dizer quais endereços IP eu tenho que fazer a tradução com:
+
+```cisco
+Router(config)#ip nat inside source list NAT interface serial 0/1/0 overload
+```
+
+Onde eu digo a porta serial que está em contato com o provedor de serviços e digo `overload` pois as máquinas nessa rede interna podem estar acessando o roteador de maneira simultânea.
+
+![Traducao de um pc para um roteador](/assets/traducao-nat.png)
+
+E com isso temos a tradução de um pc para um endereço configurado no roteador da empresa para outro
+
+### VPN
+
+Imagina que queremos acessar um servidor de endereço IP 192.168.0.20 porém estamos numa área externa a essa rede, nós não conseguimos acessar essa rede pois usuários de internet por padrão só conseguem ver endereços que são públicos e o NAT só consegue traduzir endereços privados para públicos e não o contrário
+
+O endereço IP 192.168.0.20 é privado. Uma vez que estamos em uma rede externa nós só conseguimos visualizar o endereço IP público da rede da empresa e não conseguimos visualizar os endereços IP privados que estão configurados internamente, isso porque ocorre a tradução de endereços IP privados para públicos através do NAT.
+
+Uma possível solução seria utilizar uma rede virtual privada, permitindo autenticação de usuários para acessar a rede interna e consequentemente o servidor. Tal tecnologia é conhecida como Virtual Private Network (VPN)

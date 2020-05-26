@@ -196,6 +196,7 @@ No software da cisco fica um pequeno bug mostrando que todas as portas estão li
 Beleza, temos nossos IPs setados certinhos no DHCP do roteador da nossa empresa, mas e se quisermos alocar 300 máquinas para um setor da nossa empresa? O endereço de classe C por ter uma rede igual a 192.168.x.1 até 192.168.x.254 só podemos alocar 254 máquinas para a nossa rede. Isso é um problema que pode ser resolvido alocando outros tipos de endereço para as nossas máquinas. O endereço privado da classe B tem forma de:
 
 ```
+
 172.16.x.x
 Máscara de Rede: 255.255.0.0
 
