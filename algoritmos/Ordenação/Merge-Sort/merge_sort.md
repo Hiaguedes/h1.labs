@@ -1,4 +1,4 @@
-# Algoritmos II
+# Merge Sort
 
 Como visto no curso anterior se quisermos aumentar muito o número de elementos dentro de um vetor e quisermos ordenar eles mais trabalho o nosso computador terá. Só que a vida nos cobra um grande número de elementos para organizar.
 
@@ -516,3 +516,80 @@ private static Nota[] intercala_nomes(Nota[] vetor1,int inicial, int miolo, int 
 ```
 
 Onde eu faço a comparação de nomes com `nota1.getNome().compareTo(nota2.getNome()<0` 
+
+
+# Análise do Merge Sort
+
+O core do merge sort está na função intercala que troca dois elementos e na divisão 2 a 2 dos vetores tal como pode ser visto abaixo
+
+```java
+  private static Nota[] intercala(Nota[] vetor1,int inicial, int miolo, int termino){
+    
+    
+	Nota[] vetorTotal = new Nota[termino - inicial];
+    
+    
+    int varre1=inicial; int varre2=miolo; int atual=0;
+    
+
+    
+    while(varre1< miolo && varre2 <termino){
+
+      
+       
+    Nota nota1=vetor1[varre1];
+    Nota nota2=vetor1[varre2];   
+      
+      if(nota1.getNota() < nota2.getNota()){
+        vetorTotal[atual]=nota1;
+        varre1++;
+        
+      }else{
+        vetorTotal[atual]=nota2;
+        varre2++;
+        
+        
+      }
+      atual++;
+     
+    }
+    
+    while(varre1<miolo){
+      vetorTotal[atual++]=vetor1[varre1++];   
+      
+    }
+    
+    while(varre2<termino){
+      vetorTotal[atual++]=vetor1[varre2++];
+      
+    }
+
+    for(int contador=0; contador<atual; contador++){
+
+        vetor1[inicial+contador]=vetorTotal[contador];
+    }
+    
+    return vetor1;
+  }
+```
+
+E nesse método vemos que ele varre o vetor inteiro (talvez não com um while só, mas que com certeza acaba no outro). Então já temos uma complexidade `n` para um vetor de `n` elementos e mesmo que passemos por mais um for até temos uma complexidade `2n` mas que no final não faz diferença. E depois tenho a recursividade
+
+```java
+public static void merge_sort(Nota[] notas,int inicial, int termino){
+  int qtde= termino-inicial;
+
+  if(qtde>1){
+
+  int meio=(inicial+termino)/2;
+  merge_sort(notas,inicial,meio);
+  merge_sort(notas,meio,termino);
+
+intercala(notas, inicial,meio,termino);
+}
+  }
+```
+
+Onde eu divido o vetor por dois, por dois, por dois, por dois. Isso nos dá o número de operações `log_2(n)` que vemos na busca binária, pois é o número de divisões feitas no pior caso possível. Então como temos a complexidade `n` do método trocada e a complexidade `log_2(n)` atrelada a recursividade então a complexidade dessa operação é de `O(nlon_2(n))`. Pense nesse algoritmo como divisão e intercalação n vezes.
+
+![Gráfico da complexidade nlog_2(n)](/Ordenação/img/complexidade2.png)

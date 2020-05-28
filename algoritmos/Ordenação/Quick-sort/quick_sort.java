@@ -21,16 +21,6 @@ private double nota;
 
 public class quick{
   
-    public static int encontraMenor(Nota pivo, Nota[] notas){
-        int menores=0;
-        for(int atual=0; atual<notas.length; atual++){
-            if(notas[atual].getNota()<pivo.getNota()){
-                menores++;
-            }
-        }
-        return menores;
-    }
-  
   private static int organiza(Nota[] notas, int inicio,int termino){
       int menor=0;
     Nota pivo=notas[termino-1];

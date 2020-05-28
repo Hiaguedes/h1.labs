@@ -339,3 +339,62 @@ Xavier  9.7
 
 O nome está na posição: 1
 ```
+
+# Análise dos algoritmos de busca
+
+## Complexidade na busca linear
+
+Vendo o grosso da busca linear nós vemos um for que no pior caso varre todo o array até nos retorna onde ele se encontra.
+
+```java
+
+public static int linear(Nota[] nota,int inicio, int termino, double busca){
+
+	for(int atual=inicio; atual<termino; atual++){
+
+	    if(nota[atual].getNota() == busca){return atual;}
+
+}
+return -1;
+}
+  
+```
+
+Então a complexidade desse cara aqui é fácil, ela é de `O(n)`.
+
+## Complexidade na busca binária
+
+Já na busca binária no pior caso sempre vamos descartando metade do array, metade da metade do array, metade da metade da metade do array, ... , metade da metade n vezes (para um vetor de 2^n elementos) até chegar no número que queremos.
+
+```java
+public static int binaria(Nota[] nota,int inicio, int termino, double busca){
+
+  int meio = (inicio+termino)/2;
+
+ if(nota[meio].getNota()== busca){return meio;}
+ 
+ if(nota[meio].getNota() < busca){return binaria(nota,meio+1,termino,busca);}
+
+return binaria(nota,inicio,meio-1,busca);
+  
+}
+```
+
+Ou seja se eu tenho 1 elemento eu so preciso de uma divisão para descobrir o elemento que queremo, se tenho 2 elementos também, se eu tenho 4 elementos eu preciso de uma divisão para dividir em duas e outra divisão para achar o que eu quero seguindo esse raciocínio eu tenho
+
+|numero de elementos|divisões|
+|--|--|
+|1|0|
+|2|1|
+|4|2|
+|8|3|
+|16|4|
+|32|5|
+|..|..|
+|2^n|log_2(n)|
+
+Então a complexidade desse algoritmo será `O(log_2(n))`
+
+Não esqueça que para aplicar um algoritmo de busca nós temos que ter um array ordenado.
+
+Além desses tem busca markoviana que vale a pena ser visto pois são mais tops, mas aí é com inteligência artificial

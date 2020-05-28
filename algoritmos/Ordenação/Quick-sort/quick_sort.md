@@ -297,3 +297,38 @@ if( ele>1){
 }
 }
 ```
+
+# Análise do Quick Sort
+
+O core do quick sorte é parecido com o do merge sort está na função organiza que diz um pivo e troca um elemento com o outro no qual esse pivo deveria estar ou seja
+
+```java
+  private static int organiza(Nota[] notas, int inicio,int termino){
+      int menor=0;
+    Nota pivo=notas[termino-1];
+    for (int atual=0; atual<termino-1; atual++){
+        if(notas[atual].getNota()<=pivo.getNota()){
+            troca(notas,atual,menor);
+            menor++;
+        }
+    }
+```
+
+E nesse método vemos que ele varre o vetor inteiro (com um for somente). Então já temos uma complexidade `n` para um vetor de `n` elementos.
+
+```java
+public static void quick_sort(Nota[] nota,int inicio,int termino){
+int ele=termino-inicio;
+if( ele>1){
+   int posPivo= organiza(nota,inicio,termino);
+   quick_sort(nota,inicio,posPivo);
+   quick_sort(nota,posPivo+1,termino);
+}
+}
+```
+
+Onde eu divido o vetor por dois, por dois, por dois, por dois. Isso nos dá o número de operações `log_2(n)` que vemos na busca binária, pois é o número de divisões feitas no pior caso possível. Então como temos a complexidade `n` do método trocada e a complexidade `log_2(n)` atrelada a recursividade então a complexidade dessa operação é de `O(nlon_2(n))`. Pense nesse algoritmo como divisão e troca n vezes.
+
+![Gráfico da complexidade nlog_2(n)](/Ordenação/img/complexidade2.png)
+
+E note que diferente do `merge sort` o quick sort cresce nlog_2(n) mesmo enquanto o merge cresce 2nlog_2(n) o quick sendo mais rápido
