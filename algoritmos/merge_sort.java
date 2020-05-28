@@ -22,7 +22,7 @@ private double nota;
 public class Merge{
   
 
-  public static Nota[] intercala(Nota[] vetor1,int inicial, int miolo, int termino){
+  private static Nota[] intercala(Nota[] vetor1,int inicial, int miolo, int termino){
     
     
 	Nota[] vetorTotal = new Nota[termino - inicial];
@@ -70,6 +70,79 @@ public class Merge{
     
     return vetor1;
   }
+
+   private static Nota[] intercala_nomes(Nota[] vetor1,int inicial, int miolo, int termino){
+    
+    
+	Nota[] vetorTotal = new Nota[termino - inicial];
+    
+    
+    int varre1=inicial; int varre2=miolo; int atual=0;
+    
+
+    
+    while(varre1< miolo && varre2 <termino){
+
+      
+       
+    Nota nota1=vetor1[varre1];
+    Nota nota2=vetor1[varre2];   
+      
+      if(nota1.getNome().compareTo(nota2.getNome()) <0){
+        vetorTotal[atual]=nota1;
+        varre1++;
+        
+      }else{
+        vetorTotal[atual]=nota2;
+        varre2++;
+        
+        
+      }
+      atual++;
+     
+    }
+    
+    while(varre1<miolo){
+      vetorTotal[atual++]=vetor1[varre1++];   
+      
+    }
+    
+    while(varre2<termino){
+      vetorTotal[atual++]=vetor1[varre2++];
+      
+    }
+
+    for(int contador=0; contador<atual; contador++){
+
+        vetor1[inicial+contador]=vetorTotal[contador];
+    }
+    
+    return vetor1;
+  }
+
+  public static void merge_sort(Nota[] notas,int inicial, int termino){
+  int qtde= termino-inicial;
+
+  if(qtde>1){
+
+  int meio=(inicial+termino)/2;
+  merge_sort(notas,inicial,meio);
+  merge_sort(notas,meio,termino);
+
+intercala(notas, inicial,meio,termino);
+}
+  }
+
+  public static void merge_sort_nomes(Nota[] notas, int inicio, int termino) {
+
+  int quantidade = termino - inicio;
+  if(quantidade > 1) {
+    int meio = (termino + inicio) / 2;
+    merge_sort_nomes(notas, inicio, meio);
+    merge_sort_nomes(notas, meio, termino);
+    intercala_nomes(notas, inicio, meio, termino);
+  }
+}
   
 }
 
@@ -107,9 +180,9 @@ public class Merge{
           
 
             
-          Nota[] rank1= Merge.intercala(vetor3,1,5,vetor3.length);
+      Merge.merge_sort_nomes(vetor3,0,9);
           
-         for(Nota nota:rank1){
+         for(Nota nota:vetor3){
           System.out.println(nota.getNome() +" "+ nota.getNota());
           }          
         }
