@@ -2,7 +2,7 @@
 
 Códigos úteis para o cmd do windows
 
-```
+```cmd
 ipconfig
 ```
 
@@ -10,8 +10,14 @@ ipconfig
 
 Aparece rede de Virtual Box, Rede sem fio, Rede Ethernet
 
-```
+```cmd
 ping www.google.com
+```
+
+Para mandar um ping de forma contínua eu mando
+
+```cmd
+ping www.google.com -t
 ```
 
 Nome do Protocolo: ICMP- o responsável por mandar uma requisição (Echo Request) para máquina remota e esperar um retorno dessa máquina remota (Echo Reply).
@@ -20,7 +26,7 @@ Dicas: não pode conter https:// e nem o nome do site /alguma coisa. Ele precisa
 
 Dica para saber se tudo está bem com sua placa de rede
 
-```
+```cmd
 ping 127.0.0.1
 ping ::1
 ```
@@ -35,7 +41,7 @@ Esse começo com 127. é reservado para testes como esse. E em específico esse 
 
 Esgotado o tempo limite do pedido.
 
-```
+```cmd
 Windows: tracert
 Linux ou Mac: traceroute
 Sufixo -d (não mostrar a tradução do DNS, deixa o processo um pouco mais rápido)
@@ -43,13 +49,13 @@ Sufixo -d (não mostrar a tradução do DNS, deixa o processo um pouco mais ráp
 
 Exemplo de código para Windows:
 
-```
+```cmd
 tracert -d www.google.com
 ```
 
 Resultado possível:
 
-```
+```cmd
   1     3 ms     2 ms     1 ms  192.168.0.1
   2     6 ms     7 ms    10 ms  10.20.255.254
   3    32 ms    20 ms    15 ms  10.10.10.5
@@ -67,7 +73,7 @@ Mas por que tem três tempos mostrados? Pois ele analisa qual o melhor caminho p
 
 Dando tracert de novo no terminal posso encontrar uma rota diferente, como:
 
-```
+```cmd
   1     3 ms     1 ms     1 ms  192.168.0.1
   2     6 ms    10 ms    11 ms  10.20.255.254
   3    15 ms    12 ms    16 ms  10.10.10.5
@@ -94,13 +100,13 @@ Porém poderia ter dado uma reposta em uma máquina igual a:
 
 Quando nós temos uma máquina que retornou (*) e passou a informação para uma próxima máquina, isso provavelmente indica que o administrador dessa máquina desabilitou a resposta ao nosso chamado. O que acontece seria que esse tipo de teste pode ser interpretado como uma tentativa de “scanear” possíveis portas abertas e vulnerabilidades que possam existir, caso seja usado por um usuário malicioso, pode ser usada como uma forma de reconhecimento da rede dessa possível vítima para que assim possa explorar possíveis falhas.
 
-```
+```cmd
 nslookup www.google.com
 ```
 
 Isso nos dá como reposta:
 
-```
+```cmd
 Servidor:  UnKnown
 Address:  192.168.0.1
 
@@ -166,7 +172,7 @@ Comutador-> T568A-TS68A->HUB-> T568B-T568B->Computador
 
 Software criado pela cisco que permite criar e simular topologias para a nossa rede interna.
 
-Protocolo ARP- O computador na primeira vez que executa o ping ele não conhece onde está o endereço de outra máquina então ele procura internamente e na internet, depois que aprende ele armazena na máquina
+Protocolo **ARP**- O computador na primeira vez que executa o ping ele não conhece onde está o endereço de outra máquina então ele procura internamente e na internet, depois que aprende ele armazena na máquina
 
 O ARP é o protocolo utilizado para fazer o mapeamento entre o endereço IP e o endereço MAC de um dispositivo. Isso é necessário porque o MAC encontra-se um nível abaixo do IP e eu preciso dele para poder transmitir as informações.
 
