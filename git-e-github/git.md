@@ -292,3 +292,33 @@ git merge <nome da branch>
 ![Visualização de um merge](img/merge.png)
 
 Isso cria um commit de merge no nosso projeto
+
+Uma forma mais limpa de fazer essa mescla é trazer os commits da branch para antes do commit com a brnach master e para isso eu faço
+
+```git
+git checkout master
+git rebase <nome da branch>
+```
+
+A visão é essa
+
+![Utilizando o rebase](img/rebase.png)
+
+O flow foi esse
+
+```git
+git commit
+git branch css
+git checkout css
+git commit -m "alterando barnav"
+git commit -m "mudando footer"
+git checkout master
+git commit -m "corrigindo bug"
+git rebase css
+```
+
+E com isso eu coloquei todos os commits da branch css para trás da git commit e juntei tudo em uma linha de desenvolvimento só.
+
+Com `git log --graph` eu consigo ver via terminal as linhas de desenvolvimento do meu projeto
+
+Com isso, evitamos os commits de merge. Há uma longa discussão sobre o que é "melhor": rebase ou merge. Estude, pesquise, e tire suas próprias conclusões. Aqui tem um artigo (de milhares outros) que cita o assunto: <https://medium.com/datadriveninvestor/git-rebase-vs-merge-cc5199edd77c>.
