@@ -131,3 +131,62 @@ Um exemplo de software que possui dual-license é o MySQL
 - Ofereço o código fonte de forma muito complicada de entender, com variáveis aleatórias e sem comentários. O que é bem babaca
 
 - Você vende o produto e depois de um tempo você coloca ele como open source, e atualiza o código daquele produto de maneira que esse novo código seja pago. Enquanto o open source fica como uma versão antiga e sem atualizações.
+
+## Básico do que você deve saber para usar o desktop
+
+Nem um pouco diferente de qq outro sistema operacional, você tem a barra iniciar utiliza um navegador como qq outro sistema operacional
+
+### Diferencial - Segurança
+
+O pulo do gato no mundo linux é que o linux se preocupa mais com a segurança da sua informação do que em qq outro sistema.
+
+Uma primeira coisa que você pode fazer é desligar a tela depois de certo tempo sem uso em `Brightness & Lock`, pois imagina você no trabalho sai para tomar um café e a pessoa do seu trabalho consegue ver seus dados bancários, meio foda né. E aí você consegue habilitar a tela somente com a senha.
+
+E consigo fazer um atalho no meu sistema para isso em `keyboard` e depois em `shortcuts`
+
+Configurar o navegador para navegar de maneira privada, não salvar o histórico. Baixa o Brave
+
+Quando utilizamos o browser em uma janela normal, algumas informações, como histórico de sites que acessamos, são armazenadas. Ao utilizar uma janela privada/anônima, o browser não armazenará essas informações.
+
+Isso é útil, por exemplo, para quando desejamos utilizar o computador e não deixar rastros de quais sites acessamos, porém é algo local, isso não muda o restante da navegação. Nosso IP não será mascarado, por exemplo. Para esconder seu IP use o Tor.
+
+Para instalar qualquer coisa no sistema eu tenho que dar a senha com o `sudo`
+
+## Linux sendo usado no mercado
+
+Até posso comprar uma máquina, insttalar um ubuntu server com lamp, contratar um dns server, pagar um domínio br configurar um site do zero e escalonar o projeto por conta própria no meu linux, mas eu posso simplesmente configurar o site e o banco de dados e hospedar em um host proprio como a locaweb que aloca um servidor pra mim e eles me dão o acesso remoto a esse site. E esse serviço de host é um serviço comum para linux. O serviço de host pode ser de uma máquina dedicado para você ou compartilhado, a compartilhada tem uma otimização para todas as pessoas que estão consumindo aquele serviço.
+
+Para separar os ambientes dentro de um servidor compartilhado é virtualizando a máquina (tal como um Virtual Box), onde cada um consome a máquina física mas está separada do resto, onde um não consegue acessar o outro. Como se realmente fossem máquinas dentro de uma máquina só.
+
+Modelos de Cloud, por que cloud e virtualização são coisas diferentes, o cloud ele aloca recursos de máquina para suas aplicações específicas não importando de onde vem ou onde ele está hospedado
+
+- Software como serviço -> pago o software para projetar meu sistema e ele faz tudo por mim
+
+- Plataforma como serviço -> Eu mando meu projeto (pro google por exemplo) e ele monta o serviço para mim
+
+- Infra como serviço -> Eu contrato as máquinas e o suporte necessário e eu tenho autonomia sobre minha aplicação
+
+## Terminal e console
+
+O interpretador dos comandos é o shell e o interpretador de shell mais famoso no linux é o bash e é o nosso famoso terminal e consiste na interface gráfica (as barras, minimizar, maximizar e coisas do tipo). O console é a aplicação de fato e o console é virtualizado pois podemos rodar vários consoles dentro de uma mesma máquina, só que somente um terá acesso ao teclado, isso no desktop. No server do linux eu posso abrir diversos consoles diferentes com `CTRL+ALT+F<numero do console>` e nisso veremos a mudança do tty e consigo acessar o mesmo tipo de console no desktop com o mesmo comando (algumas distros é somente `ALT+F<numero do console>`) onde o console fica caracterizado como a aplicação pura e sem artificios gráficos.
+
+O interpretador shell mais famoso que existe nas distribuições Linux é o bash. Ele vem por padrão na maioria das distribuições Linux.
+
+Além do bash existem outras implementações do shell, como o csh, o sh, e outros.
+
+## Boas práticas de segurança
+
+Não use senhas óbvias, como seu nome, admin, 1234, palavras normais que tem no dicionário, ou qualquer variação dessas como morango123, qwerty. Porém essas senhas podem ser difíceis de memorizar, então use coisas dentro da senha que sejam fáceis para você lembrar, por que são coisas que ninguém vai ficar rodando e adivinhando.
+
+Não escreva sua senha em nenhum local onde eu tenha um histórico de comandos, como no terminal (sem o terminal pedir logico), na URL.
+
+E não forneça a sua senha em qualquer lugar mesmo que seja para pessoas importantes. Passar sua senha para alguem que voce confia é bem complicado, passa pessoalmente para a pessoa não via browser pois pode haver engenharia social no meio e você passar a senha pra um golpista.
+
+Gerenciador de senhas como onepass, lastPass, 1 Password
+
+Criar senhas - digita strong password ou use coisas que você consegue identificar e que inclui letras maiúsculas e minúsculas, números e símbolos.
+
+Mudar senha no ubuntu: `passwd` no terminal
+
+Ele vai pedir a senha atual e a senha nova e depois a senha nova, aí você coloca uma senha forte
+
