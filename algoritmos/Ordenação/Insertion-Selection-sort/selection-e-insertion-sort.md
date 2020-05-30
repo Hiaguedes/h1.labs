@@ -504,8 +504,8 @@ Então o preferível é que tenhamos algoritmos mais parecidos com um algorítim
 
 No insertion sort temos um for e um while dentro desse for, mas no pior caso o while acaba se comportando como um for passando por todos os elementos de novo (só qie da direita para a esquerda). Então o insertion sort também tem uma complexidade quadrática.
 
-![Comparação entre algoritmos](/Ordenação/img/complexidade.png)
-![Comparação entre algoritmos com um número menor de elementos](/Ordenação/img/complexidade1.png)
+![Comparação entre algoritmos](Ordenação/img/complexidade.png)
+![Comparação entre algoritmos com um número menor de elementos](Ordenação/img/complexidade1.png)
 
 Por essas imagens conseguimos ver que o fator multiplicado como 2n^2 não interfere muito na complexidade de um algoritmo (pois para n^2 a diferneça entre os aplicativos lineares não é perceptível assim como muito menos e muito menos um algoritmo n+c fará diferença nesse gráfico).
 
