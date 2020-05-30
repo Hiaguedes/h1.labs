@@ -1,4 +1,4 @@
-# Git
+# Git e Github
 
 O git é um sistema de controle de versões (version control system em inglês ou VCS), e é feito para que as pessoas consigam mandar seus projetos e códigos para um servidor remoto e as pessoas que estiverem trabalhando nele tem que sempre ter a versão mais atual do código na sua máquina.
 
@@ -40,7 +40,7 @@ git status
 
 Como pode se ver na figura abaixo:
 
-![Comando status](/img/status.png)
+![Comando status](img/status.png)
 
 Que mostra que criamos o arquivo na pasta git-e-github e que ela ainda não foi comitada. E estamos no master, ainda não tem nenhuma ramificação na pasta
 
@@ -60,7 +60,7 @@ git add .
 
 Isso muda nossa bash para
 
-![Comando add](/img/add.png)
+![Comando add](img/add.png)
 
 E esse add dura enquanto o arquivo não tenha sido modificado
 
@@ -93,7 +93,7 @@ Para ver o histórico das alteração eu digito
 git log
 ```
 
-![Comando log](/img/log.png)
+![Comando log](img/log.png)
 
 E nele eu vejo email, o nome do autor, a data de alteração e o local do commit, tal como anotações e coisas a mais desde a criação do repositório, enter para ir vendo linha a linha e espaço para ir mais rápido.
 
@@ -176,7 +176,7 @@ Uma forma de inicializar um servidor remoto é com:
 
 Lembrando que pode ser uma URL
 
-![Comando remote](/img/remote.png)
+![Comando remote](img/remote.png)
 
 Fetch eu busco as informações de lá e push eu jogo as informações para lá também, esses locais podem ser diferentes mas não é o caso. Então para pegar a pasta de um servidor remoto eu coloco:
 
@@ -199,4 +199,96 @@ git remote rename origin local
 git pull local master
 ```
 
-Sobre branches isso vai ser discutido em outro arquivo (ou não)
+Sobre branches isso vai ser discutido em outro arquivo
+
+## Github 
+
+O github é um servidor dedicado para você que quer fazer um projeto e por um acaso não tem um servidor dedicado para isso (maioria de nós). E esse site é bem legal pois no site você pode adicionar colaboradores ao seu projeto e ver em interface gráfica outras coisas também.
+
+Por padrão o servidor do github é chamado como origin e é bom manter todo mundo com o mesmo nome para que as coisas fiquem mais alinhadas.
+
+### Exercício
+
+1) Crie uma pasta nova em seu computador;
+
+2) No terminal (ou Git Bash, no Windows) navegue até a pasta recém criada (utilize o comando cd para navegar entre pastas);
+
+3) Execute o comando git init --bare;
+
+4) Navegue até a pasta onde se encontra o seu projeto;
+
+5) Execute o comando git remote add local {caminho}. Substitua {caminho} pelo caminho completo da pasta recém criada;
+
+6) Crie uma nova pasta em seu computador, para representar o trabalho de outra pessoa;
+
+7) No terminal (ou Git Bash, no Windows) navegue até a pasta recém criada;
+
+8) Execute o comando git clone {caminho} projeto. Substitua {caminho} pelo caminho completo da pasta que criamos no primeiro passo;
+
+9) Observe que o repositório clonado está vazio;
+
+10) Execute o comando 'git remote rename origin local' para renomear o repositório local da outra pessoa de "origin" para "local";
+
+11) Navegue até a pasta onde se encontra o seu projeto original;
+
+12) Execute o comando git push local master para enviar as suas modificações para o seu servidor;
+
+13) Navegue até a pasta criada no passo 6;
+
+14) Execute o comando git pull local master para baixar as modificações;
+
+15) Abra o seu navegador e acesse <http://github.com/>
+
+16) Crie uma conta;
+
+17) Crie um novo repositório, clicando no símbolo de adição no canto superior direito;
+
+18) No terminal (ou Git Bash, no Windows) adicione, ao seu projeto inicial, o repositório remoto recém criado (os comandos são mostrados pelo próprio GitHub);
+
+19) Execute git push origin master para enviar as suas alterações para o repositório no GitHub.
+
+## Branches
+
+Branches ("ramos") são utilizados para desenvolver funcionalidades isoladas umas das outras. A branch master é a branch "padrão" quando você cria um repositório.
+
+É interessante separar o desenvolvimento de funcionalidades em branches diferentes, para que as mudanças no código para uma não influencie no funcionamento de outra.
+
+Nesta aula, entenderemos melhor como trabalhar com estes ramos, mas é muito importante que você entenda seu propósito.
+
+Pra que não aja conflito entre pessoas trabalhando em um código eu crio uma ramificação do código e informo que aquele branch está servindo para que eu posso trabalhar em um trecho específico do meu código com 
+
+```git
+git branch <nome>
+git checkout <nome>
+```
+
+Com isso eu estou totalmente voltado para a ramificação e não no principal
+
+O comando chechkout serve para eu possa justamente alterar meu desenvolvimento de modo a atuar somente na branch titulo que eu criei na primeira linha
+
+Isso faz com que eu crie diferentes linhas de desenvolvimento
+
+![Linhas de desenvolvimento usando o <https://git-school.github.io/visualizing-git/>](img/visualizando.png)
+
+Onde eu tenho uma linha que é a master e a outra que é a forms.
+
+Um comando direto para eu criar a branch e já passar para ela é com
+
+```git
+git checkout -b <nome>
+```
+
+Onde o comando `checkout` muda nosso `HEAD` nos fazendo olhar diretamente para o branch que criamos 
+
+Onde normalmente se trata a branch master como a principal, onde no final tudo deverá estar aqui, como junto tudo? Como mesclo essas informações
+
+Com isso eu vou para a branch master e dou um
+
+```git
+git checkout master
+git merge <nome da branch>
+```
+
+![Visualização de um merge](img/merge.png)
+
+Isso cria um commit de merge no nosso projeto
