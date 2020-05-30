@@ -322,3 +322,6 @@ E com isso eu coloquei todos os commits da branch css para trás da git commit e
 Com `git log --graph` eu consigo ver via terminal as linhas de desenvolvimento do meu projeto
 
 Com isso, evitamos os commits de merge. Há uma longa discussão sobre o que é "melhor": rebase ou merge. Estude, pesquise, e tire suas próprias conclusões. Aqui tem um artigo (de milhares outros) que cita o assunto: <https://medium.com/datadriveninvestor/git-rebase-vs-merge-cc5199edd77c>.
+
+
+alteração
