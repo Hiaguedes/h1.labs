@@ -201,7 +201,7 @@ git pull local master
 
 Sobre branches isso vai ser discutido em outro arquivo
 
-## Github 
+## Github
 
 O github é um servidor dedicado para você que quer fazer um projeto e por um acaso não tem um servidor dedicado para isso (maioria de nós). E esse site é bem legal pois no site você pode adicionar colaboradores ao seu projeto e ver em interface gráfica outras coisas também.
 
@@ -255,7 +255,7 @@ Branches ("ramos") são utilizados para desenvolver funcionalidades isoladas uma
 
 Nesta aula, entenderemos melhor como trabalhar com estes ramos, mas é muito importante que você entenda seu propósito.
 
-Pra que não aja conflito entre pessoas trabalhando em um código eu crio uma ramificação do código e informo que aquele branch está servindo para que eu posso trabalhar em um trecho específico do meu código com 
+Pra que não aja conflito entre pessoas trabalhando em um código eu crio uma ramificação do código e informo que aquele branch está servindo para que eu posso trabalhar em um trecho específico do meu código com
 
 ```git
 git branch <nome>
@@ -278,7 +278,7 @@ Um comando direto para eu criar a branch e já passar para ela é com
 git checkout -b <nome>
 ```
 
-Onde o comando `checkout` muda nosso `HEAD` nos fazendo olhar diretamente para o branch que criamos 
+Onde o comando `checkout` muda nosso `HEAD` nos fazendo olhar diretamente para o branch que criamos
 
 Onde normalmente se trata a branch master como a principal, onde no final tudo deverá estar aqui, como junto tudo? Como mesclo essas informações
 
@@ -321,4 +321,10 @@ E com isso eu coloquei todos os commits da branch css para trás da git commit e
 
 Com `git log --graph` eu consigo ver via terminal as linhas de desenvolvimento do meu projeto
 
-Com isso, evitamos os commits de merge. Há uma longa discussão sobre o que é "melhor": rebase ou merge. Estude, pesquise, e tire suas próprias conclusões. Aqui tem um artigo (de milhares outros) que cita o assunto: <https://medium.com/datadriveninvestor/git-rebase-vs-merge-cc5199edd77c>.
+Com isso, evitamos os commits de merge. Há uma longa discussão sobre o que é "melhor": rebase ou merge. Estude, pesquise, e tire suas próprias conclusões. Aqui tem um artigo (de milhares outros) que cita o assunto: <https://medium.com/datadriveninvestor/git-rebase-vs-merge-cc5199edd77c>. No fundo os dois fazem a mesma coisa, é mais uma questão de histórico mesmo.
+
+## E se eu estiver editando a mesma parte do código ?
+
+Se eu que estou na mastar altero o titulo da pagina, e outra pessoa que está em outra branch também mudar o titulo da página então temos um conflito, o visual studio nos indicará com cores diferentes onde está o conflito e aí o master resolve quem sugeriu a melhor mudança de forma manual mesmo (há formas de resolver isso automaticamente mas isso é para depois). E sempre que você for trabalhar faça o pull.
+
+alteração
