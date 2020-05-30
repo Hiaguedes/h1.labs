@@ -321,7 +321,7 @@ E com isso eu coloquei todos os commits da branch css para trás da git commit e
 
 Com `git log --graph` eu consigo ver via terminal as linhas de desenvolvimento do meu projeto
 
-Com isso, evitamos os commits de merge. Há uma longa discussão sobre o que é "melhor": rebase ou merge. Estude, pesquise, e tire suas próprias conclusões. Aqui tem um artigo (de milhares outros) que cita o assunto: <https://medium.com/datadriveninvestor/git-rebase-vs-merge-cc5199edd77c>. No fundo os dois fazem a mesma coisa, é mais uma questão de histórico mesmo.
+Com isso, evitamos os commits de merge. Há uma longa discussão sobre o que é "melhor": rebase ou merge. Estude, pesquise, e tire suas próprias conclusões. Aqui tem um artigo (de milhares outros) que cita o assunto: <https://medium.com/datadriveninvestor/git-rebase-vs-merge-cc5199edd77c>. No fundo os dois fazem a mesma coisa, é mais uma questão de histórico mesmo, pois a branch com o rebase some.
 
 ## E se eu estiver editando a mesma parte do código ?
 
@@ -347,4 +347,139 @@ Agora, gere um conflito e, ao invés de utilizar o merge, utilize o rebase para 
 
 Veja a saída do Git e utilize as informações que ela te der para, após corrigir o conflito, continuar o rebase.
 
-aaaaa
+## Como desfazer uma mudança
+
+Para desfazer uma alteração no arquivo eu escrevo:
+
+```git
+git checkout -- <nome do arquivo com extensão>
+```
+
+Isso é, eu alterei o arquivo e dei add, eu posso desfazer-lo com esse comando
+
+Agora eu dei commit mas quero desfazer-lo
+
+```git
+git reset HEAD -- <nome do arquivo com extensão>
+```
+
+Agora para retirar o commit
+
+```git
+git revert <hash do commit ou só os sete primeiros digitos do hash>
+```
+
+Isso é bom para reverter certas besteiras
+
+## Salvando arquivo temporariamente para não comitar ele
+
+Nem sempre eu quero dar commit em todas as coisas que eu alterei, então eu salvo ele temporariamente, faço alterações em outras linhas comitto essas outras linhas e ai sim eu me certifico de que o código que upei está ok então para isso eu uso o stash.
+
+```git
+git stash
+```
+
+Sem adicionar o arquivo
+
+```git
+git commit <outras alterações>
+```
+
+E agora não retirar ele da stash para ai sim poder adicionar e comitar
+
+```git
+git stash list (para ver as stashs armazenadas)
+git stashp pop
+```
+
+Isso faz com que tenhamos o arquivo para ser adicionado de novo.
+
+Quando precisamos pausar o desenvolvimento de alguma funcionalidade, ou correção, antes de finalizar, talvez não seja interessante realizar um commit, pois o nosso código pode não estar funcionando ainda. Nesse caso é interessante salvar o trabalho para podermos voltar a ele depois.
+
+## Navegando entre commits
+
+Entenda o comando checkout como um navegador (navegador de branchs, de commits, de estados), então se um commit tem um identificador o seu hash então
+
+```git
+git checkout <hash do commit ou os sete primeiros digitos>
+```
+
+![Vendo os commits no terminal do VS](img/hash.png)
+
+ao dar o checkout no commit ele não está em nenhuma branch nem nada o head fica somente no commit em questão
+
+![orientação do HEAD](img/checkout-head.png)
+
+E se eu quiser eu posso criar um novo branch a partir desse comit com `git checkout -b <nome de branch>`
+
+E depois se eu quiser voltar a linha de desenvolvimento original eu dou um rebase com `git rebase master`
+
+A descrição do comando git checkout --help, em uma tradução livre é: "Atualizar os arquivos na working tree para ficarem na versão especificada. [...]". Basicamente, podemos deixar o nosso código no estado do último commit de uma branch, de um commit específico, ou mesmo tags (que veremos adiante).
+
+### Aprendizado
+
+Nesta aula, aprendemos:
+
+- Que o Git pode nos ajudar a desfazer alterações que não vamos utilizar;
+
+- Que, para desfazer uma alteração antes de adicioná-la para commit (com git add), podemos utilizar o comando `git checkout -- <arquivos>`;
+
+- Que, para desfazer uma alteração após adicioná-la para commit, antes precisamos executar o `git reset HEAD <arquivos>` e depois podemos desfazê-las com `git checkout -- <arquivos>`;
+
+- Que, para revertermos as alterações realizadas em um commit, o comando `git revert` pode ser a solução;
+
+- Que o comando `git revert` gera um novo commit informando que alterações foram desfeitas;
+
+- Que, para guardar um trabalho para retomá-lo posteriormente, podemos utilizar o `git stash`;
+
+- Que, para visualizar quais alterações estão na stash, podemos utilizar o comando `git stash list`;
+
+- Que, com o comando `git stash apply <numero>`, podemos aplicar uma alteração específica da stash;
+
+- Que o comando `git stash drop <numero> remove` determinado item da stash;
+
+- Que o comando `git stash pop` aplica e remove a última alteração que foi adicionada na stash;
+
+- Que o git checkout serve para deixar a cópia do código da nossa aplicação no estado que desejarmos:
+
+- `git checkout <branch>` deixa o código no estado de uma branch com o nome `<branch>`;
+
+`git checkout <hash>` deixa o código no estado do commit com o hash `<hash>`.
+
+## Gerando entregas com o git
+
+Ver alteração de um commit para o outro
+
+```git
+git diff <numero do hash inicial>..<até o numero do hash final>
+```
+
+Somente escrevendo o comando `git diff` você ve o que foi alterado no arquivo mas que ainda não foi comitado
+
+A partir de um determinado comitt eu tenho uma release do código, uma versão é um marco, uma tag onde eu tenho um código pronto e que funciona para isso eu crio uma tag
+
+```git
+git tag -a v0.1.0 "Versão beta da página"
+```
+
+Você pode escrever o qualquer coisa para representar a versão. E aí eu dou push nos repositórios, com a versão eu posso baixar um arquivo zipado com os arquivos que tem nessa versão
+
+### Exercício Releases
+
+1) Execute o comando git log -p para ver, junto a cada commit, as alterações nele realizadas;
+
+2) Execute agora o comando git log --oneline;
+
+3) Execute o comando git diff {hash do commit de merge com lista}..{hash do último commit realizado};
+
+4) Execute alguma (pequena) alteração no index.html;
+
+5) Execute o comando git diff e veja esta alteração;
+
+6) Desfaça esta última alteração;
+
+7) Execute o comando git tag -a v0.1.0 para criar uma tag no seu código;
+
+8) Execute o comando git push origin v0.1.0 para enviar esta tag para o GitHub;
+
+9) Abra a página do repositório do GitHub que você criou e confira a aba de Releases
