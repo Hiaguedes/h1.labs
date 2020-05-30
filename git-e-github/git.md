@@ -346,3 +346,5 @@ Agora, gere um conflito e, ao invés de utilizar o merge, utilize o rebase para 
 - Execute git rebase titulo
 
 Veja a saída do Git e utilize as informações que ela te der para, após corrigir o conflito, continuar o rebase.
+
+aaaaa
