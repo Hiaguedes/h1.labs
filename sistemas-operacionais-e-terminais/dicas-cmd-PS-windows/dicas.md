@@ -48,8 +48,8 @@ Apertando Tab temos um auto complete.
 
 Se o arquivo blabla.tx ja existe então podemos adicionar novos dados com >> da seguinte forma
 
-```
-echo Dados bons para gravar >> dicas.txt
+```sh
+echo "Dados bons para gravar" >> dicas.txt
 ```
 
 # Outras opçoes de terminal
