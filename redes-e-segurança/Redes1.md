@@ -67,7 +67,7 @@ Resultado possível:
   9    14 ms    14 ms    16 ms  172.217.29.100
 ```
 
-A primeira linha se refere  192.168.0.1 que é meu gateway (meu roteador no caso) e é o endereço onde minha máquina se comunica com o mundo.
+A primeira linha se refere  192.168.0.1 que é meu gateway (meu roteador no caso) e é o endereço onde minha máquina se comunica com o mundo. Depois ele passa por uma traduçao desse IP (que é privado) para um IP publico que a provedora de serviços te fornece.
 
 Mas por que tem três tempos mostrados? Pois ele analisa qual o melhor caminho para esse pacote poder seguir em três rotas diferentes. Onde * é um tempo que somente a máquina sabe mas que o adminstrador da máquina resolveu deixar como privado, aí o protocolo vai para a rota que leva menos tempo.
 
