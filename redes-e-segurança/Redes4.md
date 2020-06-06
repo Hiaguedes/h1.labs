@@ -266,3 +266,189 @@ Uma vez configurada a redistribuição na rede do segundo provedor, precisamos c
 - No protocolo RIP não temos a opção de distribuir as rotas aprendidas via protocolo BGP, vamos então informar os demais roteadores que esse roteador interconectado com a rede do segundo provedor que ele é o ponto de saída da rede. Digitamos default-information originate
 
 Clique em um dos servidores na rede do segundo provedor, abra o Command Prompt e digite ping 150.1.1.2 que é o endereço IP da interface do roteador da Mutillidae. Qual é o resultado?
+
+## Acessando os servidores
+
+Se tentarmos acessar de um dos computadores da empresa alguns dos servidores das duas provedoras de serviço nós não conseguiremos, e o problema não é  por conta da lista de acesso presente nele e sim por que nosso roteador não conhece a rota de saída poder caminhar por esses provedores. E qualquer caminho externo que eu quiser que meu roteador faça que ele faça via provedor de serviços e o provedor de serviços que se vire com isso.
+
+Com isso deletamos qualquer rota estática que tenhamos criado nesse roteador e definimos
+
+```cisco
+ip route 0.0.0.0 0.0.0.0 serial 0/1/0
+```
+
+Assim ele manda o que tiver que mandar pela porta serial 0/1/0 onde o roteador se conecta com o provedor de serviços para uma rota default.
+
+A rota default é a rota de saída padrão de uma rede, caso nenhuma entrada mais específica esteja presente na tabela de roteamento do roteador, a rota default irá assumir e encaminhará os dados para a interface que foi configurada
+
+A rota padrão será utilizada caso nenhuma rota mais específica esteja presente, como a internet tem milhares de servidores, já pensou configurarmos uma rota estática para cada servidor da internet?
+
+### Configurando servidor DNS
+
+Vamos agora configurar os servidores que estão nos provedores de serviço para serem acessados pelos usuários da Mutillidae.
+
+Vamos configurar um dos servidores como sendo um servidor DNS público, e conterá as traduções dos domínios para os respectivos endereços IP. Vamos escolher o servidor do segundo provedor de serviços para atuar como sendo esse servidor DNS
+servidor_DNS
+
+![Representação (na área 0 utilizamos o servidor faltante como DNS)](assets/dns-parte4.png)
+
+- Clicamos no servidor destacado -> Aba Services -> DNS.
+
+- No campo DNS Service coloque On, no campo name coloque www.alura.com.br e no campo do address coloque o endereço IP do servidor do primeiro provedor 150.1.1.10
+Em seguida, vamos colocar a tradução do domínio do google para o endereço IP do outro servidor do segundo provedor. No campo name coloque www.google.com e no campo address coloque o endereço IP do outro servidor do segundo provedor 190.1.1.2.
+
+- No servidor do primeiro provedor irá conter a página da Alura, vamos estilizar nosso código. Clique no servidor -> aba Services -> HTTP, por fim, no campo index.html clique na opção edit e insira o código abaixo e depois clique no botão Save:
+
+```html
+<html>
+     <h1>Bem-vindo ao site da Alura</h1>
+     <h2>Nós temos mais de 300 cursos de tecnologia</h2>
+</html>
+```
+
+Clique agora no servidor que está no segundo provedor e irá conter o site do google. Vá até aba Services -> HTTP, por fim, no campo index.html clique na opção edit e insira o código abaixo e depois clique no botão Save:
+
+```html
+<html>
+    <h1>GOOGLE</h1>
+    <br>
+    <input type="search">
+    <br>
+    <button type="submit">Buscar</button>
+</html>
+```
+
+- Abra o browser dos computadores e tente acessar essas URL. Qual o resultado?
+
+Dessa forma fica setado como funciona a internet, eu digito um site como <www.alura.com.br> e meu computador emite um protocolo DNS procurando qual o servidor que corresponde a esse protocolo, ele encontra o servidor via provedor de serviços e me manda o caminho pra o servidor, ai meu computador manda um protocolo TCP para o servidor requisitando a página para o servidor correto e aí temos a página no nosso computador.
+
+O resultado ainda não foi satisfatório, precisamos informar o endereço IP desse servidor DNS para os usuários. Iremos realizar essa configuração na sequência.
+
+### Alocando IP do servidor DNS
+
+A configuração ainda não deu certo porque precisamos informar o endereço IP do servidor DNS para os usuários, iremos realizar essa etapa agora:
+
+- Não podemos nos esquecer de configurar esse servidor DNS público para os usuários da Mutillidae. Vamos clicar no roteador da Mutillidae, digitamos enable para entrar na parte privilegiada e configure terminal para entrar na parte de configuração.
+
+- Entramos nos pools DHCP que criamos para o setor de vendas e finanças. Vamos iniciar com o pool DHCP do setor de vendas, digitamos: ip dhcp pool VLAN10 e colocamos qual é o endereço IP do servidor DNS, digitamos dns-server 170.1.1.2.
+
+- Devemos agora sair da configuração desse pool DHCP digitando exit e em seguida entraremos no pool DHCP de finanças, digitamos: ip dhcp pool VLAN20 e colocamos qual é o endereço IP do servidor DNS, digitamos dns-server 170.1.1.2
+
+- Será necessário que os clientes façam um novo pedido DHCP para que possa assim ser alocado o endereço IP do servidor DNS. Nos computadores do gerente de vendas e do gerente de finanças coloque estaticamente esse valor.
+
+Abra o browser dos computadores e digite <www.alura.com.br> e depois digite <www.google.com>. Qual o resultado?
+
+Ainda não tivemos muita sorte, isso porque precisamos configurar a rota de saída padrão de nossa rede.
+
+### Configurando roteador da empresa
+
+As configurações do servidor DNS para os usuários da Mutillidae foram estabelecidas com sucesso, mas não configuramos o roteador da Mutillidae com a rota de saída padrão.
+
+- Clique no roteador da Mutillidae e digite enable para entrar na parte privilegiada e configure terminal para entrar na parte de configuração.
+
+- Na sequência insira a rota padrão de saída da rede da Mutillidae: ip route 0.0.0.0 0.0.0.0 serial 0/1/0
+
+Abra o browser dos computadores e digite <www.alura.com.br> e depois digite <www.google.com>. Qual o resultado
+
+Uma vez que nossos roteadores foram capazes de aprender as rotas uns com os outros e configuramos o servidor DNS público para ser alocado por nossos usuários, temos que a comunicação foi estabelecida com sucesso e conseguimos assim acessar os sites da Alura e do Google
+
+## IPv6
+
+O desenvolvimento do protocolo IPv6 foi necessário porque a quantidade de endereço IPv4 públicos chegaram a um fim. Dessa forma, uma das preocupações no desenvolvimento desse novo protocolo era com relação a quantidade de endereços disponíveis para evitar assim que um novo protocolo precisasse ser desenvolvido. O IPv6 é capaz de fornecer aproximadamente 3.4×10 ^ 38 endereços, o que faz com que o esgotamento de endereços IPv6 seja muito improvável mesmo pensando a longo prazo.
+
+Devido a popularização da internet os endereços IPV4 passaram a não ser mais suficientes para cobrir toda a rede, então foi necessário criar outro tipo de IP que cobrisse muita coisa e sobrassa mais coisa ainda. Consta que o IPV6 suporta 340 ucetilhão de endereços (ou seja é coisa pra c******) , o numero desses endereços equivale ao número de átomos na superfície do planeta.
+
+Diferenças
+
+|IPv4|IPv6|
+|--|--|
+|Endereço de 32 bits 0.0.0.0|Endereço de 128 bits|
+|Números de 0 até 9|Número de 0 até 9 e letras de A até F (forma hexadecimal)|
+|Máscara de rede ex 255.255.255.0|Formato CIDR /24 (os ultimos 24 numeros sendo 0)|
+
+Exemplo de endereço IPv6 
+
+```IPv6
+2001:0BAA:0000:0000:0000:24D2:12AB:98BC
+```
+
+Cada octeto separado por : e oito intervalos em formato hexadecimal e a analise deve ser feita por cado numero, ou seja o primeiro octeto que tem numero 2001 será em binário igual a 0010 0000 0000 0001 e é essa sequência que o computador interpreta (para cada intervalo), o que nos dá 128 números.
+
+Formas de abreviar o endereço, quando tenho uma sequência de 0s eu coloco :: da seguinte forma
+
+```IPv6
+2001:0BAA::24D2:12AB:98BC
+```
+
+Essa abreviação só pode ser feita uma única vez
+
+E quando um intervalo começa com 0 eu posso tirar ele da escrita de forma que o endereço fica:
+
+```IPv6
+2001:BAA::24D2:12AB:98BC
+```
+
+Ao analisar o endereço IPv6 3002:ABD2:8712:5634:9231:7622:6621:9012 / 48 Qual deveria ser o endereço IPv6 de um outro dispositivo para eles estarem na mesma rede?
+
+A máscara de rede do endereço IPv6 é /48, isso indica que os 48 primeiros bits devem ser iguais entre os dispositivos para que eles estejam na mesma rede. Dessa forma, outro dispositivo deverá começar com o intervalo 3002:ABD2:8712 para estar na mesma rede desse endereço IPv6.
+
+### Configurando IPs da versõa 6
+
+No caso vai ser usado os endereços 2001:0BAA::24D2:12AB:98BC/64 onde temos que os 4 primeiros intervalos deverão ser iguais para que todos os dispositivos estejam na mesma rede.
+
+#### Mãos à obra: Implementando servidor IPv6
+
+Vamos agora implementar um novo servidor na rede interna da Mutillidae, tal servidor será configurado com IPv6. Arraste para a área de trabalho e faça a conexão com uma das portas disponíveis do servidor, vamos adotar a porta FastEthernet 0/10. Nosso projeto deverá estar parecido com a imagem abaixo:
+
+projeto_ipv6
+
+Vamos estilizar o código da página desse nosso servidor para que possamos assim saber que estamos acessando o servidor com endereço IPv6. Clique no servidor, vá até a aba Services -> HTTP e no item index.html clique em edit. Insira o código abaixo e pressione o botão Save
+
+```html
+<html>
+     <h1>Bem-vindo ao servidor IPv6</h1>
+</html>
+```
+
+Vamos colocar agora esse servidor para estar presente no mesmo segmento de rede (Vlan) do outro servidor. Clicamos no Switch e digitamos enable para entrar na parte privilegiada e depois configure terminal para entrar na parte de configuração.
+
+Entre na interface conectada com esse novo servidor, digitando interface FastEthernet 0/10 e altere a porta para modo acesso indicando assim que essa interface está conectada a um dispositivo final. Digitamos switchport mode access e em seguida fazemos a associação digitando switchport access vlan 30
+
+Vamos agora inserir o endereço IPv6 nesse servidor, clique nele e entre na aba Desktop e posteriormente clique em IP Configuration. No campo IPv6 Address insira o seguinte endereço IP 2001:0BAA:0000:0000::AAAA e máscara /64, no campo Default Gateway devemos colocar qual é o endereço IPv6 da sub-interface do roteador que está configurado para comunicação com a VLAN 30, que é a VLAN dos servidores. Para que essa comunicação seja estabelecida, é necessário que os dois endereços IP estejam na mesma rede, ou seja, para estarem na mesma rede os quatro primeiros intervalos do endereço IPv6 devem ser iguais (2001:0BAA:0000:0000), vamos configurar então a sub-interface do roteador com o endereço IPv6 2001:0BAA:0000:0000::BBBB/64
+
+Clique no roteador da Mutillidae, digite enable para entrar na parte de configuração e configure terminal para entrar na parte de configuração.
+
+Devemos habilitar a comunicação via protocolo IPv6, digitamos: ipv6 unicast-routing
+Vamos agora entrar na sub-interface responsável pela comunicação com os servidores, digitamos interface FastEthernet 0/0.3 e colocamos o endereço IPv6, digitamos ipv6 address 2001:0BAA:0000:0000::BBBB/64
+
+Vamos testar a comunicação entre o roteador e o servidor, digitamos: do ping 2001:0BAA:0000:0000::AAAA. Qual o resultado?
+
+Opinião do instrutor
+
+Uma vez que tanto o servidor como o roteador estão configurados para comunicação com o protocolo IPv6 e os dois estão na mesma rede (2001:0BAA:0000:0000) temos que a comunicação foi estabelecida com sucesso.
+
+ping_ipv6
+
+Devemos agora, configurar os usuários da Vlan de vendas e finanças para que acessem esse servidor
+
+#### Mãos à obra: Configurando acesso ao servidor IPv6
+
+Configuramos o servidor IPv6 e a sub-interface do roteador responsável pela comunicação com os servidores e a comunicação foi estabelecida com sucesso. Devemos agora, estabelecer a comunicação entre os usuários e esse servidor, uma vez que os usuários dos setores de vendas e finanças estão em uma Vlan diferente da Vlan dos servidores, precisamos configurar as sub-interfaces no roteador da Vlan 10 e da Vlan 20 para que possa assim realizar o roteamento entre esses usuários e o setor de vendas.
+
+Clicamos no roteador e digitamos enable para entrar na parte privilegiada e posteriormente configure terminal para entrar na parte de configuração
+
+Entre na sub-interface usada para a vlan de finanças, digite interface FastEthernet 0/0.2, vamos colocar o endereço IPv6 2002:0BAA:0000:0000::BBBB/64. Digitamos ipv6 address 2002:0BAA:0000:0000::BBBB/64
+
+Por fim, devemos configurar a sub-interface do setor de vendas, digite exit para sair da sub-interface de finanças e digite interface FastEthernet 0/0.1 para entrar no setor de vendas. Vamos inserir o endereço IPv6 2000:0BAA:0000:0000::BBBB/64. Digitamos: ipv6 address 2000:0BAA:0000:0000::BBBB/64
+
+Devemos agora configurar os endereços IPv6 nos clientes. Os computadores do setor de finanças deverão começar por 2002:0BAA:0000:0000
+
+Vamos adotar para o computador do gerente de finanças o endereço IPv6 2002:0BAA:0000:0000::AAAA/64 e o endereço IPv6 para o computador do outro funcionário de finanças o endereço IPv6 2002:0BAA:0000:0000::CCCC/64 e coloque como Default Gateway o endereço IPv6 da sub-interface do setor de finanças que é 2002:0BAA:0000:0000::BBBB
+
+Insira agora os endereços IPv6 no setor de vendas, coloque o endereço IPv6 2000:0BAA:0000:0000::AAAA/64 no computador do gerente de vendas, coloque o endereço IPv6 2000:0BAA:0000:0000::CCCC/64 para o computador do outro funcionário de vendas. O default gateway será o endereço IPv6 configurado na sub-interface do roteador da vlan 10, que será 2000:0BAA:0000:0000::BBBB
+
+Abra agora o browser desses computadores e tente acessar o servidor, insira na url: 2001:0BAA:0000:0000::AAAA. Qual o resultado?
+
+Opinião do instrutor
+
+Uma vez que configuramos os endereços IPv6 nos computadores e nas sub-interfaces do roteador, nós temos que a comunicação foi estabelecida e conseguimos ter acesso a página do servidor.
