@@ -1,10 +1,4 @@
 
-html {
-    margin:0;
-}
-
-.alinhado-esquerda {padding-left: 15px;}
-
 body {
     background: #C8C8C8;
 }
@@ -16,53 +10,60 @@ body {
 
 .caixa-centralizada {
     text-align: center;
-    FONT-WEIGHT: 100;
+    font-weight: bolder;
+    font-size: 25px;
     padding: 28px;
     border: solid 10px;
     margin-left: 200px;
     margin-right: 200px;
+    margin-bottom: 30px;
     margin-top: 0;
 }
 
-hr {
+.div1 hr {
 margin: 0px ;
 }
 
-p {
+.div1 p {
  margin:0;
  padding-top: 10px;
 }
 
-#div1 {
+.div1 {
     text-align: center;
     background: #A2A2A2;
     width: 100%;
     padding: 20px;
+    padding-bottom: 25px;
 }
 
-#missao {
+.div1 #missao {
 
-    font-size: 20px;
-}
-#ultimo_p {
-    padding-bottom: 15px;
-    margin-bottom: 0;
-    
+    font-size: 24px;
 }
 
-#missao strong {
+.div1 #missao strong {
     color: rgb(117, 42, 17);
 }
 
-#beneficios {
+.beneficios {
     text-align: left;
     background: rgb(99, 99, 99);
     width: 100%;
-
     padding: 20px;
 }
 
-ul {
+.titulo-beneficios {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration-line: underline;
+}
+
+.beneficios ul {
     display: inline-block;
     vertical-align: top;
     width: 20%;
@@ -74,14 +75,19 @@ ul {
     color: rgba(255, 238, 0, 0.76);
 }
 
-h2 {
-    margin-top: 0;
-    padding-top: 10px;
-    padding-left: 20px;
-    font-size: 18 px;
-    text-align: center;
-}
 
 #rock {
     width: 50%;
+}
+
+.itens:hover{
+    color:rgba(62, 199, 147, 0.76);
+}
+
+em ,i{
+	font-style: italic;
+}
+
+strong,b{
+	font-weight: bolder;
 }
