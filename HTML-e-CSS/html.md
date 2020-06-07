@@ -42,6 +42,10 @@ Algumas outras tags:
 |i ou em|Texto em itálico|
 |title|Seta o título da página na aba da página|
 |img|coloca imagem|
+|a (ancora)|Você pode linkar uma página qualquer com essa tag com um href=""|
+|nav|divisória criada no html 5 para tagear a barra de navegação|
+|main|tag semântica que nos diz o conteudo principal de uma página, é bom por questão de sematica (ou seja deixa o codigo mais legível), é igual uma div mas com nome proprio|
+|br|pula a linha break|
 
 ## Adcicionando imagem
 
@@ -91,3 +95,7 @@ Já as tags inline ocuparão apenas a largura e altura de seu conteúdo interno,
 ## Cabeçalho
 
 Por ser muito comum nós temos agora no HTML5 a tag header
+
+## Main
+
+Com intença de dividir o código de modo a ficar mais legível temos a tag main (que deixa o conteudo principal a mostra)
