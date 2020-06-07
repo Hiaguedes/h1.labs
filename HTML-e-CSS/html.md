@@ -99,3 +99,13 @@ Por ser muito comum nós temos agora no HTML5 a tag header
 ## Main
 
 Com intença de dividir o código de modo a ficar mais legível temos a tag main (que deixa o conteudo principal a mostra)
+
+## Rodapé
+
+Ao rodapé da-se o nome de footer
+
+## Caracteres especiais
+
+Existem símbolos especiais que de vez em quando devemos colocar em nossos sites, um deles é o simbolo de copyright &copy; e o mais normal em nossas aplicações é vermos uma tabela de unicodes e pegar o nome da entidade no caso do simbolo de copyright o seu símbolo de unidade é `&copy;`
+
+Um site bom para nos dar os códigos para isso é o <https://unicode-table.com/en/>

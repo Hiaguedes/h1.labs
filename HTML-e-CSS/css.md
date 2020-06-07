@@ -124,3 +124,33 @@ Para deixar uma div ou uma caixa qualquer com cantos arredondados nós temos os 
 ```
 
 Onde na primeira linha eu posso declarar direto, o tipo da linha (linha solida, tracejada,pontilhada, whatever), a espessura da linha e a cor da linha de borda.
+
+## Mapeamento do usuário
+
+Quando tenho o mouse do usuário em cima de algo clicável ou mesmo clicando eu tenho uma mudança de comportamento daquele trecho de código, isso é o mapeamento das açoes do usuário.
+
+Normalmente é declarado no css da seguinte maneira:
+
+```css
+nav li:hover{}
+```
+
+Onde hover é passar com o mouse em cima do elemento (que pode ser qualquer um), active é quando se clica.
+
+E na ação eu apenas mudo uma das açoes que foi específicada quando criamos aquele elemento.
+
+E para mudar uma fonte h2 dentro dessa lista eu faço
+
+```css
+nav li:hover h2{}
+```
+
+Esses comportamentos são chamados de pseudo-classes.
+
+## Adicionando imagem de fundo com css
+
+Primeiro tenha a imagem na pasta do projeto e adicione com
+
+```css
+background: url("Caminho da imagem")
+```

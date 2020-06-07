@@ -43,3 +43,17 @@ main ul h2{
     font-size: 22px;
     font-weight: bold;
 }
+
+/* Mapeamento de Usuário */
+
+main li:hover{
+    border: solid 3px rgb(170, 170, 170);
+}
+
+main li:active{
+    border: solid 3px rgb(64, 201, 167);
+}
+
+main li:hover h2{
+    font-size: 33px;
+}
