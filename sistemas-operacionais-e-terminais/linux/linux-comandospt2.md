@@ -115,3 +115,137 @@ Com o comando `su <nome de usuario>` eu posso mudar de usuário dentro do meu si
 Para criar um usuário eu coloco `adduser <nome do usuario>` como usuário root, e ele vai me pedir a senha.
 
 E por padrão eu que criei a máquina consigo ler a pasta de todos os usuários.
+
+## .bashrc
+
+Toda vez que o bash é aberto ele executa o mesmo programa oculto chamado .bashrc, lá nós podemos alterar o PATH para que ele adicione no PATH sempre a mesma pasta.
+
+## wc
+
+Mostra o numero de linhas, o numero de palavras e o numero de letras de um documento. E pelo manual desse comando vemos
+
+```sh
+-c (numero de bytes)
+-m numero de caracteres
+-l numero de linhas
+-w numero de palavras
+```
+
+O comando `ps -e | wc -l`
+
+## APT
+
+o apt é o gerenciador de instalaçoes de algumas distribuições do linux, os comandos para buscar aplicativos é com `apt-cache search` e para instalar e remover arquivos temos o `apt-get install` e o `apt-get remove` ou `apt-get purge`
+
+### instalando arquivos .deb
+
+Instalar
+
+```sh
+sudo dpkg -i arquivo.deb
+```
+
+Remover:
+
+```sh
+sudo dpkg -r arquivo.deb
+```
+
+Caso tenha problemas de dependencia
+
+```sh
+sudo apt-get -f install arquivo
+```
+
+## Serviços
+
+Para parar um serviço
+
+```sh
+sudo service vsftpd stop
+```
+
+O vsftpd é um nome de um servidor e posso rodar na minha máquina pelo localhost, para voltar a funcionar somente damos um `sudo service <servico> start`.
+
+Para veriticar o status do service usamos `sudo service <servico> status`
+
+Os diretório `/etc/init.d` nos dá todos os serviços que são inicializados com o start da máquina. E eu posso estar jogando programas ai dentro com o root.
+
+## Instalação pelo código fonte
+
+Para instalar pelo código fonte primeiro eu procuro um script chamado `configure` pois ai ele me diz se tem alguma dependencia. Se tiver ok eu faço `make` nessa pasta, se ele reclamar de algo, procure com `apt-cache search` e depois de `make` dentro da pasa de novo e depois para instalar `sudo make install`
+
+## SSH acessando servidores remotos
+
+### Realizando conexão via ssh
+
+
+Instale o pacote ssh, que instalará tanto um cliente, para que consigamos nos conectar, quanto um servidor, para que possamos receber conexões.
+
+```sh
+sudo apt-get install ssh
+```
+
+Caso ainda não tenha criado um usuário, você precisará fazer isso agora. Crie um usuário chamado jose.
+
+Se conecte no usuário jose através do ssh. Após realizar a conexão, utilize o comando whoami para garantir que você está logado com outro usuário.
+
+Para realizar uma conexão ssh, basta indicar para o comando o nome do usuário e o ip da máquina que desejamos nos conectar. No nosso caso, utilizaremos localhost, pois a conexão será na nossa própria máquina:
+
+```sh
+$ ssh jose@localhost
+jose@localhost's password:
+```
+
+Ao executar o comando whoami, podemos perceber que estamos logados com o usuário jose:
+
+```sh
+$ whoami
+jose
+```
+
+Para desconectar, basta usar o comando exit:
+
+```sh
+$ exit
+logout
+Connection to localhost closed.
+```
+
+### Transferindo arquivos com scp
+
+Agora nós iremos transferir um arquivo para uma máquina remota utilizando o comando scp.
+
+Você pode escolher um arquivo de sua preferência para transferir. Caso queira, pode transferir o diretório workspace, criado anteriormente, ou o diretório scripts (não se esqueça de utilizar a opção -r caso escolha transferir um diretório). Para transferir um arquivo, vamos compactar um dos diretórios (lembre-se de alterar o nome do diretório caso seja necessário):
+
+```sh
+$ zip -r work.zip workspace/
+```
+
+Utilize o comando scp para copiar o arquivo para a pasta do usuário jose, que é um usuário de sua máquina. Se logue com o usuário jose e verifique se o arquivo foi copiado.
+
+Para realizar a cópia, informamos o nome do arquivo para o comando scp junto com o nome do usuário, ip e local onde copiaremos o arquivo na máquina remota:
+
+$ scp work.zip jose@localhost:~/
+O ~ representa o diretório do usuário, que nesse caso é /home/jose/.
+
+Vamos nos conectar no usuário jose via ssh e verificar se o arquivo work.zip se encontra no diretório do usuário:
+
+```sh
+$ ssh jose@localhost
+jose@localhost's password:
+```
+
+```sh
+$ whoami
+jose
+```
+
+```sh
+$ ls
+examples.desktop  work.zip
+```
+
+Como podemos ver, o arquivo foi copiado.
+
+Lembre-se que o comando scp suporta a opção -r para realizar cópia de diretórios.
