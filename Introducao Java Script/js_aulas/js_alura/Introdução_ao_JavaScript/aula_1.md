@@ -231,6 +231,6 @@ Se você vai variar o estado dessa desse estado então coloque let.
 
 Para debugar um código no visual studio code basta selecionar um ponto de quebra do lado do número da linha onde se deseja, apertar no símbolo do bug e colocar run and Debug, da seguinte forma
 
-
+![Gif do debugger no visual code com node](img/visual.gif)
 
 Se não aparecer essa tela você pode criar um arquivo .json dentro de uma pasta .vscode e ali ele me dá o programa atual para ser debugado, para mudar o programa eu mudo o nome do arquivo dentro do `program`. Para adicionar outros eu dou uma , depois a estrutura de chaves da configuração e adiciono outro programa para debugar. Então na aba de debug eu consigo escolher os programas a serem debugados.
