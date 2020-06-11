@@ -3,6 +3,11 @@ padding: 200px 0;
 background: pink;
 }
 
+header label p {
+    margin-top: 35px;
+    font-size: 12px;
+}
+
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -85,6 +90,7 @@ footer{
   
   .dark-mode header{
       background: rgb(54, 54, 54);
+      color: whitesmoke;
   }
 
 
