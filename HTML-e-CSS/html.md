@@ -109,3 +109,29 @@ Ao rodapé da-se o nome de footer
 Existem símbolos especiais que de vez em quando devemos colocar em nossos sites, um deles é o simbolo de copyright &copy; e o mais normal em nossas aplicações é vermos uma tabela de unicodes e pegar o nome da entidade no caso do simbolo de copyright o seu símbolo de unidade é `&copy;`
 
 Um site bom para nos dar os códigos para isso é o <https://unicode-table.com/en/>
+
+## Formulários
+
+Um formulário é uma série de campos onde eu quero que o usuário digite o que ele quer (dentro do especificado) e com isso que eu mande esses dados para uma outra página, ou para um servidor que faça determinada ação. Note que quando digitamos uma busca com o google a URL da próxima página passa uma query com a palavra que pesquisamos mais uma série de informações de sistema.
+
+Para decidir quando devemos usar um formulário nas nossas páginas, alguns motivos podem ser analisados:
+
+1) Quando queremos enviar os dados para um servidor
+
+2) Quando queremos capturar informações que o usuário digitar
+
+3) Quando queremos enviar os dados para uma outra página
+
+E assim como o main, o header e o footer eu tenho uma tag de formulário que siginifica `<form>`
+
+Entrada de dados -> `<input>`, com `<input placeholder="">` nós conseguimos colocar uma mensagem nessa barra de digitação.
+Etiqueta-> `<label>` serve como se fosse um índice para a entrada do dado
+Butão -> `<button></button>`
+
+Com `<input type="submit" value="Enviar">` eu consigo criar um botão que manda informações para onde eu quiser.
+
+Para ter uma área de texto maior e mais maleável use `textarea` e nela você definir o tamanho inicial dessa área de texto colocando o numero de linhas (rows) e de colunas.
+
+Para selecionar uma opção dentre algumas, coloque no `type` do input o valor `radio` e para selecionar uma e automaticamente descelecionar outra coloque o mesmo `name` para essas opções.
+
+Para fazer um imput de checkbox coloque no `type` desse input coloque `checkbox` e para facilitar e não precisar colocar uma id pro tipo de input e linkar com for no label, coloque o input dentro da label.

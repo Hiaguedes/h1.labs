@@ -154,3 +154,7 @@ Primeiro tenha a imagem na pasta do projeto e adicione com
 ```css
 background: url("Caminho da imagem")
 ```
+
+## Formulários
+
+A guia de input já tem a borda delimitada, para aumentar seu tamanho mude o espaçamento interno (para ter mais espaço de digitação)
