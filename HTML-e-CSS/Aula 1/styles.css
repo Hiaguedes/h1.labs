@@ -14,10 +14,8 @@ body {
     font-size: 25px;
     padding: 28px;
     border: solid 10px;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-bottom: 30px;
-    margin-top: 0;
+    width: 1200px;
+    margin: 10px auto;
 }
 
 .div1 hr {
@@ -33,7 +31,7 @@ margin: 0px ;
     text-align: center;
     background: #A2A2A2;
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
     padding-bottom: 25px;
 }
 
@@ -50,7 +48,7 @@ margin: 0px ;
     text-align: left;
     background: rgb(99, 99, 99);
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .titulo-beneficios {
