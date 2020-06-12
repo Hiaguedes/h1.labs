@@ -135,3 +135,85 @@ Para ter uma área de texto maior e mais maleável use `textarea` e nela você d
 Para selecionar uma opção dentre algumas, coloque no `type` do input o valor `radio` e para selecionar uma e automaticamente descelecionar outra coloque o mesmo `name` para essas opções.
 
 Para fazer um imput de checkbox coloque no `type` desse input coloque `checkbox` e para facilitar e não precisar colocar uma id pro tipo de input e linkar com for no label, coloque o input dentro da label.
+
+Com select e colocando as opções criamos um dropdown para que seja possível escolher uma opção.
+
+O type é bem importante para o mundo mobile por que o teclado pode mudar de modo a ajudar o usuário a digitar com mais rapidez os dados.
+
+### Campos de mensagem obrigatória
+
+Basta na tag de input colocarmos `required`
+
+Quando temos uma marcação com radio o usual é já deixarmos uma marcada e fazemos isso com `checked`
+
+### Tgas semanticas de formulário
+
+É comum utilizarmos a tag `<fieldset>` invés de uma div e separarmos darmos um título a esses fieldsets com `<legend>` e isso pode substituir a tag `form p` no css.
+
+## Tabelas
+
+Para criar tabelas usamos a tag table e para estruturar direitinho uma tabela usamos
+
+```html
+<table>
+    <thead>
+        <tr>
+            <th>Dia</th>
+            <th>Horário</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td>Segunda a Sexta</td>
+            <td>8:00-20:00</td>
+        </tr>
+
+        <tr>
+            <td>Fim de Semana</td>
+            <td>8:00 - 16:00</td>
+        </tr>
+
+        <tr>
+            <td>Feriado</td>
+            <td>8:00-12:00</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+As tags `<thead>`, `<tbody>` e `<tfoot>` ajudam a deixar o conteúdo da tabela mais bem dividido e mais semântico.
+
+As tabelas também nos oferecem a possibilidade de juntar células e montar um visual diferente. Por exemplo, quando uma linha, que deveria ter 5 células, passa a mostrar só "uma célula".
+
+Esse efeito é conseguido através da propriedade colspan=X, onde X é o número de células que você quer agrupar.
+
+Portanto, em uma tabela de 5 colunas, para ter uma célula única na linha, usamos um código assim:
+
+```html
+<tr>
+    <td colspan="5">Rio de Janeiro</td> 
+</tr>
+```
+
+Resumo de criação de tabelas:
+
+- A criar uma tabela HTML
+
+    A tag `table`, que representa a tabela
+
+    A tag `tr`, que representa a linha da tabela
+
+    A tag `td`, que representa a célula da tabela
+
+    A tag `thead`, que representa o cabeçalho da tabela
+
+    A tag `tbody`, que representa o corpo da tabela
+
+    A tag `th`, que representa a célula do cabeçalho da tabela
+
+    A tag `tfoot`, que representa o rodapé da tabela
+
+Então para 1 linha representada por `tr` temos n células `td`, para mesclar células em uma mesma linha colocamos `colspan` na linha.
+
+E assim nosso trabalho de edição no css fica muito facilitado.

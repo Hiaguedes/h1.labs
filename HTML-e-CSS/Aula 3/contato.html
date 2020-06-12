@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="header">
-        <h1><img src="../Aula 2/img/logo.png" alt="aaa"></h1>
+        <h1><img src="../Aula 2/img/logo.png" alt="Logo Alura Barbearia"></h1>
         <nav>
             <ul>
                 <li><a href="../Aula 1/index.html">Home</a></li>
@@ -26,31 +26,72 @@
 
 <main>
 <form>
-       <label >Nome Completo : <input type="text" placeholder="Digite seu nome completo"/></label>
+       <label >Nome Completo : <input type="text" id="name" placeholder="Digite seu nome completo" required></label>
        
         <br>
-        <label for="email">Email :<input id="email" placeholder="Digite seu email"/></label>
+        <label for="email">Email :<input type="email" id="email" placeholder="email@dominio.com" required/></label>
         <br>
-        <label for="tel">Telefone :<input type="tel" id="tel" placeholder="Ex:(021)xxxxxxxxx"></label>   
+        <label for="tel">Telefone :<input type="tel" id="tel" placeholder="Ex:(xx)xxxxx-xxxx" required></label>   
         <br>
         <br>
-        <label for="msg">Mensagem :<textarea id="msg" cols="70" rows="10"></textarea></label>
+        <label for="msg">Mensagem :<textarea id="msg" cols="70" rows="10" required></textarea></label>
         <br>
 
-        <div class="contato">
-            <p>Como prefere o nosso contato?</p>
+        <fieldset class="contato">
+            <legend>Como prefere o nosso contato?</legend>
             <label ><input class="radio" name="contato" type="radio" value="email">Email</label>
 
-            <label ><input class="radio" name="contato" type="radio" value="WhatsApp">WhatsApp</label>
+            <label ><input class="radio" name="contato" type="radio" value="WhatsApp" checked>WhatsApp</label>
             
             <label ><input  class="radio" name="contato" type="radio" value="Ligação">Ligação</label>
             
-        </div>
-        <label ><input type="checkbox" class="radio"> Gostaria de receber nossas novidades por email?</label>
+        </fieldset>
+
+        <fieldset class="atendimento">
+            <legend>Qual o horário pretende ser atendido?</legend>
+            <select>
+                <option>Manhã (08:00-12:00)</option>
+                <option>Tarde (13:00 - 18:00)</option>
+                <option>Noite (18:00- 20:00)</option>
+            </select>
+        </fieldset>
+
+        <label ><input type="checkbox" class="radio" checked> Gostaria de receber nossas novidades por email?</label>
         
         <br>
-        <input type="submit" value="Enviar">
+        <input type="submit" value="Enviar" class="enviar">
 </form>
+
+<table>
+
+    <thead>
+        <tr>
+            <td colspan="2">Horários de Funcionamento:</td> 
+        </tr>
+        <tr>
+            <th>Dia</th>
+            <th>Horário</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Segunda a Sexta</td>
+            <td>8:00h-21:00h</td>
+        </tr>
+
+        <tr>
+            <td>Fim de Semana</td>
+            <td>8:00h - 16:00h</td>
+        </tr>
+
+        <tr>
+            <td>Feriado</td>
+            <td>8:00h-12:00h</td>
+        </tr>
+    </tbody>
+</table>
+
 </main>
 
 <footer>

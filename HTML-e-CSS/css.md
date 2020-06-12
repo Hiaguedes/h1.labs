@@ -158,3 +158,43 @@ background: url("Caminho da imagem")
 ## Formulários
 
 A guia de input já tem a borda delimitada, para aumentar seu tamanho mude o espaçamento interno (para ter mais espaço de digitação)
+
+## Hierarquia no css
+
+A força de uma tag no css vale 1, a de uma classe vale 10 e a de um identificador vale 100.
+
+Então se termos um `p {color: red}` e uma `main p {color:blue}` a força de `main p` é de 2, contra um de `p` portanto a cor pintada no parágrafo será de azul pois essa tem uma força maior. Uma boa forma é trabalhar sempre com classe. E o inline `<p style="color:purple>"` tem uma força de mil e esse é imutável. 
+
+## Transições
+
+Vamos supor que queremos alterar a cor de um elemento quando ele está em cima de um botão, e queremos uma transição que não seja instantanea, para isso usamos o `transition` e como argumento usamos o tempo, 1s, 2s tanto faz. E depois a mudança que queremos ver no caso a cor de fundo deixando nosso elemento como:
+
+```css
+transition: 1s background;
+```
+
+## Transformações
+
+Uma forma de aumentar o tamanho do botão é com a trasnformação de escala e isso é feito assim que eu passo o mouse em cima dela e eu faço isso com:
+
+```css
+ .enviar:hover {
+    background: rgb(88, 63, 15);
+    transform: scale(1.2);
+ }
+```
+
+E para acontecer uma transição mais suave eu mudo o estilo do botão enviar com:
+
+```css
+transition: 1s all;
+```
+
+Para adicionar mais transformações eu posso fazer
+
+```css
+ .enviar:hover {
+    background: rgb(88, 63, 15);
+    transform: scale(1.2) rotate(30deg);
+ }
+```
