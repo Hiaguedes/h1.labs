@@ -102,3 +102,75 @@ Para listar o diretório propriamente dito, podemos utilizar a opção -d, com -
 Cada arquivo está representado por um nó (como se o sistema se referenciasse por nós) e cada um desses nós pode ser visto como `ls -i`
 
 Para mais veja o manual do comando ls.
+
+## Criar diretórios
+
+O comando para criar diretórios é conhecido e é
+
+```sh
+mkdir <nome da pasta que quero criar>
+```
+
+Caso eu de um caminho com pastas que não existem eu posso forçar a criação deles com `-p`
+
+make directory
+
+E para remover o diretório
+
+```sh
+rmdir <nome da pasta existente>
+```
+
+Enquanto os diretórios estão vazios eu posso remover todos com `-p` também. Entenda vazio como nenhum arquivo (oculto ou não) e nenhum diretório dentro da pasta.
+
+Posso com o globbing criar diversas pastas que seguem um certo padrão como
+
+```sh
+mkdir Pictures/fotos/201{1,2,3,4,5,6}
+```
+
+Com isso crio as pastas de fotos de 2011,2012,2013,2014, 2015 e 2016
+
+![Com esse comando temos algo como](img/mkdir-glob.png)
+
+E eu posso fazer mais como um
+
+```sh
+mkdir Pictures/fotos/201{1,2,3,4,5,6}/trimestre{1,2,3,4}
+```
+
+Que cria mais pastas dentro de pastas, dá para fazer esse procedimento com o `rmdir` (pode parecer que dá errado mas se dermos um `-v` junto com o `-p` vemos o que ele faz de fato. Apagando tudo o que pedimos (desde que esteja vazio, sem arquivos))
+
+## Criando e removendo arquivos
+
+Se dermos um `touch <nome de arquivo que não existe>` nós criamos um arquivo novo (esse touch serve para tocar um arquivo, não faz nada só atualiza o tempo da ultima modificação dele), o touch não cria nada dentro desse arquivo, mas se ele nao existe ele cria
+
+Para remover um arquivo eu escrevo com `rm` somente
+
+```sh
+rm <arquivo que existe>
+```
+
+E `rm` somente remove arquivos e não diretórios.
+
+Para apagar todos os arquivos de uma pasta eu dou
+
+```sh
+rm -r <nome da pasta>
+```
+
+Para ver tudo que está sendo feito `-v` para ser perguntado `-i` e para forçar o apagamento `-f`. Cuidado para nao apagar a pasta raiz hahaha
+
+## copy
+
+Podemos aplicar o copy de um arquivo para outro com nome diferente, de um arquivo para uma pasta diferente, e copiar uma pasta inteira para outra
+
+Para fazer um backup de uma série de arquivos para outras nós usamos o `-u` pois utilizamos apenas os arquivos modificados ou `-b` mesmo que deixa os arquivos antigos. `-i` me pergunta se eu quero realmente fazer isso.
+
+Para copiar uma pasta nós temos que copiar recursivamente com `-r` ou `-R`
+
+```sh
+cp -rv logs logs_backup
+```
+
+Se logs_backup não existe ele cria e copia os arquivos para dentro dele, mas se existe ele copia a pasta logs para dentro de logs_backup.
