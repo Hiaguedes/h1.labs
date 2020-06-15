@@ -1,3 +1,8 @@
+body {
+    background: #C8C8C8;
+    font-family: 'Montserrat', sans-serif;
+}
+
 main {
     width: 1200px;
     margin: 0 auto;
@@ -45,12 +50,17 @@ form input ,form textarea{
     border: none;
     border-radius: 5px;
     transition: 1s all;
+    opacity: 0.7;
     cursor: pointer;
  }
 
  .enviar:hover {
     background: rgb(88, 63, 15);
     transform: scale(1.2);
+ }
+
+ .enviar:active{
+     opacity: 1;
  }
 
 table {

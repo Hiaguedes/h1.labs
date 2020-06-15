@@ -198,3 +198,141 @@ Para adicionar mais transformações eu posso fazer
     transform: scale(1.2) rotate(30deg);
  }
 ```
+
+## Dicas para melhorar o CSS
+
+Quando uma div tem um titulo, imagens e conteudo apenas normalmente dizemos que aquela parte é uma `section`, isso deixa nosso html mais semântico.
+
+Dica: quando se olha para o css use a classe, quando se olha para o comportamento (com js) use identificador.
+
+Não coloque nomes como titulo-centralizado, caixa-a-esquerda, tente colocar nomes mais genericos como titulo-principal, titulo-secundario, pois a posso associar melhor os usos dessas classes em outros momentos do código. (imagine que aquela página vai ser aumentada e incrementada no futuro). Tente ser específico mas não tanto. Um balanço é a melhor alternativa. Nem tão específica, para poder repetir as classes, e nem tão genérica, para poder não precisar combinar classes.
+
+O tamanho base de um texto em px são de 15px o que equivale a 1em, o em é uma proporcionalidade da medida em pixels.
+
+## O float
+
+Tanto o float:left quanto o float: right servem para que o elemento se destaque na tela, deixe de ocupar o espaço em que estava, para que os outros elementos possam se posicionar ao redor dele.
+
+Só que ele quebra um pouco as regras de todos os outros elementos da página, para não quebrar os elementos que estão ao redor dele, nós temos a propriedade `clear:left`, `clear:right`
+
+## Mais sobre pseudo-classes e pseudo-elementos
+
+Com `.itens:nth-child(4)` podemos selecionar qualquer elemento dentro de uma lista criada com html (no caso estamos no quarto elemento), com `first-child` teríamos o primeiro e `last-child` o último item. Com (2n) no argumento pegaríamos os elementos pares
+
+Com :first-letter selecionamos apenas a primeira letra dos elementos que queremos modificar, assim como a primeira letra temos a primeira linha também.
+
+### before e after
+
+Não confunda, before é antes e after é depois hahahaha
+
+A idéia aqui é colocar um elemento visual (e não selecionável) antes do css atuar no elemento e depois do css ter terminado de atuar sobre ele.
+
+## Gradientes
+
+Podemos aplicar um degradê entre duas cores no background com
+
+```css
+background: linear-gradient(black,grey);
+```
+
+Isso faz um gradiente horizontal entre essas duas cores, posso colocar uma inclinação entre essas duas cores com:
+
+```css
+background: linear-gradient(45deg,black,grey);
+```
+
+E posso adicionar mais cores com:
+
+```css
+background: linear-gradient(45deg,black,grey,white);
+```
+
+Além de colocar pesos específicos de ocupação dessas cores com:
+
+```css
+background: linear-gradient(45deg,black 30%,grey 40%,white);
+```
+
+Para criar um gradiente circular temos:
+
+```css
+background: radial-gradient(45deg,black 30%,grey 40%,white);
+```
+
+## Seletores Avançados
+
+Seletor >, para acessar os filhos de determinado elemento. Por exemplo, para acessar todos os p dentro de main:
+
+```css
+main > p {}
+```
+
+Seletor +, para acessar o primeiro irmão de determinado elemento. Por exemplo, para acessar o primeiro p após um img:
+
+```css
+img + p{}
+```
+
+Seletor ~, para acessar todos os irmãos de determinado elemento. Por exemplo, para acessar todos os p após um img:
+
+```css
+img ~ p{}
+```
+
+Os seletores tem a mesma força.
+
+Seletor not, para acessar os elementos, exceto algum. Por exemplo, para acessar todos os p dentro da classe principals, exceto o p que tem id missao:
+
+```css
+.principal p:not(#missao){}
+```
+
+Onde img seria o irmão onde p está dentro dele.
+
+## Problemas com tamanho de imagem
+
+As vezes precisamos colocar a imagem em um tamanho que não sabemos muito bem qual é, mas que atenda tanto o mundo desk quanto o mundo mobile, sabemos que o width deixa a imagem bem proporcional para nós e com a função calc podemos fazer operações matemáticas com números proporcionais e específicos ao mesmo tempo como em:
+
+```css
+width: calc(40%-(27px *4));
+```
+
+Com calc teremos o tamanho calculado perfeitamente (é uma ferramenta bem específica mas que pode vir a calhar com a necessidade do projeto)
+
+## Opacidade
+
+A opacidade nos diz se queremos visualizar tudo do elemento ou não, se queremos ver 30% selecionamos 0.3, se queremos ver 90% 0.9 e por aí vai como:
+
+```css
+opacity: 0.3;
+```
+
+Com rgb usamos a opacidade com a função rgba como:
+
+```css
+rgba(0.0.0.0.3)
+```
+
+E é esse quarto elemento que é a camada alpha.
+
+Ou seja todos os elementos e todas as cores podem ter a opacidade setada.
+
+## Sombra
+
+Com `box-shadow` eu consigo aplicar uma luz na caixa e ter uma sensação de sombra.
+
+```css
+box-shadow: <deslocamento no eixo x> <deslocamento no eixo y> <blur(opcional)> <intensidade da sombra(opcional)> <cor>
+```
+
+Podemos colocar mais sombras se necessário, basta colocar uma vírugula.
+
+Uma outra coisa legal é o sombreamento interno e para isso colocamos o inset.
+
+```css
+box-shadow: inset 0 0 <medida em pixels do espaçamento interno> <cor>
+```
+
+Essa solução pode ser interessante para uma div inteira.
+
+Tem a `text-shadow` para uma palavra ou texto.

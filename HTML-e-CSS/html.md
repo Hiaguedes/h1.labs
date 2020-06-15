@@ -217,3 +217,23 @@ Resumo de criação de tabelas:
 Então para 1 linha representada por `tr` temos n células `td`, para mesclar células em uma mesma linha colocamos `colspan` na linha.
 
 E assim nosso trabalho de edição no css fica muito facilitado.
+
+## Fontes externas
+
+### Fonte da página
+
+Existem fontes que são preparadas para a web e outras que não, um bom site que nos dá uma variedade legal de fontes é a Google Fontes e conseguimos importar uma link de css direto com eles.
+
+Como em <https://fonts.googleapis.com/css2?family=Montserrat&display=swap>
+
+### Mapa
+
+Pelo google maps vá na localização desejada, menu, shared or embeb map (compartilhar ou incorporar), clique em incorporar e copie o iframe que o google colocar para você.
+
+O iframe é uma janela que nos é oferecida por diversos sites onde podemos adequar-la melhor no nosso site. Sites famosos como o google, o facebook e o instagram podem oferecer esse serviço.
+
+### Vídeo
+
+A idéia é a mesma, com o youtube temos como importar vídeos, vai em compartilhar e depois em incorporar e seleciona o trecho.
+
+A melhor maneira de tratar um iframe é criar uma div em volta dela e fazer o que for necessário (como centralizar-la)

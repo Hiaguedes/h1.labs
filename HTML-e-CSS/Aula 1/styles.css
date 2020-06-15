@@ -1,52 +1,63 @@
-
 body {
     background: #C8C8C8;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #banner {
-    text-align: center;
     width: 100%;
+    height: 650px;
+}
+
+main{
+    background: linear-gradient(#ebe6e6,rgb(27, 27, 27));
+}
+
+.aviso > p{
+    text-align: center;
+    background: rgb(241, 228, 35);
 }
 
 .caixa-centralizada {
-    text-align: center;
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 2em;
     padding: 28px;
-    border: solid 10px;
+    border: solid 2px;
+    border-radius: 1em;
     width: 1200px;
     margin: 10px auto;
+    clear: left;
 }
 
-.div1 hr {
-margin: 0px ;
-}
-
-.div1 p {
- margin:0;
- padding-top: 10px;
-}
-
-.div1 {
+.principal {
     text-align: center;
-    background: #A2A2A2;
     width: 100%;
     padding: 20px 0;
     padding-bottom: 25px;
 }
 
-.div1 #missao {
+.principal p {
+text-align: left;
+ padding-top: 1em;
+ width: 60%;
+ margin: 0 auto;
+}
 
+.principal #missao {
     font-size: 24px;
 }
 
-.div1 #missao strong {
+.principal #missao strong {
     color: rgb(117, 42, 17);
+}
+
+.principal .utensilios{
+    width: 120px;
+    float: left;
+    margin-left: 250px;
 }
 
 .beneficios {
     text-align: left;
-    background: rgb(99, 99, 99);
     width: 100%;
     padding: 20px 0;
 }
@@ -55,31 +66,64 @@ margin: 0px ;
     padding-top: 10px;
     padding-left: 20px;
     padding-bottom: 30px;
-    font-size: 20px;
+    font-size: 1.7em;
     font-weight: bold;
     text-align: center;
-    text-decoration-line: underline;
+    clear: left;
+}
+
+.main-beneficios{
+    width: 1000px;
+    margin: 30px auto;
 }
 
 .beneficios ul {
+
     display: inline-block;
     vertical-align: top;
-    width: 20%;
-    margin-right: 15%;
+    width: 40%;
 }
 
 .itens {
     font-style: italic;
     color: rgba(255, 238, 0, 0.76);
-}
-
-
-#rock {
-    width: 50%;
+    padding-bottom: 30px;
 }
 
 .itens:hover{
     color:rgba(62, 199, 147, 0.76);
+}
+
+.itens:nth-child(2n+1) {
+    font-weight: bold;
+}
+
+.itens:before{
+    content: "✂";
+}
+
+#rock {
+    width: 60%;
+    box-shadow: 5px -5px 10px black;
+
+}
+
+.mapa {
+    width: 1200px;
+    margin: 0px auto;
+    padding: 3em 0;
+}
+
+.mapa p{
+    margin: 0 0 1em 0;
+    text-align: center;
+}
+
+
+.video{
+    width: 1200px;
+    margin: 30px auto;
+    opacity: 0.9;
 }
 
 em ,i{
@@ -87,5 +131,5 @@ em ,i{
 }
 
 strong,b{
-	font-weight: bolder;
+	font-weight: bolder;;
 }
