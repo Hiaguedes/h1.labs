@@ -35,3 +35,18 @@ header nav a:hover {
     color: #e6e724;
     text-decoration-line: underline;
 } 
+
+@media screen and (max-width: 480px) {
+    .header{
+        width: auto;
+        padding: 0 10px;
+    }
+
+    header h1 {
+        text-align: center;
+    }
+
+    header nav {
+        position:static;
+    }
+}

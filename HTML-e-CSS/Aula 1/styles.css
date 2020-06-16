@@ -15,6 +15,7 @@ main{
 .aviso > p{
     text-align: center;
     background: rgb(241, 228, 35);
+    padding: 6px 0;
 }
 
 .caixa-centralizada {
@@ -99,7 +100,7 @@ text-align: left;
 }
 
 .itens:before{
-    content: "✂";
+    content: "✂ ";
 }
 
 #rock {
@@ -132,4 +133,19 @@ em ,i{
 
 strong,b{
 	font-weight: bolder;;
+}
+
+@media screen and (max-width: 480px) {
+    .principal, .beneficios, .main-beneficios,.mapa,.video, .caixa-centralizada{
+        width: auto;
+        margin: 0 5px;
+    }
+
+    #banner {
+        height: 250px;
+    }
+
+    #rock ,.lista-beneficios {
+        width: 100%;
+    }
 }

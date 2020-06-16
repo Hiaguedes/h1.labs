@@ -86,3 +86,26 @@ td ,th {
     border: solid 2px black;
     padding: 10px;
 }
+
+@media screen and (max-width: 480px) {
+    main {
+        width: auto;
+        padding: 0 10px;
+        font-size: 13px;
+    }
+
+    table{
+        left:10%;
+    }
+
+    .enviar {
+        width: 25%;
+    }
+
+    form input ,form textarea{
+        width: 65%;
+    }
+    .radio {
+        width: 10%;
+    }
+}

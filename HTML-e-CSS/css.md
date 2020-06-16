@@ -336,3 +336,29 @@ box-shadow: inset 0 0 <medida em pixels do espaçamento interno> <cor>
 Essa solução pode ser interessante para uma div inteira.
 
 Tem a `text-shadow` para uma palavra ou texto.
+
+## Adaptar a tela para celulares
+
+Com `CTRL+SHIFT+I` conseguimos inspecionar a tela da nossa página e com a seguinte tecla no nosso navegador conseguimos ver como essa tela estaria no celular
+
+![Mudando alteração da tela da página](img/viewport.png)
+
+E com isso colocaremos a seguinte meta no html
+
+```html
+ <meta name="viewport" content="width=device-width">
+```
+
+E podemos mecher no css ao colocar um tamanho de tela desejado com:
+
+```css
+@media screen and (max-width: 480px) {
+
+<funcoes em css que eu quero alterar com um tamanho de tela de até 480px [tamanho esse que abrange muitos celulares]>
+
+}
+```
+
+A primeira coisa que você vai querer fazer é botar a largura de todo mundo como automática (por que em mobile você não sabe o tamanho da tela do celular que você vai atingir)
+
+Muito por isso que é bom usarmos medidas proporcionais sempre que possível

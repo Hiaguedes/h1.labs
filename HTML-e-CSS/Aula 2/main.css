@@ -61,3 +61,12 @@ main li:active{
 main li:hover h2{
     font-size: 33px;
 }
+
+@media screen and (max-width: 480px) {
+    main ul
+    {width: 90%;}
+}
+    main li {
+        width: 100%;
+        margin: 20px 0;
+}
