@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="reset.css">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>Uso do Canvas!</title>
+    </head>
+    <body>
+
+<script id="titulo">
+    document.write("<h1>Desenhando com a tag html canvas</h1>");
+</script>
+
+<canvas id="canvas0" height="500"></canvas>
+
+<script>
+    var tela =document.getElementById('canvas0');
+    var pincel = tela.getContext('2d');
+    canvas0.width = document.body.clientWidth; //document.width is obsolete
+
+    pincel.fillStyle = 'rgb(191, 250, 110)';
+    pincel.fillRect(0,0,500,50);
+
+    pincel.fillStyle = 'rgb(159, 233, 252)';
+    pincel.beginPath();
+    pincel.moveTo(50,100);
+    pincel.lineTo(50,200);
+    pincel.lineTo(100,150);
+    pincel.fill();
+
+    pincel.beginPath();
+    pincel.fillStyle = 'rgb(239, 109, 11)';
+    pincel.arc(150,300,40,0,2 * Math.PI);
+    pincel.fill();
+
+</script>
+
+<canvas id="canvas1" height="500"></canvas>
+
+<script>
+    var tela =document.getElementById('canvas1');
+    var pincel = tela.getContext('2d');
+    canvas1.width = document.body.clientWidth; //document.width is obsolete
+
+    pincel.fillStyle='rgb(32, 242, 11)';
+    pincel.fillRect(100,100,500,300);
+
+    pincel.fillStyle='rgb(254, 252, 35)';
+    pincel.beginPath();
+    pincel.moveTo(100+50,100+150);
+    pincel.lineTo(100+450,100+150);
+    pincel.lineTo(100+250,100+50);
+    pincel.fill();
+
+    pincel.beginPath();
+    pincel.moveTo(100+50,100+150);
+    pincel.lineTo(100+450,100+150);
+    pincel.lineTo(100+250,100+250);
+    pincel.fill();
+
+    pincel.beginPath();
+    pincel.fillStyle='rgb(15, 51, 247)';
+    pincel.arc(350,250,50,0,2*Math.PI);
+    pincel.fill();
+</script>
+
+<canvas id="canvas2" height="500"></canvas>
+
+<script>
+    var tela =document.getElementById('canvas2');
+    var pincel = tela.getContext('2d');
+    canvas2.width = document.body.clientWidth; //document.width is obsolete
+
+    function desenhaQuadradoComFundoComBorda(x_0, y_0 ,largura, altura,cor) {
+        pincel.fillStyle=cor;
+        pincel.fillRect	(x_0,y_0,largura,altura);
+        pincel.fillStroke='rgb(5, 5, 5)';
+        pincel.strokeRect(x_0,y_0,largura,altura);
+    }
+
+
+    desenhaQuadradoComFundoComBorda(100,250,40,100,'rgb(15, 51, 247)');
+    desenhaQuadradoComFundoComBorda(450,20,120,35,'rgb(15, 200, 247)');
+    desenhaQuadradoComFundoComBorda(620,420,230,5,'rgb(15, 36, 27)');
+
+for(let i=0; i<5*50;i=i+50){
+    desenhaQuadradoComFundoComBorda(i+500,250,50,50,'rgb(250, 227, 27)');
+}
+
+for(let j=0; j<5*50;j=j+50){
+    desenhaQuadradoComFundoComBorda(1050,j+60,50,50,'rgb(151, 118, 27)');
+}
+
+for(let i=0; i<canvas2.width;i=i+50){
+    desenhaQuadradoComFundoComBorda(i,450,50,50,'rgb(131, 143, 210)');
+}
+
+</script>
+
+<canvas id="canvas3" height="500"></canvas>
+
+<script>
+    var tela =document.getElementById('canvas3');
+    var pincel = tela.getContext('2d');
+    canvas3.width = document.body.clientWidth; //document.width is obsolete
+
+function desenhaCirculo(x, y, raio, cor) {
+
+    pincel.fillStyle = cor;
+    pincel.beginPath();
+    pincel.arc(x, y, raio, 0, 2*Math.PI);
+    pincel.fill();
+}
+
+function flor(x_o,y_o,raio){
+    desenhaCirculo(x_o-2*raio, y_o, raio, 'orange');
+    desenhaCirculo(x_o, y_o, raio, 'red');
+    desenhaCirculo(x_o+raio*2, y_o, raio, 'black');
+    desenhaCirculo(x_o, y_o-2*raio, raio, 'yellow');
+    desenhaCirculo(x_o, y_o+2*raio, raio, 'blue');
+}
+
+flor(100,100,30);
+flor(350,250,70);
+flor(1000,250,10);
+
+</script>
+
+<canvas id="canvas4" height="500"></canvas>
+
+<script>
+    var tela =document.getElementById('canvas4');
+    var pincel = tela.getContext('2d');
+    canvas4.width = document.body.clientWidth; //document.width is obsolete
+
+    function desenhaFracao(x_0, y_0 ,largura, altura,cor,num,den) {
+        pincel.fillStyle=cor;
+        if(num<=den){
+        for(i=0;i<num*largura;i=i+largura){
+            pincel.fillRect(x_0+i,y_0,largura,altura);
+        }
+
+        pincel.fillStroke='rgb(5, 5, 5)';
+
+        for(i=0;i<den*largura;i=i+largura){
+            pincel.strokeRect(x_0+i,y_0,largura,altura);
+        }
+    }else{console.log("Opte por fazer o numerador (num) ser menor que o denominador (den)")}
+    }
+
+    function desenhaTexto(x , y,texto) {
+
+        pincel.font='20px Georgia';
+        pincel.fillStyle='black';
+        pincel.fillText(texto,x,y);    
+    }
+
+    desenhaTexto(150,100,'Quanto vale a fração? ')
+    desenhaFracao(150,150,50,50,'rgb(131, 239, 210)',3,5);
+    desenhaFracao(150,220,50,50,'rgb(131, 239, 210)',2,10);
+    desenhaFracao(150,290,50,50,'rgb(131, 239, 210)',8,3);
+    desenhaFracao(150,290,50,50,'rgb(131, 239, 210)',3,8);
+
+    pincel.beginPath();
+    pincel.moveTo(canvas4.width/2,0);
+    pincel.lineTo(canvas4.width/2,500);
+    pincel.stroke();
+
+    function desenhaGraficoBarras(x, y, largura, altura, cor,texto) {
+        pincel.strokeStyle='black';
+        var alt = y;
+        desenhaTexto(x,y-25,texto);
+        for(i=0;i<altura.length;i++){
+            pincel.fillStyle=cor[i];
+
+            pincel.fillRect(x,alt, largura, altura[i])
+            pincel.strokeRect(x,alt, largura, altura[i]);
+
+            alt+=altura[i];
+        }
+    }
+
+    var serie2015 = [50, 25, 20, 5];
+    var serie2016 = [65, 20, 13, 2];
+    var cores = ['blue', 'green', 'yellow', 'red'];
+
+    desenhaGraficoBarras(0.75*canvas4.width,100,65,serie2015,cores,'2015');
+    desenhaGraficoBarras(0.85*canvas4.width,100,65,serie2016,cores,'2016');
+
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,11 @@
+h1 {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 30px;
+}
+
+canvas {
+    background: rgb(190, 190, 190);
+    margin: 40px 0;
+    display: block;
+}
