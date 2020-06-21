@@ -190,5 +190,410 @@ flor(1000,250,10);
 
 </script>
 
+<canvas id="canvas5" height="500">
+</canvas>
+Escolha uma cor <input type="color">
+<script>
+    var tela =document.getElementById('canvas5');
+    var pincel = tela.getContext('2d');
+    var paleta = document.querySelector('input');
+
+    canvas5.width = document.body.clientWidth; //document.width is obsolete
+    var cores=['red','blue','green'];
+    let i=0;
+   
+    var desenhar=false;
+
+function desenhaCirculo(evento){
+            var x = evento.layerX;
+            var y = evento.layerY;
+            var raio=10;
+            //console.log(x,y);
+            pincel.beginPath();
+            //pincel.fillStyle= cores[i];
+            pincel.fillStyle=paleta.value;
+            desenhaTexto(canvas5.width/2,300,`Selecione cor com o menu embaixo do canvas `);
+
+            if(desenhar){
+            if(evento.shiftKey){
+                raio = 30;
+            }/*else{
+                raio=5;
+            }volte com raio para a função para fazer o raio normal ser 5*/
+            if(evento.altKey){
+                raio =5;
+            }
+
+            if(evento.ctrlKey){
+                pincel.fillStyle='rgb(190, 190, 190)';
+                raio=30;
+
+            }
+            pincel.arc(x,y,raio,0,2*Math.PI);
+            pincel.fill();
+            //console.log(evento);
+            }
+
+            if(x<=0||x>=canvas5.width||y<=0||y>=499){
+                desenhar=false;
+            }
+            console.log(x,y, desenhar);
+    }
+    
+function desenhaTexto(x , y,texto) {
+        pincel.fillStyle='rgb(190, 190, 190)';
+        pincel.style.fontWeight='bold';
+        pincel.fillText(texto,x,y); 
+        //pincel.fillStyle=cores[i];
+        pincel.fillStyle=paleta.value;
+        pincel.style.fontWeight='normal';
+        pincel.font='30px Georgia';
+        pincel.fillText(texto,x,y);    
+}
+
+function desenhaTexto(x , y,texto,cor) {
+        pincel.fillStyle=cor;
+        pincel.font='30px Georgia';
+        pincel.fillText(texto,x,y);    
+}
+    
+    tela.onmousemove =desenhaCirculo;
+    tela.onmousedown = habilitaDesenho;
+    tela.onmouseup = desabilitaDesenho;
+
+    function habilitaDesenho(){
+        desenhar=true;
+    }
+
+    function desabilitaDesenho(){
+        desenhar=false;
+    }
+
+    desenhaTexto(canvas5.width/2,250,"Clique em mim! :) ",'black');
+    desenhaTexto(canvas5.width/2,330,"Pressione shift e click para bolas maiores",'black');
+
+   /* function mudaCor (){
+        i++;
+        if(i>cores.length-1){
+            i=0;
+        }
+        console.log(cores[i]);
+        pincel.fillStyle= cores[i];
+        return false;//para nao mostrar o menu quando aperta o botão direito
+    }
+*/
+   // tela.oncontextmenu=mudaCor;
+
+</script>
+
+<canvas id="canvas6" height="500"></canvas>
+
+<script>
+    var tela1=document.getElementById('canvas6');
+    var pincel1=tela1.getContext('2d');
+    canvas6.width = document.body.clientWidth;
+
+    function desenhaCirculo(x,y,raio,cor){
+        pincel1.beginPath();
+        pincel1.fillStyle=cor;
+        pincel1.arc(x,y,raio,0,2*Math.PI);
+        pincel1.fill();
+    }
+
+    function limpaTela(){
+        pincel1.fillStyle='rgb(190, 190, 190)';
+        pincel1.clearRect(0,0,canvas6.width,500);
+    }
+
+    var x=250;
+    var y=250;
+
+    let vai=true;
+
+    function animaCirculo(){
+        limpaTela();
+        desenhaCirculo(x,250,10,'red');
+
+        if(vai){
+            x++;
+        }else{
+            x--;
+        }
+
+        if(x>=canvas6.width) vai=false;
+        if(x<=0) vai=true;
+    }
+
+    var raio=20;
+    var dilata =false;
+
+    function pulsaCirculo(){
+        pincel1.fillStyle='rgb(190, 190, 190)';
+        pincel1.clearRect(450,300,550,500);
+        desenhaCirculo(500,350,raio,'red');
+
+        if(dilata){
+            raio++;
+        }else{
+            raio--;
+        }
+
+        if(raio>=30) dilata=false;
+        if(raio<=20) dilata=true;
+
+    }
+    
+    setInterval(animaCirculo,20);
+    setInterval(pulsaCirculo,20);
+
+</script>
+
+<canvas id="canvas7" height="500"></canvas>
+
+<script>
+    var tela2=document.getElementById('canvas7');
+    var pincel2=tela2.getContext('2d');
+    canvas7.width = document.body.clientWidth;
+
+    function desenhaCirculo1(x,y,raio,cor){
+        pincel2.beginPath();
+        pincel2.fillStyle=cor;
+        pincel2.arc(x,y,raio,0,2*Math.PI);
+        pincel2.fill();
+    }
+
+    var xo=250;
+    var yo=250;
+
+    function limpaTela1(){
+        pincel2.fillStyle='rgb(190, 190, 190)';
+        pincel2.clearRect(0,0,canvas7.width,500);
+    }
+
+    function atualizaTela(){
+        limpaTela1();
+        desenhaCirculo1(xo,yo,10,'red');
+    }
+
+    function movimentaBolaPeloTeclado(evento) {
+
+        /*   var down = 38 || 87;
+            var up = 40 ||83;
+            var left = 37 || 65;
+            var right = 39 || 68;
+
+        */
+
+    switch(evento.keyCode){
+        case 38:
+        case 87:
+            yo -=10;
+            if(yo<=0) yo=0
+        break;
+
+        case 40:
+        case 83:
+            yo +=10;
+            if(yo>=499) yo=499;
+        break;
+
+        case 37:
+        case 65:
+            xo -=10;
+            if(xo<=0) xo=0;
+        break;
+
+        case 39:
+        case 68:
+            xo+=10;
+            if(xo>=canvas7.width) xo=canvas7.width;
+        break;   
+        
+}
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
+}
+
+document.onkeydown = movimentaBolaPeloTeclado;
+setInterval(atualizaTela,20);
+</script>
+
+<input id="placar" type="text" value="0" disabled><br>
+<canvas id="canvas8" height="500"></canvas>
+
+<script>
+    var placar = document.getElementById('placar');
+    var tela3=document.getElementById('canvas8');
+    var pincel3=tela3.getContext('2d');
+    var X;
+    var Y;
+    var acertos=0;
+
+
+    canvas8.width = document.body.clientWidth;
+
+    function desenhaCirculo2(x,y,raio,cor){
+        pincel3.beginPath();
+        pincel3.fillStyle=cor;
+        pincel3.arc(x,y,raio,0,2*Math.PI);
+        pincel3.fill();
+    }
+
+    function desenhaAlvo(x,y,raio){
+        desenhaCirculo2(x,y,2.5*raio,'red');
+        desenhaCirculo2(x,y,1.85*raio,'white');
+        desenhaCirculo2(x,y,raio,'red');
+    }
+
+    function getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+}
+
+function limpaTela2(){
+        pincel3.fillStyle='rgb(190, 190, 190)';
+        pincel3.clearRect(0,0,canvas7.width,500);
+    }
+
+    function desenhaAlvoAleatorio(){
+        var taxa=50;
+         X =getRandomArbitrary(taxa,canvas8.width-taxa);
+         Y =getRandomArbitrary(taxa,500-taxa);
+        limpaTela2();
+        desenhaAlvo(X,Y,10);
+    }
+
+    setInterval(desenhaAlvoAleatorio,1300);
+
+ function Placar(pontos){
+     placar.value=pontos;
+ } 
+
+function dispara(evento){
+    var X0 = evento.layerX;
+    var Y0 = evento.layerY;
+    
+    if((X0<X+8 && X0>X-8)&& (Y0<8+Y && Y0>Y-8)){
+        alert('acertou');
+        acertos++;
+        Placar(acertos);
+    }
+    console.log(acertos);
+}
+
+    tela3.onclick = dispara;
+</script>
+
+<canvas id="canvas9" height="500"></canvas>
+
+<script>
+        var tela4=document.getElementById('canvas9');
+        var pincel4=tela4.getContext('2d');
+        canvas9.width=document.body.clientWidth;
+
+        function desenhaQuadrado(x, y, tamanho, cor) {
+
+    pincel4.fillStyle = cor;
+    pincel4.fillRect(x, y, tamanho, tamanho)
+    pincel4.fill();
+    }
+
+    function desenhaCirculo4(x, y, raio, cor) {
+
+    pincel4.fillStyle = cor; // o padrão é blue
+    pincel4.beginPath();
+    pincel4.arc(x, y, raio, 0, 2 * 3.14);
+    pincel4.fill();
+
+    }
+
+    function desenhaPaletaDeCores() {
+
+    desenhaQuadrado(xVermelho, yQuadrados, tamanhoQuadrados, 'red');
+    desenhaQuadrado(xVerde, yQuadrados, tamanhoQuadrados, 'green');
+    desenhaQuadrado(xAzul, yQuadrados, tamanhoQuadrados, 'blue');
+
+    }
+
+    function lidaComMovimentoDoMouse(evento) {
+
+    var xh = evento.layerX;
+    var yh = evento.layerY;
+
+    // usando a nova função 
+    if(desenha && podeDesenharNaArea(xh,yh)) {
+
+        desenhaCirculo4(xh, yh, 5, corAtual);
+    }
+    }
+
+    function habilitaDesenhar() {
+
+    desenha = true;
+    }
+
+    function desabilitaDesenhar() {
+
+    desenha = false;
+    }
+
+    function podeDesenharNaArea(x, y) {
+
+    if(x >= 0 && x < 3*tamanhoQuadrados && y >= 0 && y < tamanhoQuadrados) {
+        return false;
+    } else {
+        return true;
+    }
+    }
+
+    function selecionaCor(evento) {
+
+    var xp = evento.layerX ;
+    var yp = evento.layerY ;
+
+    // cada condição muda a variável `corAtual`
+
+    // começamos pela condição do y que é igual em todos os casos
+    if (yp > yQuadrados && yp < yQuadrados + tamanhoQuadrados) {
+
+        if (xp > xVermelho && xp < xVermelho + tamanhoQuadrados) {
+
+            corAtual = 'red';
+
+        } else if (xp > xVerde && xp < xVerde + tamanhoQuadrados) {
+
+            corAtual = 'green';
+
+        } else if (xp > xAzul && xp < xAzul + tamanhoQuadrados) {
+
+            corAtual = 'blue';
+        }
+    }
+    }
+
+
+    var desenha = false;
+    var corAtual = 'blue';
+    var xVermelho = 0;
+    var xVerde  = 50;
+    var xAzul = 100;
+    var yQuadrados = 0;
+    var tamanhoQuadrados = 50;
+
+    desenhaPaletaDeCores();
+
+    tela4.onmousemove = lidaComMovimentoDoMouse;
+
+    tela4.onmousedown = habilitaDesenhar;
+
+    tela4.onmouseup = desabilitaDesenhar;
+
+    tela4.onclick = selecionaCor;
+
+</script> 
+
     </body>
 </html>
