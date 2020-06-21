@@ -9,3 +9,10 @@ canvas {
     margin: 40px 0;
     display: block;
 }
+
+h2 {
+    text-align: center;
+    margin: 10px 0;
+    color: royalblue;
+    font-size: 18px;
+}

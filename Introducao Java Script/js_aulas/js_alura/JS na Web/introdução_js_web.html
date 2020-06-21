@@ -9,49 +9,62 @@
     <body>
 
 <script id="titulo">
-    document.write("<h1>Desenhando com a tag html canvas</h1>");
+    document.write("<h1>Desenhando com a tag html canvas</h1>"); //usando o document write consigo escrever no arquivo como se fosse um html e ainda consigo tratar ele com css.
 </script>
 
+<h2>Canvas 0</h2>
 <canvas id="canvas0" height="500"></canvas>
-
 <script>
-    var tela =document.getElementById('canvas0');
-    var pincel = tela.getContext('2d');
-    canvas0.width = document.body.clientWidth; //document.width is obsolete
+    var tela =document.getElementById('canvas0');//para começar a pintar primeiro eu preciso de um tela (que o java script reconheça), com isso podemos aplicar o querySelector da tag canvas ou pegar pelo 
+    //id específico do cancas
+    var pincel = tela.getContext('2d');//para criar o pincel nós devemos informar o tipo do pincel que queremos, por hora o mais simples é o do tipo 2d
+    canvas0.width = document.body.clientWidth; //document.width is obsolete, consigo pegar a tela toda. para isso não declare o width no html do respectivo canvas
 
-    pincel.fillStyle = 'rgb(191, 250, 110)';
-    pincel.fillRect(0,0,500,50);
 
-    pincel.fillStyle = 'rgb(159, 233, 252)';
+// O eixo de coordenadas é o ponto de origem no canto superior esquerdo, e o eixo x está na horizontal para a direita e o eixo y está na linha vertical para baixo
+
+    pincel.fillStyle = 'rgb(191, 250, 110)';//com o fill style é como se estivéssemos molhando nosso pincel com a cor que queremos, no caso essa cor aqui está mais para o verde
+    pincel.fillRect(0,0,500,50);//fillrect como o nome diz preenche um retângulo os parametros que eu passo para essa função são (coordenada inicial no eixo x, coordenada inicial no eixo y)
+// largura desse retângulo e altura desse retângulo
+
+    pincel.fillStyle = 'rgb(159, 233, 252)';//com o fill style é como se estivéssemos molhando nosso pincel com a cor que queremos
+    pincel.beginPath();// Aqui vamos começar um novo caminho, imagina uma CNC onde estamos indo para um ponto e nos basear de acordo com esse ponto
+    pincel.moveTo(50,100);// aqui colocamos qual será o ponto de referência para o pincel
+    pincel.lineTo(50,200);//aqui criamos uma linha do ponto de referencia para um outro ponto qualquer
+    pincel.lineTo(100,150);// aqui temos uma outra linha em relação ao mesmo ponto de referência
+    pincel.fill();// aqui preenchemos a figura das duas retas com a cor que selecionamos antes. o stroke seria pintal somente a linha e para mudar a cor dessas linhas fazemos pincel.fillStroke=cor
+
     pincel.beginPath();
-    pincel.moveTo(50,100);
-    pincel.lineTo(50,200);
-    pincel.lineTo(100,150);
+    pincel.fillStyle = 'rgb(239, 109, 11)';
+    pincel.arc(150,300,40,0,2 * Math.PI); // aqui desenhamos um círculo e as referências para esse círculo são (ponto x inicial, ponto y inicial, raio do circulo, angulo inicial e angulo final)
+    // a função arco, faz um arculo de circulo e pensando em coordenadas polares o ângulo inicial é 0 e o final é de 2PI
     pincel.fill();
 
     pincel.beginPath();
     pincel.fillStyle = 'rgb(239, 109, 11)';
-    pincel.arc(150,300,40,0,2 * Math.PI);
+    pincel.arc(550,400,40,0,1.2 * Math.PI); 
     pincel.fill();
 
 </script>
 
+<h2>Canvas 1</h2>
 <canvas id="canvas1" height="500"></canvas>
+<script> //bandeira do brasil
+    var tela =document.getElementById('canvas1'); //para começar a pintar primeiro eu preciso de um tela (que o java script reconheça), com isso podemos aplicar o querySelector da tag canvas ou pegar pelo 
+    //id específico do cancas
+    var pincel = tela.getContext('2d');//para criar o pincel nós devemos informar o tipo do pincel que queremos, por hora o mais simples é o do tipo 2d
+    canvas1.width = document.body.clientWidth; //document.width is obsolete, consigo pegar a tela toda. para isso não declare o width no html do respectivo canvas
 
-<script>
-    var tela =document.getElementById('canvas1');
-    var pincel = tela.getContext('2d');
-    canvas1.width = document.body.clientWidth; //document.width is obsolete
+    pincel.fillStyle='rgb(32, 242, 11)';//com o fill style é como se estivéssemos molhando nosso pincel com a cor que queremos, no caso essa cor aqui está mais para o verde
+    pincel.fillRect(100,100,500,300);//fillrect como o nome diz preenche um retângulo os parametros que eu passo para essa função são (coordenada inicial no eixo x, coordenada inicial no eixo y)
+// largura desse retângulo e altura desse retângulo
 
-    pincel.fillStyle='rgb(32, 242, 11)';
-    pincel.fillRect(100,100,500,300);
-
-    pincel.fillStyle='rgb(254, 252, 35)';
-    pincel.beginPath();
-    pincel.moveTo(100+50,100+150);
-    pincel.lineTo(100+450,100+150);
-    pincel.lineTo(100+250,100+50);
-    pincel.fill();
+    pincel.fillStyle='rgb(254, 252, 35)'; // aqui vamos mudar a cor para a criação de uma nova figura, no caso um triângulo
+    pincel.beginPath(); // Aqui vamos começar um novo caminho, imagina uma CNC onde estamos indo para um ponto e nos basear de acordo com esse ponto
+    pincel.moveTo(100+50,100+150);// aqui colocamos qual será o ponto de referência para o pincel
+    pincel.lineTo(100+450,100+150);//aqui criamos uma linha do ponto de referencia para um outro ponto qualquer
+    pincel.lineTo(100+250,100+50);// aqui temos uma outra linha em relação ao mesmo ponto de referência
+    pincel.fill();// aqui preenchemos a figura das duas retas com a cor que selecionamos antes. 
 
     pincel.beginPath();
     pincel.moveTo(100+50,100+150);
@@ -65,14 +78,15 @@
     pincel.fill();
 </script>
 
+<h2>Canvas 2</h2>
 <canvas id="canvas2" height="500"></canvas>
-
 <script>
     var tela =document.getElementById('canvas2');
     var pincel = tela.getContext('2d');
     canvas2.width = document.body.clientWidth; //document.width is obsolete
 
-    function desenhaQuadradoComFundoComBorda(x_0, y_0 ,largura, altura,cor) {
+    function desenhaQuadradoComFundoComBorda(x_0, y_0 ,largura, altura,cor) { //a criação de um função simples é dada por function nome(parametros -sem necessidade colocar int,let,var)
+    // e em baixo a função, essa parte é boa pois não precisamos copiar e colar códigos.
         pincel.fillStyle=cor;
         pincel.fillRect	(x_0,y_0,largura,altura);
         pincel.fillStroke='rgb(5, 5, 5)';
@@ -80,11 +94,11 @@
     }
 
 
-    desenhaQuadradoComFundoComBorda(100,250,40,100,'rgb(15, 51, 247)');
+    desenhaQuadradoComFundoComBorda(100,250,40,100,'rgb(15, 51, 247)'); // e com isso conseguimos simplesmente aplicar parametros na função e ver na tela o resultado
     desenhaQuadradoComFundoComBorda(450,20,120,35,'rgb(15, 200, 247)');
     desenhaQuadradoComFundoComBorda(620,420,230,5,'rgb(15, 36, 27)');
 
-for(let i=0; i<5*50;i=i+50){
+for(let i=0; i<5*50;i=i+50){ // ou iterar um dos parametros a fim de ver uma repetição de padrão
     desenhaQuadradoComFundoComBorda(i+500,250,50,50,'rgb(250, 227, 27)');
 }
 
@@ -98,14 +112,14 @@ for(let i=0; i<canvas2.width;i=i+50){
 
 </script>
 
+<h2>Canvas 3</h2>
 <canvas id="canvas3" height="500"></canvas>
-
 <script>
     var tela =document.getElementById('canvas3');
     var pincel = tela.getContext('2d');
     canvas3.width = document.body.clientWidth; //document.width is obsolete
 
-function desenhaCirculo(x, y, raio, cor) {
+function desenhaCirculo(x, y, raio, cor) { // podemos passar uma cor como parametro desde que tenha aspas
 
     pincel.fillStyle = cor;
     pincel.beginPath();
@@ -113,7 +127,7 @@ function desenhaCirculo(x, y, raio, cor) {
     pincel.fill();
 }
 
-function flor(x_o,y_o,raio){
+function flor(x_o,y_o,raio){ // podemos fazer uma função que chama outra função, inclusive isso deixa o código bem mais legível.
     desenhaCirculo(x_o-2*raio, y_o, raio, 'orange');
     desenhaCirculo(x_o, y_o, raio, 'red');
     desenhaCirculo(x_o+raio*2, y_o, raio, 'black');
@@ -121,39 +135,39 @@ function flor(x_o,y_o,raio){
     desenhaCirculo(x_o, y_o+2*raio, raio, 'blue');
 }
 
-flor(100,100,30);
+flor(100,100,30); // entenda como flor os quatro circulos que circundam o circulo do meio
 flor(350,250,70);
 flor(1000,250,10);
 
 </script>
 
+<h2>Canvas 4</h2>
 <canvas id="canvas4" height="500"></canvas>
-
 <script>
     var tela =document.getElementById('canvas4');
     var pincel = tela.getContext('2d');
     canvas4.width = document.body.clientWidth; //document.width is obsolete
 
-    function desenhaFracao(x_0, y_0 ,largura, altura,cor,num,den) {
-        pincel.fillStyle=cor;
-        if(num<=den){
-        for(i=0;i<num*largura;i=i+largura){
-            pincel.fillRect(x_0+i,y_0,largura,altura);
+    function desenhaFracao(x_0, y_0 ,largura, altura,cor,num,den) {//num = numerador e den=denominador
+        pincel.fillStyle=cor; //seta a cor de fundo de uma quadrado cheio
+        if(num<=den){ //escape para caso o denominador seja maior
+        for(i=0;i<num*largura;i=i+largura){ //num*largura garante que a interação será feita em multiplos da largura de um quadrado
+            pincel.fillRect(x_0+i,y_0,largura,altura);//itera o numero de quadrados na horizontal
         }
 
-        pincel.fillStroke='rgb(5, 5, 5)';
+        pincel.fillStroke='rgb(5, 5, 5)';//certa a cor das bordas
 
         for(i=0;i<den*largura;i=i+largura){
-            pincel.strokeRect(x_0+i,y_0,largura,altura);
+            pincel.strokeRect(x_0+i,y_0,largura,altura);//faz a borda dos quadrados cheios e dos vazios. Dando um aspecto de fração mesmo
         }
-    }else{console.log("Opte por fazer o numerador (num) ser menor que o denominador (den)")}
+    }else{console.log("Opte por fazer o numerador (num) ser menor que o denominador (den)")}//mostra mensagem no console para den>num
     }
 
-    function desenhaTexto(x , y,texto) {
+    function desenhaTexto(x , y,texto) { //podemos colocar outras fontes dentro de um texto dentro de um canvas
 
         pincel.font='20px Georgia';
         pincel.fillStyle='black';
-        pincel.fillText(texto,x,y);    
+        pincel.fillText(texto,x,y);    //no fundo incorporamos o fillText
     }
 
     desenhaTexto(150,100,'Quanto vale a fração? ')
@@ -165,23 +179,24 @@ flor(1000,250,10);
     pincel.beginPath();
     pincel.moveTo(canvas4.width/2,0);
     pincel.lineTo(canvas4.width/2,500);
-    pincel.stroke();
+    pincel.stroke(); // desenha a linha no meio que divide duas telas no mesmo canvas
 
-    function desenhaGraficoBarras(x, y, largura, altura, cor,texto) {
+    function desenhaGraficoBarras(x, y, largura, altura, cor,texto) { //função que vai desenhar gráfico em barras na vertical
         pincel.strokeStyle='black';
-        var alt = y;
-        desenhaTexto(x,y-25,texto);
-        for(i=0;i<altura.length;i++){
-            pincel.fillStyle=cor[i];
+        var alt = y; // o que interessa aqui é que vamos desenhar um retângulo após o outro utilizando a altura
+        desenhaTexto(x,y-25,texto); // texto que vai ficar em cima de cada caixa
+        for(i=0;i<altura.length;i++){ // intero pelo numero de termos que tem o vetor que tem as alturas de cada retangulo desenhado (dentro de series2015 por exemplo)
+            
+            pincel.fillStyle=cor[i]; //cada termo iterado tem uma cor especificada no vetor cores e que tem mesmo tamanho das series
 
-            pincel.fillRect(x,alt, largura, altura[i])
-            pincel.strokeRect(x,alt, largura, altura[i]);
+            pincel.fillRect(x,alt, largura, altura[i]); //preencho os retangulos
+            pincel.strokeRect(x,alt, largura, altura[i]);//preencho as bordas dos retangulos
 
-            alt+=altura[i];
+            alt+=altura[i];//somo na variavel altura para que o comeco do novo retângulo esteja no final do retangulo anterior
         }
     }
 
-    var serie2015 = [50, 25, 20, 5];
+    var serie2015 = [50, 25, 20, 5];// o que vai ser interpretado com altura dos retangulos são esses numeros percentuais aqui
     var serie2016 = [65, 20, 13, 2];
     var cores = ['blue', 'green', 'yellow', 'red'];
 
@@ -190,76 +205,76 @@ flor(1000,250,10);
 
 </script>
 
+<h2>Canvas 5</h2>
 <canvas id="canvas5" height="500">
 </canvas>
-Escolha uma cor <input type="color">
+Escolha uma cor <input type="color"> <!-- Com o tipo cor podemos ter um tipo de entrada que nos mostra as cores a serem selecionadas -->
 <script>
     var tela =document.getElementById('canvas5');
     var pincel = tela.getContext('2d');
-    var paleta = document.querySelector('input');
+    var paleta = document.querySelector('input'); //aqui criamos uma variável que deixa ela operacional para o java script (o querySelector é ruim por que pode afetar outros inputs, o melhor seria o getElementById e criar um id pro input)
 
     canvas5.width = document.body.clientWidth; //document.width is obsolete
-    var cores=['red','blue','green'];
-    let i=0;
+    var cores=['red','blue','green']; // aqui criamos uma outra forma de selecionar cores, onde trocamos as cores com o botão direito do mouse
    
     var desenhar=false;
 
-function desenhaCirculo(evento){
-            var x = evento.layerX;
+function desenhaCirculo(evento){//com uma variavel interna dentro de uma função atrela a uma ação de mouse ou teclado do usuario como o onmousemove eu consigo acessar variaveis de onde eu cliquei com o mouse na região e coisas do tipo
+            var x = evento.layerX; //layer pega a posição x e y do mouse naquela região específica, enquanto page pega na página toda.
             var y = evento.layerY;
             var raio=10;
             //console.log(x,y);
             pincel.beginPath();
             //pincel.fillStyle= cores[i];
-            pincel.fillStyle=paleta.value;
+            pincel.fillStyle=paleta.value; // aqui que mudamos a cor de algo pela seleção de cor na paleta pelo usuário
             desenhaTexto(canvas5.width/2,300,`Selecione cor com o menu embaixo do canvas `);
 
-            if(desenhar){
+            if(desenhar){ // condicao para que desenhe quando pressiono o botao do mouse quando passe com o mouse e aperte com o botão esquerdo
             if(evento.shiftKey){
-                raio = 30;
+                raio = 30; // faz o raio triplicar
             }/*else{
                 raio=5;
             }volte com raio para a função para fazer o raio normal ser 5*/
-            if(evento.altKey){
-                raio =5;
+            if(evento.altKey){ // com apenas os eventos do mouse consiguimos ver se a teclas alt,ctrl e shift estavam pressionadas no momento da ação
+                raio =5; // faz o raio do circulo ser a metade
             }
 
             if(evento.ctrlKey){
                 pincel.fillStyle='rgb(190, 190, 190)';
-                raio=30;
+                raio=30; // a intencao era de ser uma borracha, tanto que ele tá na cor do fundo
 
             }
-            pincel.arc(x,y,raio,0,2*Math.PI);
+            pincel.arc(x,y,raio,0,2*Math.PI); // apesar das logicas quanto a mudança de raio printa o circulo quando passa o mouse e pressiono com o botao esquerdo
             pincel.fill();
             //console.log(evento);
             }
 
-            if(x<=0||x>=canvas5.width||y<=0||y>=499){
+            if(x<=0||x>=canvas5.width||y<=0||y>=499){ // condições de escape para que não continue desenhando quando sai da área do canvas
                 desenhar=false;
             }
-            console.log(x,y, desenhar);
+            //console.log(x,y, desenhar);
     }
     
-function desenhaTexto(x , y,texto) {
+function desenhaTexto(x , y,texto) { // // para que eu tenha um texto que não mude com o selecionar de cores
         pincel.fillStyle='rgb(190, 190, 190)';
         pincel.style.fontWeight='bold';
         pincel.fillText(texto,x,y); 
         //pincel.fillStyle=cores[i];
-        pincel.fillStyle=paleta.value;
+        pincel.fillStyle=paleta.value; // aqui a cor selecionada na paleta faz com que o texto mude de cor.
         pincel.style.fontWeight='normal';
         pincel.font='30px Georgia';
         pincel.fillText(texto,x,y);    
 }
 
-function desenhaTexto(x , y,texto,cor) {
+function desenhaTexto(x , y,texto,cor) { // texto muda de cor com a cor selecionada pelo usuário
         pincel.fillStyle=cor;
         pincel.font='30px Georgia';
         pincel.fillText(texto,x,y);    
 }
     
-    tela.onmousemove =desenhaCirculo;
-    tela.onmousedown = habilitaDesenho;
-    tela.onmouseup = desabilitaDesenho;
+    tela.onmousemove =desenhaCirculo; //aqui atrelamos o código da função desenha circulo a ação onmousemove (que pega o movimento do mouse na área do canvas) poderiamos fazer por função oculta mas isso deixa o codigo com baixa legibilidade
+    tela.onmousedown = habilitaDesenho; // onmousedown pega o clique esquerdo e habilitar o desenho
+    tela.onmouseup = desabilitaDesenho; // quando o botao esquerdo do mouse é solto eu desabilito o desenho (aqui podia caber função oculta com function(){desenhar=false;})
 
     function habilitaDesenho(){
         desenhar=true;
@@ -273,6 +288,7 @@ function desenhaTexto(x , y,texto,cor) {
     desenhaTexto(canvas5.width/2,330,"Pressione shift e click para bolas maiores",'black');
 
    /* function mudaCor (){
+       let i;
         i++;
         if(i>cores.length-1){
             i=0;
@@ -282,15 +298,15 @@ function desenhaTexto(x , y,texto,cor) {
         return false;//para nao mostrar o menu quando aperta o botão direito
     }
 */
-   // tela.oncontextmenu=mudaCor;
+   // tela.oncontextmenu=mudaCor; //oncontextmenu é o clique no botão direito
 
 </script>
 
+<h2>Canvas 6</h2>
 <canvas id="canvas6" height="500"></canvas>
-
 <script>
     var tela1=document.getElementById('canvas6');
-    var pincel1=tela1.getContext('2d');
+    var pincel1=tela1.getContext('2d'); // daqui pra frente mudei o nome do pincel e da tela pois aparentemente uma tela afeta com a outra
     canvas6.width = document.body.clientWidth;
 
     function desenhaCirculo(x,y,raio,cor){
@@ -301,35 +317,35 @@ function desenhaTexto(x , y,texto,cor) {
     }
 
     function limpaTela(){
-        pincel1.fillStyle='rgb(190, 190, 190)';
-        pincel1.clearRect(0,0,canvas6.width,500);
+        //pincel1.fillStyle='rgb(190, 190, 190)';
+        pincel1.clearRect(0,0,canvas6.width,500); //para ter a sensação de animação nós temos que mover a bola um pouquinho e depois apagar seu rastro e limpamos a tela com clearRect
     }
 
-    var x=250;
+    var x=250; //quando as variaveis que são usadas pela função e ficam mudando de valor durante sua execução o certo é colocarmos ela para fora da função onde elas serão utilizadas
     var y=250;
 
     let vai=true;
 
-    function animaCirculo(){
+    function animaCirculo(){//função de bate e volta da bolinha no canvas
         limpaTela();
-        desenhaCirculo(x,250,10,'red');
+        desenhaCirculo(x,250,10,'red'); //numa sequencia de limpa circulo e move com o circulo no eixo x eu consigo criar uma sensação de animação na tela
 
         if(vai){
             x++;
         }else{
             x--;
-        }
+        } //selecao de movimento quando chego no limite da direita eu mudo o sentido de vai para falso e quando bate em zero ela passa a voltar a vai.
 
-        if(x>=canvas6.width) vai=false;
+        if(x>=canvas6.width) vai=false; // aqui a lógica
         if(x<=0) vai=true;
     }
 
     var raio=20;
     var dilata =false;
 
-    function pulsaCirculo(){
+    function pulsaCirculo(){ //função que faz a bola pulsar na tela
         pincel1.fillStyle='rgb(190, 190, 190)';
-        pincel1.clearRect(450,300,550,500);
+        pincel1.clearRect(450,300,550,500); // aqui escolhi um limpa tela menor (esse limpa tela tem que estar mais otimizada por tamanho do corpo)
         desenhaCirculo(500,350,raio,'red');
 
         if(dilata){
@@ -338,16 +354,18 @@ function desenhaTexto(x , y,texto,cor) {
             raio--;
         }
 
-        if(raio>=30) dilata=false;
+        if(raio>=30) dilata=false; // logica para a bola se dilatar e contrair
         if(raio<=20) dilata=true;
 
     }
     
-    setInterval(animaCirculo,20);
-    setInterval(pulsaCirculo,20);
+    setInterval(animaCirculo,20);//aqui mora a magia da animação, eu preciso de um tempo de percorrimento da bola, senão ela será ralizada na velocidade de processamento, e com setInterval eu
+    // digo quando um trecho de código de uma função qualquer será executado em milissegundos
+    setInterval(pulsaCirculo,20);//no caso coloquei o mesmo tempo pois o limpa tela de um afeta na exibição do outro
 
 </script>
 
+<h2>Canvas 7</h2>
 <canvas id="canvas7" height="500"></canvas>
 
 <script>
@@ -375,38 +393,38 @@ function desenhaTexto(x , y,texto,cor) {
         desenhaCirculo1(xo,yo,10,'red');
     }
 
-    function movimentaBolaPeloTeclado(evento) {
+    function movimentaBolaPeloTeclado(evento) { // aqui movimentamos a bolinha pelas teclas do teclado 
 
-        /*   var down = 38 || 87;
-            var up = 40 ||83;
-            var left = 37 || 65;
-            var right = 39 || 68;
-
+        /*   var down = 38 || 87; //seta para baixo e tecla s
+            var up = 40 ||83; //seta para cima e tecla w
+            var left = 37 || 65; //seta para a esquerda e tecla a
+            var right = 39 || 68;//seta para a direita e tecla d
+            // esse numeros são os keyCodes dessas teclas e pode ser visto com console.log(evento.keyCode) e digitando as teclas recebemos no console essas keycodes.
         */
 
-    switch(evento.keyCode){
+    switch(evento.keyCode){ // a logica da movimentação da bolinha com switch case onde temos dois cases para cada ação (o que não quebra a logica do switch NAO ESQUEÇA DO BREAK JAMAIS)
         case 38:
         case 87:
             yo -=10;
-            if(yo<=0) yo=0
+            if(yo<=0) yo=0 //condiçoes para que a bola não saia da área do canvas
         break;
 
         case 40:
         case 83:
             yo +=10;
-            if(yo>=499) yo=499;
+            if(yo>=499) yo=499;//condiçoes para que a bola não saia da área do canvas
         break;
 
         case 37:
         case 65:
             xo -=10;
-            if(xo<=0) xo=0;
+            if(xo<=0) xo=0;//condiçoes para que a bola não saia da área do canvas
         break;
 
         case 39:
         case 68:
             xo+=10;
-            if(xo>=canvas7.width) xo=canvas7.width;
+            if(xo>=canvas7.width) xo=canvas7.width;//condiçoes para que a bola não saia da área do canvas
         break;   
         
 }
@@ -416,20 +434,20 @@ window.addEventListener("keydown", function(e) {
         e.preventDefault();
     }
 }, false);
-}
+} //aqui fazemos com que as setas direcionais não mudem a pagina para cima e para baixo e pros lados, não ligue muito para eventos aqui, não é a intenção dessa aula.
 
-document.onkeydown = movimentaBolaPeloTeclado;
-setInterval(atualizaTela,20);
+document.onkeydown = movimentaBolaPeloTeclado; //aqui linkamos o codigo da função com as entradas do teclado
+setInterval(atualizaTela,20);// atualizamos o estado da tela para que a bola não deixe rastros
 </script>
-
-<input id="placar" type="text" value="0" disabled><br>
+<h2>Canvas 8</h2>
+<input id="placar" type="text" value="0" disabled><br><!-- input do tipo texto para que possamos ver na página quantos acertos tivemos -->
 <canvas id="canvas8" height="500"></canvas>
 
 <script>
-    var placar = document.getElementById('placar');
+    var placar = document.getElementById('placar');//uma variável para o id do placar
     var tela3=document.getElementById('canvas8');
     var pincel3=tela3.getContext('2d');
-    var X;
+    var X;//declaramos x e y do centro do alvo para fora para que consigamos ver seu valor e comparar com o x e o y do nosso tiro
     var Y;
     var acertos=0;
 
@@ -443,13 +461,13 @@ setInterval(atualizaTela,20);
         pincel3.fill();
     }
 
-    function desenhaAlvo(x,y,raio){
+    function desenhaAlvo(x,y,raio){//para desenhar um circulo sobre o outro primeiro nós desenhamos o circulo maior, para depois irmos nos menores pois o ultimo circulo desenhado 'fica em cima' do outro
         desenhaCirculo2(x,y,2.5*raio,'red');
         desenhaCirculo2(x,y,1.85*raio,'white');
         desenhaCirculo2(x,y,raio,'red');
     }
 
-    function getRandomArbitrary(min, max) {
+    function getRandomArbitrary(min, max) {//aqui criamos uma forma de fazer com que o alvo apareça 'aleatoriamente' na região de desenho
         return Math.random() * (max - min) + min;
 }
 
@@ -460,15 +478,15 @@ function limpaTela2(){
 
     function desenhaAlvoAleatorio(){
         var taxa=50;
-         X =getRandomArbitrary(taxa,canvas8.width-taxa);
+         X =getRandomArbitrary(taxa,canvas8.width-taxa);//geração de x e y aleatorios pro aparecimento do alvo
          Y =getRandomArbitrary(taxa,500-taxa);
-        limpaTela2();
-        desenhaAlvo(X,Y,10);
+        limpaTela2();//limpa a região
+        desenhaAlvo(X,Y,10);//mostra o alvo em uma posição nova
     }
 
-    setInterval(desenhaAlvoAleatorio,1300);
+    setInterval(desenhaAlvoAleatorio,1300);//aparecimento do alvo a cada 1.3 s
 
- function Placar(pontos){
+ function Placar(pontos){//função que atualiza o valor da tag input do tipo texto que colocamos antes do canvas
      placar.value=pontos;
  } 
 
@@ -476,17 +494,17 @@ function dispara(evento){
     var X0 = evento.layerX;
     var Y0 = evento.layerY;
     
-    if((X0<X+8 && X0>X-8)&& (Y0<8+Y && Y0>Y-8)){
+    if((X0<X+8 && X0>X-8)&& (Y0<8+Y && Y0>Y-8)){//se o nosso tiro está numa região com uma margem de erro de oito pixeis para cima e para baixo e pros lados em relação ao centro do alvo nós acertamos
         alert('acertou');
-        acertos++;
-        Placar(acertos);
+        acertos++;//incrementa o numero de acertos
+        Placar(acertos);//atualiza o html do input de acertos
     }
     console.log(acertos);
 }
 
-    tela3.onclick = dispara;
+    tela3.onclick = dispara;//linka o disparo com o click do botão esquerdo do mouse
 </script>
-
+<h2>Canvas 9</h2>
 <canvas id="canvas9" height="500"></canvas>
 
 <script>
@@ -494,7 +512,7 @@ function dispara(evento){
         var pincel4=tela4.getContext('2d');
         canvas9.width=document.body.clientWidth;
 
-        function desenhaQuadrado(x, y, tamanho, cor) {
+    function desenhaQuadrado(x, y, tamanho, cor) {
 
     pincel4.fillStyle = cor;
     pincel4.fillRect(x, y, tamanho, tamanho)
@@ -510,7 +528,7 @@ function dispara(evento){
 
     }
 
-    function desenhaPaletaDeCores() {
+    function desenhaPaletaDeCores() {//função que desenha os quadrados no campo superior esquerdo do canvas
 
     desenhaQuadrado(xVermelho, yQuadrados, tamanhoQuadrados, 'red');
     desenhaQuadrado(xVerde, yQuadrados, tamanhoQuadrados, 'green');
@@ -518,16 +536,16 @@ function dispara(evento){
 
     }
 
-    function lidaComMovimentoDoMouse(evento) {
+    function lidaComMovimentoDoMouse(evento) {//se mouse se movimenta e é precionado então desenhe
 
-    var xh = evento.layerX;
-    var yh = evento.layerY;
+        var xh = evento.layerX;
+        var yh = evento.layerY;
 
-    // usando a nova função 
-    if(desenha && podeDesenharNaArea(xh,yh)) {
+        // usando a nova função 
+        if(desenha && podeDesenharNaArea(xh,yh)) {
 
-        desenhaCirculo4(xh, yh, 5, corAtual);
-    }
+            desenhaCirculo4(xh, yh, 5, corAtual);//aqui que o desenho é aplicado
+        }
     }
 
     function habilitaDesenhar() {
@@ -549,7 +567,7 @@ function dispara(evento){
     }
     }
 
-    function selecionaCor(evento) {
+    function selecionaCor(evento) {//se clicarmos na região dos quadramos alteramos a cor do circulo de desenho
 
     var xp = evento.layerX ;
     var yp = evento.layerY ;
@@ -559,9 +577,9 @@ function dispara(evento){
     // começamos pela condição do y que é igual em todos os casos
     if (yp > yQuadrados && yp < yQuadrados + tamanhoQuadrados) {
 
-        if (xp > xVermelho && xp < xVermelho + tamanhoQuadrados) {
+        if (xp > xVermelho && xp < xVermelho + tamanhoQuadrados) {// a selecao se dá por x, já que em y todos os quadrados estão na mesma posição
 
-            corAtual = 'red';
+            corAtual = 'red';//mudamos a cor para a região específica
 
         } else if (xp > xVerde && xp < xVerde + tamanhoQuadrados) {
 
