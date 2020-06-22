@@ -149,6 +149,7 @@ Com o zip posso compactar vários arquivos ao mesmo tempo com
 ```sh
 zip <NOME>.zip <arquivo 1> <arquivo 2>  ... <arquivo n>
 ```
+
 Escrever .zip no final é opcional aqui.
 
 Com `unzip -l` vemos que com o zip não compactamos os arquivos e sim a pasta toda com esses arquivos. O que não é uma compactação tão boa assim se comparado com as outras.
