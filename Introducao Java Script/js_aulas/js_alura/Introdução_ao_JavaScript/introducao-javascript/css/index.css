@@ -76,6 +76,10 @@ label{
 	margin-bottom: .2em;
 }
 
+.paciente-invalido {
+	background-color: rgb(222, 24, 82);
+}
+
 .campo{
 	margin: 0;
 	padding-bottom: 1em;
