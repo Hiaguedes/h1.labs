@@ -2,20 +2,30 @@ botaoAdd.addEventListener("click",function(event){
     event.preventDefault();//previne o comportamento padrão do botão que é de zerar os campos da página e recarregar a página
     var form=document.querySelector("#form-adiciona");//pega toda o codigo do form
     
-    var paciente =obtemPaciente(form);//retira as propriedades de um paciente no form
+    var paciente = obtemPaciente(form);//retira as propriedades de um paciente no form
+
+    var mensagens= verificaErros(paciente);//faz a verificação dos dados no input
+    console.log(mensagens);
+
+    if(mensagens.length>0){
+        exibeErros(mensagens);//se tiver alguma mensagem de erro, printe ela
+        return false;
+    }
+    document.querySelector(".mensagem-erro").innerHTML="";
+    
     var pacienteTr = setaPacienteTr(paciente);//coloca tudo dentro de uma Tr para mim
-    var tabela =adicionaNaTabela(pacienteTr);//adiciona na tabela
+    var tabela = adicionaNaTabela(pacienteTr);//adiciona na tabela
     form.reset(); //reseta os inputs
 });
 
-function obtemPaciente(form){
+function obtemPaciente(form){//pega os elementos da tabela (o imc é calculado aqui)
 
     var paciente= {
         nome: form.nome.value,
         peso: form.peso.value,
         altura: form.altura.value,
-        gordura: form.altura.value,
-        imc : calculaImc(form.peso.value,form.altura.value)
+        gordura: form.gordura.value,
+        imc : calculaImc(form.peso.value,form.altura.value)//aqui
     };
 
     return paciente;
@@ -42,9 +52,30 @@ function adicionaNaTabela(pacienteTr){
 }
 
 function setaTd (valor,nomeClasse){
-    var td = document.createElement("td");
-    td.textContent = valor;
-    td.classList.add(nomeClasse);
+    var td = document.createElement("td"); //crio elemento td na tabela
+    td.textContent = valor;//seta seu valor
+    td.classList.add(nomeClasse);//atribuo a classe pertencente a ela
 
     return td;
+}
+
+function verificaErros(paciente){
+    var erros=[];
+
+    if(!validaAltura(paciente.altura)) erros.push('Altura Inválida');//se tiver erro de altura, addiciona ela na matriz de erro
+    if(!validaPeso(paciente.peso)) erros.push('Peso Inválido');
+    if(!validaGordura(paciente.gordura)) erros.push('Gordura Inválida');
+    if(!validaNome(paciente.nome)) erros.push('Nome em Branco');
+
+    return erros;
+}
+
+function exibeErros(err){ //como exibir erros, a melhor forma é criando li's na posição no html
+    var ul = document.querySelector(".mensagem-erro");//seleciono a ul do elemento no html pela sua classe
+    ul.innerHTML="";// se tiver alguma coisa lá dentro apague
+    err.forEach(function(error){ //para cada erro passado pelo array err
+        var li =document.createElement("li");//crie um li
+        li.textContent=error;// adicione seu valor
+        ul.appendChild(li);//e coloque dentro da ul
+    });
 }

@@ -8,19 +8,24 @@ for(let i=0;i<pacientes.length;i++){
 var peso = pacientes[i].querySelector(".info-peso").textContent;// chamos o seu texto que está dentro do código na classe info-peso
 // o peso é chamado dentro do for pois a cada iteração o texto do peso é atualizado
 var altura =pacientes[i].querySelector(".info-altura").textContent;//chamo o texto da altura a cada iteração
+var gordura =pacientes[i].querySelector(".info-gordura").textContent;
 let pesoValido=true;//sempre seto os booleanos para true a cada iteração, assim tenho certeza que o mesmo procedimento é feito com segurança
 let alturaValido=true;  
 
-if(peso <= 0 || peso >= 700){//condições pro peso estar dentro
+if(!validaPeso(peso)){//condições pro peso estar dentro
         pesoValido=false;
         pacientes[i].classList.add("paciente-invalido");//classe especificada no css
     }
 
-    if(altura<=0.5 || altura >3){//condições normais da altura de um ser humano
+    if(!validaAltura(altura)){//condições normais da altura de um ser humano
         alturaValido=false;
         pacientes[i].classList.add("paciente-invalido");//classe criada no css
     }
-
+    if(!validaGordura(gordura)){
+        pacientes[i].classList.add("paciente-invalido");//classe criada no css
+        pacientes[i].querySelector(".info-gordura").textContent='Gordura Inválida';
+    }
+    
     if(alturaValido && pesoValido){
         var calculo_imc= calculaImc(peso,altura);// calculo o imc
         pacientes[i].querySelector(".info-imc").textContent = calculo_imc; 
@@ -46,3 +51,36 @@ tituloPag.addEventListener("click",function(){
 });
 
 var botaoAdd=document.querySelector("#adicionar-paciente");
+
+//funções de validação-- talvez eu mude para retorno mais de um valor e faça um switch case no verificaErros do forms
+function validaAltura(altura){
+    if(altura>=0.5 && altura <3){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function validaPeso(peso){
+    if(peso >= 30 && peso <= 700){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+function validaGordura(gordura){
+    if(gordura >0 && gordura<70){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function validaNome(nome){
+    if(nome.length==0){
+        return false;
+    } else {
+        return true;
+    }
+}

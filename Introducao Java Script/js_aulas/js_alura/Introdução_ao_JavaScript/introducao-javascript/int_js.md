@@ -28,6 +28,13 @@ Quando temos arquivos separados, cada arquivo possui uma responsabilidade e uma 
 
 Por fim, assim como na vida real geralmente guardamos peças de roupas por categorizações que julgamos satisfazerem nossa organização, separar arquivos por grupos comuns também nos ajuda a encontrar e dar manutenção em nosso código.
 
+Sabemos que quebrar uma grande função complexa é uma boa prática por causa de diversos fatores, mas podemos citar como os principais deles:
+
+Dar manutenção ao código fica muito mais fácil, visto que agora podemos examinar vários pequenos blocos , que são muito mais fáceis de compreender do que um grande bloco de texto
+Ao quebrar uma grande função, também estamos deixando ela com menos responsabilidades, com a meta de atingir o ideal de que cada função tenha apenas uma única responsabilidade.
+O código também fica muito mais fácil de testar, pois se temos diversas funções pequenas conseguimos ir testando uma a uma em busca de erros ou bugs do código.
+E por último, a legibilidade do código aumenta muito, pois dando nomes semânticos a cada uma das funções menores conseguimos deixar bem claro o que aquela parte do código deve fazer e facilita o entendimento do todo como um geral.
+
 ## O document
 
 O document é um elemento editável pro java script que contém todas as tags, classes e ids do html e com ele eu consigo manipular a página.
@@ -222,3 +229,35 @@ Para depois dizer que toda a tag tr pertence a tabela de pacientes (que eu preci
     var tabela=document.querySelector("#tabela-pacientes");// pega todo o código html da tabela
     tabela.appendChild(pacienteTr);//o tr de paciente é filho da tabela
 ```
+
+## forEach
+
+O forEach é uma maneira diferente e mais simples de iterar um array, onde não preciso criar uma variável `i` para varrer todo meu array, sua sintaxe se dá da seguinte forma
+
+```js
+var nomes = ["Douglas", "Flávio", "Nico", "Rômulo", "Leonardo"];
+
+nomes.forEach(function(nome) {
+    console.log(nome + " é instrutor da Alura");
+})
+```
+
+Onde cada array tem um forEach em sua composição pelo javaScript e dentro da função anonima eu tenho que criar uma variável qualquer para ir iterando, somente isso
+
+## innerHTML
+
+Com a propriedade ``innerHTML``, podemos editar obter o conteúdo HTML (HTML interno) de um elemento.
+
+Para editar o HTML interno, como o `innerHTML` é uma propriedade, utilizamos um sinal de igual `(=)`. Fazemos:
+
+```js
+ObjetoDeUmElementoHTML.innerHTML = "Novo conteúdo"
+```
+
+E para obter o HTML interno, fazemos:
+
+```js
+ObjetoDeUmElementoHTML.innerHTML
+```
+
+O seu retorno será todo o conteúdo HTML, tanto tags, atributos, classes, etc, no formato de uma String.
