@@ -64,3 +64,143 @@ pacientes[i].classList.add("paciente-invalido");//classe criada no css
 Onde eu pinto a linha toda de vermelho, mas se tiver que ser via js dá para você alterar com `.style.backgroundColor` (nomes compostos estão com camelCase, tal como border-radius é borderRadius)
 
 Quando selecionamos um elemento com as funções de querySelector, elas nos devolvem um objeto que tem algumas propriedades especiais, que falam sobre as características do HTML selecionado. Uma dessas propriedades é a .classList, que como o nome indica nos mostras classes que aquele HTML tem. e adicionamos a classe do css e não precisa de . antes do nome tal como no querySelector
+
+## Event Listener
+
+Uma maneira de eu interagir com o usuário é no caso de eu esperar um evento, e com esse evento (que pode ser apertar um botão, ou até mesmo descer a página) eu posso mostrar ao usuário coisas bem legais, uma forma simples de colocar um evento é com:
+
+```js
+var tituloPag =document.querySelector(".titulo_pag");
+
+function falaQueEuTeEscuto(){
+    console.log("Koe!!");
+}
+
+tituloPag.addEventListener("click",falaQueEuTeEscuto);
+```
+
+Com função anonima eu posso fazer:
+
+```js
+var tituloPag =document.querySelector(".titulo_pag");
+
+tituloPag.addEventListener("click",function(){
+    console.log("Koe!");
+});
+```
+
+### Funções anônimas
+
+O Javascript possuí dois tipos de funções, as funções anônimas e as funções nomeadas.
+
+As funções nomeadas, como o próprio nome diz, são as funções que levam um nome em sua criação e que podem ser invocadas posteriormente, como a função mostraMensagem:
+
+```js
+function mostraMensagem(){
+    console.log("Fui clicado");
+}
+```
+
+Já as funções anônimas, são funções que não tem nome e só são chamadas no contexto aonde foram declaradas. Elas são muito usadas em conjunto com a função addEventListener(), onde normalmente a ação que desejamos chamar só deve ser chamada naquele local.
+
+```js
+titulo.addEventListener("click", function(){
+    console.log("Fui clicado");
+});
+```
+
+Ela é do tipo anonima poe que não ha nenhum nome atrelado a ela, ela é útil pois ela só é chamada nesse contexto não tendo uma necessidade de replicar ela.
+
+## Botões dentro de um form
+
+Por padrão os botões dentro de uma tag form zeram todas as inputs e recarregam a página (independente de terem a tag submit ou não).
+
+O comportamento padrão de um form, quando clicamos em um button ou em um input submit, que está dentro dele, é enviar os dados e recarregar a página. Por isso, a página de Jéssica sempre recarrega quando o usuário clica no botão.
+
+Para evitarmos este comportamento, devemos chamar a função do Javascript que previne o comportamento padrão de certos elementos: `event.preventDefault`.
+
+Adicionaremos `event.preventDefault` dentro da função anônima chamada pelo evento click da função:
+
+```js
+botao.addEventListener("click", function(event){
+    event.preventDefault();
+
+    console.log(form.tarefa.value);
+    //Código para adicionar na lista de tarefas
+});
+```
+
+Observe que passamos `event` como parâmetro da função. Com isso, incluímos um parâmetro que está sempre presente nas funções executadas quando ocorre um evento.
+
+Como nem sempre `event` é usado, às vezes, é desnecessário passá-lo para a função. Mas neste caso, é ele quem contém a função `.preventDefault()`, na qual estamos interessados, logo, precisaremos passá-lo como parâmetro.
+
+Um detalhe interessante é que em certos navegadores, mesmo sem receber o event como parâmetro, a função `event.preventDefault()` continua funcionando. Isto é uma peculiaridade de certos navegadores modernos, e pode ser que navegadores mais antigos funcionem de forma diferente.
+
+Se nosso objetivo é escrever um código seguindo as boas práticas do mercado, devemos sempre usar event como parâmetro e as funções que são chamadas pelos eventos.
+
+### Extraindo dados de um input
+
+Primeiro temos que extrair todo o código forms do html e depois guardar o valor de cada input com o value como em:
+
+```js
+    var form=document.querySelector("#form-adiciona");//pega toda o codigo do form
+
+    var nome=form.nome.value;//pega os valores dentro de todos os input (supondo que os valores foram escritos, se certique de ter o required no html)
+    var altura=form.altura.value;
+    var peso=form.peso.value;
+    var gordura=form.gordura.value;
+```
+
+## Criando elementos html em js
+
+Primeiro temos que criar o elmento tr que dá toda a linha do html com uma classe embutida e para isso fazemos
+
+```js
+    var pacienteTr = document.createElement("tr");//cria uma tag tr em paciente
+    pacienteTr.classList.add("paciente");// coloca a class css pra tag
+```
+
+Além de todas as colunas
+
+```js
+    var pesoTd=document.createElement("td"); //cria uma tag td para peso
+    pesoTd.classList.add("info-peso");
+
+    var nomeTd=document.createElement("td");   //cria as tags td para as outras
+    nomeTd.classList.add("info-nome");
+
+    var alturaTd=document.createElement("td");
+    alturaTd.classList.add("info-altura");
+
+    var gorduraTd=document.createElement("td");
+    gorduraTd.classList.add("info-gordura");
+
+    var imcTd=document.createElement("td");
+    imcTd.classList.add("info-imc");
+```
+
+E aí passo o valor do input para elas
+
+```js
+    nomeTd.textContent=nome; //diz quanto vale
+    alturaTd.textContent=altura;
+    gorduraTd.textContent=gordura;
+    pesoTd.textContent=peso;
+```
+
+E aí eu digo que todas as tags td estão dentro de tr, ou seja que são filhas de tr
+
+```js
+    pacienteTr.appendChild(nomeTd);//coloca as tags td dentro da tag tr, ou seja td são filhos de tr
+    pacienteTr.appendChild(pesoTd);
+    pacienteTr.appendChild(alturaTd);
+    pacienteTr.appendChild(gorduraTd);
+
+```
+
+Para depois dizer que toda a tag tr pertence a tabela de pacientes (que eu preciso ter todo o código dela, lembre-se que tenho o código do forms mas da tabela propriamente dita ainda não)
+
+```js
+    var tabela=document.querySelector("#tabela-pacientes");// pega todo o código html da tabela
+    tabela.appendChild(pacienteTr);//o tr de paciente é filho da tabela
+```
