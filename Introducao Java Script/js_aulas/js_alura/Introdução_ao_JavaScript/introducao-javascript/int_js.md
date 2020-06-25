@@ -261,3 +261,39 @@ ObjetoDeUmElementoHTML.innerHTML
 ```
 
 O seu retorno será todo o conteúdo HTML, tanto tags, atributos, classes, etc, no formato de uma String.
+
+## this
+
+Todo evento disparado em JavaScript possui um contexto que é acessível através da função executada quando o evento for disparado.Na função, acessamos o contexto através do objeto implícito this. Ele é uma referência para o elemento do DOM que esta recebendo o evento, logo, sua natureza é dinâmica, ou seja, se clicarmos no primeiro elemento da lista o this será o primeiro elemento, se clicarmos no último ele será o último. É a natureza dinâmica do this que nos permite utilizar a mesma função em diferentes contextos.
+
+```js
+    paciente.addEventListener("dblclick",function(){
+        //console.log(this);//mensagem de debug
+        this.remove(); //o this é uma palavra propria do js que nos diz qual o elemento
+        //que chamou aquela função
+
+        //essa função tem um problema pois toda vez que eu adiciono uma pessoa nova
+        // essa pessoa não está dentro do EventListener, pois ela foi adicionada depois
+        //do html ter sido finalizada
+    });
+}); 
+```
+
+Como paciente pega todas as tr's da tabela, então o this.remove aqui elinaria apenas a linha
+
+```js
+var tabela= document.querySelector("#tabela-pacientes");
+
+tabela.addEventListener("dblclick",function(event){
+
+    console.log(event.target);//não confunda, this nos dá o responsável pelo evento
+    //o target é o elemento interno dentro do this, pois a tendencia do eventListener é ir subindo
+
+    var alvoEvento =event.target;//com o evento de clique eu garanto que pego
+    //todo mundo que está na tabela naquele momento do clique
+    var paiDoAlvo=alvoEvento.parentNode;
+    paiDoAlvo.remove();
+});
+```
+
+Se dermos uma this.remove() aqui eliminaremos a tabela então cuidado.

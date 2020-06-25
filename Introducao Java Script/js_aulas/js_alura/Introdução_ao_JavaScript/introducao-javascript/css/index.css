@@ -141,3 +141,9 @@ button[disabled=disabled], button:disabled {
 	color:red;
 	margin-left: 5em;
 }
+
+.fade-out{ /* adiciona efeito de transição, a letra some e junto vai um fundo vermelho  */
+	opacity: 0;
+	background-color: rgb(185, 23, 72);
+	transition: 0.5s;
+}
