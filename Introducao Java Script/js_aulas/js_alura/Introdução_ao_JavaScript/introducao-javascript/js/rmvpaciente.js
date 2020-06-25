@@ -9,7 +9,8 @@ tabela.addEventListener("dblclick",function(event){ //evento de duplo clique
     
     var alvoEvento =event.target;//com o evento de clique eu garanto que pego
     //todo mundo que está na tabela naquele momento do clique
-    var paiDoAlvo=alvoEvento.parentNode;
+    var paiDoAlvo=alvoEvento.parentNode;// na verdade eu não quero o elemento em si e sim no pai dele, pois quero excluir a linha não o elemento
+    
     paiDoAlvo.classList.add("fade-out"); // adiciono a classe do css no elemento que quero deletar
 
     setTimeout(function(){ //setTimeout, coloco um tempo para a função acontecer
