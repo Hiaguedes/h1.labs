@@ -1,11 +1,10 @@
 botaoAdd.addEventListener("click",function(event){
     event.preventDefault();//previne o comportamento padrão do botão que é de zerar os campos da página e recarregar a página
-    var form=document.querySelector("#form-adiciona");//pega toda o codigo do form
-    
-    var paciente = obtemPaciente(form);//retira as propriedades de um paciente no form
 
+    var form=document.querySelector("#form-adiciona");//pega toda o codigo do form
+    var paciente = obtemPaciente(form);//retira as propriedades de um paciente no form
     var mensagens= verificaErros(paciente);//faz a verificação dos dados no input
-    console.log(mensagens);
+    //console.log(mensagens);
 
     if(mensagens.length>0){
         exibeErros(mensagens);//se tiver alguma mensagem de erro, printe ela

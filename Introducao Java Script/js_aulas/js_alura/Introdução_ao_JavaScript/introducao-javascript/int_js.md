@@ -86,6 +86,8 @@ Onde eu pinto a linha toda de vermelho, mas se tiver que ser via js dá para voc
 
 Quando selecionamos um elemento com as funções de querySelector, elas nos devolvem um objeto que tem algumas propriedades especiais, que falam sobre as características do HTML selecionado. Uma dessas propriedades é a .classList, que como o nome indica nos mostras classes que aquele HTML tem. e adicionamos a classe do css e não precisa de . antes do nome tal como no querySelector
 
+Para remover uma classe use `pacientes[i].classList.remove("paciente-invalido");`
+
 ## Event Listener
 
 Uma maneira de eu interagir com o usuário é no caso de eu esperar um evento, e com esse evento (que pode ser apertar um botão, ou até mesmo descer a página) eu posso mostrar ao usuário coisas bem legais, uma forma simples de colocar um evento é com:
@@ -353,3 +355,33 @@ if (!(valorDigitadoMinusculo == comparavelMinusculo)) {
 ```
 
 Esta é uma alternativa de implementar a mesma funcionalidade sem expressão regular, porém temos que escrever mais e nos preocupar com mais detalhes! Fica ai esta opção para você guardar nos seus conhecimentos.
+
+## XML HTTP REQUEST
+
+Supondo que queremos acessar dados de um servidor web para o nosso sistema, pra colocar dados na tabela por exemplo, uma forma de pegar esses dados é com XMLHTTPRequest
+
+O objeto XMLHttpRequest é quem é responsável por fazer requisições HTTP assíncronas com Javascript. Apesar de ter o XML no nome hoje em dia este objeto pode trafegar diversos outros tipos de dados além do XML, este nome só se manteve devido a um legado histórico.
+
+E para instanciar um novo Objeto XMLHttpRequest devemos utilizar a sintaxe com a palavrinha new :
+
+```js
+var xhr = new XMLHttpRequest();
+```
+
+Lembre o método GET pega dados de um servidor e o POST manda
+
+Dado que temos um XMLHttpRequest, precisamos configurar nossa requisição para dizer para qual servidor queremos enviá-la e também qual método HTTP devemos usar.
+
+Fazemos isto através do método `.open()` , passando o método e a url :
+
+```js
+xhr.open("POST","www.xyz.com.br/compras");
+```
+
+método AJAX, metodo assincrono para requisição de dados sem travar o js e nem o navegador
+
+O XMLHtttpRequest é objeto responsável por fazer requisições HTTP com o Javascript.
+
+Olhando as afirmativas, sabemos sim que ele deve ser configurado anteriormente com a função .open(), que ele pode trafegar diversos tipos de dados e não somente o XML ( ele tem esse nome graças a um vestígio histórico), e a requisição só é enviada mesmo após chamarmos o método .send().
+
+O conteúdo inteiro do programa feito pela alura pode ser visto em <https://s3.amazonaws.com/caelum-online-public/introducao-javascript/stages/introducao-javascript-final.zip>
