@@ -19,6 +19,7 @@
 		<main>
 			<section class="container">
 				<h2>Meus pacientes</h2>
+				<input type="text" name="filtro" id="filtro" class="pesquisa" placeholder="Pesquise Cliente"> <!-- Campo de busca de um cliente -->
 				<table class="tabela">
 					<thead>
 						<tr>
@@ -29,7 +30,7 @@
 							<th>IMC</th>
 						</tr>
 					</thead>
-					<tbody id="tabela-pacientes">
+					<tbody id="tabela-pacientes"> <!-- Aqui que tem todos os clientes cadastrados então use essa id -->
 						<tr class="paciente">
 							<td class="info-nome">Paulo</td>
 							<td class="info-peso">100</td>
@@ -103,3 +104,5 @@
 <script src="js/principal.js"></script>
 <script src="js/form.js"></script>
 <script src="js/rmvpaciente.js"></script>
+<script src="js/addPaciente.js"></script>
+<script src="js/filtro.js"></script>

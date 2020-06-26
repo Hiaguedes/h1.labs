@@ -51,6 +51,24 @@ section h2{
 	margin-bottom: .5em;
 }
 
+
+.pesquisa {
+	margin: 10px;
+	width: 20%;
+	padding: 3.5px 5px;
+}
+
+.esconde {
+	display:none;
+	transition: 0.5s;
+}
+
+.pesquisa:focus{
+	transition: 0.5s;
+	width: 35%;
+	border-color: royalblue;
+}
+
 table{
 	width: 100%;
 	margin-bottom : .5em;

@@ -3,6 +3,13 @@ titulo.textContent ='Aparecida Nutricionista | Página de Cálculo de IMC dos Cl
 
 var pacientes = document.querySelectorAll(".paciente"); //coloco o identificador em um pacientes especifico, cujo todos os dados tão na tag tr da table e chamos sua linha de código com querySelction
 
+var minAltura=0.5;
+var maxAltura =3;
+var minPeso=30;
+var maxPeso=200;
+var minGordura=0;
+var maxGordura=55;
+
 for(let i=0;i<pacientes.length;i++){
 
 var peso = pacientes[i].querySelector(".info-peso").textContent;// chamos o seu texto que está dentro do código na classe info-peso
@@ -15,15 +22,18 @@ let alturaValido=true;
 if(!validaPeso(peso)){//condições pro peso estar dentro
         pesoValido=false;
         pacientes[i].classList.add("paciente-invalido");//classe especificada no css
+        console.log('erro peso');
     }
 
     if(!validaAltura(altura)){//condições normais da altura de um ser humano
         alturaValido=false;
         pacientes[i].classList.add("paciente-invalido");//classe criada no css
+        console.log('erro altura');
     }
     if(!validaGordura(gordura)){
         pacientes[i].classList.add("paciente-invalido");//classe criada no css
         pacientes[i].querySelector(".info-gordura").textContent='Gordura Inválida';
+        console.log('erro gordura');
     }
     
     if(alturaValido && pesoValido){
@@ -53,8 +63,10 @@ tituloPag.addEventListener("click",function(){
 var botaoAdd=document.querySelector("#adicionar-paciente");
 
 //funções de validação-- talvez eu mude para retorno mais de um valor e faça um switch case no verificaErros do forms
+
 function validaAltura(altura){
-    if(altura>=0.5 && altura <3){
+
+    if(altura >= minAltura && altura < maxAltura){
         return true;
     }else{
         return false;
@@ -62,7 +74,7 @@ function validaAltura(altura){
 }
 
 function validaPeso(peso){
-    if(peso >= 30 && peso <= 700){
+    if(peso >= minPeso &&  peso <= maxPeso){
         return true;
     }else {
         return false;
@@ -70,7 +82,7 @@ function validaPeso(peso){
 }
 
 function validaGordura(gordura){
-    if(gordura >0 && gordura<70){
+    if(gordura > minGordura && gordura < maxGordura){
         return true;
     }else{
         return false;

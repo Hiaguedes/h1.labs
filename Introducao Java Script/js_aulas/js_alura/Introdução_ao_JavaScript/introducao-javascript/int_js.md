@@ -297,3 +297,59 @@ tabela.addEventListener("dblclick",function(event){
 ```
 
 Se dermos uma this.remove() aqui eliminaremos a tabela então cuidado.
+
+## RegExp
+
+Ou expressÕes regulares, com ele conseguimos capturar texto tal como o comando `F3` que busca palavras em qualquer lugar do texto sem precisar programar a função na mão (o que seria extremamente chato)
+
+O primeiro parâmetro que devemos passar para o construtor é o padrão (o texto da expressão regular, o que deve ser buscado) e o segundo parâmetro são uma ou mais flags (representando como queremos que a expressão regular busque). Por exemplo, podemos definir que não queremos que haja distinção entre letras maiúsculas e minúsculas, através da flag i.
+
+Para saber mais sobre expressões regulares, há um curso bem interessante aqui na Alura, o curso Expressões regulares: Capturando textos de forma mágica.
+
+Mas há um modo de fazer essa comparação sem a necessidade de utilizar expressões regulares! Podemos utilizar a função substring, que recebe dois parâmetros, fazendo com que ela devolva parte da string, com o tamanho definido nos parâmetros. O primeiro parâmetro é o início, começando do 0 (que representa o primeiro caractere). O segundo parâmetro define o fim (exclusivo, mostramos até o penúltimo caractere). Por exemplo:
+
+```js
+var string = "Alura";
+var resultado = string.substring(1, 4);
+```
+
+Extraímos uma string que começa no segundo caractere (número 1) e termina no quarto caractere (número 3, índice anterior ao número 4). O valor da variável resultado é:
+
+```en
+lur
+```
+
+Conhecendo essa função, pense em um modo de comparar o valor digitado com parte do nome, sem utilizar expressões regulares. Veja em seguida a resposta do instrutor.
+
+***VER OPINIÃO DO INSTRUTOR***
+
+Como o primeiro parâmetro é o inicio, e queremos comparar desde o início da string nome, vamos utilizar como início o valor 0, ou seja, sempre a partir do primeiro caractere. Mas qual é o fim? O fim é justamente o tamanho do valor digitado:
+
+`nome.substr(0, this.value.length);`
+
+Podemos guardar essa string em uma variável, e compará-la com o que está sendo digitado. Caso seja falso, adicionamos a classe invisivel, se não for, removemos-a:
+
+```js
+var comparavel = nome.substr(0, this.value.length);
+if (!(this.value == comparavel)) {
+    paciente.classList.add("invisivel");
+} else{
+    paciente.classList.remove("invisivel");
+}
+```
+
+Mas e a distinção entre letras maiúsculas e minúsculas? Nesse caso não temos distinção entre letras maiúsculas e minúsculas, mas para contornar isso, antes de compará-las, podemos colocar as duas strings em letras minúsculas, para efetuar a comparação entre elas em seguida:
+
+```js
+var comparavel = nome.substr(0, this.value.length);
+var comparavelMinusculo = comparavel.toLowerCase();
+var valorDigitadoMinusculo = this.value.toLowerCase();
+
+if (!(valorDigitadoMinusculo == comparavelMinusculo)) {
+    paciente.classList.add("invisivel");
+} else{
+    paciente.classList.remove("invisivel");
+}
+```
+
+Esta é uma alternativa de implementar a mesma funcionalidade sem expressão regular, porém temos que escrever mais e nos preocupar com mais detalhes! Fica ai esta opção para você guardar nos seus conhecimentos.
