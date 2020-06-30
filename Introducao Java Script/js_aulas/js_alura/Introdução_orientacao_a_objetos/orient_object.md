@@ -334,3 +334,48 @@ Excelente! Essa é a ideia mesmo, assim se qualquer regra de atribuição mudar 
 Usar assessores do tipo set é uma boa prática para garantirmos que a atribuição de propriedades está sempre segura
 
 Sim! Chamamos essa ideia de proteger atributos de nossas classes de encapsulamento e devemos sempre manter o máximo de encapsulamento possível.
+
+## Construtores
+
+Construtores são utilizados para inicializar os atributos.
+
+Correta! A inicialização de atributos é a principal responsabilidade do construtor.
+
+Ela ajuda a deixar o código mais legível e inicializar objetos. E eles são feitos como
+
+```js
+class x{
+    constructor(param){
+        this.foo1=param;
+    }
+}
+```
+
+E eu inicializo essa classe com:
+
+```js
+const var=new x(param);
+```
+
+E eu posso setar atributos privados com o getter dentro do construtor
+
+## Atributos estáticos
+
+Eu somente crio uma variável do tipo `static` quando eu quero saber quantas vezes aquela classe foi chamada ou qq coisa relacionada a algo interente a classe
+
+Como em quantas contas eu tenho criadas, para isso eu chamo a variável em todas as vezes que meu construtor foi chamado como em
+
+```js
+class contaCorrente{
+    static numContas=0;
+    constructor(params){
+        contaCorrente.numContas++;//e para isso eu conto em quantas vezes o construtor foi chamado chamando a propria classe
+    }
+}
+```
+
+E depois eu chamo ela em 
+
+```js
+console.log(contaCorrente.numContas);// vejo quantas vezes a função foi chamada
+```

@@ -1,10 +1,18 @@
 import { cliente } from "./Cliente.js";
 
 export class contaCorrente {
+    static numContas=0;//para extrair informações pertinentes a classe como "quantas contas eu tenho cadastradas" eu preciso de uma variável que seja estática
     agencia;
     #cliente;
     #saldo = 0; //a cerquilha diz que a propriedade é privada, a convenção hoje seria usar _saldo 
     // pois a # ainda não foi implementada ainda e não deveria ser usada para projetos reais
+
+    constructor(cliente,agencia){
+        this.cliente=cliente;
+        this.agencia=agencia;
+        contaCorrente.numContas++;//e para isso eu conto em quantas vezes o construtor foi chamado chamando a propria classe
+    }
+
 
 
     set cliente(param){//para garantir que tooo cliente seja um cliente de fato
@@ -16,6 +24,13 @@ export class contaCorrente {
     get cliente(){
         return this.#cliente;
     }
+
+    get saldo(){
+        return this.#saldo;
+    }
+
+
+
 
     sacar(valor){
         if(this.#saldo >= valor && valor>0){//o this é uma palavra propria do js que nos diz qual o elemento
@@ -31,7 +46,7 @@ export class contaCorrente {
     }
 
     mostraSaldo(){
-        console.log("O saldo de "+ cliente().nome + " é de " + this.#saldo + " R$");
+        console.log("O saldo de "+ this.#cliente.nome + " é de " + this.#saldo + " R$");
     }
 
     transferir(para,valor){//da minha conta transfiro para um cliente um valor
