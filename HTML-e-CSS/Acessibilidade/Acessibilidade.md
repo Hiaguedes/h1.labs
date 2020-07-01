@@ -2,7 +2,19 @@
 
 Esse texto vai falar muito sobre como o layout deverá ser para pessoas com deficiência, uma vez que elas representam 25% das pessoas no país e elas representam boa parte do fluxo de pessoas em um site
 
-Inicialmente a página começa assim <https://www.figma.com/file/dnZ6RF6yhOdRZlRIbNv4ejlk/Apeperia-(projeto-inicial)?node-id=0%3A1>
+Inicialmente a página começa [assim](https://www.figma.com/file/dnZ6RF6yhOdRZlRIbNv4ejlk/Apeperia-(projeto-inicial)?node-id=0%3A1)
+
+Tabela de Conteúdo
+
+1.[Termos](#termos)
+
+2.[Normas para acessibilidade web](#normas-para-acessibilidade-web)
+
+3.[Autismo](#autismo)
+
+4.[Surdez](#surdez)
+
+5.[Dislexia](#dislexia)
 
 ## Termos
 
@@ -39,7 +51,10 @@ Cartilha da microsoft com o governo br <https://docs.wixstatic.com/ugd/85fd89_a9
 Bons vídeos que falam mais sobre o autismo e como o autista vê o mundo
 
 <https://www.youtube.com/watch?v=cfCaU-q7Yxk>
+
 <https://www.youtube.com/watch?v=Lr4_dOorquQ>
+
+Canal [Diário de um Austista](https://www.youtube.com/channel/UCbhT_vtlwr7X2wG6q_0mWVQ)
 
 ### Boas práticas para fazer um site acessível para autistas
 
@@ -109,8 +124,69 @@ Tenha consistência visual na página, se um botão tem borda arredondada coloqu
 
 Caso o vídeo seja direcionado para surdos, aí coloque tradução em libras e legenda com auto descrição
 
+Uma página mais adequada para a surdez pode ser vista [aqui](https://www.figma.com/file/dnhcSOm4Yu4NoYZJ2I7dye/Apeperia-2-5-Surdez)
+
 ### Links interessantes para surdos
 
 Curso gratuito de libras pela USP <http://eaulas.usp.br/portal/video.action;jsessionid=B4A4E40E1C082A097747BA73A812A979?idItem=6163>
 
 <https://www.youtube.com/watch?v=bubbJSVJFRs>
+
+## Dislexia
+
+Os sintomas podem variar de um disléxico para outro, dentre os quais podem estar a dificuldade para ler, escrever, soletrar, e por aí vai. A dislexia não é considerada uma deficiência, e sim um tipo de transtorno ou disturbio. O dislexo até consegue ler as coisas mas as palavras meio que se misturam e eles precisam ler diversas vezes um texto para entender de fato o que aquilo se trata
+
+Um bom simulador de como um dislexo lê um texto pode ser visto [aqui](http://data.qz.com/2016/dyslexia/) ou [aqui](https://geon.github.io/programming/2016/03/03/dsxyliea)
+
+Possível dificuldade em memorizar informações
+
+Não é o principal sintoma do dislexia, porém pode acontecer em alguns casos
+
+### O que fazer para ajudar o dislexo?
+
+Não justifique texto, tente alinhar ele a esquerda ou a direita, o texto justificado cria caminhos de rato que atrapalham e muito a leitura (até mesmo para pessoas não dislexas), a centralização de texto também é algo ruim (ao menos que seja necessário mas tente fazer isso para textos pequenos), por que a centralização faz com que o começo de cada linha comece em um lugar diferente,  e isso cansa a pessoa.
+
+[Não diga isso para os dislexos](https://www.youtube.com/watch?v=OSJoajRo4Pw)
+
+Tire os underlines (só deixe se for link mesmo), NÃO USE TUDO EM MAIÚSCULO , isso é horrível esteticamente e para dislexos é ruim de ler. Então deixe nesse caso um sublinhado mais discreto
+
+Textos sublinhados
+
+Por ter mais elementos visuais (a linha embaixo das letras), isso pode prejudicar a velocidade de leitura e interpretação do texto. Além disso blocos de texto feitos somente em caixa alta também são uma má prática.
+
+Alternativa correta
+Textos centralizados
+
+O fato de as linhas começarem em lugares diferentes em textos centralizados pode atrasar ainda mais a leitura.
+
+Não coloque contrastes muito altos, como texto preto tela branca
+
+Coloque texto de placeholder dentro do input mas coloque uma label para identificar o que é aquele campo, pois o contraste baixo entre o campo e a letra cinza clarinho do placeholder não é o suficiente (essa cor é ruim para as pessoas de baixa visão também mas isso é para outra hora). Lembre a label acompanha o input. Ou o placeholder é forte o suficiente para ser uma 'label'.
+
+Colocar sugestões enquanto digita-se algo é bem legal, sugestão de telefone no placeholder para digitar o telefone é bem legal.
+
+Imagens com muito detalhes não são legais, ou vídeo de background também pois eles tiram a atenção, nada contra coisas se movimentando no background desde que ele não destaque muito do que está escrito
+
+Carroseis (aquilo que mostra o conteúdo por um tempo e depois de um tempo mostra outra coisa), ou coloque pouco texto ou dê uma opção para pausar a reprodução desse carrossel por que é bem triste fisgarmos a atneção do cara mas depois esse conteúdo some. Uma sugestão é não usar-lo muito pode ser visto por [esse](http://shouldiuseacarousel.com/) site hahaha a falta de controle do que está nesse carrossel mata a usabilidade e a acessibilidade
+
+Fontes muito pequenas atrapalham muito, ao menos que sejam detalhes que não precisam ser lidos
+
+### Bons exemplos
+
+Formulários do paypal, perceba a iconografia e o por que está errado
+
+![Formulário do PayPal](img/paypal.png)
+
+Um [guia](https://www.designmantic.com/blog/infographics/designing-for-users-dyslexia/) do que se deve e do que não se deve fazer para pessoas dislexas em uma imagem
+
+Resumo
+
+Faça as modificações feitas em aula a fim de deixar o projeto inicial mais acessível para o público disléxico.
+
+Lembre-se de pontos como:
+
+evitar textos muito longos;
+remover sublinhados e textos inteiros em caixa alta;
+oferecer correções automáticas ou sugestões.
+
+Uma boa fonte para pessoas dislexas <https://www.opendyslexic.org/>
