@@ -16,6 +16,10 @@ Tabela de Conteúdo
 
 5.[Dislexia](#dislexia)
 
+6.[Baixa Visão](#baixa-visão)
+
+7.[Deficiência Física](#deficiência-fisica)
+
 ## Termos
 
 Cara, muito cuidado com termos como pessoa com problema ou doente, o certo é chamar elas de PCD (pessoas com deficiência), chame pelo que elas são mas não de maneira a suavizar (como ceguinho) e nem de esculachar, seja polido
@@ -190,3 +194,75 @@ remover sublinhados e textos inteiros em caixa alta;
 oferecer correções automáticas ou sugestões.
 
 Uma boa fonte para pessoas dislexas <https://www.opendyslexic.org/>
+
+O site adaptado para dislexia pode ser visto [aqui](https://www.figma.com/file/KvOKfGMaD8yTOWdwoE85TT/Apeperia-3-5-Dislexia)
+
+## Baixa Visão
+
+Considera-se baixa visão tudo aquilo que o óculos não corrige então não eu não to nessa hahahah e baixa visão não é a pessoa cega também, é o meio termo entre os dois
+
+### O que ajuda a pessoa com baixa visão
+
+Tirar o baixo contraste entre fundo e cor da letra. Por que não adianta nada botarmos azul claro de fundo e uma cor branca de letra, isso é ruim, mas não coloque fundo preto e cor branca por que o dislexo acaba saindo prejudicado. E você não pode matar sua identidade visual, então coloque um tom mais escuro de azul, nada mais que isso, mas faça questão de fazer isso
+
+Na wcag brasil vemos a seguinte colocação para contraste
+
+```pt-br
+Contraste (Mínimo): A apresentação visual de texto e imagens de texto tem uma relação de contraste de, no mínimo, 4.5:1, exceto para o seguinte: (Nível AA)
+
+Texto Ampliado: Texto em tamanho grande e as imagens compostas por texto em tamanho grande têm uma relação de contraste de, no mínimo, 3:1;
+
+Texto em plano Secundário: O texto ou imagens de texto que fazem parte de um componente de interface de usuário inativo, que são meramente decorativos, que não estão visíveis para ninguém, ou que são parte de uma imagem que inclui outro conteúdo visual significativo, não têm requisito de contraste.
+
+Logotipos: O texto que faz parte de um logotipo ou marca comercial não tem requisito de contraste.
+```
+
+Níveis estão relacionados a isso aqui
+
+![Níveis de acessibilidade](img/levels.png)
+
+O nível A é o que voce tem que fazer, o AA é o que você deveria e o AAA é o "não fez mais que sua obrigação"
+
+E o nível de constraste pode ser visto basicamente digitando [Contrast Checker](https://webaim.org/resources/contrastchecker/) no google ou vendo esse [aqui](https://contrastchecker.com/) também. Aqui entra um divisor de águas por que as vezes o layout ta bonito mas nao ta inclusivo então, o que você prefere? O certo é discutir e ver o melhor a se fazer mesmo
+
+As vezes mudar a saturação e alguns aspectos da imagem de fundo ajuda também
+
+Não passar informação apenas por cor
+
+Uma solução é fazer uso de iconografia e microtextos relacionados ao elemento tratado.
+
+A página se ajustar com o zoom (com CTRL+Scroll) desde a pagina não esconda coisas inportantes no processo de zoom (nao bloqueie o zoom pq pro pessoal de baixa visão isso é vital, é mais importante isso do que aumentar tamanho de fonte)
+
+Existe um plugin chamado [noCoffe](https://chrome.google.com/webstore/detail/nocoffee/jjeeggmbnhckmgdhmgdckeigabjfbddl) que ajuda a ter uma visão de como é enxergar um site quando se tem alguns problemas de visão, e simula problemas como daltonismo, miopia,  catarata e outros
+
+Para daltonicos (e outros problemas) não basta passar informações pela cor (como verde para sim e vermelho para não) pois para eles isso é a mesma coisa. Use ícones e frases informativas também
+
+#### Sobre tirar o zoom
+
+Quais os problemas nesse pedido?
+
+**Prejudica a experiência de usuário como um todo**
+
+Pensar mobile first ao desenvolver um layout pode ajudar indiretamente nisso também.
+
+**Qualquer usuário pode sentir dificuldade em ler e tentar aumentar a fonte inutilmente**
+
+Isso é bem ruim para acessibilidade e usabilidade, é bom evitar sempre.
+
+**Tira a liberdade do usuário**
+
+Uma das [10 Heurísticas de Nielsen](https://brasil.uxdesign.cc/10-heur%C3%ADsticas-de-nielsen-para-o-design-de-interface-58d782821840). Apenas tire essa liberdade caso ela prejudique a experiência do usuário.
+
+### Resumo
+
+- tomar cuidado com a contraste das cores;
+
+- evitar fontes muito pequenas;
+
+- evitar passar informações apenas por cor.
+
+Modelo do site para pessoa com baixa visão [aqui](https://www.figma.com/file/bFu720qX1EuijumTE2yhjd/Apeperia-4-5-Baixa-visao)
+
+## Deficiência Física
+
+O certo e mais aceito é PCD (pessoa com deficiência física)
