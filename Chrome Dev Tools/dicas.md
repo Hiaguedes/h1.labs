@@ -216,3 +216,51 @@ deve virar
             }
         );
 ```
+
+## Perfomance
+
+Aqui só vai pincelar sobre perfomance e nos mostrar que a timeline dentro do perfomance pode nos dizer por que o site trava com algumas transições e coisas do tipo
+
+Uma animação se mal otimizada ou mal programada pode emperrar nosso site, fazendo com que o browser tenha que processar muita coisa ao mesmo tempo, e como o site tenta deixar tudo a 60 frames por segundo ele deixa uns gaps pelo caminho
+
+Na aba perfomance temos a opção de gravar um tempo o site que estamos desenvolvendo e ver como está a animação de sobe e desaparece do elemento de forma que a melhorar a experiência de uso do usuário
+
+A aba Timeline permite gravar todo o processamento realizado pelo navegador por um determinado período para que se possa analisar possíveis gargalos na performance. Incluindo quadros por segundo, processamento da CPU e chamadas de funções JS.
+
+### Memory e Profiles
+
+Com allocation sampling eu consigo ver quais ações eu fiz enquanto estou gravando e quanto eles consomem na memória do computador e com heap snapshot eu vejo em baixo nível quais variáveis estão alocadas em memória e quanto elas pesam na RAM
+
+#### Exercício
+
+O que pode-se medir com os profiles do DevTools?
+
+Identificar vazamento de memória (memory leaks)
+
+Memória alocada pelo navegador
+
+Processamento da CPU gasto com JS
+
+Os profiles permitem uma análise bem baixo nível, mostrando processamento da CPU e alocação de memória. Isso permite que se identifique prolemas em casos de web apps muito dependentes de JS, como Gmail ou Facebook
+
+## Aplication
+
+A nova aba resources que grava informações de usuário e eu tenho uma lista de informações chamada de cookie que leva todas as informações do usuário e fazendo com que a informação fique cacheada no browser para a gente
+
+Pegando o arquivo da aula 5 e logando como deco@alura.com.br vemos diversos cartões especificados de outros alunos e de mim mesmo, pois o servidor tras essas informações para mim, e vejo elas pela aba network e na aba aplication vejo no localFile o usuario no qual estou logado, além de pequenos bancos de dados que o js consegue acessar como o indexed DB e o web sql os cookies e o cache
+
+O localStorage é uma ferramenta que permite bastante versatilidade, mas ela está na mão do cliente. Portanto tome cuidado e evite colocar nele coisas essenciais.
+
+## Security
+
+Se estamos em uma página HTTPS então a página é dada como segura na aba Security no devTools e ver se as conexões que esse site faz com outros serviços também são confiáveis e por aí vai.
+
+## Device Mode
+
+Se colocarmos o modo device (celular) nós conseguimos ver o quão responsivo o site é em diversas aplicações e em diversos tamanhos. Ativar o modo responsivo (testar varios tipos de tamanhos diferentes, criar telas diferentes) e no três pontinhos tirar uma screenshot de como aquele app estará no aplicativo que você quiser, além de ver todas as media querys (o @media no css) na barra amarela que aparece em cima do celular
+
+Utilizando o seguinte código abaixo conseguimos ver a localização do celular
+
+![Geolocalização](img/geo.png)
+
+Além disso dentros dos três pontinhos acima da linha de elements conseguimos simular sensores e atributos do hardware de um celular, muito legal mesmo!
