@@ -18,7 +18,9 @@ Tabela de Conteúdo
 
 6.[Baixa Visão](#baixa-visão)
 
-7.[Deficiência Física](#deficiência-fisica)
+7.[Deficiência Física](#deficiência-física)
+
+8.[Referências](#referências)
 
 ## Termos
 
@@ -64,7 +66,7 @@ Canal [Diário de um Austista](https://www.youtube.com/channel/UCbhT_vtlwr7X2wG6
 
 A primeira ação já foi comentada, as cores não devem ser muito fortes e as imagens não devem ter mtas luzes e flashs além de que o texto não deve ter muitas figuras de linguagem como metáforas e analogias. Nem usar figuras para explicar aquilo que uma palavra faria. A dica é eliminar coisas que podem ter dupla interpretação
 
-Frases imperativas como "CLIQUE AQUI" e "COMPRE já", "confira" incomodam os autistas então use frases mais suaves.
+Frases imperativas como "CLIQUE AQUI" e "COMPRE já", "confira" incomodam os autistas então use frases mais suaves e que digam de fato o que você verá ao clicar nesse butão, pois clique aqui, por que deveria clicar aí que coisa é essa? Sai daqui.
 
 Sem contar que botões tem que ter cara de botão, então coloque fundo no butão e tire o stroke que isso será legal para eles e não invente a roda, deixe a página o mais padronizável possível o mais comum possível para que ele não se canse com o seu site. Use frases como "Conheça nosso estoque", "continuar lendo o post", a esse tipo de texto nós chamamos de micro texto
 
@@ -237,7 +239,7 @@ Existe um plugin chamado [noCoffe](https://chrome.google.com/webstore/detail/noc
 
 Para daltonicos (e outros problemas) não basta passar informações pela cor (como verde para sim e vermelho para não) pois para eles isso é a mesma coisa. Use ícones e frases informativas também
 
-#### Sobre tirar o zoom
+### Sobre tirar o zoom
 
 Quais os problemas nesse pedido?
 
@@ -265,4 +267,56 @@ Modelo do site para pessoa com baixa visão [aqui](https://www.figma.com/file/bF
 
 ## Deficiência Física
 
-O certo e mais aceito é PCD (pessoa com deficiência física)
+O certo e mais aceito é PCD (pessoa com deficiência física) e aqui falaremos de pessoas com Parkinson ou deficiência na mão, mas podem ser pessoas com nescessidas especiais (como as idosas).
+
+### O que fazer para essas pessoas?
+
+Muita dessas pessoas podem acabar utilizando google assistant ou gadgets especificos para acessar o aparelho mobile então ter isso em mente para o projeto é importante.
+
+Criar botões maiores e com mais área clicável o tamanho de `50 px` já é interessante. Não somente botão clicável mas botão de carrosel também
+
+Fazer grandes áreas clicáveis, como uma imagem e um texto só estando clicáveis, como são coisas muito visuais deixe isso indicado pro front-end (que sou eu hahah)
+
+Deixar um efeito de hover e de active ou focus para quando estiver num campo ou em um botão
+
+Campos com tamanho decente (entenda campo como o label e o input)
+
+Tente sempre deixar o menu aberto para o usuário, mesmo que ele esteja em um side-nav mas deixe ele aberto e de preferência que ele percorra toda a página enquanto você navegue nela
+
+Faça o site ser acessível via teclado, caso eu não puder usar o mouse eu uso o tab
+
+Não use popups muito ligeiros e que mudem a forma como o usuário interage com o site
+
+Quando coloca CEP já ter que completar qual o Estado, a cidade o país, as vezes nem precisa dessas informações todas
+
+Informar pro usuário com cores qual são os botões que vão fazer uma ação, uma cor boa é o azul, podemos ver mais claro nessa imagem
+
+![Call to action em azul](https://s3.amazonaws.com/caelum-online-public/735-acessibilidade-web-design/form-cta-claro.png)
+
+Soluções rápidas poderiam ser dar menos importância para o botão de voltar, como nessa imagem com ele cinza.
+
+### Resumo
+
+Faça as modificações feitas em aula a fim de deixar o projeto inicial mais acessível para o público PCD.
+
+Lembre-se de pontos como:
+
+elementos mais fáceis de serem acertados;
+evitar alertas aleatórios;
+fornecer atalhos.
+
+Pagina adaptada para deficientes físico <https://www.figma.com/file/YttMttaClJrHE6adJv8kkJ/Apeperia-5-5-Def-Fisica>
+
+## Referências
+
+Sites bacanas de acessibilidade para se espelhar
+
+- Avon
+
+- No site [todos@web](https://todosnaweb.ceweb.br/) da premios aos sites mais acessiveis no brasil
+
+- acessibilida.de é um bom site que fala sobre acessibilidade e elementos de front end bem legais
+
+- Talita Pagani
+
+- Reinaldo Ferraz, trbalha na W3C
