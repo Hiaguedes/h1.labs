@@ -1,0 +1,12 @@
+/** Planos **/
+.planos {
+    background: $cor-aux;
+  
+    h2{
+      color: #fff;
+    }
+  }
+  
+  @import '5.1Cards-de-cada-Plano';
+  @import '5.2conteudo-plano';
+  @import '5.3icones';

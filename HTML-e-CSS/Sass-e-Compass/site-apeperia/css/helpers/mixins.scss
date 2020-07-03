@@ -1,0 +1,24 @@
+// mixins do sass
+
+@mixin borda-arredondada($raio:0.3em){
+    border-radius: $raio;
+    -webkit-border-radius: $raio;
+  }
+  
+  @mixin caixa-sombra {
+    box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+  }
+  
+  @mixin fundo-e-letra($cor-letra:rgb(17, 25, 68),$cor-fundo:rgb(212, 212, 212)){
+    background: $cor-fundo;
+    color: $cor-letra;
+  }
+  
+  @mixin sem-espacamento {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }

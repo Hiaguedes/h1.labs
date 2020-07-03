@@ -1,0 +1,38 @@
+  /* Menu das redes sociais*/
+  .social {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+
+    a{
+      background-position: top;
+      background-size: 50px 50px;
+
+      &[href*="facebook"] {
+        background-image: url(../imagens/facebook.png);
+      }
+
+      &[href*="twitter"] {
+        background-image: url(../imagens/twitter.png);
+      }
+
+      &[href*="instagram"] {
+        background-image: url(../imagens/instagram.png);
+      }
+    }
+
+    li{
+      display: inline;
+      float: left;
+
+      a {
+        display: block;
+        width: 55px;
+        height: 55px;
+        text-indent: -9999px;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        margin-left: 5.5em;
+      }
+    }
+  }

@@ -1,0 +1,35 @@
+/** Footer **/
+footer {
+    display: block;
+    position: relative;
+
+    a{
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .container {
+      padding-top: 3em;
+      height: 6.5em;
+      position: relative;
+
+      img{
+        width: 250px;
+      }
+    }
+
+    &::after{
+      content: "";
+      background: url(../imagens/fundo-rodape.png);
+      opacity: .02;
+      @include sem-espacamento;
+    }
+
+    &::before{
+      content: "";
+      background: $cor-aux;
+      @include sem-espacamento;
+    }
+  } 
+  
+@import '8.1Menu-Rodape';

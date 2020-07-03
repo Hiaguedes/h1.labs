@@ -1,0 +1,22 @@
+  /* Menu do radapé*/
+  .menu-rodape{
+    position: absolute;
+    //border: 5px solid red;
+  }
+  
+  .menu-rodape {
+    top: 1em;
+    right: 0;
+
+    ul li{
+      display: inline-block;
+      margin-left: 2em;
+    }
+  }
+  
+  
+  .menu-rodape li {
+    display: inline;
+  }
+
+  @import '8.2Menu-Redes-Sociais';
