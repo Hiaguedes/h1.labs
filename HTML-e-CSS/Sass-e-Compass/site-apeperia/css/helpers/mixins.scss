@@ -5,7 +5,8 @@
     -webkit-border-radius: $raio;
   }
   
-  @mixin caixa-sombra {
+  %caixa-sombra {
+    webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
     box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
   }
   
@@ -14,11 +15,17 @@
     color: $cor-letra;
   }
   
-  @mixin sem-espacamento {
+  %sem-espacamento {
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     position: absolute;
     z-index: -1;
+  }
+
+  %image-replacement {
+    text-indent: -9999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
   }

@@ -22,13 +22,13 @@ footer {
       content: "";
       background: url(../imagens/fundo-rodape.png);
       opacity: .02;
-      @include sem-espacamento;
+      @extend %sem-espacamento;
     }
 
     &::before{
       content: "";
       background: $cor-aux;
-      @include sem-espacamento;
+      @extend %sem-espacamento;
     }
   } 
   

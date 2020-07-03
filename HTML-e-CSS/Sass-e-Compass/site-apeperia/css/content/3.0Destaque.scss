@@ -27,7 +27,7 @@
       padding: .6em;
       font-size: 1.2em;
       @include borda-arredondada(5em);
-      @include caixa-sombra;
+      @extend %caixa-sombra;
       font-weight: bold;
     }
   }

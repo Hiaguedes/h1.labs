@@ -1,4 +1,21 @@
 @charset "UTF-8";
+.destaque button, .plano button, .contato button {
+  webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5); }
+
+.blog::after, footer::after, footer::before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+.plataformas li, .social li a {
+  text-indent: -9999px;
+  overflow: hidden;
+  background-repeat: no-repeat; }
+
 /** Geral **/
 body {
   font-family: "Roboto Slab", serif; }
@@ -23,7 +40,7 @@ h2 {
 
 /** Header **/
 header {
-  border-top: 5px solid #B68181;
+  border-top: 5px solid #b64e4e;
   background: rgba(17, 25, 68, 0.8);
   height: 90px;
   width: 100%;
@@ -67,13 +84,12 @@ header {
         font-weight: bold; }
   .destaque button {
     margin-top: 1em;
-    background: #B68181;
+    background: #b64e4e;
     border: 0;
     padding: .6em;
     font-size: 1.2em;
     border-radius: 5em;
     -webkit-border-radius: 5em;
-    box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
     font-weight: bold; }
 
 /** Sobre **/
@@ -98,9 +114,6 @@ header {
     display: inline-block;
     width: 50px;
     height: 60px;
-    text-indent: -9999px;
-    overflow: hidden;
-    background-repeat: no-repeat;
     background-position: center;
     margin: 1em 1.5em 0 0; }
     .plataformas li:nth-child(1) {
@@ -129,17 +142,17 @@ header {
   .plano h3 {
     color: #fff;
     font-size: 1.8em;
-    background: #B68181;
+    background: #b64e4e;
     text-align: center;
     height: 2em;
     padding-top: .6em;
     margin-top: 0; }
   .plano div {
     text-align: center;
-    color: #B68181;
+    color: #b64e4e;
     font-size: 2.75em; }
   .plano button {
-    background: #B68181;
+    background: #b64e4e;
     border: 0;
     color: #fff;
     width: 210px;
@@ -147,7 +160,6 @@ header {
     font-size: 1.2em;
     border-radius: 0.3em;
     -webkit-border-radius: 0.3em;
-    box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
     margin-left: 2em; }
 
 .itens-plano {
@@ -182,13 +194,7 @@ header {
     content: "";
     background: url(../imagens/fundo.png);
     background-size: 25px 25px;
-    opacity: .15;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1; }
+    opacity: .15; }
 
 .post-destaque,
 .posts-antigos {
@@ -229,17 +235,20 @@ textarea {
   -webkit-border-radius: 0.3em;
   border: 2px solid #ccc; }
 
+textarea:focus {
+  height: 15em;
+  transition: 0.5s; }
+
 .contato button {
   margin: 0 auto;
-  background: #B68181;
+  background: #b64e4e;
   color: #ffffff;
   border: 0;
   width: 210px;
   height: 38px;
   font-size: 1.2em;
   border-radius: 0.3em;
-  -webkit-border-radius: 0.3em;
-  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5); }
+  -webkit-border-radius: 0.3em; }
 
 /** Footer **/
 footer {
@@ -257,22 +266,10 @@ footer {
   footer::after {
     content: "";
     background: url(../imagens/fundo-rodape.png);
-    opacity: .02;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1; }
+    opacity: .02; }
   footer::before {
     content: "";
-    background: #111944;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1; }
+    background: #111944; }
 
 /* Menu do radap├⌐*/
 .menu-rodape {
@@ -309,9 +306,6 @@ footer {
       display: block;
       width: 55px;
       height: 55px;
-      text-indent: -9999px;
-      overflow: hidden;
-      background-repeat: no-repeat;
       margin-left: 5.5em; }
 
 /*# sourceMappingURL=estilos.css.map */

@@ -8,7 +8,7 @@
     background: url(../imagens/fundo.png);
     background-size: 25px 25px;
     opacity: .15;
-   @include sem-espacamento;
+   @extend %sem-espacamento;
   }
 }
 

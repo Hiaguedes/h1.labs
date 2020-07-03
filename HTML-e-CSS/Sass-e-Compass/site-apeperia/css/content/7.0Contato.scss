@@ -18,6 +18,11 @@ textarea {
   border: 2px solid #ccc;
 }
 
+textarea:focus{
+  height:15em ;
+  transition: 0.5s;
+}
+
 .contato button {
   margin: 0 auto;
   @include fundo-e-letra(#ffffff, $cor-padrao);
@@ -26,5 +31,5 @@ textarea {
   height: 38px;
   font-size: 1.2em;
   @include borda-arredondada;
-  @include caixa-sombra;
+  @extend %caixa-sombra;
 }

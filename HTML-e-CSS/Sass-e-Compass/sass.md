@@ -198,4 +198,123 @@ Sass:
 
 O `&` serve para juntarmos o a com o :hover
 
-Entenda aninhar como colocar um filho dentro do pai, ou seja uma relação estar dentro da outra.
+Entenda aninhar como colocar um filho dentro do pai, ou seja uma relação estar dentro da outra. O nome em inglês para essa prática é nesting
+
+## Importando arquivos
+
+Eu posso separar meu arquivo scss em arquivos scss menores e importar o conteúdo dele em um arquivo scss que será processado no arquivo css de fato e eu posso fazer isso com
+
+```scss
+@import 'pasta/header'
+```
+
+Aí é somente questão de organização, a dica é organizar as variáveis em uma pasta os mixins em outras e cada divs separadamente, assim como o normalize (ou reset) em uma pasta de base e cada div como conteudo.
+
+Para fazer uso do import precisamos colocar o ‘@’ junto com a palavra ‘import’:
+
+@import
+
+Depois, entre aspas, colocamos qual será o arquivo importado:
+
+@import “estilos.scss”
+
+Para finalizar, um ponto-e-vírgula no final:
+
+@import “estilos.scss”;
+
+Para deixar mais fácil ainda, nem precisamos colocar a extensão:
+
+@import “estilos";
+
+É aqui que você organiza o seu css e acha as coisas dentro dele, é maravilhoso
+
+## darken e lighten
+
+Se seu chefe quer uma cor um pouco mais clara, um pouco mais escura. Bem com darken deixamos a cor original, uma porcentagem mais escura. E com lighten nós deixamos a cor um pouco mais clara. Justamente para não perder essa cor base e ficar caçando ela depois
+
+Podemos setar a porcentagem para zero, pois é um valor aceitável, só não posso colocar valor negativo mesmo.
+
+```scss
+$cor-padrao: darken(#B68181,10%);
+```
+
+Pode deixar a % ou não tanto faz
+
+### Outras funções de cor
+
+Tem a saturate (que satura a cor em uma porcentagem) e a complement(que retorna a cor diametralmente oposta) e a adjust-hue(); que sei lá o que é mas você precisa da porcentagem
+
+## O placeholder
+
+O mixin como vimos ele apenas copia e cola o código na classe css, isso pode criar diversas repetições de código desnecessárias no arquivo, o que pode diminuir a perfomance do código, para utilizar o placeholder nós faríamos
+
+No css
+
+```css
+butao1{
+        webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+}
+butao2{
+        webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+}
+```
+
+Arredonda botão
+
+```scss
+%arredonda-butao{
+        webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+}
+```
+
+E para implementar
+
+```scss
+butao1{
+    @extend %arredonda-butao;
+}
+```
+
+Isso faz com que surja no css um:
+
+```css
+butao1,butao2{
+        webkit-box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.5);
+}
+```
+
+E a diferença que no placeholder eu não consigo passar um parâmetro como no mixin. Quando o mixin é usado em várias regras CSS, o código é repetido em todas elas.
+
+O placeholder agrupa eles e evita o código repetido, porém o placeholder apenas é uma alternativa para o mixin quando lidamos com parâmetros fixos. Quando é preciso passar algum valor na chamada da função, o mixin é mais recomendado.
+
+### Exercício
+
+Vimos nessa aula sobre placeholders, mas será que conseguimos usar o @extend com classes?
+
+Como o trecho abaixo será compilado?
+
+```scss
+.erro {
+  background: #f00;
+}
+
+.alerta {
+  border-radius: 3px;
+  @extend .erro
+  ```
+  
+  Resposta
+
+  ```css
+.erro, .alerta {
+  background: #f00;
+}
+
+.alerta {
+  border-radius: 3px;
+}
+  ```
