@@ -227,7 +227,7 @@ function desenhaCirculo(evento){//com uma variavel interna dentro de uma funçã
             pincel.beginPath();
             //pincel.fillStyle= cores[i];
             pincel.fillStyle=paleta.value; // aqui que mudamos a cor de algo pela seleção de cor na paleta pelo usuário
-            desenhaTexto(canvas5.width/2,300,`Selecione cor com o menu embaixo do canvas `);
+            desenhaTexto(canvas5.width/2,300,`Selecione cor com o menu embaixo do canvas `,paleta.value);
 
             if(desenhar){ // condicao para que desenhe quando pressiono o botao do mouse quando passe com o mouse e aperte com o botão esquerdo
             if(evento.shiftKey){
@@ -235,7 +235,7 @@ function desenhaCirculo(evento){//com uma variavel interna dentro de uma funçã
             }/*else{
                 raio=5;
             }volte com raio para a função para fazer o raio normal ser 5*/
-            if(evento.altKey){ // com apenas os eventos do mouse consiguimos ver se a teclas alt,ctrl e shift estavam pressionadas no momento da ação
+            if(evento.altKey){ // com apenas os eventos do mouse conseguimos ver se as teclas alt,ctrl e shift estavam pressionadas no momento da ação
                 raio =5; // faz o raio do circulo ser a metade
             }
 
@@ -254,17 +254,6 @@ function desenhaCirculo(evento){//com uma variavel interna dentro de uma funçã
             }
             console.log(x,y, desenhar);
     }
-    
-function desenhaTexto(x , y,texto) { // // para que eu tenha um texto que não mude com o selecionar de cores
-        pincel.fillStyle='rgb(190, 190, 190)';
-        pincel.style.fontWeight='bold';
-        pincel.fillText(texto,x,y); 
-        //pincel.fillStyle=cores[i];
-        pincel.fillStyle=paleta.value; // aqui a cor selecionada na paleta faz com que o texto mude de cor.
-        pincel.style.fontWeight='normal';
-        pincel.font='30px Georgia';
-        pincel.fillText(texto,x,y);    
-}
 
 function desenhaTexto(x , y,texto,cor) { // texto muda de cor com a cor selecionada pelo usuário
         pincel.fillStyle=cor;
