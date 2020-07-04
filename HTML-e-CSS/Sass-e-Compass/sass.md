@@ -387,4 +387,105 @@ header {
 
 Comentário final: Eu até poderia fazer as aulas de compass mas como ele não está mais sendo mantido eu não tenho nenhum projeto pra ele eu preferi não fazer, o bootstrap aceita sass e tem um monte de coisas bem legais
 
-Um framework como era o compass e como é o bootstrap ou o bourbon e varios outros são comandos já feitos pela comunidade e que ajudam em alguns comandos mais complexos, e você somente baixa a biblioteca e pronto
+Um framework como era o compass e como é o bootstrap ou o bourbon e varios outros são comandos já feitos pela comunidade e que ajudam em alguns comandos mais complexos, e você somente baixa a biblioteca e pronto.
+
+Coisas legais que podem ser feitas com um framework é criar sprites (like a game) para nossas imagens, veja se o framework que você utiliza tem essa função
+
+## Funções mataméticas no sass
+
+O sass aceita contas matemáticas de forma que `2*16px` vale `32px`, além de poder criar variáveis globais com esses valores e poder aplicar multiplicadores nela
+
+Como em
+
+```sass
+$tamanho-da-fonte-padrao: 16px;
+
+.plano {
+  background: white;
+  width: 18 * $tamanho-da-fonte-padrao;
+  display: inline-block;
+  margin: 1em 0 0 1.4em;
+  padding-bottom: 2em;
+}
+```
+
+Que nos dá o css
+
+```css
+.plano {
+  background: white;
+  width: 288px;
+  display: inline-block;
+  margin: 1em 0 0 1.4em;
+  padding-bottom: 2em;
+}
+```
+E eu posso usar os mixins para retornar linhas em css com:
+
+```scss
+@mixin retorna-largura {
+  width: 18 * $tamanho-da-fonte-padrao;
+}
+```
+
+Mas as vezes eu somente estou interessado no numero retornado e posso fazer isso com
+
+```scss
+@function multiplica-pela-fonte ($multiplicador){
+  @return $multiplicador * $tamanho-da-fonte-padrao;
+}
+```
+
+E aplicar essa função onde eu quiser
+
+Eu posso arredondar o valor retornado com o `round` oq nos deixa com
+
+```scss
+@function multiplica-pela-fonte ($multiplicador){
+  @return round($multiplicador * $tamanho-da-fonte-padrao);
+}
+```
+
+## Boas práticas e conselhos
+
+O sass é ótimo para deixar o seu css mais prático e automatizado mas isso não significa que seu css ficará melhor com isso, a dica é sempre verificar o seu css e maneira no número de mixins pois ele sempre estará repetindo o código, caso não precise de valores diferentes prefira utilizar placeholders
+
+O sass é muito utilizado pra organizar o código então organize de acordo com você mesmo ou com seu time
+
+E lembre-se Boas práticas no CSS, boas práticas no Sass.
+
+E isso vale para qualquer outro pré-processador.
+
+### Comentário Alura
+
+Vimos durante o curso que o Sass é uma ferramenta poderosa que agiliza muito o nosso trabalho. Como falamos em um primeiro momento, ele é um CSS com superpoderes.
+
+Entretanto, é importante tomar cuidado. O Sass pode facilitar o desenvolvimento no dia a dia, mas não necessariamente fará do seu CSS um CSS melhor. É preciso tomar cuidado.
+
+Uma boa prática, que usamos durante todo esse curso, é sempre conferir o arquivo .css gerado a cada alteração feita no .scss, seja ela uma nova variável, um mixin, ou um placeholder. É importante ver se nada foi esquecido, ou se há repetição desnecessária de código.
+
+Outro ponto importante é ter um uso econômico dos mixins, sempre verificando se um placeholder não é o mais adequado por uma repetição exata de código. Se há um valor que precisa variar, a escolha do mixin é acertada.
+
+Mais um toque final: no curso, criamos as pastas base, helpers e layout dentro da pasta css.
+
+Mas é importante que você crie as suas próprias pastas de acordo com as necessidades do seu projeto, da sua equipe ou da sua empresa. Boa sorte e até o próximo curso!
+
+## Indo Além
+
+Vimos aqui no curso o Sass, mas existem atualmente outros dois grandes pré-processadores no mercado, o Less e o Stylus. A grande maioria das funcionalidades (variável, mixin, etc) que vimos no Sass, também estão presentes nesses dois.
+
+Você pode conferir o curso de Less aqui na Alura mesmo:
+
+https://cursos.alura.com.br/course/less-css-simples-e-produtivo
+
+Outra dica é estudar aqui na Alura algum automatizadores de tarefa front-end, como o Gulp e o Grunt.
+
+E alguns posts para você conhecer esses caras:
+
+[Gulp](https://blog.caelum.com.br/bye-bye-grunt-js-hello-gulp-js/)
+
+[Grunt](https://blog.caelum.com.br/automacao-de-build-de-front-end-com-grunt-js/)
+
+### Dicas de mixins
+
+[Link](https://blog.caelum.com.br/10-mixins-sass-que-voce-deveria-usar-em-seus-projetos/)
