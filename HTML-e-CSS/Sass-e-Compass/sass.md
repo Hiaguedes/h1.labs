@@ -318,3 +318,73 @@ Como o trecho abaixo será compilado?
   border-radius: 3px;
 }
   ```
+
+## media query
+
+Eu posso estabelecer um media query dentro de um elemento da seguinte forma
+
+```scss
+header {
+    border-top: 5px solid $cor-padrao;
+    background: rgba($cor-aux, 0.8);
+    height: 90px;
+    width: 100%;
+    position: absolute;
+
+    @media(max-width:980px) {
+      height: auto;
+    }
+```
+
+Isso cria um arquivo css igual a:
+
+```css
+header {
+    border-top: 5px solid $cor-padrao;
+    background: rgba($cor-aux, 0.8);
+    height: 90px;
+    width: 100%;
+    position: absolute;
+}
+
+@media(max-width:980px) {
+  header{
+    height: auto;
+  }
+}
+```
+
+Mesmo com o CSS ficando com várias media queries sendo repetidas ao longo do código, apenas habilitando a compactação gzip no servidor, já elimina esse problema.
+
+Onde dentro do elemento eu tenho uma função que trata ela quando eu tenho uma tela menor
+
+E ainda poderia criar uma variável para armazenar o tamanho da tela desejável com
+
+```scss
+$tela:980px;
+```
+
+Ou melhor, eu poderia colocar toda a linha de query com:
+
+```scss
+$media-query-mobile:"(max-width:980px)";
+```
+
+E aí chamar essa variável com
+
+```scss
+header {
+    border-top: 5px solid $cor-padrao;
+    background: rgba($cor-aux, 0.8);
+    height: 90px;
+    width: 100%;
+    position: absolute;
+
+    @media #{$media-query-mobile}{
+      height: auto;
+    }
+```
+
+Comentário final: Eu até poderia fazer as aulas de compass mas como ele não está mais sendo mantido eu não tenho nenhum projeto pra ele eu preferi não fazer, o bootstrap aceita sass e tem um monte de coisas bem legais
+
+Um framework como era o compass e como é o bootstrap ou o bourbon e varios outros são comandos já feitos pela comunidade e que ajudam em alguns comandos mais complexos, e você somente baixa a biblioteca e pronto

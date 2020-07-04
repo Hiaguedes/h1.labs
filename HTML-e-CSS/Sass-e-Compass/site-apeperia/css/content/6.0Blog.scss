@@ -17,6 +17,10 @@
   width: 48%;
   display: inline-block;
   vertical-align: top;
+
+  @media#{$mq-mobile}{
+    width: auto;
+  }
 }
 
 .post-destaque {
@@ -37,5 +41,11 @@
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+form{
+@media#{$mq-mobile}{
+  width: auto;
   }
 }

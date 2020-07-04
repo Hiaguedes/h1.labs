@@ -5,10 +5,30 @@ header {
     height: 90px;
     width: 100%;
     position: absolute;
+
+    @media #{$mq-mobile} {
+      height: auto;
+    }
   
     .container{
       position: relative;
+
+      @media #{$mq-mobile} {
+        position: static;
+      }
     }
+    h1{
+    @media #{$mq-mobile} {
+      max-width: 50%;
+    }
+    img{
+      @media #{$mq-mobile} {
+        max-width: 80%;
+        margin: .5em 0;
+        display: block;
+      }
+    }
+  }
   }
   
 @import '2.1Menu-Header'

@@ -35,4 +35,21 @@
       @extend %caixa-sombra;
       margin-left: 2em;
     }
+
+    @media #{$mq-mobile}{
+      width: 15em;
+
+      div{
+        font-size: 1.5em;
+      }
+
+      button{
+        width: 150px;
+        height: 25px;
+      }
+      h3{
+        font-size: 1.6em;
+        height: 2em;
+      }
+    }
   }

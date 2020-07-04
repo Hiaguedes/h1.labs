@@ -5,7 +5,12 @@
     background-size: cover;
     height: 330px;
     padding-top: 10em;
-  
+
+    @media #{$mq-mobile} {
+      font-size: 14px;
+		  height: 250px;
+    }
+
     p{
       width: 30em;
   

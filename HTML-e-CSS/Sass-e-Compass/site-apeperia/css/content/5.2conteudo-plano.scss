@@ -1,12 +1,23 @@
 .itens-plano {
     padding-left: 1.2em;
   
+    @media #{$mq-mobile}{
+      position: static;
+      display: block;
+      text-align: center;
+      width: auto;
+    }
     li{
       font-size: 1em;
       list-style: none;
       border-bottom: 1px solid #acacac;
       padding: .5em;
       width: 14.8em;
+
+      @media #{$mq-mobile}{
+        margin: .4em;
+        width: auto;
+      }
   
       &:last-child{
         border: 0;

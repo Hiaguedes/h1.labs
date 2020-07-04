@@ -23,6 +23,9 @@ body {
 .container {
   width: 940px;
   margin: 0 auto; }
+  @media (max-width: 980px) {
+    .container {
+      width: 90%; } }
 
 .titulo-secao {
   text-decoration: underline;
@@ -45,8 +48,22 @@ header {
   height: 90px;
   width: 100%;
   position: absolute; }
+  @media (max-width: 980px) {
+    header {
+      height: auto; } }
   header .container {
     position: relative; }
+    @media (max-width: 980px) {
+      header .container {
+        position: static; } }
+  @media (max-width: 980px) {
+    header h1 {
+      max-width: 50%; } }
+  @media (max-width: 980px) {
+    header h1 img {
+      max-width: 80%;
+      margin: .5em 0;
+      display: block; } }
 
 .menu-principal {
   position: absolute;
@@ -73,6 +90,10 @@ header {
   background-size: cover;
   height: 330px;
   padding-top: 10em; }
+  @media (max-width: 980px) {
+    .destaque {
+      font-size: 14px;
+      height: 250px; } }
   .destaque p {
     width: 30em; }
     .destaque p:first-child {
@@ -161,15 +182,36 @@ header {
     border-radius: 0.3em;
     -webkit-border-radius: 0.3em;
     margin-left: 2em; }
+  @media (max-width: 980px) {
+    .plano {
+      width: 15em; }
+      .plano div {
+        font-size: 1.5em; }
+      .plano button {
+        width: 150px;
+        height: 25px; }
+      .plano h3 {
+        font-size: 1.6em;
+        height: 2em; } }
 
 .itens-plano {
   padding-left: 1.2em; }
+  @media (max-width: 980px) {
+    .itens-plano {
+      position: static;
+      display: block;
+      text-align: center;
+      width: auto; } }
   .itens-plano li {
     font-size: 1em;
     list-style: none;
     border-bottom: 1px solid #acacac;
     padding: .5em;
     width: 14.8em; }
+    @media (max-width: 980px) {
+      .itens-plano li {
+        margin: .4em;
+        width: auto; } }
     .itens-plano li:last-child {
       border: 0; }
   .itens-plano span {
@@ -201,6 +243,10 @@ header {
   width: 48%;
   display: inline-block;
   vertical-align: top; }
+  @media (max-width: 980px) {
+    .post-destaque,
+    .posts-antigos {
+      width: auto; } }
 
 .post-destaque {
   margin-right: 2em; }
@@ -216,6 +262,10 @@ header {
   display: block; }
   .posts-antigos a:hover {
     text-decoration: underline; }
+
+@media (max-width: 980px) {
+  form {
+    width: auto; } }
 
 /** Contato **/
 .contato input,
