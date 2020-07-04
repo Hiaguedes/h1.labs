@@ -1,0 +1,44 @@
+body{
+    background: rgb(218, 155, 155);    
+}
+
+.container{
+    position: relative;
+    width: 55%;
+    margin: 250px auto;
+    padding: 200px 0;
+    border: solid ;
+    border-radius: 20px;
+}
+
+ .rue{
+    position: absolute;
+    display: inline-block;
+    width: 48px;
+    height: 64px;
+    left: 50%;
+    background: url(../../img/red_rue.png) no-repeat;
+    background-position: 0 -128px;
+    transform: scale(1.2,1.2);
+    top:150px;
+}
+
+.niko{
+    position: absolute;
+    display: inline-block;
+    width: 48px;
+    height: 64px;
+    left: 50%;
+    background: url(../../img/Oneshot-niko_ladder.png) no-repeat;
+    background-position: 0 -128px;
+    transform: scale(1.2,1.2);
+    top:100px;
+}
+
+/*192 x 256 [px] */
+/* 48 x 64px*/
+
+.video {
+    width: 30%;
+    margin: 0 auto;
+}
