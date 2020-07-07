@@ -1,0 +1,163 @@
+body {
+  background: #353535; }
+
+.container-header {
+  border: 1px solid #25d625;
+  width: calc(100%-2px);
+  height: 150px; }
+
+.lista-header {
+  border: 1px solid #1a7a1a;
+  width: 75%;
+  margin: 0 auto;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around; }
+
+.item-header {
+  border: 1px solid #cacaca;
+  width: 15%;
+  height: 50px; }
+
+.main {
+  border: 1px solid #25d625;
+  width: calc(100%-2px);
+  padding-bottom: 1%; }
+
+.container-main {
+  width: 55%;
+  flex-grow: 1;
+  margin: 0 auto;
+  border: 1px solid #1a7a1a; }
+
+.lista-personagens {
+  display: flex;
+  flex-wrap: wrap; }
+
+.personagem {
+  width: 150px;
+  height: 150px;
+  margin: 1%;
+  border: 1px solid #cacaca;
+  position: relative; }
+
+.personagem:hover {
+  border: 1px solid #999999; }
+
+.personagem a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  text-align: center;
+  position: absolute;
+  color: #e6e6e6; }
+
+.personagem a:before {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 10px auto; }
+
+.personagem:nth-child(1) a:before {
+  background: url(./img/banjo.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(2) a:before {
+  background: url(./img/joker.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(3) a:before {
+  background: url(./img/ness.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(4) a:before {
+  background: url(./img/senua.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(5) a:before {
+  background: url(./img/sans.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(6) a:before {
+  background: url(./img/komaeda.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(7) a:before {
+  background: url(./img/maya.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(8) a:before {
+  background: url(./img/cecil.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(9) a:before {
+  background: url(./img/lucas.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(10) a:before {
+  background: url(./img/niko.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(11) a:before {
+  background: url(./img/kiryu.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(12) a:before {
+  background: url(./img/link.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(13) a:before {
+  background: url(./img/velvet.png) no-repeat;
+  background-size: cover; }
+
+.personagem:nth-child(14) a:before {
+  background: url(./img/majima.png) no-repeat;
+  background-size: cover; }
+
+.footer {
+  width: calc(100%-2px);
+  border: 1px solid #25d625; }
+  .footer .container {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #1a7a1a;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; }
+    @media (max-width: 1105px) {
+      .footer .container {
+        flex-direction: column; } }
+
+@media (max-width: 1105px) {
+  .lista {
+    margin: 3% 0; } }
+.lista h2 {
+  padding: 0 50px;
+  height: 19px;
+  border: 1px solid #cacaca; }
+.lista p {
+  padding: 0 150px;
+  height: 15px;
+  border: 1px solid #cacaca; }
+
+.container-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #1a7a1a; }
+  .container-2 p {
+    flex-grow: 1;
+    height: 11px;
+    padding: 0 10em;
+    border: 1px solid #cacaca;
+    margin: 1% 0; }
+  .container-2 img {
+    width: 240px;
+    height: 240px;
+    border: 1px solid #cacaca;
+    margin: 1% 0; }
+
+/*# sourceMappingURL=styles.css.map */

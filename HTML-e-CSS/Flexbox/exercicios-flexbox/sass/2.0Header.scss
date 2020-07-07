@@ -1,0 +1,21 @@
+.container-header{
+    border: 1px solid $cor-container-maior;
+    width: calc(#{$largura});
+    height: 150px;
+}
+
+.lista-header {
+    border: $espessura-borda solid rgb(26, 122, 26);
+    width: 75%;
+    margin: 0 auto;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.item-header{
+    border: $espessura-borda solid $cor-conteudo;
+    width: 15%;
+    height: 50px;
+}
