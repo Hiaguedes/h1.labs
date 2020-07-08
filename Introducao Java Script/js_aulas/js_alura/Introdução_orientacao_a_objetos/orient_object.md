@@ -4,6 +4,8 @@ Aqui vamos apenas nos preocupar em fazer um programa que utiliza orientação a 
 
 Podemos ver todo o conteúdo do professor no link <https://github.com/alura-cursos/js-orientacao-objetos> e ver aulas na branch, no total são 5
 
+Tem outra aula que pode ser vista aqui <https://github.com/alura-cursos/js-heranca-polimorfismo/tree/aula5>
+
 ## Evitar repetição de código
 
 Imagina que um banco precisa do nome, do CPF, do numero da Agência e do Saldo. Para isso eu teria que ter uma estrutura de código mais ou menos assim
@@ -456,3 +458,22 @@ Para proibir uma função de ser chamada diretamente faça
 ```
 
 Isso deixa nosso código mais seguro
+
+## Polimorfismo
+
+A arte de tratar objetos diferentes da mesma forma, dentro de outra classe diferente. Basta as duas terem a mesma função dentro da classe mãe. E pode ser entendido da seguinte maneira
+
+```js
+export class sistemaAutenticacao{
+
+    static login(usuarioAutenticavel,senha){
+
+        if(sistemaAutenticacao.isAutenticable(usuarioAutenticavel)){
+            return usuarioAutenticavel.autenticar(senha);
+        }
+        return false;
+    }
+}
+```
+
+Se o objeto (qualquer) tem a variavel senha e passar pelo teste de autentificacao, eu libero o acesso para ele. Para isso basta com que esse objeto tenha a função (autenticar)
