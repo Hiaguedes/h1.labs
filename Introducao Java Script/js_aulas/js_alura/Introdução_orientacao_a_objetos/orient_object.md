@@ -379,3 +379,80 @@ E depois eu chamo ela em
 ```js
 console.log(contaCorrente.numContas);// vejo quantas vezes a função foi chamada
 ```
+
+Uma propriedada legal dos construtores é que podemos inicializar as variáveis dentro do construtor (sendo essa a melhor prática) pois o js consegue identificar as variáveis dessa forma
+
+```js
+export class contaPoupanca{
+
+    constructor(saldoInicial,cliente,agencia){
+        this._saldo=saldoInicial;
+        this._cliente=cliente;
+        this._agencia=agencia;
+
+    }
+}
+```
+
+## Herança
+
+A herança serve para não repetirmos códigos em comum que existe entre duas classes, onde eu coloco caracteristicas em comum.
+
+E dentro do nosso código imagine que queiramos colocar uma conta poupança, ou uma conta salário, ou outros tipos de conta. É bom colocarmos uma classe que una todas as contas, ou seja classe conta, então pegaremos tudo o que fizemos na conta corrente e criaremos a conta e as novas contas herdarão a conta da seguinte forma
+
+```js
+export class contaCorrente extends conta{
+```
+
+Tiraremos todas as funções dessa classe (pois estará em conta) e ficaremos com o seguinte construtor, o extends meio que diz que todas as funções que estão na mãe podem ser lidas pela filha mas não o contrário
+
+```js
+    constructor(cliente,agencia){
+        super(0,cliente,agencia);
+        contaCorrente.numContas++;//e para isso eu conto em quantas vezes o construtor foi chamado chamando a propria classe
+    }
+```
+
+Onde o super é o que puxa as caracteristica da classe conta de modo a não precisar criar uma `new contaCorrente`, e a caracteristica da conta Corrente é declararmos todo o saldo como zero uma vez que o construtor da classe conta está como
+
+```js
+    constructor(saldo,cliente,agencia){
+        this._cliente=cliente;
+        this._agencia=agencia;
+        this._saldo=saldo;
+        conta.numContas++;//e para isso eu conto em quantas vezes o construtor foi chamado chamando a propria classe
+    }
+```
+
+O super chama o construtor da classe mãe e por ela extender a classe mãe então eu tenho que referenciar ela. E funçoes na classe mãe podem ser completamente sobreescritas na classe filha e com isso conseguimos criar interfaces de uma classe filha para uma classe mãe, que é quando eu sobrescrevo a função da classe mãe, porém passando um ou mais parâmetros próprios daquela classe, como uma taxa diferenciada para cada tipo de conta
+
+## Classe e função abstrata
+
+Quando temos uma função do tipo abstrata entenda como eu não posso chamar essa função ou classe pois ela me lança algum tipo de erro, então uma classe mãe normalmente é do tipo abstrata pois não faz sentido eu querer chamar ela. Para barrar uma classe eu chamo
+
+
+```js
+    constructor(saldo,cliente,agencia){
+        if(this.constructor==conta){
+            throw new Error("Você não pode instanciar a classe conta diretamente");//joga um erro se querermos instanciar essa classe diretamente
+        }
+
+        this._cliente=cliente;
+        this._agencia=agencia;
+        this._saldo=saldo;
+        conta.numContas++;//e para isso eu conto em quantas vezes o construtor foi chamado chamando a propria classe
+
+    }
+```
+
+Então se o construtor que chama essa função for do tipo conta lance um erro.
+
+Para proibir uma função de ser chamada diretamente faça
+
+```js
+    sacar(valor){
+        throw new Error("Use _sacar(valor,taxa) invés de sacar");
+    }
+```
+
+Isso deixa nosso código mais seguro
