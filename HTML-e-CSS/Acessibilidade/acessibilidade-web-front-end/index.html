@@ -21,10 +21,10 @@
   <link rel="stylesheet" href="css/rodape.css">    
   <link rel="stylesheet" href="css/dialogNewsletter.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width" />
 </head>
 <body>
-
+  <a class="escondeVisualmente" href="#pularConteudo">Vá para o conteudo principal</a>
   <header class="cabecalho container">
     <a href="#" class="cabecalho-logo">
 
@@ -68,7 +68,8 @@
   <main class="conteudo">
 
     <section class="secaoDestaque">
-      <h1 class="secaoDestaque-titulo">
+      
+      <h1 class="secaoDestaque-titulo" id="pularConteudo">
         APLICATIVOS NA MEDIDA
       </h1>
       <h2 class="secaoDestaque-texto">
@@ -339,12 +340,12 @@
           </p>
 
           <div class="contatoCampo contatoCampo--sucesso">
-            <label>Nome: <input type="text" class="contatoCampo--validouFoi" value="Natan Souza" required></label>
+            <label>Nome: <input type="text" class="contatoCampo--validouFoi" placeholder="Digite seu Nome" required></label>
             
           </div>  
 
           <div class="contatoCampo contatoCampo--erro">
-            <label>Email: <input type="email" class="contatoCampo--validouErro" required></label>
+            <label>Email: <input type="email" class="contatoCampo--validouErro" placeholder="Digite seu Email" required></label>
             
             <span class="contatoCampo-msg contatoCampo-msg--erro">
               Você quis dizer <a href="#">gmail.com?</a>
@@ -363,22 +364,22 @@
           </div>
 
           <div class="contatoCampo">
-            <label>Endereço: <input type="text" class="contatoCampo-campoDesabilitado" disabled value="Rua Vergueiro"></label>
+            <label>Endereço: <input type="text" class="contatoCampo-campoDesabilitado" readonly value="Rua Vergueiro"></label>
             
           </div>   
 
           <div class="contatoCampo">
-            <label>Bairro: <input type="text" class="contatoCampo-campoDesabilitado" disabled value="Vila Mariana"></label>
+            <label>Bairro: <input type="text" class="contatoCampo-campoDesabilitado" readonly value="Vila Mariana"></label>
             
           </div>   
 
           <div class="contatoCampo">
-            <label>Cidade: <input type="text" class="contatoCampo-campoDesabilitado" disabled value="São Paulo"></label>
+            <label>Cidade: <input type="text" class="contatoCampo-campoDesabilitado" readonly value="São Paulo"></label>
             
           </div>   
 
           <div class="contatoCampo">
-            <label>Estado: <input type="text" class="contatoCampo-campoDesabilitado" disabled value="SP"></label>
+            <label>Estado: <input type="text" class="contatoCampo-campoDesabilitado" readonly value="SP"></label>
             
           </div>   
 
@@ -424,9 +425,9 @@
             (11) 5571-2751 ou <a href="#"> contato@apeperia.com</a>
           </p>
         </div>
-
-        <video src="img/formacao-java.mp4" class="secaoInstitucional-video" alt="Paulo Silveira o criador da empresa falando sobre a empresa">
-        </video>
+        <video src="img/formacao-java.mp4" controls class="secaoInstitucional-video" alt="Paulo Silveira o criador da empresa falando sobre a empresa">
+          <track src="img/legenda-portugues-brasil.vtt" kind="subtitles" srclang="pt-br" label="Português Brasil" >
+          </video>
 
       </div>
     </section> <!--fim .secaoInstitucional-->

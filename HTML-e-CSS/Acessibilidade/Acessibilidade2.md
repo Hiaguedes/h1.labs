@@ -53,3 +53,62 @@ Em um formulário coloque o input dentro da label, ou crio um vínculo entre ela
 Caso precisemos esconder elementos da tela mas que esses elementos não sumam pro leitor de tela nós devemos ler o que tem nesse [link](https://webaim.org/techniques/css/invisiblecontent/)
 
 Atalhos pro NVDA <https://webaim.org/resources/shortcuts/nvda>
+
+Coloque placeholder nos seus inputs pois o NVDA lê esse tipo de coisa, mas cuidado não use o placeholder como label
+
+Caso necessite desabilitar um campo com o disabled, pelo menos de a opcao do cego ler o que está ali então coloque `readonly` invés de `disabled`, assim o leitor de tela consegue ler o que está escrito
+
+## Mais aspectos interessantes de acessibilidade
+
+Criar um botão escondido que pula para o conteúdo principal do site é bem interessante, mais legal ainda vá no site da [Web Aim](https://webaim.org/) e aperte TAB, pois é fazer aparecer essa tecla é legal para pessoas com PCD (que utilizam muito o mouse)
+
+Então colocar um ancora do tipo
+
+```html
+ <a class="escondeVisualmente" href="#pularConteudo">Vá para o conteudo principal</a>
+```
+
+E para esconder visualmente fazemos
+
+```css
+.escondeVisualmente {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+```
+
+Outra coisa interessante é darmos roles nas tags semânticas, isso facilita a vida de quem usa o jaws e outros leitores de tela, pois elas deixam tags genéricas como um div com um aspecto mais semântico
+
+Outra forma legal de colocar descrição para links é com aria-labelledby
+
+## Habilite o zoom
+
+Na tag meta de viewport vemos
+
+```html
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+```
+
+O `content="width=device-width` fala que o site pode trabalhar com paginas responsivas `initial-scale=1.0` diz que a página começa com escala original ok mas vemos um  `maximum-scale=1.0, user-scalable=no` que trava o zoom da tela no celular e isso é horrível sério isso fere a liberdade do usuário
+
+## videos
+
+A tag video serve para embedar videos que você tem baixado na seu diretório, coloque controls para habilitar o play do video
+
+Você pode colocar a legenda do vídeo na descrição mas caso não dê você pode criar um arquivo vtt e inserir dentro da tag video com a tag `track` e com isso colocar uma source como em:
+
+```html
+<video src="img/formacao-java.mp4" controls class="secaoInstitucional-video" alt="Paulo Silveira o criador da empresa falando sobre a empresa">
+        <track src="img/legenda-portugues-brasil.vtt" kind="subtitles" srclang="pt-br" label="Português" >
+        </video>
+```
+
+Para video a maioria confia no youtube e lá posso colocar legendas e ainda ver quantas pessoas viram aquele vídeo
+
+O conteúdo geral da aula está [aqui](https://github.com/designernatan/curso-acessibilidade-web-front-end-1/archive/005e3751a6b446cee865c12f502b5828e39c974a.zip)
