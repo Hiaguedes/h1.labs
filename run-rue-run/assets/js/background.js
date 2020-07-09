@@ -1,16 +1,14 @@
 var corpo = document.querySelector("body");
 
 function getRandomColor() {
-    var letters = '9ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 8)];
-    }
+
+    var num= Math.random()*(211-76)+76;
+    var color =`rgb(${num},${num},${num})`;
     return color;
   }
 
 setInterval(function(){
-    corpo.style.background=getRandomColor();
+    corpo.style.background="linear-gradient("+ getRandomColor() +","+getRandomColor()+")";
 },500);
 
 
