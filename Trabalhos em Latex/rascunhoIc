@@ -1,0 +1,48 @@
+Stochastic Modelling and control 
+
+-Estatistica,controle ,calculo 
+1-Probabilidade e processos randomicos
+
+No caso do aplicação só irei me preocupar com Variaveis discretas 
+algumas caracteristicas de uma função ,que serão usadas 
+
+cov(x1,x2)=E[(X1-EX1)(X2-EX2)] --- covariancia ? onde E é a média 
+cov =0 ; os dados nao tem correlação
+
+
+Processos estocásticos
+
+É uma coleção de variaveis randomicas indexadas em um intervalo, qualquer serie de informações em um intervalo de tempo 
+
+Processo estacionário
+
+Um processo é dito estacionário se ele não varia no tempo
+
+Convergencia em sistemas estocasticos
+
+Estudar convergencia (calculo3)
+
+
+Teoria de sistemas lineares
+
+Estuda as propriedades dos sistemas responderam a uma entrada e esperar uma saida desejada
+x_(k+1)=Ax_k + Bu_k
+yk=Hxk
+
+Controlabilidade --> 
+rank[B AB ... A^⁽n-1⁾]=n   --> condição básica 
+
+Observabilidade -->Propriedade deriva da habilidade de determinar o x0 dessas observações 
+rank=[H \\
+      HA
+      ... 
+      HA^(n-1)]
+
+State feedback
+
+
+2-Modelos Estocásticos
+
+A system is deterministic if its input together with certain initial
+conditions and times uniquely specify the output. Otherwise it is
+stochastic.

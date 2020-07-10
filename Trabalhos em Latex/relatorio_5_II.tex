@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{circuitikz}
+\usepackage[portuguese]{babel}
+%\usepackage[margin=10mm]{geometry}
+\usepackage{mathpazo} % Palatino font
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[margin=20mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/Eletronica_2/images/}}
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\LARGE Universidade Católica de Petrópolis}\\[1.5cm] % Main heading such as the name of your university/college
+	
+	\textsc{\Large Centro de Engenharia e Computação}\\[0.5cm] % Major heading such as course name
+	
+	\textsc{\large Relatório da quinta experiência}\\[0.5cm] % Minor heading such as course title
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries  Circuitos Integradores}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textit{Aluno}\\
+			Hiago Riba Guedes % Your name
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textit{RGU}\\
+			11620104 % Supervisor's name
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	Petrópolis\\
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	%\vfill\vfill
+	%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	 
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+\newpage
+
+%\tableofcontents
+%\newpage
+
+\section{Resumo}
+O presente trabalho faz parte do 5º relatório presente na ementa composta pela disciplina de Laboratório de Eletrônica II ministrada pelo professor  Paulo Cesar Lopes Leite no dia 3 de Abril de 2018 
+para a turma E-ELE-A07 na instituição 
+Universidade Católica de Petrópolis. Seu objetivo é de estudar o comportamento dos circuitos integradores de tensão que é mais uma das aplicações com amplificadores operacionais.
+\section{Teoria}
+Circuitos Integradores são circuitos que como o nome diz  integram a sua tensão de entrada.São circuitos importantes para controle de motores. Uma vez que ele é um dos estágios de um PID. E sua função de conseguir guardar seu passado é de extrema importância para esse tipo de aplicação.
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-)to[short]++(-1,0)to[short]++(0,1.5)to[short]++(1,0)to[C=$C_1$]++(2.4,0) to(opamp.out)
+  (opamp.out)to[short]++(2,0)node[right]{$V_o$}
+  (opamp.-)to[short]++(-2,0)to[R=$R_1$]++(-1,0)to[short]++(-1,0)node[left]{$V_i$}
+  (opamp.+)to[short]++(0,-.5) node[sground]{}
+  ;  
+  \end{circuitikz}
+  \end{center}
+  \caption{Exemplo de circuito integrador}
+  \end{figure}
+  \\
+ Para entender como esse circuito consegue integrar ,primeiro temos que relembrar de Circuitos 1 qual a corrente que passa em um capacitor.
+ Sabemos que a definição de corrente é dada por 
+ $$	I_c=\frac{\Delta q}{\Delta t}$$
+ Isolando $\Delta q$
+ $$\Delta q=I_c\Delta t$$
+ E a definição de um capacitor é dada por
+ $$C=\frac{\Delta q}{\Delta V}$$
+ Isolando $\Delta q$
+ $$\Delta q=C\Delta V$$
+ Igualando as duas equações chegamos que a corrente que passa em um capacitor é dada por:
+ $$I_c=C\frac{\Delta V}{\Delta t}$$
+ Para intervalos de tempo infinitesimais chegamos :
+ $$I_c=C\frac{dV}{dt}$$
+ Agora analisando nosso circuito integrador temos que enxergar a seguinte relação.
+ $$v_+=v_-=0$$
+ Aplicando a lei dos nós temos.
+ $$V_i-0=R_1\times i$$
+ E analisando a corrente que passa no capacitor $C_1$ vemos que a corrente que passa no mesmo é negativa, uma veaz que a diferença de tensão na mesma é 0-$V_0$.Então podemos substituir essa corrente na equação acima
+ $$V_i=-R_1C_1\frac{dV_o}{dt}$$
+ $$-\frac{1}{R_1C_1}\int V_i=V_o$$
+ Que nos dá a equação da saída de um amplificador integrador.\\
+ Na prática colocamos um resistor em paralelo com o capacitor, pois como podemos aplicar uma tensão constante ou de frequência muito baixa ,pode acontecer de o capacitor reter muita carga e extrapolar sua tensão nominal,podendo até explodir.Então entra-se um resistor que limita essa frequência e faz nosso capacitor ser mais seguro e operacional.
+ \section{Experimento }
+ Pediu-se então para realizar a montagem em protobard do circuito abaixo.\\
+
+ E pediu-se logo após para que vissemos o que acontece quando variássemos sua frequência e analisássemos seu comportamento.Pois se a frequência for muito alta em uma onda quadrada a área entre os ciclos tenderá a ser tão pequena que mal dará para  o integrador entrar em ação. Sendo formada na saída um sinal praticamente uma constante zero. Já se aplicarmos um sinal de frequência muito baixa , a área entre os sinais será tão grande a ponto de chegar em um ponto que a saída mostrará sinais saturados em sua saída.Não sendo mais um integrador.Então pedia-se na experiência seus limites.\\
+ \section{Resultados}
+ Os resultados encontrados foram:\\\\\\
+ \begin{tabular}{|c|c|}
+\hline 
+ Frequência mínima & 25.7 Hz\\
+ \hline
+ Frequência máxima & 7650 KHz\\
+ \hline
+\end{tabular}  
+\end{document}

@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{circuitikz}
+\usepackage[portuguese]{babel}
+%\usepackage[margin=10mm]{geometry}
+\usepackage{mathpazo} % Palatino font
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[margin=20mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/Eletronica_2/images/}}
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\LARGE Universidade Católica de Petrópolis}\\[1.5cm] % Main heading such as the name of your university/college
+	
+	\textsc{\Large Centro de Engenharia e Computação}\\[0.5cm] % Major heading such as course name
+	
+
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries  Trabalho de Controle e Servomecanismos I}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textit{Aluno}\\
+			Hiago Riba Guedes \\% Your name
+			Erico Gonçalves 
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textit{RGU}\\
+			11620104 \\
+			11410598
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	Petrópolis\\
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	%\vfill\vfill
+	%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	 
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+\newpage
+
+\tableofcontents
+\newpage
+\section{Introdução}
+Este trabalho tem como objetivo aplicar conceitos vistos durante as aulas de Controle e Servomecanismos I ministradas pelo professor Giovanne Quadrelli na Universidade Católica de Petrópolis. A aplicação escolhida para esse trabalho (ainda a escolher) para a análise do controle do nosso sistema foi utilizado o Matlab.
+
+\section{Teoria}
+A disciplina de Controle e Servomecanismos é primordial para a obtenção da autonomia de qualquer sistema complexo,sendo essa uma das cadeiras mais importantes para quem deseja cursar Engenharia de Controle e Automação, uma vez que dominados os conceitos dessa disciplina pode-se avançar para a construção de um robô, automatizar processos de uma residência, automatizar um sistema de irrigação de solos,etc... 
+
+A príncipio um sistema de controle é um sistema onde se aplica uma entrada que pode ser uma entrada de tensão, uma vazão de água, um valor de temperatura e com isso deseja-se obter uma saída de preferência em outra grandeza física. Como um carro ,onde aplicamos uma pressão de entrada pelo acelerador e temos uma velocidade angular em sua saída . Porém um carro convencional como ainda é o comum hoje em dia ainda está distante de ser considerado um sistema autônomo. Então mesmo que se tenha um tacômetro , um carro a grosso modo pode ser considerado um sistema de malha aberta,pois os sensores utilizados dentro do mesmo não são utilizados para o aperfeiçoamento do mesmo. 
+
+Um sistema de malha fechada consiste em utilizar-se dessa medida afim de comparar-la com um setpoint (que pode ser estipulada tanto por um operador quanto pelo próprio sistema embarcado), com o objetivo de fazer com que um motor ,aproveitando o exemplo do carro, consiga alcançar uma velocidade constante. Pois o sensoriamento consegue captar uma série de amostras durante o percursso , um sistema embarcado calcula o erro entre o setpoint desejado e o valor real e de posse desse erro o sistema manda o quanto de sinal é nescessário para corrigir esse erro. Esse sistema embarcado pode ser tanto um microcontrolador PIC ,como um CLP ou até mesmo um microprocessador.
+
+As formas de se obter um controlador para um determinado sistema é relativamente simples, uma vez que as técnicas utilizadas são a muito tempo utilizadas pelas industrias, porém seu amplo conhecimento acaba sendo restrito na maioria das vezes ao meio acadêmico pois nele se envolve conhecimento de sinais, de elétrica , programação e mecânica. Sendo nescessário ao engenheiro sua confecção tanto de hardware quanto de software para a obtenção de um bom controlador. Para isso o engenheiro precisa de um bom modelo dinâmico que vai reger o comportamento do sistema a ser controlado a fim de se estudar a dita função de transferência do sistema e é a partir dessa função que conseguimos saber se o sistema está eficaz ou não , caso não seja utiliza-se o controlador para fazer com que ele seja.
+
+Atualmente, existem controladores que se utilizam de técnicas de Inteligência Artificial como Machine Learning. Porém o objetivo do trabalho é de abordar os conhecimentos vistos durante o curso ,esse trabalho se manterá apenas em abordar a teoria clássica do PID e como ela funciona no sistema em que se desejará controlar. Uma vez que controladores do tipo PID e do tipo PI ainda são utilizados em grande escala na industria.
+
+\subsection{Controlador PID}
+Os controladores PID ou também proporcionais integral derivativo são controladores como seu nome diz que se utilizam das propriedades dessas funções afim de melhorar a resposta transitória do sistema,e sua aplicação pode ser feita tanto por um software quanto por um hardware;utilizando-se capacitores e indutores ou amplificadores operacionais (mais usual).
+$$u(t)=K_p e(t)+K_i \int e(t)dt +K_d \frac{de(t)}{dt}$$
+Aplicando Laplace 
+
+$$U(s)=K_p E(s) +\frac{K_iE(s)}{s}+sK_dE(s)$$  
+
+Onde E(s) é o sistema a ser controlado no domínio da frequência,tornando a sua análise nesse domínio mais fácil de ser feita .
+
+Basicamente ,os três tipos de parâmetros servem para corrigir o estado transitório e ainda colocar-lo no ponto correto de operação. De maneira mais analítica os parâmetros contribuem da seguinte maneira.\\\\
+ \begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+ & Em excesso & Em falta  \\
+\hline
+Proporcional &	Menos Overshoot;Mais Lento;Mais Instável & Mais Overshoot;Mais Rápido;Menos Instável	\\
+\hline
+Integrativo & Mais Overshoot;Mais Instável; Mais rápido & Menos Overshoot;Menos Instável;Mais Lento	\\
+\hline
+Derivativo & Mais Overshoot;Mais Rápido	& Menos Overshoot;Mais Lento	  \\
+\hline 
+\end{tabular}
+\end{center}
+
+Pela tabela fica mais fácil de entender, mais o controle proporcional ele nunca estabilizará o sistema exceto em frequências muito altas o que quebraria a máquina. Pois basicamente o que o controle proporcional faz é: O sistema percebe que o erro encontra-se acima do setpoint e com isso manda abaixar o sinal ,há um ponto onde o erro fica abaixo do esperado fazendo-o subir e assim vai sucessivamente. 
+
+O Integrativo ele já corrige esses erros de maneira mais inteligente, pois o parâmetro proporcional ele é obrigatório no sistema ,trazendo consigo essa oscilação característica. O Integrativo consegue fazer um histórico desses erros acumulativos e consegue zerar a variação do erro sendo essa parcela importantíssima para a obtenção da precisão.
+
+O derivativo serve para corrigir alguns problemas causados pelo parâmetro integrativo ,como a lentidão da resposta ,pois ele age como uma certa previsão de como o erro vai se comportar em alguns passos adiante ,normalmente essa parcela tende a ser bem menor que as outras pois essa certa "mágica de previsão" como ela age proporcional a frequência ela tende a ser bem amplificada em seu valor final, causando mais problemas do que ajudando. Por isso cabe aqui a observação de um estudo de projeto para a obtenção dos parâmetros corretos. 
+
+
+Em muito dos casos o parâmetro integrador ou o derivativo são suprimidos da equação isso se deve bastante a aplicação onde o Controlador será empregado. Em motores pequenos como em um hobby motor (utilizado para um time de futebol de robôs móveis não-holonômicos) o termo derivativo é frequentemente tirado do mesmo,pois a resposta do mesmo é bastante rápida naturalmente e sua implementação pode gerar overshootings desnecessários ao sistema. O controle PD é mais utilizado quando precisa-se de uma resposta rápida do sistema e a precisão não é de suma importância.
+\newpage
+\section{Procedimento Experimental}
+\end{document}

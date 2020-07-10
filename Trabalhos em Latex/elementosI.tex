@@ -1,0 +1,297 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[portuguese]{babel}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+\usepackage{sectsty}
+\chapternumberfont{\large} 
+\chaptertitlefont{\Large}
+
+\begin{document}
+\begin{titlepage} %iniciando a "capa"
+\begin{center} %centralizar o texto abaixo
+{\large Universidade Cat\'olica de Petr\'opolis}\\[0.1cm] %0,2cm é a distância entre o texto dessa linha e o texto da próxima
+{\large Centro de Engenharia e Computa\c{c}\~ao}\\[0.1cm] % o comando \\ "manda" o texto ir para próxima linha
+{\large Engenharia Mec\^anica}\\[0.1cm]
+{\large Elementos de M\'aquina I}\\[5.1cm]
+{\bf \huge SERRA POLICORTE}\\[3.1cm] % o comando \bf deixa o texto entre chaves em negrito. O comando \huge deixa o texto enorme
+{\bf \large Ellen Cordeiro 11510635\\
+Hiago Guedes 11620104\\
+Jo\~ao Ot\'avio Conti 11411409\\
+Rodolpho Amorim 11100004\\
+Telmo Martins 11320269}\\[2.9cm] % o comando \large deixa o texto grande
+{\large Jorge Luiz Fontanella }\\[2.9cm]
+\end{center} %término do comando centralizar
+
+\begin{center}
+{\large Petr\'opolis}\\[0.2cm]
+{\large \today}
+\end{center}
+\end{titlepage} %término da "capa"
+
+
+\tableofcontents
+\newpage
+\chapter{Introdu\c{c}\~ao}
+Apresentar um projeto de um sistema me\^anico de rota\c{c}\~ao de ferramenta
+de corte (disco abrasivo) para corte de perfis de a\c{c}o, composto de mancal, \'arvore,
+correia, polia, chaveta e elementos de fixa\c{c}\~ao.\\\\
+\chapter{Objetivo}
+Dimensionar e apresentar o desenho dos componentes do sistema
+mec\^anico de rota\c{c}\~ao de corte, mancal, polia, chaveta, \'arvore, correia e elementos
+de fixa\c{c}\~ao.\\
+\begin{center}
+\textbf{Mem\'oria de C\'alculo do Projeto}
+\end{center}
+\chapter{Especifica\c{c}\~ao da Rota\c{c}\~ao do Disco de Corte}
+O disco abrasivo a ser utilizado foi adotado como sendo o de di\^ametro de
+D = 300 mm (12 pol.). Os fabricantes fornecem este disco com espessuras de T
+= 1/8”, 3/16” e 1/4” (Pferd, Starrett, Makita, Icder etc) e fura\c{c}\~ao (H) de di\^ametros
+de 1” ou 1 1⁄4”.\\
+Figura 1 – Principais dimens\~oes do disco de corte
+Para o disco de di\^ametro 300 mm, a rota\c{c}\~ao a ser atendida pelo projeto
+dever\'a ficar entre 3.820 rpm a 5.100 rpm. Esta rota\c{c}\~ao ficar\'a em fun\c{c}\~ao dos
+di\^ametros adotados do sistema polia/correia.\\
+\chapter{C\'alculo de Pot\^encia M\'inima do Motor}
+
+Ser\'a apresentado o c\'alculo de pot\^encia m\'inima do motor considerando que
+o operador ir\'a exercer uma força de 4 Kg sobre o sistema.\\
+Considerando:\\
+$F = m . g = 4 . 9.81$\\
+$F = 39.24 N$.\\
+\section{C\'alculo da For\c{c}a de Atrito (Fat)}
+Para o c\'alculo da for\c{c}a de atrito, sabemos que (Fat) \'e obtido pelo produto
+da for\c{c}a normal pelo coeficiente de atrito din\^amico (μ = 0.4) de acordo com a tabela
+1 .\\
+$Fat = \mu . N = 0,4 . 39.24$\\
+$\textbf{Fat=15.696N}$\\
+\section{Torque Aplicado na \'Arvore ($T_D$)}
+O torque ($T_D$)aplicado na árvore do disco de corte será:\\
+$T_D= Fat . \frac{D}{2} = 15.696 . \frac{0.300}{2}$\\
+$T_D = 2.3544 N.m$\\\\
+- Pot\^encia de corte (Pc) \'e obtida pela f\'ormula abaixo, considerando\\
+$\omega=5015 rpm$ :\\
+$P_c = T$ x $\omega=2.3544(5100 \frac{2\pi}{60})=1257.42W $\\
+$P_c=1.236KW$\\
+Considerando que o rendimento do motor elétrico ($\eta = 80\%$), obt\^em-se
+uma pot\^encia, a partir da pot\^encia de corte encontrada anteriormente, o valor
+encontrado, \'e :\\
+$$P_M=\frac{P_c}{\eta}=\frac{1.257}{0.8}=1.54KW$$
+ \section{Escolha do Motor}
+O motor a ser escolhido tem uma potência de (P = 2.2 KW = 3 cv), 2 p\'olos e
+uma rota\c{c}\~ao de 3460 rpm. Seu detalhamento \'e representado atrav\'es do cat\'alogo
+da WEG (ANEXO 9).\\
+\chapter{C\'alculo Rela\c{c}\~ao de Velocidade}
+Para que a \'arvore do disco possa atingir uma rota\c{c}\~ao de 5.015 rpm que
+\'e a velocidade de corte, ser\'a necess\'ario que a polia do motor el\'etrico seja de
+di\^ametro maior que a polia da \'arvore do disco, sendo assim a rela\c{c}\~ao de
+velocidade entre as polias pode ser expressa a partir das seguinte f\'ormula:\\
+$$i=\frac{d_1}{d_2}=\frac{n_1}{n_2}=\frac{5100}{3460}=1.5$$
+\chapter{Torque M\'inimo do Motor}
+Sabemos que a rotação da \'arvore do motor \'e menor que a rota\c{c}\~ao da
+\'arvore do disco de corte, portanto, o torque do motor el\'etrico precisa ser maior
+ao torque da \'arvore do disco.\\
+Rela\c{c}\~ao dos torques:\\
+$$\frac{T_M}{T_D}=\frac{rpm_D}{rpm_M}=1.5$$
+Como o torque da \'arvore \'e$T_D=2.3544Nm$,conclu\'imos que:\
+$$T_M=T_Dx1.5=2.3544x1.5=3.4112Nm$$
+No cat\'alogo da WEG o motor que adotamos (3 HP\footnote{2.2KW$\approx$ 3 HP }, 2 polos, 3460 rpm e 60 Hz), possui um conjugado nominal igual a 6.08 Nm. e torque de partida 280$\%$ maior que o torque nominal
+$$T_{partida M}=6.08x2.8=17.04Nm$$
+O torque de partida do motor el\'etrico ser\'a considerado para o
+dimensionamento da \'arvore do disco de corte. Pela formula da rela\c{c}\~ao de torques,
+temos:\\
+\\
+$$T_D=\frac{T_{partida M}}{1.5}=11.36Nm$$
+\chapter{Correia}
+As correias, juntamente com as polias s\~ao um dos meios mais antigos de
+transmiss\~ao de movimento. \'E um elemento flex\'ivel, normalmente utilizado para
+transmiss\~ao de pot\^encia entre dois eixos paralelos distantes. Elas s\~ao fabricadas
+em v\'arias formas e com diversos materiais.\\
+\section{Dimensionamento da Correia}
+Para o dimensionamento da correia utilizamos uma apostila desenvolvida
+segundo os princípios de cat\'alogos da Goodyear.
+Segue abaixo os procedimentos para o dimensionamento da correia:\\
+- Pot\^encia de Projeto;\\\\
+- Escolha de Perfil (Se\c{c}\~ao) da Correia;\\
+- Pot\^encia por Correia ($P_{corr}$);\\
+- Comprimento da Correia (L);\\
+- N\'umero de Correias;\\
+- C\'alculo da Dist\^ancia entre Centros.\\
+\section{Pot\^encia de Projeto}
+${P_{hp}}$ = P x F.S\\
+Onde:\\- F.S.- Fator de Serviço;\\
+- P $\rightarrow$ Pot\^encia do Motor (Escolhido de acordo com o item 3.3).\\
+\subsection{Determina\c{c}\~ao do Fator de Servi\c{c}o (F.S.)}
+Usando a Tabela 3 e 4 (Anexo 2) obtemos:\\\\
+Quanto da Condi\c{c}\~ao de Servi\c{c}o:\\\\
+- Utiliza\c{c}\~ao 6 a 16 hrs/dia $\rightarrow$ 1.2;\\
+- Tipo de trabalho – Normal $\rightarrow$ 1.2 ;\\
+Quanto a Condi\c{c}\~ao de Funcionamento:\\\\
+- Ambiente poeirento $\rightarrow$ 0.1;\\
+- Ambiente úmido $\rightarrow$ 0.1.\\\\
+Portanto, o fator de servi\c{c}o ser\'a:\\\\
+F.S. = 1.2 + 0.1 + 0.1\\
+\textbf{F.S. = 1.4}\\\\
+Como foi adotado no item 3.3 um motor el\'etrico com pot\^encia de 3hp e
+junto com o valor de fator de servi\c{c}o calculado no item anterior, temos uma
+pot\^encia de projeto:\\
+Php = 3 HP x 1.4\\
+Php = 4.2 HP.\\
+\subsection{Escolha do Perfil (Se\c{c}\~ao) da Correia}
+A determina\c{c}\~ao da se\c{c}\~ao mais adequada à transmiss\~ao \'e feita utilizando-se
+o gr\'afico Figuras 1(a) e 1 (b). (Anexo 3).
+- Gr\'afico: $P_{hp}$ x RPM, temos:\\
+- Php = 4.2 HP\\
+- RPM = 3460\\
+Se\c{c}\~ao mais adequada \'e: (A-Hi-Power). Tabela 2 (Anexo3)
+\subsection{Pot\^encia por Correia ($P_{corr}$)}
+Determinar a pot\^encia que uma correia com o perfil (Se\c{c}\~ao A) pode
+transmitir na velocidade de 5100 rpm.
+$P_{corr}$ A = ( HPb\'asico + HPadicional) x FL.\\\\
+Onde:\\\\
+- HP b\'asico: \'e a capacidade de transmiss\'ao da correia caso as polias possuam o mesmo di\^ametro;\\
+- HP adicional: \'e um fator de corre\c{c}\~ao aplicado devido a diferen\c{c}a entre os
+di\^ametros das polias. (Depende da rela\c{c}\~ao de transmiss\~ao “i”).\\\\
+Portanto, HP b\'asico est\'a em fun\c{c}\~ao de f (perfil, d, rpm) e HP adicional = f (perfil,
+d, rpm, e i).\\\\
+Ent\~ao, usando esses valores obtidos mais a rota\c{c}\~ao de 5013.5 rpm aproximado para 5000rpm, encontra-se na Tabela – Classificação de HP por Correia (Anexo 7) o HP b\'asico igual a:\\
+$$HP_{basico} = 2.28 HP.$$
+Tamb\'em HPb\'asico, achamos na Tabela Classifica\c{c}\~ao de HP por correia
+(Anexo4) um valor de HPadicional para uma relação de velocidade i = 1,5. Ent\~ao:\\
+$$HPadicional = 0.59 HP.$$
+\subsubsection{C\'alculo do Fator de Corre\c{c}\~ao para o Comprimento da Correia (FL)}
+Para o c\'alculo do fator de corre\c{c}\~ao do comprimento da correia usamos a
+seguinte f\'ormula:\\
+$$L=2c+\frac{\pi}{2}+(D+d)+\frac{(D-d)^2}{4c}$$
+Com i $<$ 3 ,temos $c=\frac{D+d}{2}+d$ \\\\
+O di\^ametro da polia de acordo com o perfil da correia A- Hi- Power é:
+\begin{center}
+\textbf{dp = 75mm} -- (Anexo 3) - Tabela 11.
+\end{center}
+Como a nossa rela\c{c}\~ao de velocidade é i = 1.5 temos, o di\^ametro da polia
+maior ou igual a:\\
+D = 75 x 1.5\\
+D = 108.6mm.\\\\
+Portanto,\\
+$$c=\frac{112.5+75}{2}+75=168.75mm$$
+Logo,\\\\
+$$L=2.(166.8)+\frac{\pi}{2}(112,75+75)+\frac{(108.6-75)^2}{4x166,8)}=623,81mm$$
+Usando a Tabela Comprimento Standard (Anexo 4), achamos o tamanho
+real da correia:\\
+\begin{center}
+$L_{real} = 695 mm.$\\
+\end{center}
+Assim achamos o perfil da nossa correia: \textbf{A- 26}.\\
+E na Tabela 6 (Anexo 6), achamos o Fator de Corre\c{c}\~ao (FL), atrav\'es do
+perfil A- 26 temos:\\
+\begin{center}
+\textbf{FL = 0.78.}
+\end{center}
+Aplicando a f\'ormula temos o valor da Pot\^encia por Correia ($P_{corr}$):\\
+$$P_{corr}A = (2.28 +0.59) x 0.78=2.24HP$$
+\section{N\'umero de Correias}
+Expressada pela equa\c{c}\~ao:\\
+$$N=\frac{P_{HP}}{P_{corr}. C_a}$$
+Onde:\\
+- $C_a$: Fator de corre\c{c}\~ao para o arco de contato. A Determina\c{c}\~ao do $C_a$ é dado
+pela Tabela 7 (Anexo 7).\\\\
+Portanto, Fator de corre\c{c}\~ao ($C_a$) -- correia V-V é: $C_a = 0.99.$\\
+Aplicando a f\'ormula:\\
+$$N=\frac{4.2}{2.24x0.27}=1.93$$
+Conclu\'imos, ent\~ao, que devemos adotar 2 correias para o projeto.\\
+\chapter{C\'alculo da Dist\^ancia entre Centros}
+Usando a seguinte f\'ormula calculamos a dist\^ancia entre centros ($C_{real}$).\\
+$$C_{real}=\frac{k+\sqrt{k^2}-32(D-d)^2}{16}$$
+Onde:\\\\
+$$K=4L_{real}-2\pi(D-d)=1625.96$$
+Aplicando a f\'ormula temos a dist\^ancia entre centros: $C_{real}$ = 202.54 mm\\
+\chapter{Determina\c{c}\~ao das Polias:corrigir}
+Utilizaremos a polia do motor com d = 108.6 mm e a polia da \'arvore
+utilizaremos d = 75mm. Ambas com o di\^ametro interno de 19 mm. Usando a Tabela
+5 (Anexo 4), encontramos o perfil das polias de acordo com o dimensionamento da
+correia.\\
+Figura 2. Padronização de Correia.\\
+Dados da polia:\\
+- φ = 34;\\
+- Ls = 13 mm;\\
+- Lp = 11 mm;\\
+- e = 15 mm;\\
+- f = 10 mm;\\
+- b = 3.3 mm;\\
+- h + b = 12 mm.\\
+\chapter{Dimensionamento da \'Arvore}
+O tipo de material a ser adotado para a \'arvore em c\'alculo, foi retirado do
+livro Org\~aos de M\'aquinas Dimensionamento - J.R. Carvalho.\\\\
+Assim, adotamos o material Aço SAE 1045 laminado a frio.\\
+- Tens\~ao de ruptura: $\sigma_r$ = 6300 kg/$cm^2$;\\
+- Tens\~ao de escoamento: $\sigma_e$= 5400 kg/$cm^2$.\\
+Di\^ametro da \'arvore considerando a fórmula:\\
+$$\tau=K_t\frac{T}{Z}$$
+onde:\\
+- T =$T_D$ = 11.36 N.m. = Torque na \'arvore;\\
+- Z =$\frac{\pi D^3}{16}$;\\
+- Kt = Fator de concentra\c{c}\~ao de choque a fadiga.\\
+Usamos Kt com base no livro \'Org\~aos de M\'aquinas Dimensionamento, J.R.
+Carvalho, portanto $K_f$ = 1.6 com rasgo de chaveta.\\
+No caso esse eixo ter\'a uma mudan\c{c}a de se\c{c}\~ao e teremos que levar isso em considera\c{c}\~ao para calcularmos as medidas nescess\'arias do projeto\\
+\\
+ Por quest\~oes de c\'alculo adotaremos raio de filete para mudan\c{c}a de se\c{c}\~ao de 3,5mm, o que nos d\'a um \'indice de sensibilidade (q) de 0.9 pela figura 19 na p\'agina 123,aplicando na f\'ormula $K_f=1+q(K_t-1)$,achamos $K_t=1,67$. \\
+Segundo a ASME (Pag. 236) – Órgãos de M\'aquinas Dimensionamento-
+J.R. Carvalho:
+\begin{center}
+A\c{c}o especificado: 30$\%$ x $\sigma_e$ e 18$\%$ x $\sigma_r$
+
+$\sigma_{adm}$ = 0.30 x 5400$\rightarrow$ $\sigma_{adm}$ = 1620 kg/$cm^2$;\\
+$\sigma_{adm}$ = 0.18 x 6300$\rightarrow$ $\sigma_{adm}$ = 1134 kg/$cm^2$
+\end{center}
+Portanto, utilizaremos o menor valor vezes 0.75 devido ao rasgo de
+chaveta:\\\\
+$\sigma_{adm}$ = 1134 x 0.75\\
+
+$\sigma_{adm}$ = 850,5 kg/$cm^2$\\
+adm = 8.505 kg/$cm^2$\\
+$$\tau=K_t\frac{T}{Z}$$
+$$850.5=1.67\frac{1158}{\frac{\pi d^3}{16}}$$
+$$d=22.6mm$$
+Por quest\~oes de hiperdimensionamento fizemos com que D seja 1,33 o tamanho de d,nos dando D=29.66mm\\
+Mas por ques\~oes de uma poss\'ivel fabrica\c{c}\~ao o desenho ficar\'a com \textbf{d=23mm e D=30mm}\\
+Estudando outras m\'aquinas e por uma quest\~ao de bom senso n\'os adotaremos o comprimento do eixo($L_{eixo}$) como 10cm.\\
+\chapter{Dimensionamento da Chaveta}
+Adotamos o di\^ametro menor da \'arvore igual a 23 mm.
+De acordo com Carvalho (1970), (pag 274) considera-se as seguintes
+dimens\~oes para a chaveta retangular:\\
+- b x t = (8mm x 7mm)\\
+- Adotamos o a\c{c}o SAE 1045 laminado a frio – dados pag 338;\\
+- Tens\~ao de ruptura: $\sigma_r = 6300 kg/cm^2$;\\
+- Tens\~ao de escoamento: $\sigma_e = 5400 kg/cm^2.$\\
+$\sigma_{adm}=\frac{5400}{2.5}=2160kg/cm^2$\\\\
+$\tau_{adm}=\frac{0.6\sigma_e}{2,5} = 1296 kg/cm^2$\\\\
+\\
+Para o c\'alculo do comprimento da chaveta adotaremos o maior valor oferecido por uma das f\'ormulas abaixo\\
+$$L=\frac{T.\sigma_c}{\delta.T_{10}.\sigma_{adm}}$$
+$$1,25D \le L \le 2D$$
+Para a primeira utilizaremos $\delta =0,9$ pois se trata de um cubo de a\c{c}o e $\sigma_c=1000$ $ kgf/cm^2$, para o $T_{10}$ dado na mesma tabela e utilizaremos o menor valor do intervalo,pois ela nos dar\'a o maior comprimento.Ent\~ao temos
+$$L=\frac{1158.1000}{0,9.38.2160}=15,67mm$$
+Para a segunda f\'ormula temos :
+$$1,25.22,6\le L \le 2.22,6$$
+$$28,6mm\le L \le 45,2 mm$$
+Fazendo uma m\'edia ar\'itm\'etica entre os valores m\'inimo e m\'aximo temos um L=36,9 mm, por quest\~oes de super dimensionamento adotaremos o segundo valor, esse valor ser\'a importante para procurarmos uma polia e uma engrenagem  com espessura comercial equivalente. \\
+\chapter{Sele\c{c}\~ao do Mancal de Rolamento}
+A vantagem mais importante dos mancais de rolamento \'e a de que o
+atrito na partida não \'e superior ao de opera\c{c}\~ao, ao contr\'ario dos mancais de
+deslizamento. São indicados para elementos de m\'aquinas que devem sofrer
+paradas e partidas frequentes. Os Mancais s\~ao elementos de m\'aquinas
+especializados e padronizados que apenas \'e escolhido a partir de um cat\'alogo
+(FAIRES, 1976).\\
+O mancal radial com rolamento fixo com uma carreira de esfera ser\'a
+escolhido, pois \'e o mais indicado para altas rota\c{c}\~oes e suportam bem a carga
+radial e permite apoio da carga axial em ambos os sentidos (Cat\'alogo SKF). O
+rolamento adotado ser\'a com di\^ametro interno de 25 mm e externo de 52 mm e largura 15 mm.
+\newpage
+\chapter{Anexos}
+
+
+\end{document}

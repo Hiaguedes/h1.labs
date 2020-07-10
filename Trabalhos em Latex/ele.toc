@@ -1,0 +1,25 @@
+\select@language {portuges}
+\contentsline {section}{\numberline {1}Introdu\c {c}\~ao}{1}
+\contentsline {section}{\numberline {2}Objetivo}{1}
+\contentsline {section}{\numberline {3}Especifica\c {c}\~ao da Rota\c {c}\~ao do Disco de Corte}{1}
+\contentsline {section}{\numberline {4}C\'alculo de Pot\^encia M\'inima do Motor}{2}
+\contentsline {subsection}{\numberline {4.1}C\'alculo da For\c {c}a de Atrito (Fat)}{2}
+\contentsline {subsection}{\numberline {4.2}Torque Aplicado na \'Arvore ($T_D$)}{2}
+\contentsline {subsection}{\numberline {4.3}Escolha do Motor}{2}
+\contentsline {section}{\numberline {5}C\'alculo da Rela\c {c}\~ao de Velocidade}{3}
+\contentsline {section}{\numberline {6}Torque M\'inimo do Motor}{3}
+\contentsline {section}{\numberline {7}Correia}{3}
+\contentsline {subsection}{\numberline {7.1}Dimensionamento da Correia}{4}
+\contentsline {subsection}{\numberline {7.2}Pot\^encia de Projeto}{4}
+\contentsline {subsubsection}{\numberline {7.2.1}Determina\c {c}\~ao do Fator de Servi\c {c}o (F.S.)}{4}
+\contentsline {subsubsection}{\numberline {7.2.2}Escolha do Perfil (Se\c {c}\~ao) da Correia}{5}
+\contentsline {subsubsection}{\numberline {7.2.3}Pot\^encia por Correia ($P_{corr}$)}{5}
+\contentsline {subsubsection}{\numberline {7.2.4}C\'alculo do Fator de Corre\c {c}\~ao para o Comprimento da Correia (FL)}{5}
+\contentsline {subsection}{\numberline {7.3}N\'umero de Correias}{6}
+\contentsline {section}{\numberline {8}C\'alculo da Dist\^ancia entre Centros}{7}
+\contentsline {section}{\numberline {9}Determina\c {c}\~ao das Polias}{7}
+\contentsline {section}{\numberline {10}Dimensionamento da \'Arvore}{8}
+\contentsline {section}{\numberline {11}Dimensionamento da Chaveta}{9}
+\contentsline {section}{\numberline {12}Sele\c {c}\~ao do Mancal de Rolamento}{10}
+\contentsline {section}{Bibliografia}{10}
+\contentsline {section}{Anexo}{11}

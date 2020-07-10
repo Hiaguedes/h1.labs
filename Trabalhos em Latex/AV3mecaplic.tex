@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+\title{Trabalho Preparatório}
+\author{Hiago Riba Guedes RGU:11620104\\ Lucas Priori RGU:11311093}
+\date{Data limite : 24/06/2017}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{pgfplots}
+\begin{document}
+\maketitle
+
+\textbf{Problema 1}\\
+Peso específico do martelo = 0.3 lb.in$^{-3}$\\
+Peso específico da mão de madeira=0.9 x 0.036 lbf.in$^{-3}$\\
+Dimensão da cabeça $r_d$=0.5 in ; $h_d$=3 in\\
+Dimensão da mão $r_{h1}$=0.625 in ; $L_{h1}$=10 in ;
+$r_{h2}$=0.3125 in ; $L_{h2}$=2$r_d$ in \\\\
+1-Volume e peso dos componentes \\\\
+Cabeça:\\
+$V_d$=2.049 in$^3$\\
+$W_d$=0.615 lbf\\
+\\
+Mão:\\
+$V_{h1}$=12.272 in$^3$\\
+$V_{h2}$=0.307 in$^3$\\
+$V_h$=12.579 in$^3$\\
+$W_{h1}$=0.398 lbf$^3$\\
+$W_{h2}$=9.940 x 10$^{-3}$ lbf\\
+$W_h$=0.408 lbf\\
+\\
+2-CG de cada componente no eixo XX\\
+\\
+Cabeça:\\
+$x_{cgh}=L_{hl}+r_d$=10.5 in\\\\
+Mão:\\
+$x_{cgh}=\frac{0.5L_{hl}V_{hl}+(L_{hl}+0.5L_{h2})V_{h2}}{V_h}$=5.134 in\\\\
+3-Achar a localização do composto dos CG's \\\\
+$X_{Cg}=\frac{x_{cgd}W_d +x_{cgh}W_h}{W_d + W_h}$=8.361 in \\\\
+4-Calcular o momento de inércia no eixo ZZ\\\\
+$I_{DDd}=\frac{W_d}{12g}(3r_d^2+h_d^2)=1.294.10^{-3}lbf.sec^2.in$\\
+$I_{ZZd}=I_{DDd}+\frac{W_d}{g}x_{cgd}^2=0.177lbf.sec^2.in$\\\\
+5-Calcular o momento de inércia da mão no eixo ZZ\\
+$l_{h1}=8.683.10^{-3} lbf.sec^2.in$\\
+$l_{ZZh1}=0.034 lbf.sec^2.in$\\
+$l_{h2}=2.774.10^{-6} lbf.sec^2.in$\\
+$l_{ZZh2}=2.841.10^{-3} lbf.sec^2.in$\\
+$l_{ZZh}=0.037 lbf.sec^2.in$\\ 
+\\
+6-Adicionar os momentos dos dois componentes sobre o eixo ZZ pra saber o momento de inércia total do martelo\\
+$I_{ZZ}=I_{ZZd}+I_{ZZh}=0.214lbf.sec^2.in$\\
+\\
+7-Calculor o raio de giro no eixo ZZ\\
+\\
+$k=\sqrt{\frac{I_{ZZ}g}{W_d + W_h}}=8.992 in$\\
+\\
+\textbf{Problema 2}\\
+\\
+$\sum algarismos do RGU=34$\\
+Sentido de $\omega_2$ é antihorário\\
+Distância entre centros de manivela é de 240 mm \\
+AB=501mm
+
+\end{document}

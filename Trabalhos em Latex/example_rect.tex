@@ -1,0 +1,21 @@
+\documentclass[parskip]{scrartcl}
+\usepackage[margin=20mm]{geometry}
+\usepackage{background}
+\usetikzlibrary{calc}
+\usepackage{tikzpagenodes}
+\usepackage{lipsum}
+
+\backgroundsetup%
+{   contents={
+        \begin{tikzpicture}[overlay]
+            \draw[black] ($(current page text area.south west)+(-0.1,+23)$) rectangle ($(current page text area.north east)+(0.1,0.1)$);
+            %\draw[black,very thick] ($(current page text area.south west)+(-0.25,-0.25)$) rectangle ($(current page text area.north east)+(0.25,0.25)$);
+        \end{tikzpicture}
+    },
+    scale=1,
+    angle=0
+}
+
+\begin{document}
+\lipsum
+\end{document}

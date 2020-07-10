@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{circuitikz}
+\usepackage[portuguese]{babel}
+%\usepackage[margin=10mm]{geometry}
+\usepackage{mathpazo} % Palatino font
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[margin=20mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/Eletronica_2/images/}}
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\LARGE Universidade Católica de Petrópolis}\\[1.5cm] % Main heading such as the name of your university/college
+	
+	\textsc{\Large Centro de Engenharia e Computação}\\[0.5cm] % Major heading such as course name
+	
+	\textsc{\large Relatório da sexta experiência}\\[0.5cm] % Minor heading such as course title
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries  Retificadores de Precisão}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textit{Aluno}\\
+			Hiago Riba Guedes % Your name
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textit{RGU}\\
+			11620104 % Supervisor's name
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	Petrópolis\\
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	%\vfill\vfill
+	%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	 
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+\newpage
+
+%\tableofcontents
+%\newpage
+
+\section{Resumo}
+O presente trabalho faz parte do 6º relatório presente na ementa composta pela disciplina de Laboratório de Eletrônica II ministrada pelo professor  Paulo Cesar Lopes Leite no dia 17 de Abril de 2018 
+para a turma E-ELE-A07 na instituição 
+Universidade Católica de Petrópolis. Seu objetivo é de montar e analisar o comportamento dos retificadores de meia onda e de onda completa de precisão e entender o por que a inserção dos amplificadores operacionais garantem a precisão do sistema.
+\section{Teoria}
+\subsection{Retificador de Meia Onda }
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-)to[short]++(-1,0)to[short]++(0,1.5)to[short]++(4.5,0) to[short] ++(0,-2)
+  (opamp.out) to[diode]++(1,0) to[short]++(2,0)node[right]{$V_o$}
+  (opamp.+)to[short]++(-2,0)  node [left]{$V_i$}
+  ;  
+  \end{circuitikz}
+  \end{center}
+  \caption{Retificador de Meia onda de Precisão}
+  \end{figure}
+  O conceito de funcionamento desse circuito é bem simples , pelo curto virtual a tensão de entrada na porta inversora é a mesma da porta não inversora e é igual a $V_i$. Que por conseguinte é a mesma do nó de realimentação ligada após o diodo .Isso força com que o amplificador operacional tenha que entregar uma tensão igual a $V_i+0.7$ , ou pelo trabalhar até chegar nessa tensão de saída . Fazendo com que ele possa trabalhar com tensões até menores que 0.7 V ,diferente das fontes vistas em Eletrônica 1 ,a desvantagem é que pela limitação do Amplificador Operacional não pode se trabalhar com tensões muito altas .
+  
+  \subsection{Retificador de Onda Completa } 
+  \begin{center}
+  \begin{figure}[!h]
+  \includegraphics[scale=1]{ROCP}
+  \caption{Retificador de Onda Completa de Precisão}
+  \end{figure}
+  \end{center}
+  
+  O conceito desse tipo de fonte é um pouco mais complexo do que do retificador de meia onda porém ele utiliza de conceitos utilizados em relatórios passados.
+  
+  No ciclo positivo o diodo $D_2$ é ativado fazendo com que o primeiro amplificador 1 seja um amplificador inversor de ganho -1 .Para isso então $R_2=R_1$ .O amplificador operacional 2 é um circuito somador , onde temos a seguinte equação de saída
+  $$-\left(  \frac{-V_i}{R_3} +\frac{V_i}{R_4} \right)R_5 $$
+  Para a saída ser +$V_i$ ,a relação entre os resistores deve ser $R_5=R_4=2R_3$. Desse maneira garantimos que a saída no ciclo positivo é a mesma.
+  
+  No ciclo negativo,o que acontece é que o  $D_1$ é ativado fazendo com que o primeiro amplificador operacional não funcione como nada , fazendo com que o circuito somador aja como um amplificador inversor de ganho -1 , jogando a tensão em $V_i$ que é negativo para o eixo positivo. Então temos assim uma retificação em onda completa para os dois semi-ciclos.
+  \section{Experimento e Resultados}
+  Foi pedido em sala de aula para que montássemos um circuito retificador de onda completa e injetássemos em sua entrada uma senoide de 1 KHz e fossemos mudando a entrada , para que no final víssemos sua saída.
+  \begin{center}
+  \begin{figure}[!h]
+  \includegraphics[scale=0.1]{Rpratica}
+  \caption{Saída característica na pratica , comprovando seu funcionamento}
+  \end{figure}
+  \end{center}
+  Aplicando entradas variáveis de pico a pico achamos as seguintes saídas (também de pico a pico)
+  
+  $$
+\begin{array}{c|c}
+V_i[V] & V_o[V]\\
+\hline
+1 V_{PP} & 528 \times 10^{-3}  \\
+2 V_{PP} & 1.1  \\
+3 V_{PP} &  1.661 \\
+4 V_{PP} &  2.24 \\
+5 V_{PP} &  2.88 \\
+\end{array}    
+  $$
+  \section{Conclusão}
+  Tanto na prática quanto no gráfico ,notamos um pequeno erro de simetria quanto a retificação , esse erro se deve ao fato de um dos circuito de medição do osciloscópio estar descalibrado . Apresentando um certo desbalancemento na hora da medição. Mas tirando esse erro que é um erro de instrumentação , os valores obtidos seguiram uma certa proporção. Então está dentro do que foi visto em sala de aula.
+\end{document}

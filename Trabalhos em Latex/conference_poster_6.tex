@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% a0poster Portrait Poster
+% LaTeX Template
+% Version 1.0 (22/06/13)
+%
+
+% The a0poster class was created by:
+% Gerlinde Kettl and Matthias Weiser (tex@kettl.de)
+% 
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a0,portrait]{a0poster}
+
+\usepackage{multicol} % This is so we can have multiple columns of text side-by-side
+\columnsep=100pt % This is the amount of white space between the columns in the poster
+\columnseprule=3pt % This is the thickness of the black line between the columns in the poster
+
+\usepackage[svgnames]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
+
+\usepackage{times} % Use the times font
+%\usepackage{palatino} % Uncomment to use the Palatino font
+
+\usepackage{graphicx} % Required for including images
+\graphicspath{{/home/hiago/Documents/}} % Location of the graphics files
+\usepackage{booktabs} % Top and bottom rules for table
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{amsfonts, amsmath, amsthm, amssymb} % For math fonts, symbols and environments
+\usepackage{wrapfig} % Allows wrapping text around tables and figures
+\usepackage[utf8]{inputenc}
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	POSTER HEADER 
+%----------------------------------------------------------------------------------------
+
+% The header is divided into two boxes:
+% The first is 75% wide and houses the title, subtitle, names, university/organization and contact information
+% The second is 25% wide and houses a logo for your university/organization or a photo of you
+% The widths of these boxes can be easily edited to accommodate your content as you see fit
+
+\begin{minipage}[b]{0.75\linewidth}
+\veryHuge \color{NavyBlue} \textbf{Localização de Robôs Móveis via Filtro de Kalman} \color{Black}\\\\ % Title
+%\Huge\textit{An Exploration of Complexity}\\[2cm] % Subtitle
+\huge \textbf{Hiago Guedes}\\[0.5cm] % Author(s)
+\huge Universidade Católica de Petrópolis\\[0.4cm] % University/organization
+\Large \texttt{hiagoguedes94@gmail.com}\\
+\end{minipage}
+%
+\begin{minipage}[b]{0.25\linewidth}
+%\includegraphics[width=20cm]{logo.png}\\
+\end{minipage}
+
+\vspace{1cm} % A bit of extra whitespace between the header and poster content
+
+%----------------------------------------------------------------------------------------
+
+\begin{multicols}{1} % This is how many columns your poster will be broken into, a portrait poster is generally split into 2 columns
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\color{Navy} % Navy color for the abstract
+
+\begin{center}
+\textbf{Resumo}
+\end{center}
+O objetivo desse trabalho é utilizar técnicas de estimação de estado  no estudo de localização de robôs móveis para fins de navegação local.
+
+
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\color{SaddleBrown} % SaddleBrown color for the introduction
+
+\section*{Introdução}
+
+O desenvolvimento de novas tecnologias computacionais e algoritmos de estimação e aprendizado tem impulsionado de maneira vertiginosa o campo da robótica móvel. Contribui também para isso, o grande interesse de empresas tal como a Google no desenvolvimento de carros autoguiados, a utilização de robôs em hospitais na ajuda de idosos e  até mesmo em robôs de limpeza de baixo custo.Esse crescente interesse pode ser também constatado pelo surgimento de grandes empresas tal com a SpaceX\\
+Esses são alguns dos elementos que têm contribuído no crescimento da pesquisa nessa área.  Apesar do desenvolvimento vertiginoso nessa área, existem ainda diversos problemas a serem resolvidos no cenário de localização de robôs.   \\
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	OBJECTIVES
+%----------------------------------------------------------------------------------------
+
+\color{DarkSlateGray} % DarkSlateGray color for the rest of the content
+
+\section*{Principais Etapas}
+Este trabalho tem como objetivo realizar um estudo sobre localização de robôs móveis e como aplicá-la para realizar simulações e testes em situações reais. O ambiente será composto exclusivamente de paredes , obstáculos diversos e terrenos planos .Os objetivos específicos serão:
+\begin{enumerate}
+\item Construir um protótipo de robô com a capacidade nescessária para a aplicação
+\item Aplicar filtros para as leituras dos sensores
+\item Detectar e reconhecer paredes e obstáculos
+\item Realizar movimentação ótima utilizando a leitura dos sensores. 
+\end{enumerate}
+Em princípio , esse trabalho pode ser visto como uma etapa importante na implementação do algoritmo SLAM (Simulation Localization And Mapping),que introduz mais inteligência e autonomia ao robô. A abordagem dessa etapa dependerá do tempo nescessário para conclusão das etapas anteriores.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics {plano}
+    \caption{.}
+    \label{figRotulo}
+  \end{figure}
+
+%----------------------------------------------------------------------------------------
+
+\end{multicols}
+\end{document}\grid
+\grid

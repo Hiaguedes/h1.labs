@@ -1,0 +1,307 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{circuitikz}
+\usepackage[portuguese]{babel}
+%\usepackage[margin=15mm]{geometry}
+\usepackage{mathpazo} % Palatino font
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[margin=20mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/Eletronica_2/images/}}
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\LARGE Universidade Católica de Petrópolis}\\[1.5cm] % Main heading such as the name of your university/college
+	
+	\textsc{\Large Centro de Engenharia e Computação}\\[0.5cm] % Major heading such as course name
+	
+	\textsc{\large Relatório da terceira experiência}\\[0.5cm] % Minor heading such as course title
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries  Comparadores de Tensão}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textit{Aluno}\\
+			Hiago Riba Guedes % Your name
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textit{RGU}\\
+			11620104 % Supervisor's name
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	Petrópolis\\
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	%\vfill\vfill
+	%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	 
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+\newpage
+
+\tableofcontents
+\newpage
+\section{Resumo}
+O presente trabalho faz parte do 3º relatório presente na ementa composta pela disciplina de Laboratório de Eletrônica II ministrada pelo professor  Paulo Cesar Lopes Leite no dia 20 de Março de 2018 
+para a turma E-ELE-A07 na instituição 
+Universidade Católica de Petrópolis. Seu objetivo é de estudar o comportamento dos circuitos comparadores de tensão que é mais uma das aplicações com amplificadores operacionais.
+\newpage
+\section{Teoria}
+Circuitos comparadores de tensão como o próprio nome diz, servem para comparar duas tensões entre dois pontos em sua entrada e poder então dar uma resposta do tipo booleana em sua saída ,muito utilizada em circuitos de controle, por poder mandar um sinal de Enable para poder ativar determinado circuito em seu sistema.
+\subsection{Circuito Padrão} 
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R] (-3, 0.5)to [short] ++(-1,0) node[ left]{$V_{in}$}
+  (opamp.+) to[short] ++(-5,0)  to[R=$R_1$]++(0,2) node[above]{+$V_a$} 
+  (opamp.+) to[short,-*] ++(-5,0)node[left]{$V_{ref}$}  to[R=$R_2$]++(0,-2)to++(0,-0.5) node[below]{-$V_b$} 
+  (opamp.out) node[right] {$V_o$}
+  ;
+\end{circuitikz}
+\caption{Exemplo de circuito comparador de tensão} 
+\end{center}
+\end{figure}
+Com o controle de $V_{ref}$ devido ao divisor resistivo e sem a inclusão de uma malha de realimentação positiva o amplificador utiliza seu ganho natural,segundo a fórmula abaixo, que tende +$\infty$.\\
+$$V_o=A(V_{Ref} - V{in})$$ 
+Dessa fórmula só podemos tirar duas conclusões:\\\\
+Se:\\
+
+ $V_{ref}>V_{in} \rightarrow V_o=+\infty$ que na prática acaba ficando igual a entrada de alimentação positiva do amplificador operacional.\\
+ Se:\\
+ 
+$V_{ref}<V_{in} \rightarrow V_o=-\infty$ que na prática acaba ficando igual a entrada de alimentação negativa do amplificador operacional.\\
+ Caso:\\
+ 
+ $V_{ref}=V_{in} \rightarrow V_o=$ indeterminado. $V_o$ fica com valor entre as tensões de alimentação positiva e negativa . Reta essa que tem coeficiente angular que tende ao infinito, então o valor de $V_o$ é indeterminado.\\
+\begin{figure}[!h]
+ \begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+minor tick num=3,
+axis y line=center,
+axis x line=middle,
+xlabel=$V_{in}$,
+ylabel=$V_o$,
+]
+\addplot
+[
+blue,mark=none,
+domain=-5:6,
+samples=40,
+] coordinates{
+(-3,5)
+(0,5)
+(1,5)
+(1,0)
+(3,0)
+};
+\end{axis}
+
+\end{tikzpicture}
+\end{center}
+\caption{Comportamento da saída quando aplicada uma tensão linearizada em $V_{in}$ da figura 1 e supondo que $V_{ref}$=1 V }
+\end{figure}
+Porém esse tipo de circuito apresenta um problema, pois para o funcionamento correto do mesmo consideramos que a entrada de tensão segue uma entrada linear perfeita e sem ruídos. Acontece que grande parte das aplicações práticas em eletrônica não ocorrem dessa maneira. Imaginemos então um $V_in$ como no gráfico de baixo.\\
+
+Para um sinal extremamente ruidoso e problemático como o de cima o resultado final para o nosso comparador seria.\\\\
+Para o gráfico de $V_{in}$ no tempo acima faremos então o gráfico de saída do nosso comparador. Fazendo a nossa referência $V_{ref}$ a linha cinza cortando o gráfico. \\
+\begin{center}
+\begin{figure}[!h]
+\includegraphics[scale=1]{comparadorpadrao}
+\caption{Saída do comparador com um entrada ruidosa; note que forma-se uma região de bouncing com um pequena variação de tensão em um de seus terminais de entrada}
+\end{figure}
+\end{center}
+Aparecerá então uma região de bouncing em torno do ponto de referência, o que é altamente indesejável. Imagina um sensor de precisão que precisa ativar sua malha de controle quando o sistema começar a acusar um pequeno erro em sua saída. Enquanto isso o sistema de enable , manda um sinal liberando, depois fechando, um momento depois abrindo de novo. Não é nem um pouco desejável um sistema que responda dessa forma.\\
+
+\subsection{Schimitt Trigger}
+Para solucionar esse problema então, o então aluno de graduação Otto H. Schimitt em 1934 propôs a ideia de simplesmente adicionar um resitor, forçando assim um retroalimentação positiva no circuito. Como na figura abaixo.\\
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R] (-3, 0.5)to [short] ++(-1,0) node[ left]{$V_{in}$}
+  (opamp.+) to[short] ++(-5,0)  to[R=$R_1$]++(0,2) node[above]{+$V_a$} 
+  (opamp.+) to[short,-*] ++(-5,0)node[left]{$V_{ref}$}  to[R=$R_2$]++(0,-2)to++(0,-0.5) node[below]{-$V_b$} 
+  (opamp.out)to[short]++(1,0) node[right] {$V_o$}
+  (opamp.+)to[short]++(0,-2) to[R=$R_3$]++(2.4,0) to [short](opamp.out)
+  ;
+\end{circuitikz}
+\caption{Circuito Schimitt Trigger} 
+\end{center}
+\end{figure}
+\\
+Onde $V_o$ só pderá assumir dois valores que são +$V_{ss}$ e -$V_{ss}$ que são arbitrários. E para o funcionamento do circuito $V_b$=0 V. \\
+Temos então as seguintes equações aplicando-se a lei dos nós\\
+
+$$V_a - V_{ref}=R_1i_1$$
+$$+ V_{ref}=R_2i_2$$
+
+$$V_{ref} - V_o=R_3i_3$$
+Como $V_o$ pode assumir dois valores dois casos são possíveis ,um que $V_0 >V_{ref}$ ou que $V_0 <V_{ref}$ fazendo com $i_3$ ou saia do nó que é $V_ref$ ou entre no mesmo. Isso é 
+$$i_1=i_2+i_3$$
+\begin{center}ou \end{center}
+$$i_1+i_3=i_2$$
+Explicitando o valor da corrente no primeiro caso temos:\\
+$$\frac{V_a-V_{ref}}{R_1}=\frac{V_{ref}-V_b}{R_2}+\frac{V_{ref}-V_o}{R_3}$$
+$$\frac{V_a}{R_1}+\frac{V_b}{R_2}+\frac{V_o}{R_3}=V_{ref}\left(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}    \right)$$
+
+
+$$
+\frac{\frac{R_2R_R3V_a + R_1R_3V_b +R_1R_2V_o}{R_1R_2R_3}}{\frac{R_1R_2+R_1R_3+R_2R_3}{R_1R_2R_3}}
+=V_{ref}
+$$
+$$V_{ref}=\frac{R_2R_R3V_a + R_1R_3V_b +R_1R_2V_o}{R_1R_2+R_1R_3+R_2R_3}$$
+Onde normalemente a tensão $V_a$ ou $V_b$ é aterrada,para um aproveitamento melhor do circuito e o valor de $V_o$ pode ter somente dois valores +$V_ss$ ou -$V_ss$ ,logo por consequência $V_{ref}$ podem ter dois valores. \\\\
+Para o caso $i_1+i_3=i_2$ se atentar que $V_o-V{ref}=R_3i_3$\\
+Logo:\\
+$$\frac{V_a-V{ref}}{R_1}+\frac{V_o-V{ref}}{R_3}=\frac{V_{ref}-V_b}{R_2}$$
+O que dá o mesmo resultado...\\\\
+Então aplicando esse mesmo sinal de entrada no circuito Schmitt Trigger temos o seguinte gráfico.
+\begin{center}
+\begin{figure}[!h]
+\includegraphics[scale=1]{schimitt}
+\caption{Saída do Schimitt Trigger com a mesma entrada ruidosa; note que nessa configuração temos dois valores de comparação .  }
+\end{figure}
+\end{center}
+Onde agora temos dois pontos de $V_ref$ e uma vez que o sinal rompa a primeira barreira o ponto de referência muda para a segunda barreira , fazendo com que o comparador assuma um dos lados da saturação. Se o sinal romper a segunda barreira a referência volta para a primeira barreira, voltando para o nível inicial de saturação. \\
+
+\begin{figure}[!h]
+\includegraphics[scale=1]{histerese}
+\caption{Gráfico que representa melhor o comportamento da histerese existente em um schimitt trigger }
+\end{figure}
+
+\section{Experiência prática}
+Foram montados então dois circuitos na bancada\\
+
+Onde variava-se os valores de $P_1$(potênciometro),com isso mudava-se $V_{ref}$ e por fim anotava-se os valores obtidos na saída $V_o$.Era pedido que fizesse uma tabela associando o valor de $V_{in}$ e de $V_o$.
+\subsection{Circuito 1}
+\newpage
+Os resultados para o circuito 1 foram:
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to [short] ++(-1,0)[short] to[R=$10K\Omega$]++(0,2) to[short]++(0,0.5)node[above] {+15 V}
+  (opamp.-) to [short] ++(-1,0)[short] to[R=$10K\Omega$]++(0,-4) node[sground] {}
+  (opamp.+) to[short] ++(-5,0)  to[R=$10 K \Omega$]++(0,2) node[above]{+15 V} 
+  (opamp.+) to[short,-*] ++(-5,0)node[left]{$V_{ref}$}  to[R=$P1$]++(0,-2)to++(0,-0.5) node[sground] {}
+  (opamp.out) node[right] {$V_o$}
+  ;
+\end{circuitikz}
+\caption{Circuito 1 da experiência} 
+\end{center}
+\end{figure}\\
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$V_{ref}$[V]	&	$V_{out}$[V]\\
+\hline
+0	&	11.36\\
+0.5	&	11.36\\
+1	&	11.36\\
+1.5	&	11.36\\
+2	&	11.36\\
+2.51	&	8.20\\
+3	&	-9.64\\
+4.5	&	-9.64\\
+4	&	-9.64\\
+4.5	&	-9.64\\
+5	&	-9.65\\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Circuito 2}
+Já o circuito 2 era o Schmitt Trigger abaixo:\\
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to [short] ++(-1,0)[short] to[R=$10K\Omega$]++(0,2) to[short]++(0,0.5)node[above] {+15 V}
+  (opamp.-) to [short] ++(-1,0)[short] to[R=$10K\Omega$]++(0,-4) node[sground] {}
+  (opamp.+) to[short] ++(-5,0)  to[R=$10 K \Omega$]++(0,2) node[above]{+15 V} 
+  (opamp.+) to[short,-*] ++(-5,0)node[left]{$V_{ref}$}  to[R=$P1$]++(0,-2)to++(0,-0.5) node[sground] {}
+  (opamp.out)to[short]++(1,0) node[right] {$V_o$}
+  (opamp.out)to[short]++(0,-5)to[R=$100K\Omega$]++(-5,0)to[short]++(0,4.5)
+  ;
+\end{circuitikz}
+\caption{Circuito 2 da experiência} 
+\end{center}
+\end{figure}\\
+\newpage
+O circuito apresentou os seguintes resultados:
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$V_{ref}$[V]	&	$V_{out}$[V]\\
+\hline
+0	&	11.25\\
+0.5	&	11.25\\
+1	&	11.25\\
+1.5	&	11.25\\
+2	&	11.25\\
+2.5	&	11.25\\
+3	&	11.25\\
+3.2	&	-9.62\\
+1.6	&	11.25\\
+3.14	&	-9.64\\
+
+\hline
+\end{tabular}
+\end{center}
+Sendo 1.6 V e 3.14 V os valores de comparação para esse circuito.
+\section{Conclusões}
+Os comparadores de tensão com amplificadores operacionais são circuitos bastante precisos e atendem muito bem ao que é projetado. E mesmo para circuitos onde se há uma entrada ruidosa existem formas de se converter o problema que é o circuito Schimitt Trigger onde o projetista poderá um circuito bastante fino para o tipo de projeto em que está desenvolvendo.
+\end{document}

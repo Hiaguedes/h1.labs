@@ -1,0 +1,336 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Estágio Supervisionado}
+\author{Hiago Riba Guedes RGU:11620104}
+\date{Orientador:Felipe Baldner}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{capt-of}
+\usepackage{setspace}
+\usepackage[pdftex]{hyperref}
+\usepackage[portuguese]{babel}
+\setlength{\parindent}{1.5cm}
+\usetikzlibrary{arrows,shapes,positioning,mindmap,trees,automata}
+\usepackage{subfigure}
+\graphicspath{{/home/hiago/Documents/estagio/}}
+\bibliography{bibliography}
+\geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=3cm,
+ top=3cm,
+ right=2cm,
+ bottom=2cm,
+ }
+\onehalfspacing 
+\begin{document}
+%\maketitle
+\begin{center}
+{\Large UNIVERSIDADE CATÓLICA DE PETRÓPOLIS}\\
+Centro de Engenharia e Computação\\
+Engenharia Mecatrônica
+\end{center}
+\vspace{40mm}
+\textbf{Instituição: }LNCC \\
+\textbf{Tema de Pesquisa: }Estimação e Localização de Robôs Móveis via Filtro de Kalman\\\\\\
+\begin{center}
+\textbf{Sumário}
+\end{center}
+
+Relatório de Estágio Supervisionado do aluno \textbf{Hiago Riba Guedes} de RGU \textbf{11620104} durante período referente área de pesquisa 
+\\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+\textbf{Professor Supervisor: }Felipe de Oliveira Baldner
+\vfill
+\begin{center}
+Petrópolis\\
+Dezembro, 2017
+\end{center}
+\thispagestyle{empty}
+\newpage
+\tableofcontents
+\newpage
+\section{Apresentação do estágio}
+\subsection{Programação do estágio}
+
+\hspace{1.5cm} O Estágio está sendo realizado no Laboratório Nacional de Computação Científica(LNCC) localizado na avenida Getúlio Vargas ,de número 333 no bairro  Quitandinha na cidade de 
+Petrópolis no estado do  Rio de Janeiro
+CEP 25651-075 - Brasil , onde tem se disponível bolsa Capes de Iniciação Científica com a pesquisa de localização e estimação de robôs móveis usando filtros de Kalman.
+
+\subsection{A Instituição}
+\subsubsection{Descrição}
+\hspace{1.5cm} O Laboratório Nacional de Computação Científica (LNCC) tem como missão  Realizar pesquisa, desenvolvimento e formação de recursos humanos em Computação Científica, em especial na construção e aplicação de modelos e métodos matemáticos e computacionais na solução de problemas científicos e tecnológicos, bem como disponibilizar ambiente computacional para processamento de alto desempenho, tendo como finalidades o avanço do conhecimento e o atendimento às demandas da sociedade e do Estado brasileiro.
+
+A instituição é reconhecida nacionalmente como uma instituição de pesquisa de excelência e consta com projetos de pesquisa e desenvolvimento , programas de mestrado e doutorado e atualmente conta com cinco coordenações voltadas para as áreas onde atuam. Como a Coordenação de Métodos Matemáticos e Computacionais(COMAC) , Coordenação de Modelagem Computacional(COMOD) , Coordenação de Pós-graduação e Aperfeiçoamento (COPGA), Coordenação de Tecnologia da Informação e Comunicação (COTIC) e a Coordenação de Gestão e Administração (COGEA) . Para o nível de graduação a instituição oferece bolsas Capes de iniciação científica,uma vez que a instituição consta com uma boa equipe de doutores em variadas áreas com serviços computacionais de alto desempenho.
+\subsubsection{História}
+\hspace{1.5cm}Em seus primeiros vinte anos de existência (1980-2000) o LNCC se consolidou como instituição líder em Computação Científica e Modelagem Computacional no País, atuando como unidade de pesquisa científica e desenvolvimento tecnológico do MCT e como órgão governamental provedor de infra-estrutura computacional de alto desempenho para a comunidade científica e tecnológica nacional. Isto aconteceu como resultado de sua proposta pioneira dentro do quadro das ciências matemáticas e computacionais de então e da qualidade que sempre imprimiu às suas atividades de pesquisa e prestação de serviços.
+
+Dentre as suas iniciativas destacam-se:
+
+- a promoção institucional da computação científica-modelagem computacional no País, com a conseqüente formação de uma comunidade científico-profissional no setor, fundação de sociedade científica, criação de departamentos e cursos em Universidades, criação de periódicos científicos, formação de recursos humanos qualificados e contribuição para a produção científica da área;
+
+- o pioneirismo na implantação em conjunto com a Fundação de Amparo à Pesquisa do Estado de São Paulo – FAPESP, de redes de comunicação de dados no País (BITNET e RNP);
+
+- a participação na formação do Sistema Nacional de Processamento de Alto Desempenho – SINAPAD, tornando-se o Centro Nacional de Processamento de Alto Desempenho do Estado do Rio de Janeiro – CENAPAD-RJ
+
+- a difusão e transferência de tecnologia através de projetos de desenvolvimento e aplicações com empresas tais como: Comissão Nacional de Energia Nuclear – CNEN, VALE DO RIO DOCE, PETROBRAS, COPESP, ELETRONORTE e muitas outras, servindo de pioneiro exemplo da interação universidade-empresa, na área de ciências matemáticas e computacionais.
+
+A partir do momento em que o MCT passa a formular e desenvolver ações de planejamento e financiamento para a atuação integrada do Sistema Nacional de C$\&$T, através do Plano Plurianual – PPA 2000-2003, do novo modelo de financiamento representado pelos Fundos Setoriais, dos Fundos Verde e Amarelo, das Comissões de Prospecção e Avaliação dos Institutos discutindo e atribuindo missões aos mesmos, uma nova realidade se apresenta para o planejamento e administração das instituições de pesquisa.
+
+De acordo com esta nova realidade o LNCC se posiciona e passa a desenvolver esforços e ações institucionais para se adequar aos novos paradigmas e políticas científicas priorizadas.
+
+Isto ocorre através de um processo continuado de planejamento estratégico situacional, com ampla participação da sua comunidade científica e técnica, e as conseqüentes ações operacionais de sua Diretoria, assessorada por representativos Comitês Internos e por seu Conselho Técnico Científico – CTC, com expressiva participação da comunidade externa.
+
+Dentro deste quadro e tendo por balizamento os programas estruturantes do MCT no PPA, bem como a capacitação existente no Laboratório, as seguintes ações foram realizadas, no período 1999-2003, todas elas dentro do escopo da tradicional atuação do LNCC (P$\&$D, Serviços Computacionais de Alto Desempenho, Formação de Recursos Humanos):
+
+a) consolidação das principais atividades básicas de pesquisa de seus pesquisadores, grupos e correspondentes parceiros externos em dois grandes projetos:(i) Modelagem, Análise e Simulação Computacional em Engenharia e Ciências Aplicadas e (ii) Controle de Sistemas Dinâmicos; com a aprovação e contratação destes projetos pelo Programa de Núcleos de Excelência – PRONEX do MCT o custeio da pesquisa teve incremento significativo, revelando-se num também significativo aumento da produção científica;
+
+b) modernização do CENAPAD-RJ – que teve o apoio financeiro do programa PAD da FINEP para a aquisição de novas plataformas de alto desempenho para o pleno e satisfatório atendimento das demandas colocadas pelas instituições usuárias tradicionais e dos novos projetos e parcerias;
+
+c) criação do Laboratório de Bioinformática – servindo inicialmente como laboratório central articulador dos projetos Genoma Nacional – BRGEN e Genoma-Rio de Janeiro, com financiamento do CNPq e FAPERJ, respectivamente, e com pesquisadores e técnicos, na sua maioria, do Programa de Capacitação Institucional – PCI do MCT; hoje esse Laboratório coordena importantes projetos nacionais e parcerias internacionais;
+
+d) implantação de programa de pós-graduação em Modelagem Computacional, que enfatiza a modelagem em áreas interdisciplinares como biosistemas, bioinformática, biologia computacional, atmosfera e oceanos, meio ambiente, ciência multiescala, e apoiado nas áreas de competência do LNCC como mecânica de fluídos computacional, computação de alto desempenho, simulação de reservatórios de petróleo, otimização e análise não-linear de estruturas, controle de sistemas, análise numérica de equações diferenciais e análise de sensibilidade; aprovado pela CAPES e com apoio também do CNPq e da FAPERJ atende demandas estratégicas da comunidade de C$\&$T Nacional;
+
+e) consolidação da parceria com a RNP para o gerenciamento do ponto de presença da rede nacional no Rio de Janeiro e outros projetos;
+
+f) participação nos níveis direção e execução no Projeto GEOMA – Geoprocessamento e Modelagem Ambiental na Amazônia, importante e estratégica iniciativa do MCT, através de seus institutos INPA, MPEG, Mamirauá, INPE, LNCC e IMPA, formando rede cooperativa de pesquisas;
+
+g) apoio e parceria com instituições regionais e empresariais como Governo do Estado do Rio de Janeiro, Prefeitura de Petrópolis, FIRJAN, SEBRAE, Softex, na criação de instrumentos de inclusão social como incubação de empresas de base tecnológica, centros de alfabetização digital, cursos profissionalizantes em Tecnologia da Informação – TI, arranjos produtivos locais e outros;
+
+h) criação do CATO (Centro de Modelagem da Atmosfera, Continente e Oceano), que passou a fazer a previsão numérica regional do tempo para os Estados do Rio de Janeiro e Espírito Santo; é cooperação entre o LNCC, o Sistema de Meteorologia do Estado do Rio de Janeiro – SIMERJ e o Centro de Previsão de Tempo e Estudos Climáticos – CPTEC/INPE e usa plataforma do CENAPAD – RJ, constituindo-se também em laboratório para a pesquisa em modelagem da atmosfera e do oceano no LNCC.
+
+
+O planejamento constante no PPA-2000-2003 consolidou linhas de atuação do LNCC e apontou pontos futuros que se mostraram presentes no Planejamento Estratégico realizado pelo MCT em 2004, com suas macrodiretrizes, oportunidades e desafios decorrentes. Importante naquele momento foi a confirmação do LNCC como instituição executora para o MCT da coordenação do SINAPAD, a rede nacional de centros de computação de alto desempenho localizados em sete Universidades e Institutos de Pesquisa no País.
+
+Também importante para a Unidade foi a iniciativa, apoiada pelo MCT, de ir ao Congresso Nacional buscar apoio extra-orçamentário para atividades de P$\&$D relacionadas ao uso da computação em vários campos da Medicina, desenvolvidas em parcerias com vários e importantes hospitais do País e hoje em pleno andamento.
+
+O exercício prospectivo e a discussão estratégica realizados no decorrer de 2005 no LNCC, sob os auspícios da SCUP, abrem agora possibilidades de materialização pelo LNCC de prioridades, definidas à luz da política de C$\&$T, que permitirão o seu desenvolvimento científico no melhor nível de qualidade e o cumprimento de suas responsabilidades com a sociedade brasileira.
+\subsubsection{Infraestrutura}
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[scale=0.9]{vista}\\
+\caption{Vista aérea do LNCC}
+\end{center}
+\end{figure}
+A instituição consta com 28 Doutores, 29 Tecnologistas, 2 Técnicos, 6 Analistas em Ciência e Tecnologia, 9 Assistentes em Ciência e Tecnologia e 2 Especialistas em Ensino Superior.\cite{lncc_estrutura}
+\subsubsection{Realizações e serviços}
+\hspace{1.5cm}A instituição oferece cursos, palestras, seminários e congressos na área de computação científica e tecnologia da informação,cursos de pós-graduação em nível de mestrado e doutorada em modelagem computacional para alunos graduados e pós-graduados, a instituição consta com aproximadamente 10758 exemplares de livros e teses registrados nas áreas Matemática Aplicada e Computacional, Mecânica 
+dos Sólidos e Fluidos, Teoria dos Sistemas e Controle, Métodos e Análise Numérica em Ciência e Engenharia. O aluno pode solicitar o serviço de forma virtual ou física de forma gratuita.A instituição também oferece parcerias tecnológicas 
+om   micros   e   pequenas   empresas,   incluindo   o
+suporte, a instalação e a gestão, com vistas à criação e o desenvolvimento de
+incubadoras de base tecnológica . A instituição também oferece Laboratório de  Bioinformática para pesquisas quanto ao sequenciamento
+genético e treinamentos e 
+workshops
+ específicos na área. Além de Assistência às comunidades científicas e acadêmicas quanto à utilização de
+ambiente computacional de alto desempenho - CENAPAD.\\
+Muitos desses projetos e inovações em tecnlógicas são possíveis graças a iniciativa de incubação e ao supercomputador SDUMONT.
+\subsection{Estrutura da Instituição}
+\hspace{1.5cm}Abaixo segue a hierarquia seguida no LNCC
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[scale=3]{organograma}\\
+\caption{Organograma do LNCC}
+\end{center}
+\end{figure}\\
+\vfill
+%\begin{center}
+% 29/09/2017
+%\end{center}
+\newpage
+\section{Atividades do estágio}
+\subsection{Descrição das atividades}
+
+\hspace{1.5cm} O estágio teve-se início em Julho de 2017 e é desenvolvido em três partes principais e elas são destinados tanto para o aprendizado técnico/profissional tanto para o aprendizado pessoal.
+
+-Aquisição e montagem de um robô móvel capaz de ler e interpretar seu ambiente
+
+-Montagem de um software capaz de mostrar visualmente o que se pretende fazer na prática
+
+-Estudo teórico dos modelos que regem o ambiente e estudo prático da eletrôncia envolvida e sua aplicação\\
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{sim}
+\caption{Frame do simulador para tomada de decisão e escolha do melhor caminho para o robô}
+\end{figure}
+\subsection{Desenvolvimento das atividades}
+\subsubsection{Montagem do Robô}
+\hspace{1.5cm}Foi projetado e comprado os componentes nescessários para a confecção de um protótipo de robô móvel. 
+
+Onde será usado um Arduino Uno para protótipos , porém para o modelo final deverá ser utilizado um Arduino Mega por conta dos muitos dados que o robô irá gerar. O robô consta de:
+
+4 baterias de lítio de 3.7 Volts cada com módulo carregador TP4056,conversor step down DC-DC , dois motores de até 6 V, uma ponte H para inversão de sentido dos dois motores citados,giroscópio ,4 sensores de ultrassom para medição do ambiente, um módulo bluetooth master-slave HC-05 para comunicação, dois sensores de velocidade com seus respectivos encoders.  \\
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.1]{robo}
+\caption{Foto do robô ainda em estágio de testes}
+\end{figure}
+\\
+\subsubsection{Estudo teórico dos Modelos}
+\hspace{1.5cm}Com a orientação devida do orientador na LNCC - Marcelo Dutra Fragoso - pode se estudar o comportamento dinâmico e cinemático de um robô móvel. Ambos os estudos são importantes para se garantir uma estimação ótima do mesmo. Segue-se abaixo os modelos gerados.
+\\\\
+O filtro de Kalman tem o seguinte algoritmo.\\\\
+\textbf{Equações de Predição}
+\begin{align}
+\hat{x}_{k}=A\hat{x}_{k-1} \tag{2.1}
+\end{align}
+\begin{align}
+P_{k}=AP_{k-1}A^{T} + Q_{k-1} \tag{2.2}
+\end{align}
+\textbf{Equações de correção}
+\begin{align}
+\hat{x}_{k}=\hat{x}_{k} + K_{k}(z_{k} - H\hat{x}_k) \tag{2.3}
+\end{align}
+\begin{align}
+P_{k}=(I-K_{k}H_k)P_{k-1} \tag{2.4}
+\end{align}
+\begin{align}
+K_k=P_kH^{T}_{k}(H_kP_{k}H^{T}+R_{k})^{-1} \tag{2.5}
+\end{align}
+\\
+
+Onde com a ajuda dos sensores de contagem de rotação dos motores,do giroscópio e do modelo cinemático nós podemos chegar em uma aproximação ótima para a localização do robô.\\\\
+\begin{center}
+\begin{tikzpicture}
+\draw[very thin,->] (0,0) -- (0,8);%vetores de coordenadas
+\draw[very thin,->] (0,0) -- (10,0);%vetores de coordenadas
+\draw [red,rotate around={55:(2.75,2.75)}] (3,3) rectangle (2.5,2.5);%retangulo a posteriori
+
+\draw [red,rotate around={49.055:(7.25,5.25)}] (7.5,5.5) rectangle (7,5);
+
+\filldraw (2.75,2.75) circle (1pt);
+\draw[dashed] (2.75,0) -- (2.75,2.75);
+\draw[dashed] (0,2.75) -- (2.75,2.75);
+
+%\draw [red] (7,5) rectangle (7.5,5.5);
+\filldraw (7.25,5.25) circle (1pt);
+\draw[dashed] (7.25,0) -- (7.25,5.25);
+\draw[dashed] (0,5.25) -- (7.25,5.25);
+
+\draw (2.75,2.75)--(7.25,5.25);
+\draw(7.25,5.25)--+(29.055:2);
+
+\draw[dashed] (2.75,2.75)--+(55:4);
+\draw[dashed] (7.25,5.25)--+(55:4);
+\draw[dashed](7.25,5.25)--+(0:3);
+
+\draw (2.75,2.75)--+(94.055:6.1);%74.88
+\draw (7.25,5.25)--+(144.055:6.1);
+
+\draw[very thin](7.25,5.25)--+(49.055:2);
+\draw[very thin](7.25,5.25)--+(9.055:2);
+
+\draw[<->] (5,5.25) arc (0:55:0.45);
+\node[above right] at(5,5.2) {$\theta_o$}; 
+
+\draw[<->] (2.37,8.18) arc (-80:-40:0.8);
+\node[below] at(2.8,8.2) {$\Delta \theta$};
+
+\draw[<->] (8.5,5.45) arc (10:25:1.7);
+\node[below] at(9.1,6.2) {$\frac{\Delta \theta}{2}$};
+
+\draw[<->] (8,5.25) arc (0:25:1.9);
+\node[below] at(8.2,5.25) {$\theta_o$};
+
+\node[below right] at (2.75,0) {\fontsize{10}{10}\selectfont $x_k$};
+\node[below left] at (0,2.75) {\fontsize{10}{10}\selectfont $y_k$};
+
+%\filldraw (3.7131,6.316) circle (1pt);
+\node[below right] at (7.25,0) {\fontsize{10}{10}\selectfont $x_{k+1}$};
+\node[below left] at (0,5.25) {\fontsize{10}{10}\selectfont $y_{k+1}$};
+
+\end{tikzpicture}\\
+\captionof{figure}{Representação do modelo cinemático}
+\end{center}
+
+Com a interpretação do modelo apresentado acima encontra-se:\\
+\begin{align}
+A=\left[\begin{array}{ccc}
+ 1&0 &-\Delta s \sin(\theta + \frac{\Delta \theta}{2}) \\
+ 0&1 &\Delta s \cos(\theta + \frac{\Delta \theta}{2}) \\
+ 0&0&1
+\end{array}\right] \tag{2.6}
+\end{align}
+\begin{align}
+H=\left[\begin{array}{ccc}
+-\cos(\theta)&-\sin(\theta) &-(x_{k+1}-x_k)\sin(\theta) + (y_{k+1}-y_k)\cos(\theta)\\
+\sin(\theta)&-\cos(\theta) &(x_k-x_{k+1})\cos(\theta)-(y_{k+1}-y_k)\sin(\theta)\\
+0&0 &-1\\
+\end{array}\right] \tag{2.7}
+\end{align}
+\begin{align}
+P=\left[\begin{array}{ccc}   
+  E[(x_k-\hat{x}_k)(x_k-\hat{x}_k)^{T}]  &    E[(x_k-\hat{x}_k)(y_k-\hat{y}_k)^{T}]
+  & E[(x_k-\hat{x}_k)(\theta_k-\hat{\theta}_k)^{T}]     \\
+  E[(y_k-\hat{y}_k)(x_k-\hat{x}_k)^{T}]&
+   E[(y_k-\hat{y}_k)(y_k-\hat{y}_k)^{T}]
+    & E[(y_k-\hat{y}_k)(\theta_k-\hat{\theta}_k)^{T}]    \\
+ E[(\theta_k-\hat{\theta}_k)(x_k-\hat{x}_k)^{T}] & E[(\theta_k-\hat{\theta}_k)(y_k-\hat{y}_k)^{T}] 
+ & E[(\theta_k-\hat{\theta}_k)(\theta_k-\hat{\theta}_k)^{T}]    
+           \end{array}\right] \tag{2.8}
+\end{align}
+\begin{align}
+Q=R=\left[ \begin{array}{ccc}
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{array}                   \right] \tag{2.9}
+\end{align}
+\hspace{1.5cm}Porém ainda precisa-se testar esse sistema na prática e comparar o quão eficiente ele é.\\
+Com o modelo dinâmico nós podemos controlar os motores do robô de maneira a tornar-lo estável e ótimo quanto ao ambiente em que ele se encontra. Então usando-se o modelo mais simples de motor abaixo ,nós podemos calcular as constantes nescessárias para o mesmo.
+\\
+\begin{center}
+\begin{circuitikz}
+	\draw (0,0)node[sground]{} to[american voltage source=V](0,3)to[R=R](2,3)to[L=L](3,3)to[short](3.6,3);
+	\draw(4,3)[thick,rotate=0]  circle (10pt)
+ node[]{$\mathsf M$} 
+++(-12pt,3pt)--++(0,-6pt) --++(2.5pt,0) ++(-2.8pt,6pt)-- ++(2.5pt,0pt);
+\draw(4,3)[thick,rotate=0]  ++(12pt,3pt)--++(0,-6pt) --++(-2.5pt,0) ++(2.8pt,6pt)-- ++(-2.5pt,0pt);
+	\draw(4.4,3)to[short](4.4,0)node[sground]{};
+	\node at(4,3.8){e=$K\dot\theta$};
+ \end{circuitikz}
+ \end{center}
+ \captionof{figure}{Representação do modelo de um motor}
+ \begin{align}K_I=\frac{J\omega_n^2}{\tau K_m}\tag{2.10} \end{align}
+\begin{align} K_P=\frac{JL}{K_m}(\omega_n^2+\frac{2\zeta\omega_n}{\tau}-\frac{Rb+K_m^2}{JL})\tag{2.11} \end{align}
+\begin{align}K_D=\frac{JL}{K_m}(\frac{2\zeta\omega_n +1}{\tau}-\frac{R}{L}-\frac{bL}{J}) \tag{2.12} \end{align} \\\\
+
+Onde:\\
+J=momento de inércia do motor(dado pelo fabricante)\\
+b=fricção viscosa do motor(dado pelo fabricante)\\
+L=indutância elétrica()\\
+R=resistencia equivalente\\
+V=tensão aplicada nos terminais do motor\\
+$K_m$= constante de torque do motor(dado pelo fabricante)\\
+$\zeta$ é estipulado pelo projetista , é a porcentagem mínima aceitável para a variação de banda : o recomendado é de 2$\%$\\
+\begin{align}
+\omega_n=\frac{-ln(\zeta)}{t_e\rho} \tag{2.13}
+\end{align}
+Os valores de $\rho $ e $t_e$ são arbitrários, porém recomenda-se escolher um $t_e$ pequeno uma vez que este é o tempo escolhido para a estabilização do sistema. No caso do robô associar-lo com as equações dadas abaixo.
+
+Porém assim como o modelo cinemático , este modelo também precisa passar por testes na prática para testar sua averiguação e seu refinamento caso nescessário.
+\subsubsection{Software}
+
+\hspace{1.5cm}Visando uma melhor integração com a plataforma Arduino , grande parte do desenvolvimento do software foi desenvolvindo no ambiente Processing , mas como é bom que um software seja um aplicativo executável em desktop e não para dispositivos móveis ,provavel do simulador ser totalmente repassado em Visual C++ , o mapeamento caso aconteça , será em um aplicativo baseado em Processing.
+
+Inicialmente foi feito um algoritmo de geração pseudo-randômica de mapas em estilo de dungeons e com um ponto inicial e final o robô com o conhecimento  desse mapa gerado seria capaz de traçar um caminho de deslocamento e faria a movimentação do mesmo, está para ser implementado ainda nesse algoritmo um ruído nescessário para localização referente ao mesmo e fazer ainda que esse robô não tenha conhecimento nenhum do mapa em que está inserindo , fazendo o mapeamento e localização simultânea do mesmo , o que é chamado de SLAM. Porém etapas do projeto físico do robô deverão ser feitas e um estudo mais aprofundado de algoritmos SLAM deverão ser feitas ainda.\\
+\\
+\vfill
+%\begin{center}
+% 27/10/2017
+%\end{center}
+\newpage
+\section{Considerações finais}
+\subsection{O que foi aprendido}
+\hspace{1.5cm}Foram aprendidos conceitos e práticas importantes de programação orientada a objetos , modelagem de sistemas, eletrônica e sobre planejamento de trabalho.
+\subsection{Valor do estágio}
+\hspace{1.5cm}O estágio é uma ótima oportunidade para poder botar em prática conceitos aprendidos na faculdade e aprofundar-los ganhando-se assim experiência profissional e acadêmica.
+\subsection{Melhorias e o que será feito após?}
+\hspace{1.5cm}Com o estudo feito, os componentes adquiridos,o robô pré-montado e o simulador com caminho encaminhado a etapa mais importante a ser feita é aplicar o modelo projetado e analisar os resultados feitos. Para poder assim avançar com o projeto e dar passos cada vez maiores com o mesmo. 
+\vfill
+%\begin{center}
+% 24/11/2017
+%\end{center}
+\bibliographystyle{plainnat}
+\end{document}

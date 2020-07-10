@@ -1,0 +1,67 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Preparatório 3 - Eletrônica II \\Comparadores de tensão }
+\author{Hiago Riba Guedes \\RGU:11620104 \\ Turma:E-ELE-A07}
+\date{Professor:Paulo Leite}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{pgfplots}  
+\usetikzlibrary{shapes,arrows}
+\usepackage{subfigure}
+\usepackage{hyperref}
+\usepackage[margin=15mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/}}
+\begin{document}
+\maketitle
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R] (-3, 0.5)to [short] ++(-1,0) node[ left]{$V_{in}$}
+  (opamp.+) to[short] ++(-5,0) to [R=$P1_A$]++(0,2) to[R=$10 K\Omega$]++(0,2) node[above]{+15V} 
+  (opamp.+) to[short,-*] ++(-5,0)node[left]{$V_{ref}$} to [R=$P1_B$]++(0,-2) to[R=$10 K\Omega$]++(0,-2)to++(0,-0.5) node[below]{-15V} 
+  (opamp.out) node[right] {$V_o$}
+  ;
+\end{circuitikz}
+\end{center}
+
+O trabalho é calcular o valor de $P1_A$ e $P1_B$ com o valor de tensão de comparação $V_{ref}$ de 2.5 V sabendo que a $P1_A + P1_B = 10K\Omega $ \\\\
+Fazendo lei dos nós temos:\\\\
+$$15-V_{ref}=(10\times 10^3 + P1_A)\times i_a$$
+$$V_{ref}-(-15)=(10\times 10^3 + P1_B)\times i_b$$
+\\\\
+Já que queremos que o comparador tenha uma referência de 2.5V substituimos então $V_{ref}$ com esse valor, ficando então:\\
+$$12.5=(10\times 10^3 + P1_A)\times i_a$$
+$$17.5=(10\times 10^3 + P1_B)\times i_b$$
+Uma vez que pode se considerar que a impedância de entrada das entradas de um amplificador operacional tende ao infinito , podemos considerar que $i_a=i_b$, na prática o amplificador retém aproximadamente 1$\mu$A de $i_a$ mas para efeito de cálculo essa corrente é desprezível então dividindo as equações acima ficamos com:\\
+$$\frac{12.5}{17.5}=\frac{10\times 10^3 + P1_A}{10\times 10^3 + P1_B}$$
+Pode-se resolver então de duas formas:\\
+Uma é , simplesmente igular os numeradores e os denominadores se assegurando que eles estão na mesma potência sem perder a proporcionalidade.\\
+$$12.5 \times 10^3=10\times 10^3 + P1_A \rightarrow P1_A=2.5K\Omega$$
+$$17.5 \times 10^3=10\times 10^3 + P1_B \rightarrow P1_B=7.5K\Omega$$
+O que corrobora a relação entre $P1_A$ e $P1_B$\\\\
+
+Mas como uma boa prática usaremos a relação entre os mesmos e faremos a conta normalmente.\\
+Então ficamos com:\\
+$$0.7143=\frac{10\times 10^3 + P1_A}{10\times 10^3 + 10\times 10^3 -P1_A}$$
+$$0.7143 \times( 20\times 10^3 -P1_A)=10\times 10^3 + P1_A $$
+$$14286-10000= 1.7143P1_A $$
+$$P1_A=2.5K\Omega$$
+Logo:\\
+$$P1_B=7.5K\Omega$$
+Então o circuito projetado fica com o seguinte esquemático:\\
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R] (-3, 0.5)to [short] ++(-1,0) node[ left]{$V_{in}$}
+  (opamp.+) to[short] ++(-5,0) to [R=$2.5K\Omega$]++(0,2) to[R=$10 K\Omega$]++(0,2) node[above]{+15V} 
+  (opamp.+) to[short] ++(-5,0) to [R=$7.5K\Omega$]++(0,-2) to[R=$10 K\Omega$]++(0,-2)to++(0,-0.5) node[below]{-15V} 
+  (opamp.out) node[right] {$V_o$}
+  ;
+\end{circuitikz}
+\end{center}
+
+Logo se $V_{in}$ for maior que a referência a saída tende ao valor zero ,uma vez que o valor de ganho do operacional tende a -$\infty$, ou valor booleano 0.Considerando que -$V_{ss}$ está no terra. Ou que o AmpOp é específico para um comparador proprio para circuitos digitais.\\
+E se a referência for maior que a $V_{in}$ o valor tende a 5 V ,uma vez que o valor de ganho do operacional tende a +$\infty$ , ou valor booleano 1.Considerando que +$V_{ss}$ está em 5V. Ou que o AmpOp é específico para um comparador proprio para circuitos digitais.
+\end{document}

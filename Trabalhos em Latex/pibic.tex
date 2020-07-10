@@ -1,0 +1,150 @@
+\documentclass[100pt]{article}
+
+
+\title{Avalia\c{c}\~ao PIBIC/LNCC}
+\author{Hiago Riba Guedes}
+\begin{document}
+\maketitle
+\emph{Quest\~ao 1} \\
+1.   Aplicando a regra da cadeia temos: $$tan'(x).sin'(tan(x))$$ 
+E por sua vez $$tan'(x)=(\frac{sin(x)}{cos(x)})'=\frac{(sin'(x).cos(x) - cos'(x).sin(x))}{cos^2(x)}=\frac{cos^2(x) + sin^2(x)}{cos^2(x)}=\frac{1}{cos^2(x)} $$
+O que nos da: \\
+$$\frac{1}{cos^2(x)}.cos(tan(x))= \frac{cos(tan(x))}{cos^2(x)} $$ \\
+2. Sendo$$j=\sqrt{-1}$$
+ $$ \sqrt{1 + j}=(\sqrt{2}\angle{45})^{1/2}=\sqrt[4]{2}\left[cos\left(\frac{\frac{\pi}{4} +2k\pi}{2}\right) +jsin\left(\frac{\frac{\pi}{4} +2k\pi}{2}\right)\right]$$
+ Para k=0 e 1
+
+k=0
+\\
+ $$\sqrt[4]{2}\left[cos\left(\frac{\pi}{8}\right) +jsin\left(\frac{\pi}{8}\right)\right]$$
+ k=1
+ $$\sqrt[4]{2}\left[cos\left(\frac{9\pi}{8}\right) +jsin\left(\frac{9\pi}{8}\right)\right]$$ \\
+ 
+3.  
+$$\int e^{-x} = -e^{-x} + c$$
+Como o intervalo eh $$[0,\infty)$$
+$$-e^{-\infty}-(-e^{-0})=0+1=1 $$
+\\
+4. Usando a Regra de Integraçao por partes $$\int u.dv=u.v-\int v.du $$ 
+E definindo: \\
+$$u=x  \textbf{ e } dv=e^{-x}$$
+Logo: $$du=1 \textbf{ e } v=-e^{-x} $$
+$$ x.-e^{-x}-\int-e^{-x}.1 + c $$
+$$-x.e^{-x}+\int e^{-x}+c$$
+$$-x.e^{-x}-e^{-x}+c$$
+No intervalo de o até infinito temos:
+$$-\infty.e^{-\infty}-e^{-\infty} - [-0.e^{-0}-e^{-0}]$$
+O que nos da um caso de indeterminacão de 
+$$\frac{\infty}{\infty}$$
+5. $$\int sin(x)=-cos(x) + c$$
+$$\int_0^{\pi} sin(x)=-cos(\pi)+cos(0)=2$$
+6. Usando a formula do arco metade$$cos^2(x)=\frac{1}{2}+ \frac{cos(2x)}{2} $$
+$$\int_{-\pi/2}^{\pi/2} \frac{1}{2}+\int_{-\pi/2}^{\pi/2} \frac{cos(2x)}{2} $$
+Aplicando a regra da substituicao temos $$2x=u \textbf{ e } 2dx=du;dx=\frac{du}{2}$$
+$$\int cos(u)du=\frac{1}{2} sin(u)dx=\frac{1}{2}sin(2x)$$
+Substituindo:
+$$\frac{1}{2}(\frac{\pi}{2} - \frac{-\pi}{2})+\frac{1}{4}sin(2\frac{\pi}{2}-2\frac{-\pi}{2})$$
+$$\frac{\pi}{2}+\frac{sin(2\pi)}{4}=\frac{\pi}{2}$$
+\\
+7. Usando o mesmo raciocinio da 4 ,temos que:
+$$dv=x^{2k};u=sin(x);v=\frac{x^{2k+1}}{2k+1};du=cos(x)$$
+$$\int x^{2k}sin(x)dx=sin(x).\frac{x^{2k+1}}{2k+1}-\int\frac{x^{2k+1}}{2k+1}.cos(x)$$
+$$\int x^{2k}sin(x)dx=sin(x).\frac{x^{2k+1}}{2k+1}-\frac{1}{2k+1}\int x^{2k+1}.cos(x)$$
+\\
+$$u=x^{2k+1};dv=cos(x);du=(2k+1)x^{2k};v=sin(x)$$\\
+
+
+\emph{Quest\~ao 2}\\
+$$\sum_{k=0}^{n} s^{k}=1+s+s^{2}+s^{3}+s^{4}+...$$
+Esta é uma série geométrica com a=1 e r=x e como |x|<1 , isto é uma série convergente .Logo:
+ $$\sum_{k=0}^{n} s^{k}=\frac{1}{1-s}$$
+ Entao 
+ $$\lim_{n \to \infty} f(x)=(1-s)\frac{1}{1-s}=1$$\\
+ \emph{Quest\~ao 3}\\
+ A funcao f(x)=f(-x) representa matematicamente qualquer funcao par.
+E uma propriedade que temos para esse tipo de funcao eh 
+$$\int_{-a}^{a} f(x)=2\int_0^{a} f(x)$$
+Isto e a area de uma lado da funcao e igual a do outro lado da mesma funcao.
+Isto e que 
+$$\int_{-a}^0 f(x) = \int_0^{a} f(x)$$
+
+
+Para a questao temos que 
+$$\int_t^{\infty} f(x)=\int_0^{\infty}f(x)-\int_0^t f(x) \textbf{ e } \int_{-\infty}^t f(x)=\int_{-\infty}^0 f(x) +\int_0^t f(x) $$
+Somando as duas funcoes temos que :
+$$\int_t^{\infty} f(x) + \int_{-\infty}^0f(x)+\int_0^t f(x)=\int_{-\infty}^t f(x) + \int_0^{\infty}f(x)-\int_0^t f(x)$$
+So que :
+$$\int_{-\infty}^0f(x)=\int_0^{-\infty}f(x)$$
+Ficando:
+$$\int_t^{\infty} f(x) + \int_0^t f(x)=\int_{-\infty}^t f(x) -\int_0^t f(x)$$
+So que :
+$$\left|\int_t^{\infty} f(x)\right|>>>\left|\int_0^t f(x)\right|$$
+e vice versa\\
+Resultando em :
+$$\int_t^{\infty} f(x) =\int_{-\infty}^t f(x) $$
+\\
+\emph{Quest\~ao 4}
+\\
+$$A=\left[\begin{array}{ccrll}
+a_{11}& a_{12} & \ldots &a_{1n}\\
+0  & a_{22}& \dots & a_{2n}\\
+\vdots &\ddots &\ddots &\vdots\\
+0 &\cdots &\cdots& a_{nn}
+\end{array}\right]$$
+Para se achar os autovalores dessa matriz voce tem que fazer 
+$$det(A-\lambda I)=0$$
+Uma das propriedades dos determinantes diz que o determinante de uma matriz triangular é igual ao
+ produto dos elementos da 
+diagonal principal. 
+Entao temos que :
+$$(a_{11}- \lambda_1)(a_{22}- \lambda_2)(a_{33}- \lambda_3)\cdots(a_{nn}- \lambda_n)=0$$
+O que da como resultado de lambda o proprio coeficiente :
+Isto e
+$$ \lambda_1 =a_{11};\lambda_2 =a_{22};\cdots;\lambda_n =a_{nn};$$
+\\
+\emph{Quest\~ao 5}
+\\
+$$X=\left[\begin{array}{ccrll}
+a_{11} & \ldots &a_{1n}\\
+\vdots &\ddots &\vdots\\
+a_{1n} &\cdots & a_{nn}
+\end{array}\right]$$
+Pede-se para encontrar a inversa de :
+$$\left[\begin{array}{cccrll}
+1 & \cdots & 0 & a_{1 n+1} & \cdots & a_{1 2n}\\
+\vdots & \ddots & \vdots &\vdots & \ddots &\vdots\\
+0 & \cdots & 1 & a_{n n+1} & \cdots & a_{n 2n}\\
+0 & \cdots & 0 & 1 & \cdots & 0\\
+\vdots & \ddots & \vdots &\vdots& \ddots &\vdots\\
+0 & \cdots & 0 & 0 & \cdots & 1\\
+\end{array}\right]$$
+Uma matriz e a sua inversa se multiplicadas ,tem que dar a matriz identidade
+$$A.A^{-1}=I$$
+$$\left[\begin{array}{ccrll}
+I & X\\
+0 & I\\
+\end{array}\right]
+\left[\begin{array}{ccrll}
+D & E\\
+F & G\\
+\end{array}\right]
+=
+\left[\begin{array}{ccrll}
+I & 0\\
+0 & I\\
+\end{array}\right]
+$$
+Fazendo as multiplicacoes linha por coluna temos:\\
+
+$$D+XF=I$$
+$$E+XG=0$$
+$$F=0$$ 
+$$G=I 
+$$
+Com isso temos D=I e E=-A \\
+Logo a inversa de A eh;
+$$\left[\begin{array}{ccrll}
+I & -X\\
+0 & I\\
+\end{array}\right]$$
+\end{document}

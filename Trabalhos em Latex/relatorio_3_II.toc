@@ -1,0 +1,9 @@
+\select@language {portuguese}
+\contentsline {section}{\numberline {1}Resumo}{2}
+\contentsline {section}{\numberline {2}Teoria}{3}
+\contentsline {subsection}{\numberline {2.1}Circuito Padr\IeC {\~a}o}{3}
+\contentsline {subsection}{\numberline {2.2}Schimitt Trigger}{5}
+\contentsline {section}{\numberline {3}Experi\IeC {\^e}ncia pr\IeC {\'a}tica}{7}
+\contentsline {subsection}{\numberline {3.1}Circuito 1}{7}
+\contentsline {subsection}{\numberline {3.2}Circuito 2}{8}
+\contentsline {section}{\numberline {4}Conclus\IeC {\~o}es}{9}

@@ -1,0 +1,47 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[svgnames]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
+
+\usepackage{times} % Use the times font
+%\usepackage{palatino} % Uncomment to use the Palatino font
+
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{amsfonts, amsmath, amsthm, amssymb} % For math fonts, symbols and environments
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\begin{document}
+
+50 HP=37285 W\\
+W=F$\times $ v\\
+W=T $\times \omega $
+
+Duas engrenagens e a saída é de 400 rpm\\
+Fazendo relacão para achar a rotacão na entrada temos:\\\\
+$v_{pinhao}=v_{coroa}$\\
+$\omega_p r_p =\omega_c r_c$\\
+$400 \times r_p= \omega_c 2r_p$\\
+$\omega_c=200$\\\\
+Encontrando entao a rotacao da coroa encontramos\\
+$\omega_c=200 \frac{2\pi}{60}=20.944 rad/s$\\
+Então o torque na coroa é de 
+$T=\frac{37285}{20.94}=1806.35 J$\\
+Torquen no pinhão é 903.176 J\\\\
+Com esses torques sendo aplicados nas engrenagens iremos calcular seus parâmetros para números de dentes variados, afim de ver se a engrenagem resiste ao torque ao qual será solicitado...\\\\
+
+Fazendo então um par de engrenagem de 12 e 24 dentes , temos
+$\theta = 20$
+$$N_p=\frac{2}{3sin^2(\theta)} \left( m +\sqrt{m^2+3msin^2(\theta)}\right)$$
+
+Fazendo para $N_p=12$ encontramos m=0.97 mm\\
+Com m ja conseguimos achar o diametro primitivo que é 
+$$m=\frac{d}{N} \rightarrow d=m \times N =0.97 \times 12=11.64 mm$$
+Fazendo o cálculo para o passo diametral P encontramos 
+$$P=\frac{25.4}{m}=\frac{25.4}{0.97}=26.185$$
+Achando a resultante da forca tangencial
+$$W=F_t \times v=F_t \times \omega r\rightarrow 37285=F_t \times 200\times \left( \frac{11.64}{2} \right)\rightarrow F_t=32.03 KN$$
+Calculando a largura da engrenagem
+$$b=\frac{14}{P}=\frac{14}{26.185}=0.535$$
+Calculando entao a resistência 
+$$\sigma =\frac{F_tP}{bJ}K\rightarrow \frac{32.03 \times 10^3 \times 26.185 \times 5.4}{0.535 \times 0.27}=31.35 MPA$$
+Analisar , talvez seja um pouco alto
+\end{document}

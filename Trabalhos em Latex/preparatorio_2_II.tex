@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Preparatório 2 - Eletrônica II}
+\author{Hiago Riba Guedes RGU:11620104}
+\date{Professor:Paulo Leite}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{pgfplots}  
+\usetikzlibrary{shapes,arrows}
+\usepackage{subfigure}
+\usepackage{hyperref}
+\graphicspath{{/home/hiago/Desktop/}}
+\begin{document}
+\maketitle
+\begin{center}
+\textbf{Obs:} Os amplificadores estão devidamente ligados nas suas alimentações positiva e negativa , mas como é um exemplo genérico estão preferi deixar sem as entradas de alimentação para um desenho mais enxuto
+\end{center}
+\textbf{2.1-}
+Basta colocar um valor de $R_2$ com o dobro de valor de $R_1$ como na figura abaixo:\\
+
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R=$R_1$] (-3, 0.5) to[short]++(-2,0) 
+  (opamp.-) to[short,*-] ++(0,1.5) coordinate (leftR)
+  to[R=$2\times R_1$] (leftR -| opamp.out) 
+  to[short,-*] (opamp.out) to[short,-*] ++(2,0)
+  (opamp.+)to (-2,-1)node[sground]{};
+  \draw
+ (-5,-1)node[sground]{}(-5,-1) to[american voltage source,l=$V_i$](-5,0)to[short](-5,0.5);
+\end{circuitikz}
+\\
+\textbf{2.2-}Utilizando um amplificador não inversor é simples, basta montar o mesmo circuito da questão anterior porém com o amplificador invertido\\
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.+) to[R=$R_1$] (-3, 0) to[short]++(-2,0) 
+  (opamp.+) to[short,*-] ++(0,-1.5) coordinate (leftR)
+  to[R=$2\times R_1$] (leftR -| opamp.out) 
+  to[short,-*] (opamp.out) to[short,-*] ++(2,0)
+  (opamp.-)to (-2,1)node[sground]{};
+  \draw
+ (-5,-2)node[sground]{}(-5,-2) to[american voltage source,l=$V_i$](-5,-1)to[short](-5,0);
+\end{circuitikz}
+\\\\
+Porém se só podem ser usados estágios inversores então mais um aplificador operacional deverá ser colocado na saída do primeiro amplificador porém com os resistores iguais para dar um ganho de -1.\\
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R=$R_1$] (-3, 0.5) to[short]++(-2,0) 
+  (opamp.-) to[short,*-] ++(0,1.5) coordinate (leftR)
+  to[R=$2\times R_1$] (leftR -| opamp.out) 
+  to[short,-*] (opamp.out) to[R=$R_3$] ++(2,0) ++(1.2,-0.5) node [op amp](opamp2){} 
+  (opamp2.-)to[short]++(0,1.5)to[short]++(1,0)to[R=$R_3$]++(0.9,0)to[short]++(0.5,0)to[short](opamp2.out)to [short]++(1,0)
+  (opamp2.+) to (3,-1)node[sground]{}
+  (opamp.+)to (-2,-1)node[sground]{};
+  
+    
+  
+  \draw
+ (-5,-1)node[sground]{}(-5,-1) to[american voltage source,l=$V_i$](-5,0)to[short](-5,0.5);
+\end{circuitikz}
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{tikz}
+%\graphicspath{{aulas/}} % Sets the default location of pictures
+\usetikzlibrary{snakes,patterns}
+\usepackage[utf8]{inputenc}
+\title{Dúvidas  IC}
+\author{Hiago Riba Guedes }
+\begin{document}
+\maketitle
+Capítulo 3.3 página 118 Davis and Vinter:\\\\
+$$K_k=[A_kP_kH^T_k +C_kG^T_k][H_kP_kH^T_k+G_kG^T_k]^{-1}$$
+$$P_{k+1}=A_kP_kA^T_k+C_kC^T_k + K_k[AP_kH^T +C_kG^T_k]^T$$\\
+\\
+Considerações que deverão ser feitas\\
+$$G_kG_k^T=R$$
+$$C_kC_k^T=Q$$
+$$C_kG_k^T=0$$
+Logo $P_{k+1}$fica
+$$P_{k+1}=A_kP_kA^T_k+ Q + K_k[HP_k^TA^T]$$
+Com $P_k$ dado por:(página 116) Davis and Vinter\\
+
+$$P_{k}=P-PH^T[HPH^T + R]^{-1}HP $$
+Que pelas definições de K não ficaria como a equação com *\\
+\begin{tikzpicture}
+\draw (0,0)--(10,0);
+\end{tikzpicture}\\
+Modelo que encontrei:\\
+Riccatti:\\
+$$P_k^+=P_k^- -K_kH_kP_k^-$$
+onde :\\
+$$P_k^-=AP_{k-1}^+A^T + Q$$
+Com K:\\
+$$K_k=P_k^-H_k^T(H_kP_k^-H_k^T+R_k)^{-1} *$$
+As provas estão no capítulo 2 que mandei\\
+Que é o mesmo K contido na página 115\\
+
+Para essa diferença vem o artigo de link da unicamp que explica a diferença em Case of Filtering Form of the Kalman Filter página 36. Onde o termo A desaparece.\\
+Pelo Davis and Vinter essas equações são chamadas de estimação recursiva ,nome do capítulo inclusive. E ele diz que essa forma é satisfatória porém a diferença está em uma definição apenas. Queria entender por que...
+\end{document}

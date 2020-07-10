@@ -1,0 +1,129 @@
+\documentclass[11pt,a4paper]{article}
+\title{Avalia\c{c}\~ao 2 de Mec\^anica Aplicada}
+\author{Hiago Riba Guedes RGU:11620104\\ Lucas Priori RGU:11311093}
+\date{Data limite : 20/04/2017}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\textbf{Quest\~ao 3.48}\\
+Passos:\\
+\\
+1. Desenhar uma conex\~ao entre os pontos A e B, o que ir\'a formar os pontos $A_1B_1$ , $A_2B_2$ , $A_3B_3$ mostrados abaixo  \\
+2. Desenhar linhas entre os pontos $A_1A_2$ e $A_2A_3$\\
+3. Achar o ponto m\'edio das retas geradas e tra\c{c}ar uma perpendicular as duas e marcar o ponto de interse\c{c}\~ao entre elas,chamar de $O_1$ \\
+4. Repetir o mesmo porcesso da 2 e da 3 para as linhas $B_1B_2$ e $B_2B_3$,chamar o ponto de $O_2$\\
+5. Conectar $O_1$ com $A_1$ e $O_2$ com $B_2$\\
+6. Note que se formou um poligono $O_1AB0_2$e que tem como valores \\
+Conex\~ao terra:$O_1O_2$=20.895mm \\
+$AB$=52mm \\
+$AO_1$=127.051mm\\
+$BO_2$=120.234mm\\
+7. Verificar a condi\c{c}\~ao de Grashof \\
+127.051 + 20.895 $\leq$ 52 + 120.234\\
+O que atende a classe 1 de Grashof \\
+8. Selecione um ponto na linha $O_2B$ \\
+9. Escolher um ponto a uma distancia consider\'avel de $O_2$ e este ser\'a nosso piv\^o \\
+10. Desenhe um circulo com centro em $O_2$ e com final na dire\c{c}\~ao de $O_1$ \\
+11. Tra\c{c}ar uma reta entre $C_1$ e $C_3$(ponto formado pelo limite angular do movimento nescess\'ario estabelecido pelo projeto,e formando uma extens\~ao dessa reta pois ela ser\'a nosso eixo motor\\
+12. Selecionar um ponto $O_3$ arbitr\'ario nessa reta formada,no caso ele foi escolhido 20 unidades ap\'os o come\c{c}o da base principal\\
+13. Desenhar um c\'irculo com centro em $O_3$ com raio igual a metade da dist\^ancia da reta $C_1C_3$ ,ap\'os isso marque os pontos $D_1$ e $D_2$ que s\~ao os extremos desse c\'irculo e $D_1$ e $D_2$ s\~ao os pontos  limites da manivela \\
+
+
+\begin{tikzpicture}
+\draw (0,0) rectangle (8.35,9);%principal
+\draw (2.025,9) rectangle (6.325,13.3);%retangulo 1
+\draw (2.875,11.15) -- (5.475,11.15);%linha A1B1
+
+\draw (8.1845,9.41) -- (11.225,12.45);
+\draw (11.225,12.45) -- (14.265,9.41);%retangulo 2 
+\draw (14.265,9.41) -- (11.225,6.369);
+\draw (11.225,6.369) -- (8.1845,9.41);
+\draw (10.306,10.329) -- (12.144,8.4905);%A2B2
+
+\draw (10.225,1.75) rectangle (14.525,6.05);%retangulo 3
+\draw (12.375,2.6) -- (12.375,5.2);%linha A3B3
+
+%linha ligando os A's
+\draw[dashed] (2.875,11.15) -- (10.306,10.329);%A1A2
+\draw[dashed] (10.306,10.329) -- (12.375,5.2);%A2A3
+
+%linha ligando os B's
+\draw[dashed] (5.475,11.15) -- (12.144,8.4905);%B1B2
+\draw[dashed] (12.144,8.4905) -- (12.375,2.6);%B2B3
+
+%traçando as perpendiculares
+\draw[dashed,blue] (6.5905,10.7395) -- ++(-96.3046:5.7);%perpendicular de A1A2
+\draw[dashed,blue] (11.3405,7.9645) -- ++(203.63:6);%perpendicular de A2A3
+%----------------------------------------------------------
+\draw[dashed,red] (8.8095,9.82025) -- ++(-111.74:5.2);%perpendicular de B1B2
+\draw[dashed,red] (12.2595,5.54525) -- ++(182.245:5.2);%perpendicular de B2B3
+
+\draw[fill] (6.019,5.630) circle [radius=0.08];
+\draw[fill] (7.023,5.341) circle [radius=0.08];
+
+\draw (2.875,11.15) -- (6.019,5.63);%O1 pra A1
+\draw (5.475,11.15) -- (7.023,5.341);%O2 pra B1
+
+\draw (7.023,5.341) -- ++(-45:2.5);%C1
+\draw[dashed] (6.019,5.63) -- ++(180:1.5);%C3
+
+\draw[dashed] (8.791,3.573) arc (-45:-186.058:2.5);
+
+\draw (8.791,3.573) -- (4.519,5.63);%25.711°
+
+\draw (4.519,5.63) -- ++(154.289:6);% extensão da reta C1C3
+
+\draw (1.176,7.24) circle [radius=2.371];
+
+%pontos-------------------------------------------
+\node[above left] at (2.875,11.15) {$A_1$};
+\draw[fill] (2.875,11.15) circle [radius=0.08];
+\node[above right] at (10.306,10.329) {$A_2$};
+\draw[fill] (10.306,10.329) circle [radius=0.08];
+\node[above right] at (12.375,5.2) {$A_3$};
+\draw[fill] (12.375,5.2) circle [radius=0.08];
+
+\node[above right] at (5.475,11.15) {$B_1$};
+\draw[fill] (5.475,11.15) circle [radius=0.08];
+\node[above right] at (12.144,8.4905) {$B_2$};
+\draw[fill] (12.144,8.4905) circle [radius=0.08];
+\node[above right] at (12.375,2.6) {$B_3$};
+\draw[fill] (12.375,2.6) circle [radius=0.08];
+
+\node[above right] at (6.019,5.63) {$O_1$};
+\draw[fill] (6.019,5.63) circle [radius=0.08];
+\node[above right] at (7.023,5.341) {$O_2$};
+\draw[fill] (7.023,5.341) circle [radius=0.08];
+\node[above right] at (1.176,7.24) {$O_3$};
+\draw[fill] (1.176,7.24) circle [radius=0.08];
+
+\node[above right] at (8.791,3.573) {$C_1$};
+\draw[fill] (8.791,3.573) circle [radius=0.08];
+\node[above right] at (4.519,5.63) {$C_3$};
+\draw[fill] (4.519,5.63) circle [radius=0.08];
+
+\node[above left] at (-0.96,8.2686) {$D_1$};
+\draw[fill] (-0.96,8.2686) circle [radius=0.08];
+\node[above right] at (3.312,6.2114) {$D_2$};
+\draw[fill] (3.312,6.2114) circle [radius=0.08];
+%--------------------------------------------------
+
+\end{tikzpicture}
+Figura feita com a escala de 1:20\\
+\\
+Considerando o ponto (0,0) como a base inferior esquerda da base principal temos a lista de pontos achados logo abaixo:\\
+$A_1$=(2.875,11.15)........$D_1$=(-0.96,8.2686)\\
+$A_2$=(10.306,10.329)......$D_2$=(3.312,6.2114\\
+$A_3$=(12.375,5.2)\\
+$B_1$=(5.475,11.15)\\
+$B_2$=(12.144,8.4905)\\
+$B_3$=(12.375,2.6)\\
+$O_1$=(6.019,5.63)\\
+$O_2$=(7.023,5.341)\\
+$O_3$=(1.176,7.24)\\
+$C_1$=(8.791,3.573) \\
+$C_3$=(4.519,5.63)\\
+
+\end{document}
+

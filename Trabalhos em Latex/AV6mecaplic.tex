@@ -1,0 +1,81 @@
+\documentclass[11pt,a4paper]{article}
+\title{Avalia\c{c}\~ao 6 de Mec\^anica Aplicada}
+\author{Hiago Riba Guedes RGU:11620104\\ Lucas Priori RGU:11311093}
+\date{Data limite : 24/06/2017}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\graphicspath{{/home/hiago/Desktop/}}
+\usepackage{gensymb}
+\usepackage{pgfplots}
+\begin{document}
+\maketitle
+\textbf{Problema 1}\\\\
+Dados:\\
+Subida(cicloidal):25mm em 90 graus\\
+Espera superior:25mm em 90 graus\\
+Descida(cicloidal):25mm em 90 graus\\
+Espera inferior:0mm em 90 graus\\
+Came$\omega$:2$\pi$ $\frac{rad}{s}$  = 1 $\frac{rev}{s}$ , sentido horário\\\\
+Variação do ângulo ($\theta$) : 15\degree=0.2618 rad\\\\
+\begin{tikzpicture}
+\draw[very thin,->] (0,0) -- (0,4);%vetores de coordenadas
+\draw[very thin,->] (0,0) -- (16,0);%vetores de coordenadas
+\draw[dashed] (0,3) -- (12,3);
+\draw[dashed] (3,0) -- (3,3);
+\draw[dashed] (6,0) -- (6,3);
+\draw[dashed] (12,0) -- (12,3);
+\draw[dashed] (9,0) -- (9,3);
+\draw[line width=0.25mm,red] (0,0) -- (3,0);
+\draw[line width=0.25mm,red] (3,3) -- (6,3);
+\draw[line width=0.25mm,red] (9,0) -- (12,0);
+
+\node[below left] at (0,0) {\fontsize{10}{10}\selectfont 0};
+\node[above left] at (0,3) {\fontsize{10}{10}\selectfont h};
+\node[below left] at (1,4.5) {\fontsize{10}{10}\selectfont Movimento};
+
+\node[below left] at (0.3,-1) {\fontsize{10}{10}\selectfont 0};
+\node[below left] at (3.3,-1) {\fontsize{10}{10}\selectfont 90};
+\node[below left] at (6.3,-1) {\fontsize{10}{10}\selectfont 180};
+\node[below left] at (9.3,-1) {\fontsize{10}{10}\selectfont 270};
+\node[below left] at (12.3,-1) {\fontsize{10}{10}\selectfont 360};
+\node[below left] at (15.9,-1) {\fontsize{7}{7}\selectfont Ângulo do came $\theta$ em graus};
+
+\node[below left] at (0.3,-2) {\fontsize{10}{10}\selectfont 0};
+\node[below left] at (3.3,-2) {\fontsize{10}{10}\selectfont 0.25};
+\node[below left] at (6.3,-2) {\fontsize{10}{10}\selectfont 0.50};
+\node[below left] at (9.3,-2) {\fontsize{10}{10}\selectfont 0.75};
+\node[below left] at (12.3,-2) {\fontsize{10}{10}\selectfont 1.0};
+\node[below left] at (15.9,-2) {\fontsize{7}{7}\selectfont Tempo (segundos)};
+
+\node at (1.5,1.5){\fontsize{10}{10}\selectfont Subida};
+\node at (4.5,3.2){\fontsize{10}{10}\selectfont Espera Superior};
+\node at (7.5,1.5){\fontsize{10}{10}\selectfont Descida};
+\node at (10.5,1.5){\fontsize{10}{10}\selectfont Espera Inferior};
+\end{tikzpicture}
+\\\\
+Tratando-se de um deslocamento cicloidal temos as seguintes fórmulas para o deslocamento,velocidade,aceleração e pulso:
+$$s=h\left[\frac{\theta}{\beta}-\frac{1}{2\pi} sin\left(\frac{2\pi \theta}{\beta}\right)\right]$$
+$$v=\frac{h}{\beta}\left[ 1-cos\left(\frac{2\pi \theta}{\beta}   \right)  \right]$$
+$$j=4\pi^2 \frac{h}{\beta^3} cos\left(\frac{2\pi \theta}{\beta}   \right)$$
+$$a=\frac{2\pi h}{\beta^2} sin\left(2\pi\frac{\theta}{\beta}\right)$$
+Com $\theta$ em radianos e $\beta$ indo de 0 até $\theta$ e h=25 mm \\\\
+Temos os gráficos:\\
+\begin{figure}[h]
+\center
+\subfigure[ref1][Figura relacionada ao posiciamento]
+{\includegraphics[scale=0.3]{s}}
+%\caption{Figura relacionada ao posiciamento}
+\qquad
+\subfigure[ref2][Figura relacionada ao velocidade]
+{\includegraphics[scale=0.3]{v}}
+\qquad
+\subfigure[ref3][Figura relacionada a aceleração]
+{\includegraphics[scale=0.3]{a}}
+\qquad
+\subfigure[ref4][Figura relacionada ao pulso]
+{\includegraphics[scale=0.3]{j}}
+
+\end{figure}
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Preparatório 14 - Eletrônica}
+\author{Hiago Riba Guedes RGU:11620104}
+\date{Professor:Guilherme Garcia}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{pgfplots}  
+\usetikzlibrary{shapes,arrows}
+\usepackage{subfigure}
+\graphicspath{{/home/hiago/Desktop/}}
+\begin{document}
+\maketitle
+\begin{center}
+$ {\begin{array}{cc}
+   V_{BE}=0.7V &V_{CE_{max}}=30V    \\
+   P_{C_{max}}=16W &I_{C_{max}}=3A   \\
+   V_{Z}=10V &P_{Z}=1 W   \\
+   V=15V\pm 10 \%     \\
+  \end{array} } $
+  \end{center} 
+\begin{circuitikz} \draw
+(0,0) node[npn,rotate=90] (npn) {}
+(npn.base) node[anchor=east] {}
+(npn.collector) node[anchor=south] {}
+(npn.emitter) node[anchor=north] {};
+\draw(npn.emitter)to[short](2,0)to[R=$R_e$](2,-2)node[sground]{}to[short,-o](3,-2);
+\draw(2,0)to[short,-o](3,0);
+\draw(npn.base)to [short,*-](0,-1);
+\draw(0,-2)node[sground]{} to[zD](npn.base)to[short](-1,-0.85)to [R=$R_s$](-3,-0.85)to[short](-3,0);
+\draw (-5,-2)to[american voltage source,l=15V$\pm 10\%$](-5,0) to [short](npn.collector);
+\draw(-5,-2)to[short,-*](0,-2);
+%\draw(npn.base)to[v=v](npn.emitter);
+\end{circuitikz}
+\\\\
+ Pelo desenho $V_{CB}$=$V_{R_s}$=5 V\\
+ Logo pelas tensões serem iguais , a corrente será igual
+ \\\\
+	Como $V_Z$=10 e $V_{BE}$=0.7 , $V_{saida}$ é a subtração dos dois logo é 9.3 V. Uma vez que entre a base e o emissor de um transistor existe um diodo que faz cair a tensão em 0.7 V.
+	\\Como a fonte pode variar de 13.5 V a 16.5 V e a potência no diodo não pode passar de 1 W , calcularemos $R_s$ tomando como medida o valor máximo da fonte.\\\\
+	1 W=10$\times I_z$\\
+	$I_{zmax}$=0.1A\\
+	16.5-10=$I_{zmax}\times R_s$
+	\\\\
+	Logo $R_{smin}=65 \Omega$\\
+	Quanto maior o Resistor menos se sobrecarrega o diodo.\\
+	Calculando ganho do transistor\\
+	\\
+	A corrente do emissor deverá ser de até 500mA.\\
+	$I_E=(\beta+1)\times I_B$\\
+    $I_B$ é controlado por $R_s$\\
+	Com o nosso $R_s$ mínimo de 65 $\Omega$,teríamos uma corrente de base maior que 500 mA,e como $I_E=I_B+I_C$ e a saída é justamente $I_E$.Então não poderemos usar esse resistor e sim um maior.Pra limitar a base e podemos atender a corrente de saída especificada.\\\\
+	Usando-se um resistor de 500$\Omega$\\
+	Temos $I_B$=0.01 A\\
+	Jogando na fórmula , o ganho($\beta$) do transistor deverá ser de 49 para atender ao projeto.\\
+	Cada $R_s$ resultará em um transistor com ganhos diferentes. Deverá ser mais seguro optar por transistores com ganhos maiores , logo resistores maiores deverão ser colocados.\\
+	Com o ganho do transistor calculado podemos calcular $R_e$ que fará com que a tensão fique próxima aos 9V que queremos.\\\\
+	$I_e=I_B\times(\beta + 1)$\\
+	$I_e=0.01\times(50)$\\
+	$I_e=0.5 A $\\
+	9=0.5$\times R_e$\\
+	$R_e$=18$\Omega$
+	
+\end{document}

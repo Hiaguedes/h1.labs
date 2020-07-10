@@ -1,0 +1,8 @@
+\select@language {portuguese}
+\contentsline {section}{\numberline {1}Resumo}{2}
+\contentsline {section}{\numberline {2}Teoria}{2}
+\contentsline {subsection}{\numberline {2.1}Circuito I}{2}
+\contentsline {subsection}{\numberline {2.2}Circuito 2}{3}
+\contentsline {subsection}{\numberline {2.3}Circuito 3}{3}
+\contentsline {section}{\numberline {3}Resultados}{4}
+\contentsline {section}{\numberline {4}Conclus\IeC {\~o}es }{4}

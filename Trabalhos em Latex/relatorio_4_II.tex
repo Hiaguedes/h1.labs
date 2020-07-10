@@ -1,0 +1,190 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{circuitikz}
+\usepackage[portuguese]{babel}
+%\usepackage[margin=15mm]{geometry}
+\usepackage{mathpazo} % Palatino font
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[margin=20mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/Eletronica_2/images/}}
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\LARGE Universidade Católica de Petrópolis}\\[1.5cm] % Main heading such as the name of your university/college
+	
+	\textsc{\Large Centro de Engenharia e Computação}\\[0.5cm] % Major heading such as course name
+	
+	\textsc{\large Relatório da quarta experiência}\\[0.5cm] % Minor heading such as course title
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries  Circuitos Somadores}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textit{Aluno}\\
+			Hiago Riba Guedes % Your name
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textit{RGU}\\
+			11620104 % Supervisor's name
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	Petrópolis\\
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	%\vfill\vfill
+	%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	 
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Resumo}
+O presente trabalho faz parte do 4º relatório presente na ementa composta pela disciplina de Laboratório de Eletrônica II ministrada pelo professor  Paulo Cesar Lopes Leite no dia 27 de Março de 2018 
+para a turma E-ELE-A07 na instituição 
+Universidade Católica de Petrópolis. Seu objetivo é de estudar o comportamento dos circuitos comparadores de tensão que é mais uma das aplicações com amplificadores operacionais.
+\section{Teoria}
+Circuitos somadores, são circuitos que tem a finalidade de somar as tensões existentes em suas entradas.\\\\
+
+A experiência propõe a montagem de três circuitos e com eles iremos entender o funcionamento de cada um deles.
+\subsection{Circuito I}
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-)to[short]++(0,1)to[short]++(1,0)to[R=$100K\Omega$]++(1,0)to[short]++(1,0)to[short]++(0,-1.5)
+  (opamp.out)to[short]++(2,0)node[right]{$V_o$}
+  (opamp.+)to[short]++(0,-1) node[sground]{}
+  (opamp.-)to[short]++(-2,0) node[V]{}
+  [V] to [R=$100K\Omega$]++(-2,0) node[left]{$V_1$}
+  (opamp.-)to[short]++(-2,0)to [short]++(0,-2) to [R=$100K\Omega$]++(-2,0) node[left]{$V_2$}
+  ;
+\end{circuitikz}
+\caption{Circuito 1 da experiência} 
+\end{center}
+\end{figure}
+Este tipo de circuito não é muito diferente de um circuito apmplificador. A sacada desse tipo de circuito é a de utilizar valores de resistores iguais.\\
+Como temos duas entradas acopladas dentro da porta inversora, analisaremos as correntes que essas entradas gerarão ao sistema.\\
+$$V_1=100\times 10^3 \times i_1 \rightarrow \frac{V_1}{100\times 10^3}=i_1$$
+$$V_2=100\times 10^3 \times i_2 \rightarrow \frac{V_2}{100\times 10^3}=i_2$$
+Como as duas entradas estão em paralelo as correntes se somam a corrente total do sistema será.
+$$i_1+i_2=\frac{V_1+V_2}{100\times 10^3}$$
+Que por seguinte será a mesma corrente aplicada no resistor de realimentação uma vez que a impedância da porta inversora tende ao infinito, e pelo terra virtual a tensão nela é zero\\
+Fazendo então a lei dos nós nesse ponto temos então.
+$$0-V_o=100\times 10^3\left(\frac{V_1+V_2}{100\times 10^3}\right)$$
+$$V_o=-(V_1+V_2)$$
+\subsection{Circuito 2}
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-)to[short]++(0,1)to[short]++(1,0)to[R=$100K\Omega$]++(1,0)to[short]++(1,0)to[short]++(0,-1.5)
+  (opamp.out)to[short]++(2,0)node[right]{$V_o$}
+  (opamp.-)to[short]++(-1,0)to[R=$100K\Omega$]++(-1,0)to[short]++(-1,0)node[sground]{}
+  (opamp.+) to[short]++(0,-1)to[short]++(-1,0)to[R=$100K\Omega$]++(-1,0)to[short]++(-1,0)node[left]{$V_1$}
+  (opamp.+) to[short]++(0,-2.5)to[short]++(-1,0)to[R=$100K\Omega$]++(-1,0)to[short]++(-1,0)node[left]{$V_2$}
+  ;
+\end{circuitikz}
+\caption{Circuito 2 da experiência} 
+\end{center}
+\end{figure}
+
+Calculando a corrente teórica que entra na porta $i_+$ que em teoria é zero.\\
+$$\frac{V_1-V_+}{100\times 10^3}+\frac{V_2-V_+}{100\times 10^3}=i_+=0$$
+Explicitando $V_+$ temos:\\
+$$2V_+=V_1+V_2$$
+$$V_+=\frac{V_1+V_2}{2}$$
+Agora podemos calcular a lei dos nós na malha de cima.\\
+$$0-\frac{V_1+V_2}{2}=100\times 10^3\times i$$
+$$\frac{V_1+V_2}{2}-V_0=100\times 10^3 \times i$$
+Dividindo-se a segunda equação pela primeira temos:\\
+$$V_0=V_1+V_2$$
+\subsection{Circuito 3}
+\begin{figure}[!h]
+\begin{center}
+\begin{circuitikz} 
+       \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-)to[short]++(0,1)to[short]++(1,0)to[R=$100K\Omega$]++(1,0)to[short]++(1,0)to[short]++(0,-1.5)
+  (opamp.out)to[short]++(2,0)node[right]{$V_o$}
+  (opamp.-) to [R=$100K\Omega$]++(-2,0) node[left]{$V_1$}
+  (opamp.+)to [short]++(0,-2) to [R=$100K\Omega$]++(-2,0) node[left]{$V_2$}
+  ;
+\end{circuitikz}
+\caption{Circuito 3 da experiência} 
+\end{center}
+\end{figure}
+\newpage
+Como a impedância de entrada na porta não inversora é infinita pode-se fazer a aproximação que $V_+=V_2$.Logo as equações na malha de cima ficam.\\
+$$V_1-V_2=100\times 10^3\times i$$
+$$V_2-V_o=100\times 10^3 \times i$$
+Dividindo a segunda equação pela primeira,temos:\\
+$$V_1-V_2=V_2-V_o$$
+$$V_o=2V_2-V_1$$
+\section{Resultados}
+Foram achados os seguintes resultados para os seguintes valores de $V_1$ e $V_2$\\\\
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$V_1$[V]	&	$V_2$[V] &Saída Circuito 1[V]&Saída Circuito 2[V]&Saída Circuito 3[V]\\
+\hline
+1.0	&	0.5 &	-1.486 &	1.495	&$13.4\times 10^{-3}$ \\
+1.8	&	1.2 &	-2.982	&	3.013	&0.604\\
+2.3	&	0.8 &	-3.065	&	3.095	&-0.694\\
+\hline
+\end{tabular}
+\section{Conclusões }
+Aplicando as seguintes fórmulas encontradas na teoria e comparando com os valores encontrados na prática e ainda considerando os seguintes erros: erros de instrumento, erros de exatidão do operador e erros do próprio circuito eletrônico. O circuito montado na bancada mostrou-se bastante eficiente, oferecendo valores bastante satisfatórios.
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Preparatório 8 - Eletrônica}
+\author{Hiago Riba Guedes RGU:11620104}
+\date{Professor:Guilherme Garcia}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{pgfplots}  
+\usetikzlibrary{shapes,arrows}
+\usepackage{subfigure}
+\graphicspath{{/home/hiago/Desktop/}}
+
+\begin{document}
+\maketitle
+\begin{circuitikz} \draw
+(10,10) node[npn] (npn) {}
+(npn.base) node[anchor=south] {B}
+(npn.collector) node[anchor=east] {C}
+(npn.emitter) node[anchor=east] {E};
+\draw(9.5,10)to [short,i<=350uA](7,10)to [R=$R_B$](7,14.5)to[short](10,14.5);
+\draw(10,10.7)to [short,i<=35mA](10,12)to [R=$220\Omega$](10,15) node[vcc]{$V_{CC}$};
+\draw(10,9.5) to[short](10,8)node[sground]{};
+\end{circuitikz}
+\\
+$V_{CE}=5V$\\
+$V_{BE}=0.7V$
+\\\\
+\textbf{4.1-}\\\\
+$V_{CE}=V_{CC}-	I_CR_C$\\
+5=$V_{CC}$-35.$10^{-3}.220$\\
+$V_{CC}=12.7V$\\\\
+\textbf{4.2-}\\\\
+$V_{CC}=R_B.I_B+V_{BE}$\\
+12.7=$R_B$.350.$10^{-6}$+0.7\\
+$R_B$=34,286 K$\Omega$
+\\\\
+\textbf{4.3-}
+\\\\
+P=R$I^2$\\\\
+$P_C=R_C.I_C^2$\\
+$P_C=220.(35.10^{-3})^2$\\
+$P_C=0.27 W$  Atende\\\\
+Calculo análogo para $P_B$\\
+$P_B$=34,286K$\Omega$.(350.$10^{-6})^2$\\
+$P_B$=0.004W  Atende\\\\
+\textbf{4.4-}\\\\
+$P_{diss}=V_{CE}.I_C$\\
+P=5.$35.10^{-3}$\\
+P=0.175W      \\\\É compatível
+\end{document}

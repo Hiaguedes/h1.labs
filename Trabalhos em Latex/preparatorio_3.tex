@@ -1,0 +1,81 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Preparatório 3 - Eletrônica}
+\author{Hiago Riba Guedes RGU:11620104}
+\date{Professor:Guilherme Garcia}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{pgfplots}  
+\usetikzlibrary{shapes,arrows}
+\usepackage{subfigure}
+\graphicspath{{/home/hiago/Desktop/}}
+
+\begin{document}
+\maketitle
+\textbf{4.1-}\\\\
+\begin{circuitikz}
+\draw(0,0) node[sground]{} ;
+\draw(0,0) to[battery=$V_1$] (0,3) to[R=$R_s$](3,3);
+\draw(3,0) to[zD*,l=$V_z$](3,3) (3,0) node[sground]{};
+\draw(3,3)to [short,-o](4.5,3);
+\draw(3,0)to [short,-o](4.5,0);
+\end{circuitikz}
+\\\\\\
+\textbf{4.2-}\\\\
+Materiais Dados:\\
+Diodo Zener BZX79C9V1-$V_z$=9 V,P=0.5W\\
+Resistor 220$\Omega$-2W\\
+Potenciômetro decada\\
+Fonte DC\\
+Voltímetro\\
+\\
+\begin{circuitikz}
+\draw(0,0) node[sground]{} ;
+\draw(0,0) to[battery=$V_1$] (0,3) to[R=$R_s$](3,3);
+\draw(3,0) to[zD*,l=$V_z$](3,3) (3,0) node[sground]{};
+\draw(3,3)to [short](4.5,3);
+\draw(3,0)to [short](4.5,0);
+\draw(4.5,0) to[R=$R_c$] (4.5,3);
+\end{circuitikz}
+\\
+$R_s=220 \Omega$\\
+$I_c=\frac{9}{R_c}$\\
+$V_{R_s}=V_f-9$\\
+$I_s=\frac{Vf-9}{220}=I_t$\\
+$P_{R_s}=2W$;P=RI$^2$;2=220.$I^2_s$\\\\
+9,0909.10$^{-3}$=$\frac{(V_f-9)^2}{220^2}$\\
+440=$V_f^2-18V_f+81$\\
+$V_f^2-18V_f-359=0$\\
+$\Delta =1760$\\
+9$\pm \frac{\sqrt{\Delta}}{2}$\\
+$V_{f1}=29.976 V$ e $V_{f2}=-11.976 V$
+\\\\
+$V_{f_{max}}$=29.976 V\\
+$I_{z_{max}}=\frac{0.5}{9}=55.55mA$\\
+$I_z=I_t-I_c$\\\\
+$55.55mA=\frac{29.976-9}{220}$-$\frac{9}{R_c}$\\
+$R_c=226.156 \Omega$ ; Resistor comercial próximo=$220 \Omega$\\
+Range :De $1 \Omega$ a $220\Omega $
+\\\\\\
+\textbf{4.3-}\\\\
+\begin{circuitikz}
+\draw(0,0) node[sground]{} ;
+\draw(0,0) to[battery=$14V$] (0,3) to[R=$R_s$](3,3);
+\draw(3,0) to[zD*,l=$V_z$](3,3) (3,0) node[sground]{};
+\end{circuitikz}
+\\Onde $V_z$=9 V.
+\\$I_z$=5 mA.
+\\
+\\
+$V_{fonte}-V_z=R_s.I_z$\\
+14-9=$R_s$.5mA\\
+$R_s$=1000$\Omega$
+\\\\
+\textbf{4.4-}\\\\
+$P_z$=500mV\\
+$V_f$=20V\\\\
+20-9=1000.$I_z$\\
+$I_z$=11mA\\
+P=9.11mA=99mW\\
+Sim,é suficiente.
+\end{document}

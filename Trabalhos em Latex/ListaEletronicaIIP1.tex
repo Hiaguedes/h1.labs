@@ -1,0 +1,643 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\title{Lista Exercícios Eletrônica 2}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{pgfplots}  
+\usetikzlibrary{shapes,arrows}
+\usepackage{subfigure}
+\usepackage[margin=20mm]{geometry}
+\graphicspath{{/home/hiago/Desktop/Eletronica_2/images/}}
+\begin{document}
+\maketitle
+\textbf{1- }
+Fazendo da maneira correta sem aplicar fórmula pronta.\\
+\\
+$v_+=v_-=v_b$ pelo curto virtual
+$$v_a-v_-=R_1\times i_1$$
+$$v_--v_0=R_2\times i_2$$
+
+Pela impedância infinita na entrada, $i_1$ é igual a $i_2$ 
+Aplicando as relações encontradas temos:
+$$v_a-v_b=R_1\times i$$
+$$v_b -v_0=R_2\times i$$
+
+Como as correntes são iguais para as duas referências podemos igualar-las.\\
+$$\frac{v_a-v_b}{R_1}=\frac{v_b-v_o}{R_2}$$
+Explicitando $v_b$ na equação temos:\\
+$$\frac{v_b}{R_1}+\frac{v_b}{R_2}=\frac{v_a}{R_1}+\frac{v_o}{R_2}$$
+$$v_b \left(\frac{1}{R_1} + \frac{1}{R_2}    \right)-\frac{v_a}{R_1}=\frac{v_0}{R_2}$$
+$$v_b\left( \frac{R_2}{R_1}+1 \right)-v_a\left( \frac{R_2}{R_1} \right)=v_o$$
+\\\\
+\textbf{b)}
+Jogando então os valores:\\
+$R_1=1 K\Omega$\\
+$R_2=100K\Omega$\\
+$v_a=10mV$\\
+$v_b=20mV$\\
+$$20\times 10^{-3} \left( \frac{100}{1} \right)-10 \times 10^{-3}\left( \frac{100}{1}  \right)=1 V$$
+
+Com efeito.\\
+Simulando o circuito no LT SPice\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex1}
+\end{center}
+\end{figure}
+\\
+\textbf{2) }\\\\
+Para fazer esse exercício iremos dividir-lo em três circuitos.\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{somadorex2}
+\caption{Circuito Somador}
+\end{center}
+\end{figure}
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{slaoqex2}
+\caption{Circuito sla oq}
+\end{center}
+\end{figure}
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{amplificadorex2}
+\caption{CIrcuito Amplificador}
+\end{center}
+\end{figure}
+\\
+Onde a saída dos circuitos das figuras 1 e 2 são as entradas do circuito 3.\\
+\subsubsection*{Circuito 1}
+Resolvendo então o circuito 1 temos:\\
+As correntes das três linhas que levam ao nó de $v_-$ se somam e o nó $v_-$ tem a mesma tensão de $v_+$ pelo terra virtual que é 0(zero) Logo:\\
+$$\frac{2}{6000}=i_1=333.333 \mu A$$
+$$\frac{-6}{6000}=i_2=-1 mA$$
+$$\frac{6}{6000}=i_3=1mA $$
+Fazendo a somatória das correntes encontramos que a corrente que entra no nó $v_-$ é $333.333 \mu A$\\\\
+Aplicando a lei dos nós :\\
+$$0-v_{o1}=24\times 10^3 \times 333.333\times 10^{-6} $$
+$$v_{o1}=-8 V$$
+No simulador:\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{circuito1ex3}
+\caption{Resultado somador}
+\end{center}
+\end{figure}
+\\
+\subsubsection*{Circuito 2}
+No circuito 2,temos que $v_+$ é igual a $v_{ref}$
+$$v_0-v_{ref}=4\times 10^3 \times i$$
+$$v_{ref}-0=2\times 10^3 \times i$$
+Só que $v_{ref}=-3 V$ e o i é o mesmo.\\
+$$\frac{v_o}{v_{ref}}-1=2$$
+$$v_o=-9$$
+No simulador:\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{circuito2ex3}
+\caption{Resultado comparador}
+\end{center}
+\end{figure}
+\\
+
+\subsubsection*{Circuito 3}
+Com os dois circuitos calculados temos que a entrada no ramo de cima é -8 e a entrada no ramo de baixo é -9\\\\
+
+$$-8-(-9)=12\times10^3 \times i$$
+$$-9-E_o=6\times10^3 \times i$$
+$$i=83.33 \mu A$$
+$$E_o=-9.5 V$$\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{circuito3ex3}
+\caption{Resultado Total}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{3) }
+Inicialmente vamos fazer o paralelo entre os dois resistores na retroalimentação. Para podermos achar a tensão entre seus nós . Após isso nos preocuparemos com as correntes.\\
+
+$$v_+=v_-=0$$
+$$3-0=1000\times i\rightarrow i=3mA$$
+$$0-v_o=\frac{1}{\frac{1}{6\times 10^3}+\frac{1}{3\times 10^3}}\times i\rightarrow v_o=-2\times 10^3 \times 3\times 10^{-3}$$
+$$v_o=-6V$$
+Para encontrar a corrente no resistor de 6K fazemos:
+$$-6-0=6\times 10^3 \times i_r$$
+$$i_r=-1mA$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex4}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{4) }
+Fazendo lei dos nós..\\
+$$11-V_1=2K \times i_1$$
+$$V_1-0=4K \times i_2$$
+$$V_1-V_-=6K \times i_3$$
+Sendo que :
+$$i_1=i_2+i_3$$
+$$v_-=v_+=0$$
+Aplicando as relações:
+$$11-V_1=2K \times (i_2 +i_3)$$
+$$V_1=4K \times i_2$$
+$$V_1=6K\times i_3$$
+Dividindo a segunda equação pela terceira
+$$1=\frac{2}{3}\times \frac{i_2}{i_3}\rightarrow \frac{3}{2}=\frac{i_2}{i_3}\rightarrow 1.5i_3=i_2$$
+Aplicando essa relação com a terceira equação na primeira 
+$$11-6K\times i_3=2K\times(2.5i_3)$$
+$$11=11Ki_3$$
+$$i_3=1mA$$
+Sendo que essa corrente $i_3$ é a mesma corrente que passa no resistor de 12K.\\
+$$0-V_0=12K \times 1m\rightarrow V_0=-12 V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{correnteex5}
+\caption{corrente inversa ao resistor: -i3}
+\end{center}
+\end{figure}
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{resultadoex5}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{5) }
+Precisamos fazer a lei dos nós e depois aplicamos os limites para a corrente.\\
+Temos um circuito comparador, logo $V_{ref}=6V$
+$$V_0-V_{ref}=2K\times i$$
+$$V_{ref}-0=2K\times i\rightarrow i=3mA$$
+Aplicando essa corrente na primeira equação
+$$V_0=6+2K\times 3m\rightarrow V_0=12 V$$
+Para $V_0$=12 V,temos duas malhas em paralelo ,uma com um resistor de 6K e outra com um resistor que será projetado.\\
+Obrigatoriamente o resistor de 6K consumirá
+$$\frac{12}{6\times 10^3}=2mA$$
+O projeto pede para que i esteja entre 2mA e 8mA,mas o resistor de 6K já consome 2mA então para esse caso ,RL deverá ser $\infty$.\\
+Para o caso de 8mA ,o resistor RL consumirá os 6mA restantes,logo.
+$$12=6m\times RL$$
+$$RL=2000 \Omega$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{rl5}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{6) }
+Esse exercício não é muito diferente do exercício 4 , porém nesse caso temos um seguidor de tensão. Que não adicionará em muito ao circuito,ele casará as duas impedâncias.Mas não modificará em nada sua estrutura.\\
+Ao lado esquerdo do seguidor de tensão temos um divisor de tensão.\\
+
+$$6-V_{ref}=6K\times i$$
+$$V_{ref}-0=2K\times i$$
+$$\frac{6}{V_{ref}}-1=3\rightarrow V_{ref}=1.5 V$$
+Tensão de referência essa que será a tensão na saída do seguidor.\\
+$$1.5-0=1K \times i$$
+$$0-V_o=8K\times i$$
+$$V_0=-8K\times 1.5 = -12V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex6}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{7) }
+Para essa questão deveremos saber que a corrente em um capacitor tem a seguinte relação.
+$$i=C\frac{dV}{dt}$$
+Por conta dessa relação temos a corrente que passa no resistor.
+$$ i_1=C\frac{dV_0}{dt} $$
+Para o resistor temos
+$$0-V_s=R_f\times i\rightarrow i=-\frac{V_s}{R_f}$$
+Igualando:
+$$-\frac{V_s}{R_fC}=\frac{dV_0}{dt}$$
+O que nos dá:
+$$V_s=-R_fC \frac{dV_0}{dt}$$
+Que é a fórmula de um circuito derivador.\\\\
+Aplicando os valores dados 
+$$V_s=-2\times 10^6 \times 0.01\times 10^{-6} \frac{dV_0}{dt}$$
+$$V_s=-0.02\frac{dV_0}{dt}$$
+-0.02?
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex7}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\textbf{8) }\\\\
+Equações da parte de fora
+$$v_i-v_1=10K\times i_1$$
+$$v_1-v_o=100K\times i_2$$
+$$v_1-v_-=10K\times i_3$$
+$$0-V_0=100Ki_3$$
+$$i_1=i_2+i_3$$
+Onde $$v_-=0$$
+Aplicando as relações achamos que:
+$$V_i=10K(i_1+i_3)$$
+$$V_1=100K(i_2-i_3)$$
+Igualando $V_1$
+$$100K(i_2-i_3)=10Ki_3$$
+$$\frac{i_2}{i_3}-1=0.1$$
+$$i_2=1.1i_3$$
+Aplicando na relação entre as correntes
+$$i_1=2.1i_3$$
+Queremos calcular qual o ganho do circuito , isso é $\frac{V_0}{V_i}$
+$$\frac{V_0}{V_i}=\frac{-100Ki_3}{10K(3.1i_3)}=-3.225 $$
+Isso é, se apicarmos 1 V em sua entrada encontraremos -3.225 V na saída.\\
+Simulador.\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex8}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\textbf{9) }
+\\
+Pediu-se que fosse feito um circuito somador inversor. Porém como sabemos ,suas relações se baseiam na escolha dos resistores.\\
+E sua fórmula geral pode ser dado na seguinte forma
+$$V_o=-\frac{R_f}{R_1}V_1 -\frac{R_f}{V_2}V_2 -\frac{R_f}{R_3}V_3$$
+E o exercício pede para que 
+$$\frac{R_f}{R_1}=4$$
+$$\frac{R_f}{R_2}=1$$
+$$\frac{R_f}{R_3}=0.1$$
+Sabemos que para fins de projeto os valores dos resistores não podem ser muito baixos, na ordem de poucos ohms, pois senão geraria uma corrente muito alta,aumentando desnecessariamente a sua potência. Nem muito alta,pois ai a impedância infinita de um AO não valeria mais e suas operações estariam erradas.\\
+Logo pode-se dizer que $R_f$ vale 30 K$\Omega$.
+Feito isso acho os valores de todos os outros resistores ,que são os seguintes
+$R_1=7.5 K\Omega$
+$R_2= 30 K\Omega$
+$R_3= 300 K\Omega$
+\\\\
+O exercício pede para que façamos o gráfico para quando:
+$$V_1=2sen(wt)$$
+$$V_2=5$$
+$$V_3=-100$$
+Substituindo esses valores a saída ficará com a seguinte equação\\
+$$V_o=-(8sen(wt)+5-10)$$
+$$V_o=5-8sen(wt)$$
+Isso é o inverso de um gráfico seno,porém multiplicado 8 vezes e subindo 5 unidades. O que é representado no simulador.Com amplitude indo de -3V a 13 V
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex9}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{10) }
+\\
+Para o primeiro circuito amplificador temos:
+$$V_1-0=R_1i$$
+$$0-V_{01}=R_2i$$
+$$V_{01}=-\frac{R_2}{R_1}V_1$$
+Que será aplicado na entrada do segundo circuito que é um circuito somador.\\
+Onde se calculado as correntes de entrada temos:
+$$i =\frac{V_2}{R_4}-\frac{R_2}{R_1R_3}V_1$$
+..
+$$0-V_0=R_5\times i$$
+$$V_0=-\frac{R_5V_2}{R_4}+\frac{R_2R_5}{R_1R_3}V_1$$
+A questão pede para dimensionarmos 
+$$V_0=20V_1 -0.2V_2$$
+Isso é 
+$$\frac{R_5}{R_4}=0.2$$
+$$\frac{R_2R_5}{R_1R_3}=20$$
+Ai a partir daqui começamos a dimensionar certos ganhos.Supondo que o ganho do primeiro amplficador seja de 10.Isso é $R_1=1k\Omega$ e $R_2=10k\Omega$ . E com isso dizemos também que $R_5$ é de $20K\Omega$. Ficamos então com $R_4=100 K\Omega$ e $R_3=10 K\Omega$ .Simulando esse circuito no LTSpice,como sempre.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex10}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\section*{Questões Intermediárias}
+\textbf{11) }
+\\
+Eu nao sei se está escrito que el equer que prove que $IL=\frac{V_{in}}{R}$ ou I1, outra coisa qualquer mas vou fazendo.E o que seria esse R.
+$$V_{in}-V_C=R_1I_1$$
+$$V_C-0=RlIl$$
+$$V_C-V_A=(R_2+R_4)I_4$$
+$$V_A=R_3I_3$$
+Porém da forma como o desenho está representado $i_3=i_4$
+$$i_1=i_l+i_4$$
+$$V_C=(R_2+R_3+R_4)I_4$$
+$$(R_2+R_3+R_4)I_4=RlIl$$
+$$I_4=IL\frac{RL}{(R_2+R_3+R_4)}$$
+Logo:
+$$I_1=IL\frac{(RL+R_2+R_3+R_4)}{(R_2+R_3+R_4)}$$
+Aplicando tudo na primeira equação
+$$V_{in}-RLIL=R_1IL\frac{(RL+R_2+R_3+R_4)}{(R_2+R_3+R_4)}$$
+$$V_{in}=IL\left(RL+R_1\frac{(RL+R_2+R_3+R_4)}{(R_2+R_3+R_4)}\right)$$
+E é isso...\\
+Mas tenho a impressão que o circuito ta desenhado errado entao nao sei..\\\\
+\textbf{12) }
+\\
+Pela impedância infinita na entrada da porta inversora. \\
+$$i_2=0.5 mA$$
+Logo a tensão nesse resistor é de 
+$$0.5m\times 7.5K=3.75V$$
+Mas ...$v_-$ é 0 ,pelo terra virtual com $v_+$ o que faz com que o ponto oposto seja de -3.75 V.\\
+Calculando $i_1$ então
+$$0-(-3.75)=2.5Ki_1\rightarrow i_1=1.5mA$$
+$i_3$ acaba sendo a soma das duas correntes,o que dá 2mA
+$$-3.75-V_b=5K\times 2m\rightarrow V_b=-13.75 V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex11}
+\caption{Resultado da tensão}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{13) }
+\\
+$$V_i-V_+=R_2i$$
+$$V_+-0=R_3i$$
+$$V_i=\left(  1+\frac{R_2}{R_3}  \right)V_+$$
+$$V_+=\frac{R_3}{R_2+R_3}V_i$$
+Pelo curto virtual temos que $v_-=v_+$
+$$0-v_+=R_1i$$
+Onde podemos tirar que 
+$$i=-\frac{v_+}{R_1}$$
+$$v_+-v_o=R_fi$$
+$$v_+-R_fi=v_o$$
+$$v_+-R_f\frac{-v_+}{R_1}=v_o$$
+$$v_+\left(1-\frac{R_f}{R_1}\right)=v_o$$
+$$\frac{R_3}{R_2+R_3}V_i\left(1+\frac{R_f}{R_1}\right)=v_o$$
+Substituindo os valores
+$$\frac{20K}{30K}V_i\left( 1+\frac{70K}{20K}\right)=9.6$$
+$$V_i=\frac{9.6}{3}=3.2V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex12}
+\caption{Resultado da tensão}
+\end{center}
+\end{figure}
+\\
+\textbf{14) }
+\\
+a)Chave aberta - Resistor $R_3$ integrado ao circuito\\
+$$V_i-v_+=R_3i_3$$
+$$V_i-v_+=R_2i_2$$
+$$v_+-v_0=R_fi_3$$
+Porém $i_3$ tende a zero,então $v_+=V_{in}$
+$$V_i-V_i=R_2i_2$$
+$$i_2=0$$
+Se $i_2$=0;$V_o$=$V_i$ V\\
+Em nenhum momento há a queda de tensão\\\\
+b)Chave fechada - $v_-=0=v_+$
+Amplificador inversor $V_0=-\frac{R_f}{R_2}V_i$
+\\\\
+\textbf{15) }
+$$\frac{R_b}{R_a+R_b}v_3=v_+$$
+Relações da malha de cima\\
+$$v_1-v_+=R_1i\rightarrow i=\frac{v_1-v_+}{R_1}$$
+$$v_+-v_2=R_2i$$
+$$v_+-v_2=R_2\frac{v_1-v_+}{R_1}$$
+$$v_+=\frac{R_2}{R_1}v_+=v_2+\frac{R_2}{R_1}v_1$$
+$$v_+\left( 1+\frac{R_2}{R_1}  \right)=v_2+\frac{R_2}{R_1}v_1$$
+$$v_2=\frac{R_b}{R_a+R_b}\left(\frac{R_2}{R_1}+1\right)v_3 -\frac{R_2}{R_1}v_1$$
+Pede-se para que :
+$$v_2=\frac{v_3}{3}-2v_1$$
+Fazendo a associação :
+$$R_2=2R_1$$
+Fazendo $R_2=20K\Omega$;$R_1=10K\Omega$..\\
+Então.. 
+$$1+\frac{R_2}{R_1}=3$$
+$$\frac{R_b}{R_a+R_b}=\frac{1}{9}$$
+$$8R_b=R_a$$
+Logo podemos fazer : $R_b=10K\Omega$;$R_a=80K\Omega$
+\\\\
+\textbf{b) }
+Se $R_a$ entrar em curto a equação fica da seguinte forma
+$$v_2=\left(\frac{R_2}{R_1}+1\right)v_3 -\frac{R_2}{R_1}v_1$$
+Para $v_1=0$\\
+$$v_2=\left(\frac{R_2}{R_1}+1\right)v_3 $$
+$$v_2=6V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex15}
+\caption{a)}
+\end{center}
+\end{figure}
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex15b}
+\caption{b)}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{16) }
+A esquerda temos dois amplificadores inversores. Onde o circuto de cima chamarei de 1 e o de baixo de 2.\\
+A tensão em seus nós de realimentação são os mesmos da entrada,pelo curto virtual. Logo a tensão do nó acima do resistor de 1K é de 2V. A tensão abaixo é de 4 V. Com isso conseguimos achar a corrente $i_2$ que é de $4-2=1K\times i \rightarrow 2mA$. Como não passa corrente na entrada das entradas de um AmpOp, é certo afirmar que $i_1=i_2=i_3=2mA$.\\
+Agora podemos calcular as tensões $V_{02}$ e $V_{01}$.
+$$2-V_{02}=4K\times 2m \rightarrow V_{02}=-6 V$$  
+$$ V_{01}-4=4K\times 2m \rightarrow V_{01}=12 V$$
+
+Onde $V_{01}$ é a entrada da malha onde encontra-se a malha não inversora. Pois ele se encontra antes de um divisor de tensão de resistores iguais. Logo a porta não inversora recebe uma tensão de $\frac{V_{01}}{2}=6 V$ . Logo as equações para esse circuito .\\
+$${V_02}-v_+=4K\times i$$
+$$v_+-{V_o}=4K\times i$$
+Substituindo os valores encontrados na primeira equação.\\
+$$-6-6=4K\times i \rightarrow i=-3mA$$
+Substituindo esse valor de corrente na segunda equação ,acharemos $V_0$\\
+$$v_+-4K\times i={V_o}$$
+$$V_o=18 V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex16}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{17) }O raciocício dessa questão é a mesma da 10.\\\\
+\textbf{18) }\\
+É dado que $V_i$ é contínua.\\
+Pela equação de corrente de um capacitor 
+$$i=C\frac{dV}{dt}$$
+Chegamos que em corrente contínua a corrente que flui em um capacitor é de 0 A.\\
+Não havendo queda de tensão entre seus terminais.\\
+Chamarei o nó que liga os resistores ao capacitor $C_1$ de $V_c$ e o nó da porta não inversora de $v_+$\\\\
+A saída $v_0$ têm como saída o valor de $v_+$ pelo curto virtual somada com a tensão de $V_c$. \\
+$$V_0=V_+ + V_c$$ .\\
+Agora aplicando a lei dos nós no sistema achamos as seguintes equações.\\
+$$V_i-V_c=R_1\times i$$
+$$V_c-V_+=R_2\times i$$
+Explicitando a corrente na primeira equação temos.\\
+$$i=\frac{V_1-V_c}{R_1}$$
+Usando o valor de i na segunda equação encontramos 
+$$V_i=\left( \frac{R_1}{R_2}+1  \right)V_c - \frac{R_1}{R_2}V_+$$
+A equação do ganho então fica:
+$$\frac{V_+ + V_c}{\left(\frac{R_1}{R_2}+1  \right)V_c - \frac{R_1}{R_2}V_+} $$
+Agora teria que substituir os valores de $V_+$ e $V_c$ mas nao sei como
+\\\\
+\textbf{19) }
+Esse exercício parece complexo a primeira vista, mas se retirarmos os seguidores de tensão e os resistores de 56R ,nós ficaremos com dois circuitos, um amplificador não inversor e outro amplificador inversor.O primeiro circuito é importante para manter a tensão de cálculo para tensões mais altas,mas para efeito de cálculo o resultado é o mesmo.\\\\
+Para o primeiro amplificador temos que $V_-=V_i$
+Suas equações são..
+$$V_a-0=10K\times i$$
+$$-V_a+V_o=90K \times i$$
+$$\frac{V_0}{V_a}-1=9$$
+$$V_a=10V_i$$
+Isso é , a tensão na entrada da malha superior do segundo amplificador operacional é 10 vezes o valor da entrada.O que também é um dos terminais do resistor de $200 \Omega$\\
+Para o segundo amplificador inversor temos as seguintes equaçoes\\
+$$10V_i-0=20K\times i$$
+$$0-v_b=20K \times i$$
+$$-\frac{10V_i}{v_b}=1$$
+$$v_b=-10V_i$$
+Loga a diferença de tensão no resistor é de 
+$$10V_i-(-10V_i)=20V_i$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex19}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{ex19b}
+\caption{Os dois circuitos quando operados no limite teórico do amplificador}
+\end{center}
+\end{figure}
+\\
+\textbf{20) }
+\\
+Assumindo que há um erro nessa questão, pois não há um ponto marcando quem é $V_{02}$.Temos as seguintes equações\\
+$$V_{o1}-5=100K\times i_5$$
+$$5-3=40K\times i_2 \rightarrow i_2=50\mu A$$
+$$5-V_{o2}=20K\times i_4$$
+$$V_{o2}-3=20K\times i_3$$
+$$3=10K\times i_1\rightarrow i_1=300\mu A$$
+$$i_5=i_4+i_2$$
+$$i_3+i_2=i_1 \rightarrow i_3=300\mu -50\mu =250\mu A$$
+O que já da para achar $V_o2$
+$$V_{o2}=20K\times 250\mu +3=8 V$$
+$$5-8=20K\times i_4 \rightarrow i_4=-150\mu A$$
+$$i_5=-150\mu + 50\mu=-100 \mu A$$
+Logo:
+$$V_{o1}=5+100K\times -100\mu=-5V$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{20}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{21) }
+\textbf{a) }
+Para esse comparador ,temos que a entrada $V_in$ está conectado a porta inversora do AmpOp.E o nível de comparação é a porta não inversora.Que está conectado a terra. Logo quando $V_{in}$ (que é senoidal), ultrapassar positivamente o valor de 0V. O amplificadorsatura negativamente. Quando $V_{in}$ ultrapasar 0V negativamente, o comparador satura positivamente.
+$$v_o=A(-V_{in})$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{21a}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{b) }
+Para esse comparador a saída e a entrada estão em mesma fase , porque $V_{in}$ está na entrada não inversora.E seu valor de comparação é -8 V.Então sempre que $V_{in}$ for menor que -8,o valor encontrado na saída irá saturar negativamente.Se for maior saturará postivamente 
+$$v_o=A(v_+ +8)$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{21b}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{c) }
+Essa é o oposto da letra b) o valor de $V_{in}$ encontra-se agora na entrada não inversora e o valor de comparação agora é -6V.
+$$v_o=A(-6-V_{in})$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{21c}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{d) }
+$$v_o=A(4 -V_{in})$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{21d}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\newpage
+\section*{Questões mais difíceis}
+\textbf{22) }
+Um circuito Schmitt Trigger simples tem a seguinte cara.
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=1]{sch}
+\caption{Schimitt que será utilizado}
+\end{center}
+\end{figure}
+\\
+E suas equações são:
+$$V_o-V_p=R_2\times i$$
+$$V_p=R_1\times i$$
+Explicitando $V_p$ da equação temos
+$$V_p=\left( \frac{R_1}{R_1+R_2}  \right)V_o$$
+Sendo que em um schimitt trigger $V_o$ assumirá dois valores , que no projeto diz que são $\pm$ 12 V.$R_2=39K$,$V_p=50mV$
+$$50\times 10^{-3}=12 \left( \frac{R_1}{39\times 10^{3}+R_2}  \right)$$
+$$4.17\times 10^{-3}(R_1+39\times 10^{3})=R_1$$
+$$(1-4.17\times 10^{-3})R_1=162.63$$
+$$R_1=163.31 \Omega$$
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{22}
+\caption{Resultado}
+\end{center}
+\end{figure}
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{22b}
+\caption{Retificador de meia onda}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{23) }\\
+Uma onda que alterna 10 e tem -6 como pico, assim que entendi. E as tensões variam de -6 V a 4 V.\\\\
+Esse é um retificador de meia onda de precisão que corta o ciclo positivo. Quando o ciclo positivo ocorre a saída do amplificador operacional é cortada pelo diodo  e o AmpOp não funciona. Quando vem o ciclo negativo a realimentação funciona e a saída do AmpOp tem 0.7 a mais de tensão. Fazendo com que o sistema entregue o sinal de entrada.
+\\
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{23}
+\caption{Com erros de aproximação e erros praticos}
+\end{center}
+\end{figure}
+\\
+\newpage
+\textbf{24) }\\
+Não sei explicar :)
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.3]{24}
+\caption{Resposta do circuito }
+\end{center}
+\end{figure}
+\\
+\\\\
+\textbf{25) 26) 27)}
+Regulador de tensão e filtros não caem
+\end{document}
