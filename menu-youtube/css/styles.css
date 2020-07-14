@@ -1,0 +1,113 @@
+.container {
+  background: #f5f4f4; }
+
+.inverse-header {
+  background: #464646; }
+
+.inverse-body {
+  background: #1f1f1f; }
+
+.header {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3.5em; }
+
+#menu-logo {
+  display: flex;
+  align-items: center; }
+
+.menu {
+  background: url(../img/icon-menu.svg) no-repeat;
+  background-size: contain;
+  cursor: pointer; }
+  .menu:before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px; }
+  .menu:active {
+    background-color: rgba(209, 208, 208, 0.911);
+    border-radius: 15%;
+    transition: 0.3s; }
+
+.inv-menu {
+  filter: invert(1); }
+
+#logo {
+  display: inline-block; }
+
+.header #search {
+  display: flex;
+  align-items: center; }
+  .header #search .input-search {
+    width: 20em;
+    height: 1.5em;
+    background: white; }
+    .header #search .input-search::placeholder {
+      color: #4d4d4d; }
+  .header #search .inv-input-search {
+    background: #4d4d4d; }
+    .header #search .inv-input-search::placeholder {
+      color: white; }
+  .header #search .click-search {
+    height: 0.8em;
+    padding: 0.5em 1em;
+    background-color: rgba(219, 219, 219, 0.993);
+    cursor: pointer; }
+    .header #search .click-search:hover {
+      filter: opacity(0.75); }
+  .header #search .inv-click-search {
+    background: #303030; }
+  .header #search .icon-search {
+    background: url(../img/search.svg) no-repeat;
+    background-size: contain;
+    display: inline-block;
+    width: 15px;
+    height: 15px; }
+  .header #search .inv-icon-search {
+    filter: invert(0.6); }
+
+/*from https://codepen.io/avstorm/pen/jOEpBLW?__cf_chl_jschl_tk__=6fcc7aff8f2acf755ea79116d4cb1a6d752d06e2-1594692131-0-AVSGQABqsBfuOZtRPi2Z3yXQu2KT5NUPHPquzpheNWQvewf34yXCGY5sB4IHcB2_9XlMADKaWivJX_Q1n27G9xguaMDVN-YC0e89jlj6Ptt5BPLI1gsdan8VPJv0HB2kPfSDN4hqL4u7CFMsLqjHFAPE7Ds7yjnIBwgw01DBYPuf5xFvkeO5MAtFA1hR9lkoFu5tfIxj2qXzIbOHhISYN2Fqf_z4qFrtrGoagiTAjrOZ13mezAVGE9jG4JX14UOkmEnP0KtfuQzkzKk-PMh1w_2N4pCvGyV_OK3AnZ8EMH7Y0D1MJkuZXvZuL6bD4ChQd3sfUQ8x0rQVU7eP39JZVYnCb3j43RjsCBmz6C3-It0u*/
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer; }
+
+input[type="checkbox"]:focus {
+  outline: 0; }
+
+.toggle {
+  height: 32px;
+  width: 52px;
+  border-radius: 16px;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  border: 2px solid #474755;
+  background: linear-gradient(180deg, #2D2F39 0%, #1F2027 100%);
+  transition: all 0.2s ease; }
+
+.toggle:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
+  transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35); }
+
+.toggle:checked {
+  border-color: #654FEC; }
+
+.toggle:checked:after {
+  transform: translatex(20px); }
+
+/*# sourceMappingURL=styles.css.map */

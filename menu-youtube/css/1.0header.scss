@@ -1,0 +1,57 @@
+.container{
+    background: $cor-header;
+
+}
+
+.inverse-header{
+    background: $cor-inv-header;
+}
+
+.inverse-body{
+    background: $cor-inv-body;
+}
+
+.header{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.5em;
+}
+
+#menu-logo{
+    display: flex;
+    align-items: center;
+}
+
+.menu{
+    background: url(../img/icon-menu.svg) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+
+    &:before{
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+    }
+    &:active{
+        background-color: rgba(209, 208, 208, 0.911);
+        border-radius: 15%;
+        transition: 0.3s;
+    }
+
+}
+
+.inv-menu{
+    filter: invert(1);
+}
+
+
+#logo{
+    display: inline-block;
+}
+
+@import '1.1search.scss';
+@import '1.2toggle.scss';
