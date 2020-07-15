@@ -110,4 +110,23 @@ input[type="checkbox"]:focus {
 .toggle:checked:after {
   transform: translatex(20px); }
 
+.esconde {
+  display: none; }
+
+.menu-nav {
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 20%;
+  max-width: 280px;
+  z-index: 1;
+  background-color: lightgray;
+  transition: 0.3s ease-in-out;
+  padding: 2em; }
+
+.menu-fechar {
+  display: inline-block;
+  left: -20%; }
+
 /*# sourceMappingURL=styles.css.map */

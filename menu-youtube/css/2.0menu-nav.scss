@@ -1,0 +1,21 @@
+.esconde{
+    display: none;
+}
+
+.menu-nav{
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 20%;
+    max-width: 280px;
+    z-index: 1;
+    background-color: rgb(211, 211, 211);
+    transition: 0.3s ease-in-out;
+    padding: 2em;
+}
+
+.menu-fechar{
+    display: inline-block;
+    left:-20%;
+}
