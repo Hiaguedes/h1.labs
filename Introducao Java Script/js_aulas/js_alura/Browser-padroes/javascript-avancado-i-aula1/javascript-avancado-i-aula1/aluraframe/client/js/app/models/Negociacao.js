@@ -1,8 +1,8 @@
 class Negociacao {
 
-    constructor(quantidade,valor){
+    constructor(data,quantidade,valor){
         
-        this._data= new Date();//pega a data de hoje
+        this._data= new Date(data.getTime());//pega a data de hoje
         this._quantidade=quantidade;
         this._valor=valor;
         Object.freeze(this);//congela os atributos dessa classe para não serem alterados nunca
@@ -26,9 +26,3 @@ class Negociacao {
         return this._valor;
     }
 }
-
-let n1 = new Negociacao(2,7);//nova instância da classe, ou seja um novo molde
-// evite usar var prefire usar o let
-
-n1._data.setDate(30);
-console.log(n1);
