@@ -764,7 +764,6 @@ console.log(data);
 A ideia é transformarmos nossa string em uma array, onde teremos três elementos com o dia, mês e ano respectivamente. Daí, usamos o método reverse do Array que inverte a sua ordem fazendo com que o ano seja o primeiro elemento e o dia o último. Nosso mês continuará na sua posição original. Por fim, criamos uma string a partir do array, usando o método join, que usará uma / para separar cada elemento.
 
 ## O "mapa" da mina!
-PRÓXIMA ATIVIDADE
 
 Temos a seguinte sequência de números:
 
@@ -829,3 +828,554 @@ console.log(novosNumeros);
 ```
 
 Quando fazemos o módulo de dois um número par, o que sobra é 0, somando-se 1, e depois multiplicando pelo item, obtemos o mesmo item. Quando o número é impar, o modulo obtido é um, o qual incrementado dá 2.
+
+### Mais de spread
+
+Para consolidar nosso conhecimento, observe este código:
+
+```js
+let lista1 = ['banana', 'laranja', 'mamão'];
+let lista2 = ['caju', 'tangerina', 'abacaxi'];
+
+lista1.push(...lista2);
+```
+
+Teste se este código funciona no console.
+
+Funciona! O método push de todo array aceita receber os dados que você deseja incluir separados por vírgula, ou seja, a função está preparada para receber N elementos. Quando passamos a lista2 para lista1.push com o spread operator, cada item da lista será passado como um parâmetro para lista.push:
+
+```js
+let lista1 = ['banana', 'laranja', 'mamão'];
+let lista2 = ['caju', 'tangerina', 'abacaxi'];
+
+lista1.push(...lista2);
+
+console.log(lista1);
+//["banana", "laranja", "mamão", "caju", "tangerina", "abacaxi"
+```
+
+## O "mapa" da mina!
+
+Temos a seguinte sequência de números:
+
+let numeros = [3,2,11,20,8,7];
+Sua tarefa: criar uma nova lista com a mesma quantidade de números, mas cada elemento da nova lista deve ter seu valor dobrado quando for ímpar.
+
+ATENÇÃO: a lista numeros não pode ser alterada! Você pode resolver do jeito que desejar, o mais importante é o resultado.
+
+O que eu fiz:
+
+```js
+let array=[...numeros].map((item)=> {
+if(item%2==1){
+return item*2
+}else{return item}
+})
+```
+
+Opinião do instrutor
+
+Tenho certeza que pode ter passado em sua cabeça zilhões de formas de resolver o problema passado, inclusive fica muito difícil para mim mapeá-las todas aqui. Porém, que tal usarmos uma maneira não funcional para resolver esse problema?
+
+```js
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = [];
+
+numeros.forEach(item => {
+
+    if(item % 2  != 0) {
+        novosNumeros.push(item * 2);
+    } else {
+        novosNumeros.push(item);
+    }
+});
+
+console.log(novosNumeros);
+```
+
+Para sabermos se um número é par ou não, usamos item % 2, que retorna o resto da divisão por 2. Se for 0, é porque o número é par, se não for, é ímpar. Aliás, nem precisamos fazer item % 2 != 0, podemos simplesmente fazer item % 2. Se o resultado for 0, este número é considerado falso pelo JavaScript. Alterando nosso código:
+
+```js
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = [];
+
+numeros.forEach(item => {
+
+    if(item % 2) { // só entra no IF se o resultado for diferente de zero
+        novosNumeros.push(item * 2);
+    } else {
+        novosNumeros.push(item);
+    }
+});
+console.log(novosNumeros);
+```
+
+Apesar de funcionar e termos usado o forEach, nossa solução não é uma solução funcional. Alterando nosso código e exaurindo o poder da programação funcional:
+
+```js
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = numeros.map(item =>  item % 2 ? item * 2 : item);
+console.log(novosNumeros);
+```
+
+Veja que usamos um if ternário para decidir se retornamos o item multiplicado por 2 ou o item em si. Um outro ponto importante é o seguinte: 0 é considerado falso em JavaScript e qualquer número diferente de 0 é considerado verdadeiro. Então, quando fazemos item % 2, se o resultado for 0, é porque o item é divisível por dois, ou seja, é par. Como 0 é falso, ele retornará o item sem qualquer modificação. Agora, se o resto da divisão de item % 2 for diferente de zero, é porque é impar. Como o resultado é diferente de zero, será verdadeiro e o que vem depois do interrogação será processado, no caso, item vezes dois.
+
+Outra maneira de se conseguir o mesmo resultado, sem entretanto utilizar o operador ternário, é:
+
+```js
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = numeros.map((item)=> (item%2 +1 ) * item);
+console.log(novosNumeros);
+```
+
+Quando fazemos o módulo de dois um número par, o que sobra é 0, somando-se 1, e depois multiplicando pelo item, obtemos o mesmo item. Quando o número é impar, o modulo obtido é um, o qual incrementado dá 2.
+
+## Ops, não encaixa. Podemos dar um jeitinho?
+
+Temos a seguinte função:
+
+```js
+function somaDoisNumeros(numero1, numero2) {
+    return numero1 + numero2;                                            
+}
+```
+
+É uma função simples, que retorna o somatório de dois números. Um exemplo:
+
+```js
+console.log(somaDoisNumeros(10,30)); // exibe 40!
+```
+
+Muitas vezes não recebemos os dados em uma estrutura compatível com nossas funções. Vejamos um exemplo:
+
+```js
+let numeros = [10, 30];
+console.log(somaDoisNumeros(numeros[0], numeros[1]));
+```
+
+ES2015 trouxe uma novidade, o spread operator. Altere a passagem de parâmetros para somaDoisNumeros e faça uso do spread operator para receber um array, com isso, evitando a necessidade de usar numeros[0] e numeros[1].
+
+Usamos ... antes do array passado como parâmetro. Cada item do array será passado para cada parâmetro recebido pela função. Inclusive isso vale para o constructor de uma classe.
+
+```js
+numeros = [10,30];
+console.log(somaDoisNumeros(...numeros));
+```
+
+## Dica
+
+DICA!
+Quando a arrow function possui apenas um parâmetro, podemos remover os parênteses. Vejamos como fica o código anterior:
+
+```js
+let aprovados = avaliacoes
+    .filter(prova => prova.nota >= 7)
+    .map(prova => prova.aluno.nome);
+```
+
+Mais enxuto ainda!
+
+## Olhar aguçado para o paradigma da orientação a objetos
+
+Temos o seguinte código que define uma função que sabe validar um código:
+
+```js
+let codigo = 'GWZ-JJ-12';
+
+function validaCodigo(codigo) {
+
+    if(/\D{3}-\D{2}-\d{2}/.test(codigo)) {
+          alert('Código válido!');
+      } else {
+          alert('Código inválido');
+      }
+
+}
+
+validaCodigo('GWZ-JJ-12'); // válido
+validaCodigo('1X1-JJ-12'); // inválido
+Muita coisa acontecendo? Se você não é ninja em expressão regular, vamos desmembrar o código para facilitar sua leitura:
+
+
+function validaCodigo(codigo) {
+
+    // cria a expressão regular. Poderíamos ter usado 
+    // a sintaxe new RegExp(/\D{3}-\D{2}-\d{2}/)
+    // \D é qualquer coisa não dígito
+    // \D{3} é qualquer coisa não dígito que forme um grupo de 3 caracteres
+    // \d é qualquer dígito.
+    let expressao = /\D{3}-\D{2}-\d{2}/; 
+
+    // toda expressão regular possui o método test 
+    // que recebe o alvo do teste, retornando true
+    // se passou, e false se falhou
+    if(expressao.test(codigo)) {
+          alert('Código válido!');
+      } else {
+          alert('Código inválido');
+      }
+
+}
+
+validaCodigo('GWZ-JJ-12'); // válido
+validaCodigo('1X1-JJ-12'); // inválido
+```
+
+Essa solução é procedural. Veja que toda vez que criarmos um código precisaremos buscar em algum lugar do nosso sistema alguém que o valide. Temos uma separação entre dado e comportamento.
+
+Refaça o código acima adotando o paradigma da orientação a objetos. Uma dica: tudo começa com a criação da classe Codigo. Não se preocupe, a ideia aqui é instigar algumas percepções em você sobre este paradigma.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Vou criar uma classe que representa um código e encapsular a regra de que o código deve ter determinado formato. Realizarei a validação no construtor da classe. Se o código for inválido, nenhum objeto será instanciado e o programador ainda receberá uma mensagem de erro o alertando do problema. Isto é, independente do lugar que eu tenha uma instância de Codigo todo código criado será validado!
+
+```js
+class Codigo {
+
+    constructor(texto) {
+
+        if(!this._valida(texto)) throw new Error(`O texto ${texto} não é um código válido`);
+        this._texto = texto;        
+    }
+
+    _valida(texto) {
+
+        return /\D{3}-\D{2}-\d{2}/.test(texto);
+    }
+
+    get texto() {
+
+        return this._texto;
+    }
+}
+
+let codigo1 = new Codigo('GWZ-JJ-12'); // válido
+console.log(codigo1.texto);
+let codigo2 = new Codigo('1X1-JJ-12'); // inválido
+console.log(codigo2.texto);
+```
+
+Onde quer que tenhamos um código, dado e comportamento caminham juntos, mesmo que esse comportamento/regra esteja no construtor. Aliás, o _valida está prefixado desta forma porque esse método só deve ser chamado pela própria classe.
+
+## O parâmetro não encaixa, e agora?
+
+Um programador amigo do coração criou uma função genérica para imprimir todos os itens de qualquer lista no console:
+
+```js
+function exibeNoConsole(lista) {
+    lista.forEach(item => console.log(item));
+}
+```
+
+Excelente, mas em nossa aplicação dentro de um contexto específico temos duas listas distintas que queremos imprimir no console. Sendo assim, precisamos chamar a função duas vezes.
+
+```js
+let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+exibeNoConsole(listaDeNomes1);
+let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
+exibeNoConsole(listaDeNomes2);
+```
+
+Para evitar de chamarmos a função duas vezes, uma vez para cada lista, podemos juntar uma lista na outra. Implemente o código que cria uma nova lista que é a junção dos elementos de listaDeNomes1 e listaDeNomes2.
+
+Em uma abordagem procedural faríamos:
+
+```js
+function exibeNoConsole(lista) {
+    lista.forEach(item => console.log(item));
+}
+```
+
+Excelente, mas em nossa aplicação dentro de um contexto específico temos duas listas distintas que queremos imprimir no console. Sendo assim, precisamos chamar a função duas vezes.
+
+```js
+let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
+let lista = [];
+
+listaDeNomes1.forEach(item => lista.push(item));
+listaDeNomes2.forEach(item => lista.push(item));
+
+exibeNoConsole(lista);
+Contudo, todo array em JavaScript possui o método concat. Alterando nosso código:
+
+let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
+let lista = listaDeNomes1.concat(listaDeNomes2);
+
+exibeNoConsole(lista);
+```
+
+O resultado de concat é um novo array com todos os elementos de quem realizou o concat e quem foi passado para a função.
+
+Se quisermos, podemos enxugar ainda mais nosso código:
+
+```js
+let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
+exibeNoConsole([].concat(listaDeNomes1, listaDeNomes2));
+```
+
+Veja que não criamos mais a variável temporária lista. Estamos passando o resultado da concatenação de um array vazio [] com outras duas listas. Aliás, a função concat aceita receber um número infinito de parâmetros, inclusive aqueles que não são um array. Vejamos um exemplo:
+
+```js
+let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
+exibeNoConsole([].concat(listaDeNomes1, listaDeNomes2, 'Rômulo'));
+```
+
+Com isso, a lista criada terá também um item de valor Rômulo. Então para fazer uma lista dinâmica use []
+
+## Criando o "ajudante"
+
+Ajudantes são funções javascript que tem a função de ajudar a fazer uma operação mais complicada dentro do controller
+
+Que tal um exemplo diferente do que foi apresentado no vídeo? Caso você queira implementá-lo, sugiro que você crie outro projeto para não interferir no código do projeto deste curso, combinado?
+
+Temos a página upload.html, na qual o usuário insere os dados do arquivo que deseja fazer upload. É claro que é um formulário de mentirinha, até porque o processo de upload é mais complexo, mas a ideia aqui é exercitar seu conhecimento adquirido em JavaScript:
+
+```html
+<!-- upload.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload de arquivo</title>
+</head>
+<body>
+    <label>Informações do arquivo</label>
+    <input class="dados-arquivo" placeholder="formato: nome/tamanho/tipo">
+
+    <button onclick="arquivoController.envia()"  >Enviar</button>
+
+    <script src="Arquivo.js"></script>
+    <script src="ArquivoController.js"></script>
+    <script>
+        let arquivoController = new ArquivoController();
+    </script>
+</body>
+</html>
+```
+
+Aprendemos a organizar nosso código no padrão MVC e por isso temos uma classe que é uma abstração de um arquivo. Suas propriedade são nome, tamanho, tipo:
+
+```js
+class Arquivo {
+
+    constructor(nome, tamanho, tipo) {
+        this._nome = nome;
+        this._tamanho = tamanho;
+        this._tipo = tipo;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    get tamanho() {
+        return this._tamanho;    
+    }
+
+    get tipo() {
+        return this._tipo;
+    }
+}
+```
+
+É claro, temos um controller que sabe instanciar um modelo da classe Arquivo com os dados do formulário, toda vez que o usuário clicar no botão "Enviar":
+
+```js
+class ArquivoController {
+
+    constructor() {
+        this._inputDados = document.querySelector('.dados-arquivo');
+    }
+
+    envia() {
+        //cria um Arquivo com as suas propriedades;
+        this._limpaFormulario();
+        // exibe mensagem no console com os dados do arquivo.
+    }
+
+    _limpaFormulario() {
+        this._inputDados.value = '';
+        this._inputDados.focus();
+    }
+}
+
+```
+
+Veja que o método envia, de ArquivoController, não está completo porque temos um problema. O problema é que o designer achou melhor ter apenas um campo onde o usuário digita na sequência o nome, o tamanho e o tipo do arquivo. Infelizmente o construtor de Arquivo não está preparado para receber a string com todos os dados, mas cada um em separado como parâmetro do construtor. E por fim, para complicar só mais um pouquinho, a entrada do usuário deve ser toda considerada em caixa alta, ou seja, maiúsculo.
+
+Sua tarefa é implementar o método envia de ArquivoController. Ele deverá ler a entrada do usuário e adequá-la ao construtor de Arquivo. Assim que você conseguir criar uma instância de arquivo, você deve imprimir seus dados no console.
+
+Lembre-se que o usuário digita no campo de entrada os dados do arquivo no formato: nome / tamanho / tipo e deve estar em caixa alta!
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Vejamos uma implementação do método envia:
+
+```js
+envia() {
+    let dados = this._inputDados.value.split('/').map(item => item.toUpperCase());
+    let arquivo = new Arquivo(...dados); // usando spread operator
+    console.log(`Dados do arquivo: ${arquivo.nome}, ${arquivo.tamanho}, ${arquivo.tipo}`);
+    this._limpaFormulario();
+}
+```
+
+Primeiramente, resolvemos o problema do input! A string com todos os dados do arquivo será desmembrada através da função split, que nos devolve um array com cada informação. Depois, a função map cria um novo array, colocando cada informação em caixa alta. No entanto, não podemos passar esse array diretamente para o construtor de Arquivo, pois ele não está preparado para receber um array, mas três parâmetros. Como esses parâmetros equivalem a cada informação no array que criamos a partir da string, passamos o array como parâmetro para o construtor de Arquivo usando o spread operator. Por fim, abusamos salutarmente de template string para exibir as informações do arquivo no console.
+
+Usamos a função map, mas nem era necessário. Que tal converter primeiro para maiúscula antes de realizar o split?
+
+```js
+envia() {
+    let dados = this._inputDados.value.toUpperCase().split('/');
+    let arquivo = new Arquivo(...dados); // usando spread operador
+    console.log(`Dados do arquivo: ${arquivo.nome}, ${arquivo.tamanho}, ${arquivo.tipo}`);
+    this._limpaFormulario();
+}
+```
+
+Não é porque map é poderoso que forçaremos seu uso, certo?
+
+Se o tratamento da entrada dos dados do arquivo é feito em outros lugares do sistema, podemos isolar essa responsabilidade em uma classe que pode nos ajudar sempre com essa tarefa, um helper:
+
+```js
+class ArquivoHelper {
+
+    static cria(informacao) {
+        return new Arquivo(...informacao.toUpperCase().split('/'));
+    }
+}
+```
+
+Não podemos esquecer de importar o script do nosso helper, certo?
+
+Por fim, alterando nosso método.
+
+```js
+//ArquivoController.js
+
+envia() {
+    let arquivo = ArquivoHelper.cria(this._inputDados.value);
+    console.log(`Dados do arquivo: ${arquivo.nome}, ${arquivo.tamanho}, ${arquivo.tipo}`);
+    this._limpaFormulario();
+}
+
+```
+
+A prática leva à perfeição :)
+
+### Por que...
+
+Temos a seguinte classe:
+
+```js
+class ConversorXML {
+
+    static converte(objeto) {
+        // converte um objeto em XML
+    }
+}
+```
+
+Agora, vamos criar uma instância desta classe e chamar o método converte:
+
+```js
+let conversor = new ConversorXML();
+conversor.converte({nome: 'Guaraci', idade: 40});
+```
+
+Teste este código no console.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Este código não funciona porque o método converte é estático e não será encontrado na instância de uma classe, mas diretamente na classe. Alterando o código para ser válido:
+
+ConversorXML.converte({nome: 'Guaraci', idade: 40});
+Métodos estáticos antes do ES6
+Curiosidade: como criávamos métodos estáticos antes do ES6? Vejamos um exemplo, com a classe Pessoa:
+
+Vejamos um exemplo do ES6 para declarar uma classe com métodos de instância e métodos estáticos:
+
+```js
+class Pessoa {
+
+    constructor(nome, sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    obterNomeCompleto() {
+        return `${this.nome} ${this.sobrenome}`;
+    }
+
+    static metodoStaticoQualquer() {
+        console.log('Método estático chamado');
+    }
+
+}
+```
+
+E antes do ES6. Como implementávamos algo semelhante a métodos estáticos? Vejamos um exemplo:
+
+```js
+function Pessoa(nome, sobrenome) {
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+}
+
+// método de instância
+Pessoa.prototype.obterNomeCompleto = function() {
+    return this.nome + ' ' + this.sobrenome;
+};
+
+// declarando equivalente a método estático
+
+Pessoa.metodoStaticoQualquer = function() {
+
+    console.log('Método estático chamado');
+
+};
+```
+
+## Expressão regular ainda melhor
+
+Durante o treinamento utilizamos a seguinte expressão regular para validar se uma data digitada pelo usuário é válida ou não:
+
+`/\d{4}-\d{2}-\d{2}/`
+
+Contudo, ela não garante que a data será sempre correta, pois se o usuário digitar um ano com mais de 4 dígitos ou um dia com mais de dois dígitos ela considerará como correta.
+
+Para ficar ainda melhor, vamos alterar a expressão para
+
+`/^\d{4}-\d{2}-\d{2}$/`
+O ˆ indica "começando com " e o $ "terminando com".
+
+Temos um curso de expressão regular para que fiquemos ainda melhor no assunto!
+
+Sucesso e bom estudo meus alunos.
+
+## ó tem métodos estáticos...
+
+Como podemos evitar que alguém instancie uma classe que só possui métodos estáticos, ou seja, uma classe que não faz sentido trabalharmos com uma instância? Reflita sobre isso. Clicando em continuar você verá a resposta do instrutor.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Podemos lançar um erro dentro do constructor. Lembre-se que o constructor é chamando quando criamos uma instância de uma classe com o operador new.
+
+```js
+class ClasseQualquer {
+
+    constructor() {
+        throw new Error('Você não pode criar uma instância dessa classe');
+    }
+
+       // métodos estáticos da classe
+}
+```
