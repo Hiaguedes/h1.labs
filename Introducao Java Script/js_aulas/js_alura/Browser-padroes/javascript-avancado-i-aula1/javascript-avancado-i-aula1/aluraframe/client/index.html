@@ -11,6 +11,8 @@
     
     <h1 class="text-center">Negociações</h1>
     
+    <div id="mensagemView"></div>
+
     <form class="form" onsubmit='negCtrl.adiciona(event)'> <!-- uma forma que muitos frameworks tem para passar ações de controle, poderia chamar esse listener no js sem problema -->
         
         <div class="form-group">
@@ -41,26 +43,14 @@
     </div> 
     <br>
     <br>
-    
-    <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>DATA</th>
-                <th>QUANTIDADE</th>
-                <th>VALOR</th>
-                <th>VOLUME</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-        </tbody>
-        
-        <tfoot>
-        </tfoot>
-    </table>
+    <div id="negociacoesView"></div>
+
     <script src="./js/app/helpers/DateHelper.js"></script>
     <script src="./js/app/models/ListaNegociacoes.js"></script>
     <script src="./js/app/models/Negociacao.js"></script>
+    <script src="./js/app/views/NegociacaoView.js"></script>
+    <script src="./js/app/models/Mensagem.js"></script>
+    <script src="./js/app/views/MensagemView.js"></script>
     <script src="./js/app/controllers/NegociacaoController.js"></script>
 </body>
 </html>

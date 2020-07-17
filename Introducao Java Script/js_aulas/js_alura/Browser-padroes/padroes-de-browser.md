@@ -1379,3 +1379,471 @@ class ClasseQualquer {
        // métodos estáticos da classe
 }
 ```
+
+## Dominando o reduce
+
+Você já deve ter ouvido falar em somatórios. O somatório de uma lista de números é a soma de todos os números daquela lista, como por exemplo:
+
+`let numeros = [1, 2, 3, 4]; // Somatório = 1 + 2 + 3 + 4 = 10`
+
+Um exemplo de função que nos retorne o somatório de um array de números poderia ser assim:
+
+```js
+function somatorio(array) {
+
+    var resultado = 0;
+    for(let i = 0; i < array.length; i++){
+        resultado = array[i] + resultado;
+    }
+
+    return resultado;
+}
+```
+
+A mesma coisa usando forEach:
+
+```js
+function somatorio(array) {
+    let resultado = 0;
+    array.forEach(item => resultado+= item);
+    return resultado;
+}
+```
+
+Existe um outro conceito matemático conhecido como produtório, que é análogo ao somatório, só que ao invés de somarmos os números , nós os multiplicamos. Por exemplo:
+
+`var numeros = [1, 2, 3, 4]; // Produtório = 1 * 2 * 3 * 4 = 24`
+
+Juntando este seu novo conhecimento matemático com o conhecimento de JavaScript adquirido neste capítulo, qual das funções abaixo nos retorna o produtório de um array de números corretamente, usando a função reduce?
+
+Resposta
+
+```js
+
+let numeros = [1, 2, 3, 4];
+let resultado = numeros.reduce(function(total, num) {
+    return total * num;
+}, 1);
+
+```
+
+A função `reduce` recebe dois parâmetros: uma função e um valor inicial. Na função interna ao `reduce`, o primeiro parâmetro é o valor da última iteração, que neste caso é o total. O segundo parâmetro é o valor da iteração atual, neste caso o novo número que queremos multiplicar.
+
+O `reduce` executa sua função interna a cada iteração, então no nosso caso ele multiplica o valor anterior (total) pelo valor da iteração atual (num). Como o produtório é a multiplicação de uma sequência de números, no nosso caso o que está acontecendo é o seguinte:
+
+Supondo o array:
+
+```js
+var numeros = [1, 2, 3, 4];
+```
+
+O total se inicia com o valor 1*, *definido pelo segundo parâmetro da função reduce.
+
+É feita a primeira iteração, pegando o primeiro valor do array (1) :
+
+```js
+return total * num; // Leia-se: return 1 * 1 e coloque este valor em total.
+```
+
+Na segunda iteração, com o segundo valor do array (2):
+
+```js
+return total * num; // Leia-se return 1 * 2 e coloque este valor em total, que agora vale 2;
+```
+
+Na terceira iteração, com o segundo valor do array (3):
+
+```js
+return total * num; // Leia-se return 2 * 3 e coloque este valor em total, que agora vale 6;
+```
+
+Na segunda iteração, com o segundo valor do array (4):
+
+```js
+return total * num; // Leia-se return 6 * 4 e coloque este valor em total, que agora vale 24;
+```
+
+E no final ele devolve para nós o valor 24 , que é o valor esperado do produtório!
+
+### Um pouco mais sobre o reduce
+
+Vejamos um exemplo com reduce que soma todos os números de um array:
+
+```js
+let numeros = [1,2,3,4];
+
+let resultado = numeros.reduce((anterior, atual) => anterior + atual);
+alert(resultado);
+```
+
+O resultado é 10. Contudo, muitas vezes queremos começar a operação considerando um valor de inicialização. Por exemplo, queremos realizar a mesma operação, só que dessa vez, queremos começar com o valor 5.
+
+```js
+let resultado2 = numeros.reduce((anterior, atual) => anterior + atual, 5);
+alert(resultado2);
+```
+
+Desta vez, o resultado final é 15!
+
+Sendo assim, nada nos impede de fazer o primeiro reduce passando 0:
+
+```js
+let numeros = [1,2,3,4];
+
+let resultado = numeros.reduce((anterior, atual) => anterior + atual, 0);
+alert(resultado);
+```
+
+O resultado será 10 também. Mas vale a pena passar o segundo parâmetro da função reduce já que neste caso quando o array for vazio, será lançada a exceção Reduce of empty array with no initial value".
+
+Por padrão a primeira variável(do total) é zero mas a segunda não (do valor atual) então você pode declarar as duas variáveis da seguinte forma
+
+```js
+let numeros = [];
+
+let resultado = numeros.reduce((anterior, atual) => anterior + atual);
+alert(resultado);
+```
+
+Pois se passarmos um vetor vazio ele simplesmente será nulo
+
+### Reduce com arrow function
+
+Demostre seu conhecimento de ES6 reescrevendo o exemplo da função reduce, do exercício anterior, utilizando uma arrow function no lugar da função tradicional.
+
+Aqui está ela, para você não precisar voltar:
+
+```js
+numeros.reduce(function(total,num) {
+    return total * num;
+}, 1);
+```
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Refatorando o reduce com uma arrow function, ele deve ficar assim:
+
+```js
+numeros.reduce((total, num) => total * num , 1);
+```
+
+Mais uma vez podemos ver um exemplo aonde uma arrow function deixou o código mais elegante. Continue praticando seu uso que logo logo você ficará especialista nessa feature do ES6!
+
+## Imprimindo com map
+
+Silvio, um funcionário da empresa Argentum, foi encarregado de desenvolver uma aplicação que é responsável por imprimir todos os dados dos funcionários da empresa. Ele queria economizar tempo e em vez de desenvolver todo um software para se comunicar com a impressora e gerar o relatório pedido, ele resolveu aproveitar-se da famosa opção de imprimir que todo browser tem. Sendo assim, basta ele gerar dinamicamente um HTML e imprimi-lo!
+
+Este foi seu plano:
+
+1- Criar um array com todos os funcionários da empresa. Se novos funcionários entrarem, basta adicioná-los no array.
+
+2- Gerar uma tabela em HTML e preenchê-la com os dados desse array.
+
+3- Utilizar o próprio browser para imprimir a página HTML gerada dinamicamente com os dados do relatório da tabela.
+
+A tabela que ele montou tem esta cara:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- ELE ESTÁ COM DIFICULDADES AQUI -->
+        <tbody>
+    </table>
+
+    <script>
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+    </script>
+</body>
+</html>
+```
+
+Seu único problema é que ele não está conseguindo mapear todos os elementos do array para uma tabela de verdade no HTML. Faça uso da função map, que vimos neste capítulo, para preencher a tabela do Silvio, lembrando que cada funcionário tem 3 atributos (nome, endereco e salario) e ele já tem acesso ao array funcionarios, que tem diversos objetos funcionario lá dentro.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Nosso primeiro passo é conseguir colocar os dados dos funcionários em <tr> e <td>'s para preencher a nossa tabela.
+
+Vamos utilizar a função map, para transformar o array de objetos em um array de strings, com o HTML correto para preencher a tabela:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>    
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+    </script>
+</body>
+</html>
+```
+
+
+Mas precisamos juntar estes 3 HTML's em um só, para poder preencher o `<tbody> `da tabela, assim vamos utilizar a função join('') que será :
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>    
+
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+        let htmlConcatenado = funcionariosEmHtml.join('');
+
+        // Agora temos: htmlConcatenado = ["<tr><td>...</td></tr><tr><td>...</td></tr><tr><td>...</td></tr>"];            
+    </script>
+</body>
+</html>
+```
+
+Conseguimos agora uma única string com todas as linhas que representam nosso funcionário!
+
+Vamos selecionar o `<tbody>` e preencher seu conteúdo, utilizando a propriedade .innerHTML:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>    
+
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+        let htmlConcatenado = funcionariosEmHtml.join('');
+
+        // Agora temos: htmlConcatenado = ["<tr><td>...</td></tr><tr><td>...</td></tr><tr><td>...</td></tr>"];            
+
+        let tabela =  document.querySelector("tbody");
+        tabela.innerHTML = htmlConcatenado;
+
+    </script>
+</body>
+</html>
+```
+
+## Dominando o map
+
+Qual das funções abaixo aproveita-se dos recursos da função map para obter arrays com os valores dobrados, com valores pela metade e com raiz quadrada de todos os números abaixo, mantendo a ordem apresentada:
+
+```js
+let numeros = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121];
+```
+
+Resposta:
+
+```js
+let dobro = numeros.map(function(num) {
+    return num * 2;
+});
+let metade = numeros.map(function(num) {
+    return num/2;
+});
+let raiz = numeros.map(function(num) {
+    return Math.sqrt(num);
+});
+```
+
+Cada map recebe uma função como parâmetro, e em cada uma dessas funções, utilizamos um parâmetro que é o elemento de cada índice da array que deverá ser retornado em cada iteração.
+
+### Map com arrow functions
+
+Pratique seu conhecimento de ES6 reescrevendo as 3 funções map do exercício anterior, utilizando arrow functions.
+
+Aqui estão elas:
+
+```js
+let dobro = numeros.map(function(num) {
+    return num * 2;
+});
+let metade = numeros.map(function(num) {
+    return num/2;
+});
+let raiz = numeros.map(function(num) {
+    return Math.sqrt(num);
+});
+
+```
+
+O seu código deve ficar assim:
+
+```js
+let dobro = numeros.map(num => num * 2);
+let metade = numeros.map(num => num/2);
+let raiz = numeros.map(num => Math.sqrt(num));
+```
+
+Repare que conseguimos enxugar bem o nosso código. Esta é mais uma vantagem das arrow functions!

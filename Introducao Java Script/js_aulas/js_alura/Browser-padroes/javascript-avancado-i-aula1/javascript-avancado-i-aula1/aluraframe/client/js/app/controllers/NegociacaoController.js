@@ -6,7 +6,15 @@ class NegociacaoController{
         this._inputData= $('#data');//aí posso substituir esse palavrão por $
         this._inputQuantidade= $('#quantidade');
         this._inputValor= $('#valor');
+
         this._listaNegociacoes=new ListaNegociacoes();
+        this._negView= new NegociacaoView($('#negociacoesView'));
+
+        this._msg= new Mensagem();
+        this._msgView= new MensagemView($('#mensagemView'));
+
+        this._negView.update(this._listaNegociacoes);
+        
     }
 
 
@@ -29,6 +37,9 @@ class NegociacaoController{
         this._listaNegociacoes.adiciona(negociacao);
 
         console.log(this._listaNegociacoes.negociacoes);
+        this._negView.update(this._listaNegociacoes);
+        this._msg.texto='Negociação adicionada com sucesso :D';
+        this._msgView.update(this._msg);
 
         this._limpaForm();
     }
