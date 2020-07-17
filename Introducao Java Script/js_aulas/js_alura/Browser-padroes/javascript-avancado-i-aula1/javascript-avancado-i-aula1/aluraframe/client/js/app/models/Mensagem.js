@@ -1,5 +1,5 @@
 class Mensagem {
-    constructor(texto = ''){
+    constructor(texto = ''){//aqui podemos passar um valor padrão caso nada seja passado para ela 
         this._texto=texto;
     }
 

@@ -1847,3 +1847,276 @@ let raiz = numeros.map(num => Math.sqrt(num));
 ```
 
 Repare que conseguimos enxugar bem o nosso código. Esta é mais uma vantagem das arrow functions!
+
+## Sabendo ainda mais sobre herança
+
+Durante esta aula, aprendemos a utilizar herança através do uso da palavra chave extends. Contudo, este instrutor que preza sempre por um código menos verboso e enxuto deixou passar um detalhe, que pode enxugar ainda mais nosso código. Primeiro, vamos lembrar o uso de extends:
+
+```js
+class Funcionario {
+
+    constructor(nome) {
+        this._nome = nome;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    set nome(nome) {
+        this._nome = nome;
+    } 
+}
+
+class Secretaria extends Funcionario {
+
+    constructor(nome) {
+        super(nome);
+    }
+
+    atenderTelefone() {
+        console.log(`${this._nome} atendendo telefone` );
+    }
+}
+```
+
+Veja que no construtor de Secretaria eu recebo o nome da secretária pelo construtor e passamos esse parâmetro para a classe pai. Contudo, essa solução neste cenário é um tanto verbosa. Qual motivo? Por padrão, quando uma classe herda outra, ela também herda seu construtor. Dessa maneira, podemos reescrever a classe Secretaria como:
+
+```js
+class Secretaria extends Funcionario {
+
+    // não precisei adicionar constructor e nem chamar super!
+
+    atendeTelefone() {
+        console.log(`${this._nome} atendendo telefone` );
+    }
+}
+```
+
+Criando uma instância de Secretaria:
+
+let secretaria = new Secretaria('Suzete');
+O JavaScript automaticamente considera o construtor da classe pai Funcionario, que recebe um parâmetro.
+
+Contudo, apareceu um novo requisito na classe Secretaria. Toda secretária deve ter, além de um nome, um outro funcionário ao qual está subordinada:
+
+```js
+class Secretaria extends Funcionario {
+
+    constructor(nome, funcionario) {
+        this._nome = nome;
+        this._funcionario = funcionario;
+    }
+
+    atendeTelefone() {
+        console.log(`${this._nome} atendendo telefone` );
+    }
+
+    get funcionario() {
+        return this._funcionario;
+    }
+}
+```
+
+No exemplo anterior, foi necessário adicionar o construtor porque a propriedade _funcionario só existe em Secretaria. O problema é que nosso código não funciona! Se tentarmos fazer:
+
+```js
+let secretaria = new Secretaria('Suzete', new Funcionario('Barney'));
+```
+
+Recebemos o erro:
+
+`Uncaught ReferenceError: this is not defined`
+Quando temos um construtor na classe filha que recebe uma quantidade de parâmetros diferentes do construtor da classe pai, para que o this seja inicializado com um valor, precisamos chamar o construtor da classe pai, passando os parâmetros que ela precisa. Corrigindo nosso código:
+
+```js
+class Secretaria extends Funcionario {
+
+    constructor(nome, funcionario) {
+        super(nome); // cuidado, tem que ser a primeira instrução!
+        this._funcionario = funcionario;
+    }
+
+    atenderTelefone() {
+        console.log(`${this._nome} atendendo telefone` );
+    }
+}
+```
+
+A palavra super, como já vimos, nos dá acesso à superclasse, ou seja, a classe que foi herdada. Em nosso caso, estamos passando para o construtor de Funcionario o nome recebido pelo construtor de Secretaria. O segundo parâmetro, funcionario, só diz respeito à secretária, por isso a propriedade foi adicionada em this._funcionario.
+
+Mas atenção! A chamada do construtor da classe pai deve ser a primeira instrução no construtor da classe filha. Se por acaso tivéssemos o construtor assim:
+
+```js
+constructor(nome, funcionario) {
+    this._funcionario = funcionario; // this ainda não foi inicializado
+    super(nome); 
+}
+```
+
+Teremos um erro, porque estamos tentando acessar um this que ainda não foi inicializado.
+
+### Vantagem da herança
+
+Qual vantagem da herança conseguimos identificar no vídeo?
+
+Dependendo da linguagem de programação, utilizar a herança pode trazer mais de uma vantagem. Em nosso código, com certeza, reutilização de código é uma delas.
+
+No nosso projeto, aproveitamos a herança para reutilizar código da classe mãe nas filhas. Cada filha já sabe atualizar o modelo através do método update, que herdou da classe View.
+
+```js
+var view = new NegociacoesView($('#negociacoesView'));
+```
+
+e
+
+```js
+var view = new MensagemView($('#mensagemView'));
+```
+
+Será que herança também tem desvantagens? Como qualquer coisa na vida, sempre têm dois lados da moeda. Herança define um relacionamento forte entre mãe e filha. Qualquer mudança na mãe pode causar um impacto nas filhas. Nem sempre isso é fácil de enxergar e pode quebrar o nosso código. Além disso, pode surgir situações onde você gostaria de colocar algum código na classe mãe mas nem todas as filhas precisam dele.
+
+No blog da Caelum, temos um artigo sobre esse assunto Herança vs Composição, chamado [Como não aprender orientação a objetos: Herança](https://blog.caelum.com.br/como-nao-aprender-orientacao-a-objetos-heranca/). O artigo foca no Java, mas mesmo assim vale a leitura.
+
+## Modelando uma Conta
+
+Crie uma classe chamada Conta. Ela terá apenas um atributo: o saldo. Passe o atributo no construtor e crie também um getter para a propriedade.
+
+Além disso, defina o método atualiza, na classe Conta, que recebe um parâmetro taxa.
+
+Dentro do método atualiza, jogue uma exceção para garantir que ninguém chame o método sem ter uma filha em mãos.
+
+Não é necessário criar outra classe que herde de Conta por enquanto, a ideia aqui é apenas focar o design da classe.
+
+O método atualiza deve ser sobrescrito pelas filhas da classe Conta por isso, criamos uma exceção nele. No próximo exercício vamos realmente criar as filhas da classe Conta:
+
+```js
+class Conta {
+
+    constructor(saldo) {
+        this._saldo = saldo;
+    }
+
+    get saldo() {
+        return this._saldo;
+    }
+
+    atualiza(taxa) {
+        throw new Error('Você deve sobrescrever o método ');
+    }
+}
+```
+
+### Herdando de Conta
+
+Temos a classe Conta:
+
+```js
+class Conta {
+
+    constructor(saldo) {
+        this._saldo = saldo;
+    }
+
+    get saldo() {
+        return this._saldo;
+    }
+
+    atualiza(taxa) {
+        throw new Error('Você deve sobrescrever o método ');
+    }
+}
+```
+
+Com a classe Conta em mãos, crie duas subclasses, ou seja, classes que herdam de Conta:
+
+ContaCorrente
+ContaPoupanca.
+Ambas devem ter o método atualiza reescrito com a seguinte regra: a ContaCorrente deve atualizar-se somando a taxa ao saldo e a ContaPoupanca deve atualizar-se somando o dobro da taxa.
+
+Mãos à obra!
+
+Primeiro devemos herdar da classe Conta
+
+```js
+class ContaCorrente extends Conta {
+}
+```
+
+e
+
+```js
+class ContaPoupanca extends Conta {
+}
+```
+
+E reescrever o método atualiza em cada classe, seguindo o enunciado:
+
+```js
+class ContaCorrente extends Conta {
+
+    atualiza(taxa) {
+        this._saldo = this._saldo + taxa;
+    }
+}
+```
+
+E a classe ContaPoupanca, que se atualiza com o dobro da taxa:
+
+```js
+class ContaPoupanca extends Conta {
+
+    atualiza(taxa) {
+        this._saldo = this._saldo + taxa * 2;
+    }
+}
+```
+
+E o teste:
+
+```js
+conta1 = new ContaCorrente(200); 
+conta2 = new ContaPoupanca(300); 
+conta1.atualiza(2);
+conta2.atualiza(3);
+console.log(conta1.saldo); //202
+console.log(conta2.saldo); //306
+```
+
+## Classes abstratas, tem como?
+
+Repare que a nossa classe View possui um método que deve ser reescrito pelas classes filhas:
+
+```js
+class View {
+
+   //construtor omitido
+
+    template(model) {
+         throw new Error('Você deve sobrescrever este método em seu template');
+    }
+
+   //método update omitido
+}
+```
+
+Já que esse método não funciona sem ter um filho será que faz sentido criar um objeto da classe View? Por exemplo:
+
+```js
+var view = new View(elemento); //faz sentido?
+view.template(model); //joga uma exceção
+```
+
+Criamos a classe View apenas para reutilizar o código mas não deveria ter um objeto concreto dela! No mundo OO, essas classes que foram criadas para não ter instancias delas, são chamadas de classes abstratas. Ideal seria proibir criar um objeto da classe View, não?
+
+No JavaScript ( ECMAScript) não há uma forma de evitar alguém dar new na classe View, no entanto isso existe no TypeScript. A linguagem TypeScript que se baseia no JavaScript, já possui vários recursos que ainda não existem no JavaScript, incluindo classes abstratas.
+
+Resumindo, com TypeScript poderíamos usar a palavra chave abstract que proíbe instanciar objetos dessa classe, por exemplo:
+
+```js
+abstract class View {
+
+}
+```
+
+O conteúdo do curso pode ser visto [aqui](https://github.com/alura-cursos/javascript-avancado-i/archive/projetoCompleto.zip)

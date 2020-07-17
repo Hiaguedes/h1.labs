@@ -19,14 +19,14 @@
 A intenção é criar toda a tabela no js e não deixar ela nop html
 */ 
 
-class NegociacaoView {
+class NegociacaoView extends View{
 
     constructor(elemento){
-        this._elemento=elemento;
+        super(elemento);
     }
 
-    _template(model){
-
+    _template(model){//modelo aqui é a lista de negociaçÕes
+        // a cada vez que a função é chamada ela atualiza a tabela no elemento onde é chamada e para atualizar essa tabela montamos ela aqui com template String
         return `
         <table class="table table-hover table-bordered">
         <thead>
@@ -61,9 +61,7 @@ class NegociacaoView {
     </table>`;
     }
 
-    update(model){
-        this._elemento.innerHTML=this._template(model);
-    }
+
 }
 /* 
 Uma outra forma de totalizar o volume seria com:

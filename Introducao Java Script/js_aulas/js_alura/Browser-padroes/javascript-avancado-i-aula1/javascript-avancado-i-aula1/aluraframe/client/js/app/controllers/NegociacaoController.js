@@ -8,12 +8,12 @@ class NegociacaoController{
         this._inputValor= $('#valor');
 
         this._listaNegociacoes=new ListaNegociacoes();
-        this._negView= new NegociacaoView($('#negociacoesView'));
+        this._negView= new NegociacaoView($('#negociacoesView'));//aqui setamos a construção da visão
 
         this._msg= new Mensagem();
         this._msgView= new MensagemView($('#mensagemView'));
 
-        this._negView.update(this._listaNegociacoes);
+       // this._negView.update(this._listaNegociacoes);// dou um update na lista de negocios a cada vez que a classe é criada
         
     }
 
@@ -36,10 +36,10 @@ class NegociacaoController{
         let diaFormato= DateHelper.dataParaTexto(negociacao.data);
         this._listaNegociacoes.adiciona(negociacao);
 
-        console.log(this._listaNegociacoes.negociacoes);
-        this._negView.update(this._listaNegociacoes);
-        this._msg.texto='Negociação adicionada com sucesso :D';
-        this._msgView.update(this._msg);
+        //console.log(this._listaNegociacoes.negociacoes);
+        this._negView.update(this._listaNegociacoes);//dou update na lista de negociações na tabela
+        this._msg.texto='Negociação adicionada com sucesso :D';//como a classe tem um setter podemos fazer isso fora dela
+        this._msgView.update(this._msg);//dou update de mensagem bem sucedida a cada clique no botão para cada negociação feita
 
         this._limpaForm();
     }

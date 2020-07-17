@@ -11,7 +11,7 @@
     
     <h1 class="text-center">Negociações</h1>
     
-    <div id="mensagemView"></div>
+    <div id="mensagemView"></div><!--Nessa div imprimiremos a mensagem de que o dado foi armazenado na tabela-->
 
     <form class="form" onsubmit='negCtrl.adiciona(event)'> <!-- uma forma que muitos frameworks tem para passar ações de controle, poderia chamar esse listener no js sem problema -->
         
@@ -43,11 +43,12 @@
     </div> 
     <br>
     <br>
-    <div id="negociacoesView"></div>
+    <div id="negociacoesView"></div> <!--Nessa div adicionaremos dados na tabela-->
 
-    <script src="./js/app/helpers/DateHelper.js"></script>
+    <script src="./js/app/helpers/DateHelper.js"></script><!--Aqui a ordem importa, então classes pai devem vir antes de filhos e ajudantes também-->
     <script src="./js/app/models/ListaNegociacoes.js"></script>
     <script src="./js/app/models/Negociacao.js"></script>
+    <script src="./js/app/views/View.js"></script>
     <script src="./js/app/views/NegociacaoView.js"></script>
     <script src="./js/app/models/Mensagem.js"></script>
     <script src="./js/app/views/MensagemView.js"></script>
