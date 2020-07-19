@@ -19,7 +19,7 @@
   display: none;
 }
 
-
+/*
 .listaDeArtigos-item:not(:target):first-child{
   display: inline-block;
 }
@@ -28,7 +28,7 @@
   display: inline-block;
 }
 
-
+*/
 
 
 .listaDeArtigos-artigo-img {
