@@ -1,5 +1,6 @@
 import CreateDoneButton from './componentes/DoneButton.js';
 import CreateDelButton from './componentes/DelButton.js';
+import CreateEditButton from './componentes/EditButton.js';
 
 (()=>{ //previne de deixar tudo no escopo global chamada de IIFE
 const buttonForm = document.querySelector('[data-button-form]');
@@ -20,6 +21,7 @@ buttonForm.addEventListener('click',(event)=>{
     linha.innerHTML=conteudo;//escrevo o html criado pelo parágrafo na linha
     linha.appendChild(CreateDoneButton());// apendo o botão de tarefa feita na linha
     linha.appendChild(CreateDelButton());// apendo o botão de deletar na linha
+    linha.appendChild(CreateEditButton());// apendo o botão de deletar na linha
     tarefas.push(linha);//coloco o conteúdo na linha nas tarefas
     
     lista.appendChild(linha);//apendo a linha na lista
