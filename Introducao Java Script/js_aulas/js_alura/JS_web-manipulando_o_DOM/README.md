@@ -129,3 +129,5 @@ replaceChild( elemento1, elemento2): Substitui o nó elemento 1 pelo nó element
 
 removeChild(elemento): Remove um nó da árvore.
 ```
+
+Para ver os arquivos da aula <https://github.com/alura-cursos/1823_DOM/tree/projeto_final>
