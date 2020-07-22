@@ -266,3 +266,298 @@ E o link do projeto fica mais ou menos assim <http://wpt-dot-curso-alura-site.ap
 O page speed insigths <https://developers.google.com/speed/pagespeed/insights/?hl=pt-BR> do google é bem legal para ver a performance do seu site, basta botar o nome do site (que o proprio serviço na nuvem do google gera) para o site fazer a verificação do seu site
 
 Outro site legal é o webpagetest e olhe em configurações avançadas e capture video e esse site te dá um relatório muito completo dos sites que você está desenvolvendo
+
+## Concatenando o css
+
+Justamente pelo navegador fazer um máximo de requests por vez o ideal é minimizarmos o máximo o número de requests que uma máquina faz para um serviço e como css é um tipo de arquivo que tendemos a separar em muitas partes então na versão de distribuição do site podemos concatenar tudo para uma coisa só.
+
+A missão aqui é que você quer os códigos em css de forma modularizada para que o pessoal possa trabalhar mas também quer que a versão dist tenha apenas um arquivo css e que o seu html link apenas para esse arquivo, o gulp cuida disso. (o sass pode ajudar nisso também), no gulp basta você englobar os arquivos css e js com um comentário como `<!-- build:js assets/js/combined.js -->` e tudo vai ser gerado no html e no js de forma a você precisar de apenas um comando para isso (mágico né?)
+
+Mas nem sempre é bom manter tudo em um arquivo somente, pois se a página tem mais páginas atreladas a ela o usuário não tem um cache de todos os arquivos para deixar sua navegabilidade mais rápida e e precisamos fazer uma separação no nosso arquivo css e isso pode não ser muito trivial de se fazer, mas consegue-se dividir e dois ou três arquivos invés de 1 só o que já é bem legal de se fazer
+
+Por qual motivo concatenamos CSSs e JSs?
+
+Diminuir o número de requests faz com que os downloads sejam mais rápidos no HTTP 1. Temos menos concorrência nas 6 conexões disponíveis, logo, recursos precisam aguardar menos para serem baixados. De bônus, o GZIP funciona muito bem em recursos texto concatenados com bastante repetição, como CSS.
+
+Isso! Você consegue compreender o impacto analisando o waterfall antes e depois da concatenação?
+
+Menos requests fazem os CSSs e JSs serem carregados mais rapidamente. E não só isso, as requisições seguintes também, já que há menos tempo de espera por uma conexão livre.
+
+### Concatenação de CSS
+
+Vamos fazer a concatenação de todos os CSS em apenas um só, economizando dezenas de requests. Para isso, como vimos em aula, vou usar o gulp com useref.
+
+1) Edite o arquivo site/index.html e envolva todos os <link> que carregam CSS em dois comentários especiais:
+
+```html
+<!-- build:css assets/css/estilos.css -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    ....
+<!-- endbuild -->
+```
+
+2) No terminal, rode gulp useref
+
+3) Observe o arquivo dist/index.html e o novo arquivo estilos.css
+
+Testou no Chrome DevTools? Note a diminuição no número de requests. Qual impacto isso terá na performance para o usuário?
+
+### Concatenação de JS
+
+Faça a mesma coisa com os scripts. Envolva todos os nossos `<script> ` externos do head em um bloco especial:
+
+```html
+<!-- build:js assets/js/scripts.js -->
+    <script src="assets/js/menu.js"></script>
+    ....
+<!-- endbuild -->
+```
+
+Rode agora o gulp useref novamente no terminal.
+
+Observe o arquivo concatenado e analise novamente o impacto na página.
+
+Usei o plugin useref no gulp por ser bem simples. Mas você pode, claro, concatenar arquivos de outras formas. O importante é não destruir os arquivos orginais, mas fazer isso na etapa de build do projeto.
+
+### Uso de sprites para diminuir as requests das imagens
+
+Se você der um request no site do google você vai ver na parte de imagens um png gigante cheio de imagens comuns em todos os sites que o google cuida, pois eu faria um request apenas pegaria todas as imagens do projeto
+
+Pensando de maneira não automatizada eu poderia usar o imageMagick e criar esses sprites para depois colocar eles na mão via css com a propriedade `background-position`
+
+A automação é possível mas por favor sempre verifique o resultado final disse por que ele pode dar caca no final (até é por que é bem complexo gerar as sprites de todas as imagens e depois substituir isso no site) tanto que o recomendado é ter os sprites logo de cara e você como desenvolvedor colocar isso na mão via css mas aí é gosto pessoal.
+
+Pro gulp a opção é o gulp.spritesmith e ele te dá as coordenadas que você precisa para colocar no seu css
+
+#### Projeto: sprites CSS
+
+Crie uma sprite CSS com os 3 ícones PNG dos diferenciais do Alura, como vimos em aula. A técnica consiste em criar um PNG único com os 3 desenhos e depois posicioná-los com CSS usando background-position.
+
+Opção 1: técnica manual
+Criar essa sprite manualmente não é algo tão trabalhoso. Podemos gerar a imagem e fazer poucas alterações no CSS.
+
+1) Para juntar os 3 ícones em um único PNG você pode abrir seu editor de imagens favorito e apenas editar as imagens. Ou, se já tiver o ImageMagick, criar o arquivo num único comando:
+
+convert site/assets/img/*.png -append site/assets/img/diferenciais.png
+Ele cospe esse arquivo diferenciais.png com os 3 desenhos.
+
+(se quiser, baixe minha versão pronta aqui)
+
+2) Edite o CSS para usar esse nosso novo arquivo.
+
+a) Na regra .home-diferenciais-icone:before adicione background-image: url("../../assets/img/diferenciais.png");
+
+b) Remova o background-image de cada um dos 3 ícones nas regras seguintes.
+
+c) Em cada um deles, faça um background-position escolhendo um dos ícones. O primeiro é top, o do meio é center e o de baixo, bottom
+
+O diff completo das mudanças:
+
+![O diff](https://www.dropbox.com/s/r2gpdh2htwri9w7/diff-sprite.png?dl=1)
+
+Opção 2: ferramentas de geração de sprite
+Existem várias. A maior questão é que o CSS gerado não se adapta exatamente ao nosso projeto. Então você vai precisar ajustar ou o CSS gerado ou se markup para se encaixar na ferramenta. Mas vale o teste.
+
+O sprity em particular você instala com npm install -g sprity-cli.
+
+E aí pode gerar a imagem e o CSS com:
+
+sprity create /tmp/ assets/img/*.png -s sprite.css
+Abra o sprite.css e observe as regras. Adapate o HTML para usar essa versão.
+
+### sprite em svg
+
+Na prática o svg é bem mais utilizado por sites (por ser mais leve e mais responsivo e se encaixar bem em qq tela) e o posicionamento dele é mais legal
+
+Porém para fazer o sprite dos svg precisa saber um pouco da estrutura em xml do svg de forma a deixar a imagem total com a seguinte estrutura
+
+```xml
+<svg>
+<defs>
+
+<symbol id=""></symbol>
+<symbol id=""></symbol>
+<symbol id=""></symbol>
+
+</defs>
+</svg>
+```
+
+Com n symbols representando as n imagens e invoacando eles no html da forma
+
+```html
+<svg><use xlink:href="caminho/da/imagem#nomedoid">  </svg>
+```
+
+De modo a substituir a tag img
+
+Existem projetos que fazem isso de forma automática como o svg-sprite mas também existe a opção em editores de imagem que suportam o svg de criar como um symbol e não precisar se preocupar com códigos que fazem esse tipo de trabalho, a única coisa que você precisa se preocupar é com a id dessa imagem
+
+#### Projeto: sprite SVG
+
+Como vimos na aula, as sprites SVG são bem mais práticas. Basta criar um novo arquivo e transformar os `<svg>` em `<symbol>`, dando um id para cada um.
+
+1) Crie um novo arquivo categorias.svg com um esqueleto básico:
+
+```xml
+<svg width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+</defs>
+</svg>
+```
+
+2) Dentro do `<defs>` vamos colocar cada um dos ícones. Basta abrir, por exemplo, o arquivo mobile.svg, copiar seu conteúdo, substituir `<svg>` por `<symbol>` e dar um id="mobile" para ele. Algo assim:
+
+```xml
+<svg width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+<symbol id="mobile" viewBox="0 0 22 33">
+    <path d="M17.612 29.584H3.604c-.384 0-.662-.304-.662-.76v-5.51h15.332v5.51c0 .456-.278.76-.662.76zM3.604 2.942h14.008c.384 0 .662.29.662.654v17.396H2.942V3.596c0-.364.278-.654.662-.654zm17.613.697A3.64 3.64 0 0 0 17.577 0H3.64A3.64 3.64 0 0 0 0 3.64v25.24a3.64 3.64 0 0 0 3.64 3.64h13.937a3.64 3.64 0 0 0 3.64-3.64V3.64zM10.837 25h-.175C9.744 25 9 25.783 9 26.75s.744 1.75 1.662 1.75h.175c.92 0 1.663-.783 1.663-1.75S11.756 25 10.837 25"/>
+</symbol>
+
+</defs>
+</svg>
+```
+
+(Dica: copie a versão do mobile.svg do dist que já foi minificado. Fica mais fácil de enxergar as coisas.)
+
+3) Para usar na página, basta substituir o `<img>` por um `<svg>` com `<use>`:
+
+```html
+<svg class="categoriaCard-item-icone"><use xlink:href="assets/img/categorias.svg#mobile"/></svg>
+```
+
+4) Agora faça isso para os 6 ícones das categorias!
+
+Se quiser, deixei o projeto pronto com essas modificações e a sprite final gerada [aqui](https://github.com/alura-cursos/performance-web/archive/1da2de093dcfc697c9ff57dcd9903a53fa9c1d24.zip).
+
+A ténica de usar `<symbol>` é muito útil mas não funciona em todos os navegadores. Em especial, IEs mais antigos. Mas, para isso, podemos usar um polyfill.
+
+Uma bem famosa é a svg4everybody. Basta adicionar um script simples na página e chamar svg4everybody(). Deixei isso pronto no projeto já em assets/js/svg4everybody.js.
+
+Então acrescente no HTML:
+
+```html
+<script src="assets/js/svg4everybody.js"></script>
+```
+
+Não esqueça de regerar o HTML com gulp userefm, Sprites SVG têm a vantagem também de, por serem texto, melhorar bem a compressão do GZIP. Ou seja, diminuimos os requests e também os bytes totais.
+
+## Inline de recursos
+
+Certos scripts e até certos arquivos css são curtos o suficiente para poderemos ser colocados direto na página `html` com as tags `script` e `style` então se não for incomodo coloque elas no html direto, pois eles não vão atrapalhar o site como um todo e vão gerar menos recursos para serem baixados. Certas atividades essenciais podem ser agilizadas quando embutem direto na página
+
+Para colocar o css basta usar a tag inline dentro do script e tirar do intervalo de concatenação e usar o programa do gulp chamado inlineSource esses scripts ficam no head do html do site na pasta de distribuição
+
+Com inline podemos aplicar em imagens e assim priorizar o carregamento delas (como em um site por exemplo)
+
+O bom é que no final a versão de distribuição do html fique com menos que 14 kB (por conta do pacote TCP atual que usam 10 segmentos) (de forma gzipada) de recursos, então se sua página é grande não exagere no inline para scripts, estilos e imagens coloque apenas o necessário
+
+Qual o tamanho ideal da resposta do documento HTML e porque?
+
+14KB gzipados, incluindo os headers da resposta HTTP. É o tamanho aproximado de 10 segmentos TCP desconsiderando os headers do TCP, o padrão da janela inicial de novas conexões em servidores modernos.
+
+14KB de dados já gzipados.
+
+Importante observar que temos 14KB livres para dados HTTP. E isso inclui não só o documento HTML como os cabeçalhos HTTP.
+
+Vale a pena checar se seu servidor está configurado para mandar 10 segmentos em novas conexões TCP. Servidores novos com kernel recente já fazem isso.
+
+### Projeto: inline de JS
+
+Use o plugin gulp-inline-source para embutir pequenos arquivos na resposta HTML. O JavaScript do home.js é um forte candidato a isso.
+
+1) Mova a tag `<script>` que importa o home.js para fora do comentário especial de concatenação.
+
+2) Adicione o atributo especial inline à tag, que dispara o plugin:
+
+```html
+<script inline src="assets/js/home.js"></script>
+```
+
+3) Rode gulp useref novamente para rebuildar o HTML
+
+Economizamos um request e priorizamos a entrega desse JS: ele já vai embutido direto no HTML e é executado antes de todos os outros.
+
+### Projeto: inline de SVG
+
+Vamos priorizar a renderização do logotipo do Alura que aparece no topo da página. Para isso, deixá-lo inline na página é interessante.
+
+1) Acrescente o atributo inline na `<img>` que carrega o logo:
+
+```html
+<img inline src="assets/img/logo-alura.svg" alt="Alura">
+```
+
+2) Rode gulp useref novamente.
+
+Observe o resultado, em especial simulando redes bem lentas. Economizamos mais um request mas também priorizamos a renderização do logo.
+
+SVGs são conteúdo texto, um XML, e portanto muito fáceis de inlinear no HTML, assim como JS e CSS.
+
+Mas também podemos fazer inline de imagens comuns como PNG e JPEG. Nesse caso, precisamos usar Data URIs. Pesquise mais sobre o assunto.
+
+## Paralelizando requests
+
+O número de 6 conexões é válida para cada hostname (url) que minha máquina faz com aquelesite, mas e se eu me comunicar com mais? Aí não rola essas disputas certo? Pois é, grandes empresas para deixar seu site mais performática disponibilizam seu conteúdo em hostnames diferentes para que seja possível um acesso mais rápido a seu site.
+
+Existe um limite de quantas conexões em paralelo você pode fazer, o ideal é trabalhar com três hostnames diferentes
+
+Marque a alternativa que não representa uma vantagem de paralelizar requests com hostnames paralelos.
+
+Com um novo hostname, os cookies do hostname principal não são enviados. O que gera até uma economia de bytes nas requisições.
+
+No google app engine você pode ter outro domínio facilmente pois além do nome que você tem você pode ter o `web-dot` ou `bla-dot` isso é escolhido por você no arquivo `app.yaml` que você colocou lá aí você pode requisitar um arquivo no html da seguinte forma
+
+```html
+<img src="http://assets-dot-curso-alura-site.appspot.com/assets/img/busca.svg">
+```
+
+Dessa forma você está pedindo por uma imagem naquele hostname, e não no servidor principal
+
+Estudos já mostraram que 2 ou 3 hostnames diferentes é o número ideal. Muitos hostnames paralelos podem causar congestionamento na rede e atrasar o browser. Mas sempre vale testar caso a caso. Às vezes nem compensa ter nenhum hostname a mais. Até por que valeria a pena ter um hostname para três imagens quaisquer né?
+
+No dev tools e no webpagetest vemos um tipo de conectividade bem diferente com essas ações
+
+## Cache
+
+Por padrão o browser não faz cache de nada, pois ele tem medo uma vez que inormações importantes podem não ser mostradas porque você tá vendo um site antigo e por isso é papel do servidor (do cara do backend) dizer o que vai ser cacheado ou não e para isso existe no header do response a propriedade expire e com isso o browser tem a segurança de que aquele site tem a aprovação dos devs de mostrar uma versão mais antiga do site por um tempo (normalmente alguns dias)
+
+E essa é uma configuração boba que se faz pro servidor que você usa, o ideal é colocar apenas estilos e scripts em cache pois esses mudam com menos facilidade o html é mais comum de mudarmos (imagina um G1 da vida, que é dinamico todo dia o html muda mas as noticias sempre estão em vermelho, amarelo ou verde), então o html não é legal cachear
+
+O cache serve para que o usuário baixe o menos possível e tenha mais o cache (seja de modo privado para acessar sua conta ou não) então beleza é só botar expire de um ano e está tudo certo né? Não, pois e se eu querer mudar o site e querer que o usuário saiba dessa novidade, bem é só mudar o nome do que eu quero mudar pois aí o usuário baixa o novo e ignora o antigo que está cacheado aí essa mudança do novo seria uma nova versão e eu faço isso na mão? Não. Usa o bom GULP com a parte de revisão que está dentro da build aqui no gulpfile que ele faz essa coisa para a gente
+
+A ideia do revision é que ele coloca um código no final de todos os arquivos que eu quero mudar colocando um número (um hash) no final de cada arquivo e aplicando esses hashs no html também
+
+Caches altos são bacanas para coisas secundárias como imagens e estilos
+
+### Projeto: revisões com gulp
+
+Um cuidado antes de habilitarmos o cache alto no servidor é de garantir que as URLs são únicas e mudarão quando fizermos alterações no site. Fazemos isso adicionando algum tipo de controle de versão no nome do arquivo (um número, ou um timestamp, ou um hash do conteúdo).
+
+Esse processo pode ser manual mas temos o plugin do gulp que já faz isso automaticamente, colocando um hash gerado a partir do conteúdo de cada arquivo.
+
+Nosso gulpfile já foi configurado para isso. Basta rodar: gulp revreplace que todas as tasks anteriores serão rodadas além das novas que fazem as revisões dos arquivos.
+
+Observe o conteúdo gerado e veja como CSS, JS e imagens foram renomeadas.
+
+Importante: renomear os arquivos é um processo destrutivo. Isso quer dizer que não dá pra rodar o revreplace duas vezes. Se precisar rodá-lo novamente, apague o dist, e rode o copy, minify, useref e aí o revreplace de novo.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Outra opção para deixar as URLs únicas é passar um parâmetro a cada atualização. Então ao invés de renomear o arquivo para arquivo-v2.js por exemplo, poderíamos fazer arquivo.js?v2. A vantagem é que o arquivo não precisa ser renomeado. Mas alguns proxies intermediários têm problemas em cachear recursos com parâmetros.
+
+Por isso a boa prática acaba sendo a solução que muda o nome do arquivo. É mais trabalhosa mas com as ferramentas certas fica fácil automatizar.
+
+Estamos rodando muitas tarefas no gulp ao longo do curso: minify-css, minify-js, imagemin, useref e agora o revreplace.
+
+Para facilitar, deixei uma task default pronta que regera o site todo e roda todas as tasks de uma vez.
+
+Basta executar gulp default no terminal ou até mesmo apenas gulp.
+
+Teste agora!
+
+O que importa não é se seu site está carregando em 1 s e sim o que o usuário vê e fica feliz com o resultado
