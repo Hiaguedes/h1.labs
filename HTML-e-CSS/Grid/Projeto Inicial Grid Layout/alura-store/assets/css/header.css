@@ -1,0 +1,39 @@
+.cabecalho{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.menu{
+    width: 95%;
+    margin: 0 auto;
+}
+
+.menu__item{
+    display: flex;
+    font-size: 1.2rem;
+    flex-direction: column;
+    text-align: center;
+    
+}
+.menu__link{
+    color: inherit;
+    margin-top: 0.8em;
+}
+
+.menu__link:hover, .menu__link.ativo{
+    border-bottom: 3px rgb(25, 142, 238) solid;
+}
+
+
+@media (min-width:430px){
+
+    .menu__item{
+        flex-direction: row;
+    }
+
+    .menu__link{
+        margin-right: 2em;
+        margin-top: 0;
+    }
+}

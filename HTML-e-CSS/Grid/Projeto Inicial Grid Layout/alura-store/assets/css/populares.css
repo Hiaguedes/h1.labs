@@ -1,0 +1,118 @@
+.populares{
+    margin: 3rem 2rem;
+}
+
+.populares__conteudo{
+    display: flex;/*pros cards ficarem lado a lado*/
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    grid-area:conteudo;
+    
+}
+
+.populares__cabecalho{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(175, 175, 175, 0.322);
+}
+
+.populares__titulo{
+    font-weight: 500;
+}
+
+.populares__icone{
+    margin-right: 0.25rem;
+}
+
+.populares__botao{
+    background: transparent;
+    border: none;
+}
+
+.populares__card{
+    display: grid;
+    grid-template-areas: "card-imagem" "card-corpo";
+    grid-template-columns: 100%;
+    background-color: rgb(253, 253, 253);
+    height: 450px;/*tem que definir altura total do card também, por isso que o conteúdo é bom ser auto*/
+    box-shadow: rgba(80, 80, 80, 0.329) 2px 2px 5px;
+}
+
+.populares__card:last-child{
+    margin-right: 0;
+}
+
+.populares__card:hover{
+    box-shadow: rgba(80, 80, 80, 0.329) 2px 2px 10px;
+}
+
+.populares__card___imagem{
+    grid-area:card-imagem;
+    height: 100%;/*botar a imagem para ocupar todo o espaco no grid destinado a ele*/
+    width: 100%;
+}
+.populares__card___corpo{
+    display: grid;
+    grid-template-areas: "card-cabecalho" "card-descricao";/*definir duas seções para o corpo do card*/
+    grid-template-rows: 50px auto;
+    grid-area:card-corpo;
+    padding: .75rem;
+   
+}
+
+.populares__card___cabecalho{
+    grid-area: card-cabecalho;/*dizer que o cabecalho utiliza o espaco do grid destinado a ele*/
+    
+}
+.populares__card___descricao{
+    grid-area: card-descricao;
+    text-align: left;
+
+}
+
+.populares__card___titulo{
+    font-size: 1.5em;
+    text-emphasis: bold;
+}
+.populares__card___data{
+    color: rgb(175, 175, 175);
+    font-size: 0.8em;
+}
+
+@media (min-width:0){
+    .populares__conteudo{
+        flex-direction: column;
+    }
+    .populares__card{
+        width:100%;
+        margin-bottom: 3rem;
+        grid-template-rows: 140px auto;/*tem que definir a altura das imagens e do conteúdo*/
+        margin-right:0;
+    }
+
+}
+
+@media (min-width:500px){
+    .populares__conteudo{
+        flex-direction: row;
+    }
+    .populares__card{
+        margin-right: 1rem;
+        width:calc(50% - 1rem);
+    }
+
+}
+
+@media (min-width:850px){
+    .populares__card{
+        width:calc(33.33% - 1rem);
+    }
+
+}
+    
+    @media (min-width:1300px){
+        .populares__card{
+            width: calc(20% - 1rem);/*width para fazer com que todos os cards fiquem na mesma tela, como são 5 cards 20% e com tem um margin right então diminua esse tamanho*/
+            grid-template-rows: 180px auto;/*tem que definir a altura das imagens e do conteúdo*/
+        }
+    }
