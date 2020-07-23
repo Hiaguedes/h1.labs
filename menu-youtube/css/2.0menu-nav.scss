@@ -10,9 +10,13 @@
     width: 20%;
     max-width: 280px;
     z-index: 1;
-    background-color: rgb(211, 211, 211);
+    background-color: $cor-nav;
     transition: 0.3s ease-in-out;
     padding: 2em;
+}
+
+.inv-menu-nav{
+    background-color: $inv-cor-nav;
 }
 
 .menu-fechar{
