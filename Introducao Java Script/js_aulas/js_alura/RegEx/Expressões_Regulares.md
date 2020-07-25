@@ -638,3 +638,37 @@ Minha solução: `<(p\d+)>.*</\1>`
 - E por último, usamos o BackReference para garantir que a tag será fechada com a mesma tag usada na abertura, escapando a barra de fechamento da tag: <\/\1>
 
 O \1 aqui referencia ao resultado do primeiro grupo da regex, o \0 seria a seleção toda então não a use
+
+## Tudo o que não é
+
+Imagine que temos a seguinte tag em html
+
+```html
+<div class="full-screen__panel" style="display: none;">blabla</div>
+```
+
+Se quiséssemos selecionar apenas a primeira tag div nós teríamos que ter um pattern preguiçoso do tipo
+
+```regex
+<div.+?>
+```
+
+Mas nós podemos selecionar tudo menos o > como? com ^ da seguinte forma
+
+```regex
+<div[^>]+>
+```
+
+Onde selecionamos uma classe de palavras que diz que queremos tudo menos o > e quando temos o > presente, pare de selecionar
+
+Essa negação é algo muito comum nas regexes. Há circunstâncias em que é mais fácil definir o que não queremos em vez de dizer o que queremos. A negação ^ ajuda nisso. Isso também é a razão da existência de classes como `\W` (com W maiúsculo) e \D (com D maiúsculo).
+
+O `\W` é a non-word char, ou seja tudo que não é um word char. `\W` é um atalho para `[^\w]`.
+
+A classe `\D`, por sua vez, é um non-digit, ou seja, `\D` é um atalho para `[^\d]`
+
+Repare também que não usamos a meta-char ^ como âncora pois aparece dentro de uma classe `[^>]`.
+
+Dado o alvo `Z171PZ7AZ23PZ7819AZ78GZ1AZ99IZ34O` e sabendo que não quero nem a letra Z e nem qualquer dígito então a regex atrelada a ela seria `[^Z\d]`
+
+Associe o ^ ao começo de uma classe de chars que não queremos
