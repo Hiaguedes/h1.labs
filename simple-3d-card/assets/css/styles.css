@@ -1,0 +1,49 @@
+body .container {
+    display: grid;
+    grid-template-areas: "header" "main" "footer";
+    grid-template-columns: auto;
+    grid-template-rows: 100px auto auto;
+
+}
+
+header{
+    grid-area: header;
+}
+main{
+    grid-area: main;
+}
+footer{
+    grid-area: footer;
+}
+
+main .card{
+    width: 15%;
+    margin: 1.5rem auto;
+    height: 250px;
+    background-color: rgb(43, 30, 112);
+    color: cornsilk;
+}
+main .card:hover{
+    opacity: 0.95;
+    transition: opacity 0.2s ease-in-out,box-shadow 0.2s ease-in-out;
+       
+}
+
+.card-content{
+    display: grid;
+    grid-template-areas: "card-image" "card-body";
+    grid-template-columns: auto;
+    grid-template-rows: 120px auto;
+}
+
+.card-image{
+    grid-area: card-image;
+    background: url(https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg) center / cover no-repeat ;
+}
+
+.card-body{
+    grid-area: card-body;
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-around;
+}
