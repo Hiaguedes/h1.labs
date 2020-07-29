@@ -1,0 +1,8 @@
+# Arquivo de configuração para deploy no Google App Engine que veremos na aula 4
+
+runtime: nodejs12
+
+handlers:
+  - url: /
+    static_files: index.html
+    upload: index.html
