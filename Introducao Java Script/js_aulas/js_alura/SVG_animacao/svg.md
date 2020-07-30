@@ -4,6 +4,8 @@ A sigla svg significa Scalable Vector Graphics (SVG) e elas são a maneira mais 
 
 O padrão svg foi criado pela w3C, que é a mesma organização que cuida do html e ele ficou meio na baixa por um tempo por conta do flash (que foi descontinuado esse ano hahaha) e o principal ganho do svg frente aos formatos em bitmap como png e jpg é que ele não perde a qualidade se esticarmos ou comprimirmos ele, além dele pesar bem menos do que esses padrões de imagem
 
+Por padrão as tags svg são do tipo `inline`
+
 ## Criando SVG
 
 Nós podemos criar um svg na unha com o próprio html (já que ele é um tipo de html), segue abaixo uma forma de criar um cículo amarelo com borda preta
@@ -524,3 +526,87 @@ gsap.to(this.icones,0.5, {scale: 0.95, repeat:-1, yoyo:true})
 ```
 
 Onde o primeiro parâmetro são os ícones, o segundo o tempo da animação e o terceiro o que seria o css da animação (usando o to do css), o repeat seria a sensação de infinito, e o yoyo o mesmo que o alternate
+
+## Filtros do svg
+
+O svg por si só vem com uma penca de filtros para poder ser utilizados em seus elementos e explicar o que cada um deles faz pode ser muito trabalhoso, fica o convite para ver no site da W3C e na MDN o que cada uma faz
+
+Alguns filtros funcionam apenas em conjunto com outros, como o feDisplacementMap; outros, como o feColorMatrix, precisam que o gráfico fonte (nesse caso, o `<circle>`) tenha uma cor de preenchimento. A lista de filtros com seus atributos e casos de uso está no MDN e você pode também consultar alguns exemplos de filtros com bitmaps nesse site (em inglês).
+
+<https://developer.mozilla.org/pt-BR/docs/Web/SVG/Element/filter>
+
+<https://tympanus.net/codrops/2019/01/15/svg-filters-101/>
+
+### Brincando com filtros
+
+Brincando com filtros
+PRÓXIMA ATIVIDADE
+
+Samanta estava pesquisando na internet sobre efeitos legais para se utilizar em front-end e ficou muito interessada no uso de SVG + filtros. Ela consultou a documentação e escreveu o seguinte código para aplicar efeitos de desfoque (blur) em um vetor SVG simples, com o seguinte resultado:
+
+```html
+<svg width="200" height="200" viewBox="0 0 220 220">
+  <filter id="filtro">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+  </filter>
+
+  <circle cx="100" cy="100" r="80" fill="blue" style="filter: url(#filtro)"/>
+</svg>
+```
+
+Foi declarada a tag `<filter>` e, dentro dela, foi criado um efeito de desfoque (feGaussianBlur) com dois atributos: in e stdDeviation. O valor de atributo in="SourceGraphic" indica que o ponto de entrada (input) do filtro será o gráfico fonte do vetor, ou SourceGraphic (esse atributo pode utilizar outros valores, como apenas a cor de preenchimento do gráfico, seu canal alfa ou outro filtro) e stdDeviation="5" indica o grau de desvio utilizado no desfoque.
+
+Ela ficou animada e resolveu testar outros filtros no mesmo elemento, trocando apenas o nome do filtro:
+
+```html
+<svg width="200" height="200" viewBox="0 0 220 220">
+  <filter id="filtro">
+    <feColorMatrix in="SourceGraphic" stdDeviation="5" />
+  </filter>
+  ```
+
+Porém nada aconteceu. O que ela está fazendo de errado?
+
+Alternativa correta
+Ela só trocou o nome dos filtros, sem considerar que cada filtro tem seus próprios atributos, que podem ser bem diferentes uns dos outros. Ela deve olhar a documentação do W3C ou MDN para se certificar com quais atributos cada filtro funciona.
+
+
+De fato, vimos durante todo o curso que cada elemento que usamos dentro da tag `<svg>` costuma ter seu próprio conjunto de atributos, e precisa de pelo menos parte deles para poder ser renderizado de forma correta no navegador. Por exemplo, `<circle>` precisa do atributo r (raio) para ser renderizado, e já o `<rect>` (retângulo) não precisa. E por aí vai.
+
+Para que feColorMatrix funcione no código acima, precisamos passar os valores dos parâmetros que são próprios desse efeito:
+
+```html
+<svg width="200" height="200" viewBox="0 0 220 220">
+ <filter id="saturacao">
+   <feColorMatrix in="SourceGraphic" type="saturate" values="0.2" />
+ </filter>
+ <circle cx="100" cy="100" r="80" fill="blue" style="filter: url(#saturacao)"/>
+</svg>
+```
+
+### Efeitos de gradiente com SVG
+
+Além dos filtros, podemos também usar o SVG para criar efeitos de gradiente de cores. Assim como os filtros, usamos a tag `<defs>` para declarar efeitos de gradiente que podem ser utilizados mais tarde em qualquer vetor do código. Por exemplo:
+
+```html
+<svg height="150" width="400">
+ <defs>
+   <linearGradient id="gradiente">
+     <stop offset="20%" style="stop-color:#0003c7;stop-opacity:1" />
+     <stop offset="80%" style="stop-color: #FFC300;stop-opacity:1" />
+   </linearGradient>
+ </defs>
+ <rect height="150" width="400" fill="url(#gradiente)" />
+</svg>
+```
+
+
+
+Utilizamos a tag `<linearGradient>` para criar um novo gradiente, que demos o id "gradiente". Quando formos utilizar esse efeito, será pelo id que ele será referenciado. As tags `<stop>` indicam cada uma das cores que vamos usar no gradiente, com possibilidades infinitas. Aqui eu usei um tom de azul e outro de laranja, usando o sistema hexadecimal de cores. É possível usar também RGB ou RGBA (no caso do RGBA, não precisamos da propriedade stop-opacity, pois a opacidade já está declarada como 1.0):
+
+```html
+     <stop offset="20%" style="stop-color:rgb(0, 3, 199);stop-opacity:1" />
+     <stop offset="80%" style="stop-color:rgba(255, 195, 0, 1.0);" />
+```
+
+É possível criar gradientes lineares ou radiais e aplicá-los em fill, stroke e etc. A documentação do W3Schools conta com mais exemplos!
