@@ -1,0 +1,8 @@
+{
+    "name": "svg-animacao",
+    "version": "0.0.1",
+    "author": "Hiago Guedes",
+    "devDependencies": {
+        "gsap": "^3.4.2"
+    }
+}

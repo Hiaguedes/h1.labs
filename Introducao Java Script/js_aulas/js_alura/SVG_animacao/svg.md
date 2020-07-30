@@ -460,3 +460,67 @@ Vamos adicionar `display:"none"` ao svg onde estão os modelos:
 ```
 
 Esse é um modo bastante interessante para se utilizar ícones em SVG, como opção ao uso de ícones importados de bibliotecas de fontes.
+
+## Animação com js
+
+Uma forma de animar com js é colocando estilos css nos elementos que queremos animar, uma forma de animar é justamente com o translate que usamos anteriormente
+
+## Usando o "this" e o "bind"
+
+A palavra-chave `this` (podemos traduzir livremente como "isto") está presente em várias partes do código que rodamos em JavaScript, embora muitas vezes não apareça. Por padrão, ela se refere a um objeto global, porém pode ter diferentes valores, dependendo de onde está sendo utilizada, como os casos:
+
+Em um método, refere-se ao objeto ao qual o método está ligado (por exemplo, obj.metodo()).
+Sozinha ou em uma função, refere-se ao objeto global (no caso do navegador, o objeto window).
+Em uma função em strict mode, é undefined.
+Em um evento, refere-se ao elemento que recebeu o evento.
+Quando falamos de objetos (criados com class ou não), this refere-se ao objeto. Veja esse exemplo com o objeto pessoa:
+
+function Pessoa(nome, sobrenome) {
+  this.nome = nome;
+  this.sobrenome = sobrenome;
+
+  this.nomeCompleto = function() {
+    console.log(`Meu nome é ${this.nome} ${this.sobrenome}`);
+  }
+}
+
+const pessoa = new Pessoa("Leia", "Organa");
+pessoa.nomeCompleto() // 'Meu nome é Leia Organa'
+
+const outraPessoa = new Pessoa("Luke", "Skywalker");
+outraPessoa.nomeCompleto() // 'Meu nome é Luke Skywalker'
+
+const nomeOutraPessoa = pessoa.nomeCompleto.bind(outraPessoa);
+// Cria uma nova função onde o valor de `this` se liga ("bind") ao objeto "outraPessoa"
+nomeOutraPessoa(); // 'Meu nome é Luke Skywalker'
+Como feito durante a aula, utilizamos bind (em português: unir, ligar, prender) para fazer isso mesmo, "ligar" this a um contexto específico para que o this não fique "perdido" ao ser invocado fora de seu objeto.
+
+O this tem muitos usos e existem outros métodos além de bind que podem ser usados com ele, conforme a necessidade. O MDN tem um [artigo bem completo](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/this) sobre essa palavra-chave e seus diversos métodos.
+
+## Trocar a animação dos cards
+
+Utilizamos o translate para mover os cards na aula, mas como seria para usar outros efeitos de animação de CSS?
+
+Esse é o trecho de código que usamos na aula:
+
+```js
+this.cardEsq.style.transform = `translate(${-(posicao + 20)/10}%)`;
+this.cardDir.style.transform = `translate(${(posicao + 20)/10}%)`;
+```
+
+O translate recebe como argumento coordenadas X e/ou Y para mover o elemento selecionado. Mas CSS tem outras propriedades que podemos usar para mover e animar elementos. Que tal seria se, ao invés de translate, usássemos a propriedade rotate para animar os cards?
+
+```js
+this.cardEsq.style.transform = `rotateY(${-(posicao + 20)/2}deg)`;
+this.cardDir.style.transform = `rotateY(${(posicao + 20)/2}deg)
+```
+
+## Uma biblioteca muito poderosa para animar elementos
+
+Essa é o gsap, instalando via npm, conseguimos com poucas linhas fazer um efeito de pulso como em:
+
+```js
+gsap.to(this.icones,0.5, {scale: 0.95, repeat:-1, yoyo:true})
+```
+
+Onde o primeiro parâmetro são os ícones, o segundo o tempo da animação e o terceiro o que seria o css da animação (usando o to do css), o repeat seria a sensação de infinito, e o yoyo o mesmo que o alternate
