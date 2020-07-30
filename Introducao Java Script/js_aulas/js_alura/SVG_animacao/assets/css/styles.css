@@ -1,0 +1,96 @@
+body{
+    background-color: #FFEAD4;
+    overflow-x: hidden;
+}
+
+.header{
+    width: 100vw;
+}
+
+.lett-header{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 75%;
+    margin-top: 5rem;
+    fill: transparent;
+    animation: lett-preenchimento 1s ease-in forwards 1s;
+}
+
+.lett-header path{
+    stroke: #be253f;
+    stroke-width: 2px;
+    stroke-dasharray: 3000;/*tracejado*/
+    stroke-dashoffset: 3000;/*ofsset das linhas tracejadas*/
+    animation: lett-tracado 0.8s ease-in forwards 0.2s;
+}
+
+@keyframes lett-preenchimento{
+    to {
+        fill: #be253f;
+    }
+}
+
+@keyframes lett-tracado{
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+.informativo{
+    width: 90%;
+    margin:0 auto;
+}
+
+.informativo-titulo{
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 0.8rem;
+    font-family: 'Pacifico', cursive;
+    color: #be253f;
+    font-weight: bold;
+}
+
+.informativo .container{
+    display:flex;
+    justify-content: space-between;
+}
+
+.card{
+    display: grid;
+    grid-template-areas: "card-imagem" "card-conteudo";
+    grid-template-rows: 20rem auto;
+    grid-template-columns: auto;
+    background-color: #f1f1f1;
+    padding: 2rem;
+    margin: 1rem 0;
+    width: 30%;
+    border-radius: 1rem;
+}
+
+.card-imagem{
+    grid-area: card-imagem;
+    width: 100%;
+    height: 100%;
+}
+
+.card-conteudo{
+    grid-area: card-conteudo;
+    width: 100%;
+}
+
+.card-titulo{
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
+    color: #be253f;
+}
+
+.card-paragraph{
+    justify-content: left;
+    font-family: 'Lato', sans-serif;
+    color: #484848;
+}
+
