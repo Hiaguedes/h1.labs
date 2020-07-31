@@ -1,0 +1,15 @@
+.header{
+    background-color: rgb(247, 247, 247);
+}
+.header__container{
+    width: 95vw;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+@import './nav/lista.scss';
+@import './nav/itens.scss';
+
+

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,MAAM;EACJ,OAAO,EAAE,cAAc;;ACDzB,cAAc;EACV,WAAW,EAAE,QAAQ;EACrB,KAAK,EAAE,OAAO;EACd,UAAU,EAAE,MAAM;EAClB,SAAS,EAAE,MAAM;EACjB,OAAO,EAAE,MAAM;;ACLnB,gBAAgB;EACZ,KAAK,EAAE,OAAkB;EACzB,UAAU,EAAE,MAAM;EAClB,SAAS,EAAE,OAAO;EAClB,WAAW,EAAE,GAAG",
+"sources": ["sobre.scss","titulo.scss","conteudo.scss"],
+"names": [],
+"file": "sobre.css"
+}

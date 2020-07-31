@@ -1,0 +1,18 @@
+.header__nav__item{
+    margin-left: 0.5rem;
+    list-style: none;
+}
+
+.header__nav__item__link{
+    text-decoration: none;
+    color: #808080;
+
+    &:hover{
+        border-bottom: 0.1rem solid black;
+    }
+
+    &.ativo{
+        color: black;
+        font-weight: bold;
+    }
+}

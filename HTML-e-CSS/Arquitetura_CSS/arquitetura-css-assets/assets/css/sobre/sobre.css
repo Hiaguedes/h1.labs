@@ -1,0 +1,17 @@
+.sobre {
+  padding: 2.5rem 25.5rem; }
+
+.sobre__titulo {
+  font-family: Pacifico;
+  color: #8D0606;
+  text-align: center;
+  font-size: 3.5rem;
+  padding: 1rem 0; }
+
+.sobre__conteudo {
+  color: #a1a1a1;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 100; }
+
+/*# sourceMappingURL=sobre.css.map */
