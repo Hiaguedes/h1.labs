@@ -1,0 +1,10 @@
+.footer{
+    background-color: #adadad;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.25rem 3rem;
+}
+
+@import './footer__descricao.scss';
+@import './footer__rede-social.scss';

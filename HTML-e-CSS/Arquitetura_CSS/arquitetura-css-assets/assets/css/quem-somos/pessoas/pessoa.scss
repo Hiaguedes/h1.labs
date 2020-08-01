@@ -1,0 +1,13 @@
+.pessoas{
+    display: flex;
+    justify-content: space-around;
+}
+
+.pessoa{
+    display: flex;
+    flex-direction: column;
+}
+
+@import './pessoa-imagem.scss';
+@import './pessoa-nome.scss';
+@import './pessoa-funcao.scss';

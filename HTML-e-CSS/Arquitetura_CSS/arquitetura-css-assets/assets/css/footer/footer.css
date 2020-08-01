@@ -1,0 +1,20 @@
+.footer {
+  background-color: #adadad;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.25rem 3rem; }
+
+.footer__descricao {
+  color: #fdfdfd;
+  margin-right: 2rem;
+  font-size: 1.5rem; }
+
+.footer__rede-social {
+  cursor: pointer;
+  width: 4.25rem;
+  height: 4.25rem;
+  background-color: #5a0404;
+  margin-left: 0.5rem; }
+
+/*# sourceMappingURL=footer.css.map */

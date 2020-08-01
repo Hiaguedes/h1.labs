@@ -1,0 +1,23 @@
+.receitas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgb(199, 199, 199);
+    padding: 4.5rem 0;
+}
+
+.receita{
+    display: grid;
+    grid-template-areas: "imagem" "conteudo";
+    grid-template-columns: 360px;
+    grid-template-rows: 270px auto;
+    margin: 2.5em 7rem;
+    border-radius: 2px;
+    border: 0.1rem solid rgb(173, 173, 173);
+}
+
+@import './imagem.scss';
+@import './conteudo.scss';
+@import './titulo.scss';
+@import './descricao.scss';
+@import './botao.scss';

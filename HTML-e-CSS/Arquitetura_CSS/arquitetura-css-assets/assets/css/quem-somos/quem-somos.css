@@ -1,0 +1,55 @@
+.quem-somos {
+  padding: 5rem; }
+
+.quem-somos__titulo {
+  text-align: center;
+  font-family: Pacifico, cursive;
+  color: #8D0606;
+  font-size: 3.5rem;
+  margin-bottom: 1rem; }
+
+.quem-somos__descricao {
+  color: #a1a1a1;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 100; }
+
+.pessoas {
+  display: flex;
+  justify-content: space-around; }
+
+.pessoa {
+  display: flex;
+  flex-direction: column; }
+
+.pessoa__imagem {
+  width: 18.75rem;
+  height: 18.75rem;
+  border-radius: 50%;
+  display: block;
+  border: solid 1px rgba(0, 0, 0, 0.295);
+  margin-bottom: 2rem; }
+
+.pessoa__imagem--roberta {
+  background: url(../../../../../arquitetura-css-assets/assets/img/pessoas/roberta.jpg) center/cover no-repeat; }
+
+.pessoa__imagem--andreia {
+  background: url(../../../../../arquitetura-css-assets/assets/img/pessoas/andreia.jpg) center/cover no-repeat; }
+
+.pessoa__imagem--marcela {
+  background: url(../../../../../arquitetura-css-assets/assets/img/pessoas/marcela.jpg) center/cover no-repeat; }
+
+.pessoa__nome {
+  text-align: center;
+  font-family: Pacifico,cursive;
+  color: #8D0606;
+  font-size: 2rem;
+  margin-bottom: 1rem; }
+
+.pessoa__funcao {
+  text-align: center;
+  color: #8C8888;
+  text-transform: lowercase;
+  font-size: 1.5rem; }
+
+/*# sourceMappingURL=quem-somos.css.map */

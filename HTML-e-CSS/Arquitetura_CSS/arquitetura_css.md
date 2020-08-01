@@ -55,3 +55,17 @@ Nós arrumariamos como:
 ```
 
 E com isso separamos os arquivos css de modo a descrever cada elemento (o nome do arquivo não precisa seguir o padrão BEM)
+
+## A boa prática
+
+O macete é fazer mais ou menos o que foi feito em aula primeiro você estrutura o seu css para depois entrar com o código
+
+Para classes com duas palavras crie o arquivo com camelCase tipo quemSomos, isso soa melhor do que com quem-somos
+
+Seria legal se as propriedades css estivessem em ordem alfabética pois aí seria mais fácil encontrar os elementos de estilização
+
+Imagens de estilos devem ficar no css invés de ficar no html direto
+
+## No final de tudo..
+
+No final você vai notar que vai ser bem mais fácil deixar o site responsivo e dar manutenção nele quando necessário
