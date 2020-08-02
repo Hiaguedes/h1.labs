@@ -561,3 +561,5 @@ Basta executar gulp default no terminal ou até mesmo apenas gulp.
 Teste agora!
 
 O que importa não é se seu site está carregando em 1 s e sim o que o usuário vê e fica feliz com o resultado
+
+Uma melhor solução pode ser vista [aqui](https://gist.github.com/sergiolopes/e326e62a44c8095021d443401dcf5320)
