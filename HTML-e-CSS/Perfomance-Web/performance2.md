@@ -319,3 +319,249 @@ Uma ideia é colocar a linha do rel=preload dentro de um `<noscript>` em desenvo
 <link rel="preload" href="assets/css/async.css" as="style" onload="this.rel='stylesheet'">
 <!-- build:remove --></noscript><!-- endbuild -->
 ```
+
+## HTTP 2.0
+
+Esse novo protocolo para a web trás muitas melhoras no quesito performance, sabendo que o keepalive (que aproveita a conexão TCP já aberta com o servidor) já foi feita no protocolo 1.1 do HTTP além de 6 conexões paralelas por hostname
+
+Os headersm o status code ainda continuam iguais mas certas coisas agora são diferentes, no 1.1 eu podia mandar no server o tal do gzip, no 2.0 os headers agora são gzipados o que é bem legal pois muitos cookies são transitados via header e eles pesam bastante e o protocolo já vem com o gzip no header (no caso hpack) e no conteúdo, e no 2.0 agora temos a obrigação de TLS (o tal do https) pois se não for é capaz de quebrar a rede
+
+Informações parecidas no header são passadas apenas uma vez. Como o cookie
+
+Mas a grande coisa é o multiplexing, pois no 1.0 temos uma sequencia de requisição e resposta de modo muito sequencial e enfileirada, ou seja uma requisição só pode começar quando a anterior acabar e se um for muito grande trava todas as outras, no 2.0 temos uma mistura entre tempos de requisição e resposta o que torna a comunicação muito mais inteligente e o navegador arruma todos os dados. Isso tudo com TCP assíncrono.
+
+Com esse protocolo se torna um tanto inutil juntar CSS e js e criar sprites de imagens, pois as multiplas requisições não são mais um problema, já que todo seu carregamento é feito de forma assíncrona e aumentar hostnames aqui é uma má pratica para esse protocolo, pois o unico hostname já está paralelizado, e mais paralelização pode gerar muita complexidade.
+
+O google app engine usa o htt2 quando temos o htpps
+
+No dev tools o https é dito como h2 na coluna protocolo dentro da aba network
+
+Nesse protocolo eu tenho a liberdade de poder concatenar arquivos js e css em mais arquivos
+
+### Exercícios
+
+As páginas Web têm cada vez mais dependências. Diversas imagens, diversos JavaScripts, CSSs etc. Dezenas, talvez centenas.
+
+Por que o HTTP/1.1 tem um sério gargalo de performance ao baixar esses recursos em paralelo?
+
+As conexões HTTP só conseguem baixar sequenciamente. Envia-se um request, espera-se o response e o segundo request só pode ser enviado quando a resposta do primeiro terminar de chegar. Cria-se uma fila que tentamos aliviar abrindo 6 ou 8 conexões paralelas. Mas como as páginas têm dezenas de recursos, ainda temos uma fila.
+
+O HTTP clássico não permite paralelizar requests na mesma conexão ou mesmo mandar várias requests de uma vez nem nada do tipo. É uma escolha do protocolo para facilitar (mas não tem relação com gzip ou texto).
+
+Os requests têm que ser feitos sequencialmente, e cria-se essa fila que pode atrasar tudo. E, pior, se os primeiros requests demorarem pra serem processados, eles seguram todos os demais.
+
+Precisamos de HTTPS no HTTP/2? Porque?
+
+O HTTPS não é obrigatório na especificação em si, mas na prática acaba sendo. Para evitar problemas com intermediários que não entendam HTTP/2, todo mundo só suporta com TLS para envio criptografado. Assim apenas o cliente e o servidor precisam entender HTTP/2.
+
+Talvez daqui muitos anos tenhamos uma Web que possa trafegar HTTP/2 texto puro de forma tranquila. Hoje, não. Você vai precisar de HTTPS no seu servidor ainda por muito tempo. De brinde, temos a vantagem de uma Web mais segura e com mais privacidade.
+
+O que é o multiplexing do HTTP/2?
+
+Requests e Responses podem ser enviados e recebidos na mesma conexão TCP de forma paralela e assíncrona. Múltiplos requests podem ser disparados, as repostas podem chegar na ordem que for mais conveniente, um request lento não trava os demais. A conexão é usada em todo seu potencial, com tráfego bidirecional da forma mais concorrente possível.
+
+Com multiplexing agora só precisamos de 1 conexão TCP que ela vai ser bem aproveitada. Nada mais de gambiarras de conexões paralelas, múltiplos hostnames etc.
+
+O JavaScript já é carregado no fim da página e pode ser carregado todo com `async`. Com isso, ele é um forte candidato a não ser concatenado.
+
+## HTTP 2 avançado
+
+Com HTTP 2 eu consigo priorizar requests a frente de outros, coisa que não podia ser feito com HTTP 1, pois não faz sentido baixar o jQuery primeiro se eu nao tenho o estilos.css, então para isso eu posso sinalizar para o servidor os pesos de download de cada arquivo, inclusive das dependências dos arquivos
+
+E melhor, com um server push junto com http 2 eu posso fazer com que a requisição do index.html ja me mande os estilos e componentes necessarios sem o cliente precisar pedir por eles, isso é foda. E se o cliente já tem esses recursos no cache os recursos são canceláveis, então pode se cancelar o inline de recursos dentro desse recurso.
+
+Então o http 2 é uma revolução em termos de performance na web, pois risca diversas 'gambiarras' que faziamos para deixar a web mais potente no http 1 e diversos servidores já possuem esse tipo de recurso.
+
+E para habilitar o server push eu preciso habilitar o servidor que estou usando para fazer isso assim como foi feito com o gzip, mas para alguns servidores habilitar o http2 pode ser chatinho pois tem que ter o TLS (ai tem que pagar), e para termos o server push nós temos que habilitar no header (apache, tomcat,php, ngnix whatever) essa especificação, uma forma de fazer isso seria com apache
+
+```apache
+Link: <assets/img/whatever.svg>; rel=preload; as=image
+```
+
+No google app engine dentro do arquivo yaml temos:
+
+```gs
+handlers:
+  - url: /
+    static_files: index.html
+    upload: index.html
+    expiration: 0s
+    http_headers:
+      Link: <assets/img/logo-alura.svg>; rel=preload; as=image, <assets/img/background-cidade-fundo.svg>; rel=preload; as=image,<assets/css/critico.css>; rel=preload; as=style
+```
+
+Lmebra o link do css de modo assíncrono né? Pois é, mas não faça com html, isso é papel do back end. Aí a ideia seria tirar esses arquivos que ficariam no inline para estar no server push (não precisa tirar do front, só o inline no gulp) mas somente carregue ele antes via server push nas configurações do seu server
+
+### Exercícios
+
+Que tipo de ferramentas de priorização de requests o HTTP/2 traz?
+
+O cliente pode mandar vários requests ao mesmo tempo indicando tanto uma ordem de dependências quanto a importância de cada request. O servidor vai tentar responder levando em conta essas dicas, priorizando respostas mais importantes.
+
+O HTTP/2 traz esse mecanismo onde o cliente comunica dicas de priorização e dependências para o servidor. O servidor recebe isso e, aplicando seu próprio algoritmo, tenta entregar na melhor ordem possível. Mas não é necessário obedecer piamente. Talvez o servidor tenha conhecimentos adicionais que o levem a entregar de alguma outra forma ainda mais otimizada.
+
+Outro ponto: o cliente pode modificar a prioridade das requisições mais a frente também. Tudo é dinâmico e pode ser reajustado se as condições mudarem.
+
+O que faz o Server Push do HTTP/2?
+
+O servidor pode empurrar certas respostas para o cliente antes mesmo delas serem requisitadas. Tem a mesma vantagem de fazer inline de recursos mas sem a desvantagem de matar cache. As respostas empurradas ainda são cacheadas independentemente e o cliente pode cancelar um push caso já tenha em cache.
+
+O servidor pode empurrar certas respostas para o cliente antes mesmo delas serem requisitadas. Tem a mesma vantagem de fazer inline de recursos mas sem a desvantagem de matar cache. As respostas empurradas ainda são cacheadas independentemente e o cliente pode cancelar um push caso já tenha em cache.
+
+## Resource Hints
+
+Resource Hints são dicas, o primeiro mais conhecido é o DNS-PREFETCH que antecipava nomes de DNS antes mesmo de o cliente pedir por eles, e ele é um dos primeiros a serem implementados e tem suporte a diversos navegadores e para implementar-lo eu uso na tag link
+
+```html
+<link rel="dns-prefetch" href="">
+```
+
+Mas uma forma mais moderna que resolve qualquer tipo de coisa é o preconnect
+
+```html
+<link rel="preconnect" href="">
+```
+
+E a ideia desses dois tipos de resource é que quando eu realmente precisar baixar esse arquivo a conexão já esteja aberta e pronta para essa ação, o que economiza um tempo considerável para todas aquelas formalidades do TCP e isso antecipa qualquer tipo de trabalho sem blocar nenhum recurso do site, isso é bom para videos e analytics já irem fazendo o trabalho antes
+
+Outro é o `prefetch` que baixa em caso do navegador estar mais livre um outro recurso esse recurso sendo secundário. Então ele é bem útil para uma outra página dentro do site. Mas não abuse desse tipo de recurso pois você estará consumindo recursos que podem não ser usados pelo usuário, então use o prefetch para coisas leves e que sejam em média bastante utilizados
+
+E aí finalmente o `preload` que é o prefetch porém com prioridade alta, o prefetch é pensado em navegações futuras enquanto o preload é para a navegação que quero agora.
+
+E nisso nós temos as prioridades com esses nomes mais o atributo `as=""` que seja um estilo, uma imagem ou outras. E o navegagor entende que o estilo tem uma prioridade maior que uma imagem, tem as para tudo, mas se eu não colocar o as a prioridade desse download é bem baixo. Isso é muito útil para carregamento de fontes que demoram bastante, pois é bem específica o uso dessa fonte e é demorado descobrir o momento que vai utilizar essa fonte, então o `preload` das fontes é importante. O `as` para ela é font e se o navegador não suportar aquela fonte use o `type=font/<extensao da fonte>`
+
+Outro é o `prerender` que quando você faz uma busca no google, a chance de você clicar no primeiro link é bem alta então ele pré-renderiza a busca para você de cara, isso é legal para páginas secundárias (o que é mais uteis para workflow) ou páginas de confirmação de cadastro, e a ideia é criar esse prerender quando o usuario estiver interagindo com elementos da página
+
+## Copia e colao no texto de resource hints da alura
+
+04
+Resource Hints
+PRÓXIMA ATIVIDADE
+
+Resource Hints: DNS- PREFETCH and PRECONNECT
+Vamos tentar entender como funcionam os rel e preloads . Queremos abordar também os Resource Hints. O primeiro Resource que foi inventado foi o DNS-PREFETCH que permite pedir ao navegador para resolver o DNS de um certo recurso antecipando que precisaremos dele mais adiante. Podemos utilizar isso em nosso index.html, criando uma tag "Link" e usando:
+
+`<link rel="dns-prefetch" href="/player.vimeo.com/">`
+
+Com isso, a resolução do DNS é antecipada para o começo. Quando ele fizer o parcing do HTML. A resolução do DNS é feita totalmente em background o que não significa que isso não travará a renderização ou o download das demais coisas. Também podemos fazer o mesmo com outras coisas e podemos utilizar esse recurso quantas vezes fizer sentido para o site.
+
+Mostramos ele pois é o que possui melhor suporte, funciona em todos os navegadores. Foi um dos primeiros a ser inventado desses Resource Hints. Logo, se percebeu que podia-se dar passos além, não apenas resolver o DNS.
+
+Um segundo Resource Hint é o preconnected. Além de antecipar o DNS podemos antecipar, também, a conexão. Para usar isso podemos escrever link rel=preconnect. Ele inclui a resolução do DNS, faz a conexão TCP e se for uma conexão segura ele inclusive faz a negociação CSL para nós. Você pode se perguntar se isso realmente impacta em algo, repare nos gráficos. O primeiro diz respeito as mudanças que acabamos de fazer:
+
+otimizado
+
+sem otimização 
+
+O que fizemos foi antecipar a conexão. Não podemos utilizar isso com diversas conexões, pois pode acabar atrapalhando as conexões que já temos. Podemos fazer isso com algum recurso adicional, por exemplo, um vídeo. Coisas que você gostaria de carregar mais rapidamente e que devem ser indicadas para o navegador.
+
+PREFETCH
+O prefetch serve para passarmos para ele alguma "url" ou arquivo para que faça o download e guardemos isso no seu cache. O prefetch antecipa o download imaginando que esse download será utilizado no futuro.Ele serve para navegações secundárias, ele possui menos prioridade do que qualquer outro request que tenhamos feito na página, por isso, ele é indicado para ser feito na página seguinte.
+
+Podemos antecipar o download do "categorias.js" digitando:
+
+`<link rel="prefetch" href="pagina-seguinte/categoria.js">`
+
+Assim, antecipamos esse download imaginando que a chance de ele clicar em alguma categoria da Alura é alta. Assim, já deixando isso no cache.
+
+É preciso tomar cuidado, se abusarmos do uso dessas táticas é possível que comecemo a baixar coisas que não são tão úteis, coisas a mais. Temos que utilizar esses recursos com certa esperteza. Outra sugestão é também não fazer o prefetch de um vídeo de 2G, pois pode acontecer um potencial disperdício. O prefetch deve ser utilizado quando se visualiza uma chance alta de ser necessário.
+
+O preload possui um uso similar, mas ele possui uma semântica distinta:
+
+`<link rel="preload" href="arquivo.css">`
+
+A diferença é que o prefetch possui uma prioridade baixa, está direcionado a uma navegação futura. O preload está direcionado para o momento, para a navegação atual.
+
+O preload pode ser utilizado quando temos um carrossel de imagens e vários banners passando, colocamos o primeiro banner na imagem, mas sabendo que devemos antecipar o segundo banner, podemos pedir que o segundo banner seja antecipando o seguinte, pois na hora que o carrossel rodar o segundo banner já irá aparecer. Digitaremos o seguinte nesse caso:
+
+`<link rel="preload" href="banner2.jpg">`
+
+Já utilizamos o preload antes com coisas que queríamos que tivessem alta prioridade. Não poderíamos, nesse caso, usar o prefetch, pois desejamos uma prioridade alta.
+
+Imagine que temos diversos preloads possíveis, para saber qual deve ser o preload a ser utilizado devemos introduzir um atributo, o as, ele na verdade comunica a prioridade para o download do navegador:
+
+`<link rel="preload" href="arquivo.css" as="style">`
+
+Ele lê o seguinte interpretando que o style possui prioridade, se fosse as="image" o navegador lê isso como algo com menor prioridade, pois sabe que isso é uma característica das imagens. Se você deixar sem o as isso indica que a prioridade é baixa.
+
+Vamos pensar onde caberia o uso do preload no site, um recurso que costuma atrasar bastante a renderização do site é o seguinte:
+
+mostrando a fonte na página
+
+A fonte! As fontes são alguns dos recursos que mais tardam em serem baixados na página, podemos, inclusive, reparar pela faixa em azul no gráfico "WaterFall":
+
+mostrando a fonte
+
+Vamos relembrar, as fontes são declaradas no CSS:
+
+fontes no código
+
+E a "url" dessa fonte só será baixada na hora em que ela for realmente utilizada . O navegador adia o download da fonte o máximo possível. Ele precisa primeiro baixar o CSS, "parsear" o CSS, baixar o HTML "parseá-lo" e encontrar algum nó que use a fonte e, então, inicia o download. E isso, pode ser demorado. E, assim, podemos fazer o preload disso, escrevendo:
+
+`<link rel="preload" href="assets/font/opensans-extrabold.woff2" as="font" type="font/woff2">`
+
+Agora, faremos esse download mais rapidamente. O type="font/woff2" serve para indicar que o download só vai ser feito se o navegador entender o woff2 e você pode usar o woff1 para os navegadores que entendem o woff1. O preload é bem útil para baixar recursos que são tardiamente descobertos, seja por ser assíncrono, secundário, por algum motivo que não é possível que ele seja descoberto logo de cara.
+
+PRERENDER
+Para fecharmos o tema de Resources Hint vamos finalizar abordando o prerender.
+
+Isso pode parecer estranho, mas na verdade já utilizamos o prerender antes. Imagine, quando realizamos uma busca no Google ele nos mostra os resultados relacionados as palavras-chaves que usamos. Se buscarmos Alura a chance de clicarmos no primeiro site que aparece é muito grande e existe tanto essa certeza que o primeiro link já começa a ser renderizado antes mesmo de ser clicado, é isso que faz o prerender.
+
+No Chrome se formos em "More Tools > Tool Manager" podemos verificar todas as abas que estão abertas e nessa janela podemos visualizar a aba "Prerender". Essa página ja foi renderizada. É como se tivesse uma aba escondida:
+
+mostrando a task
+
+No momento em que clicamos no primeiro link que aparece na lista ele abre quase que instantaneamente. Isso acontece quando fazemos uma busca e o Google acredita que a possibilidade de ter acertado é grande. A ação do usuário é antecipada.
+
+Para fazer isso é bastante fácil. Vamos voltar ao código, na "index.html" e acrescentamos o link rel="prerender" e a página que deve ser pré-renderizada href="pagina.html":
+
+`<link rel="prerender" href="pagina.html">`
+
+É importante usar esse recurso se você tiver uma razoável certeza de que isso vai ser utilizado, isso é muito útil quando temos os casos de work flow. Por exemplo, no caso da leitura de um texto que possui mais de uma página, é provável que a notícia siga sendo lida, a probabilidade da pessoa continuar até as próximas páginas é grande.
+
+No site do Alura existe um cenário interessante, no final da página existe um campo para se cadastrar e receber novidades e lançamentos:
+
+mostrando como preencher o campo
+
+Quando terminamos de preencher com nossas informações esse campo e damos um "ok" somos redirecionados para uma página que diz "Obrigada!":
+
+mostrando a pagina obrigado
+
+A implementação disso é curioso, no "index.html" temos o input com o cadastro:
+
+mostrando o input
+
+E na hora que clicamos nisso podemos observar que ele não dispara nenhum formulário, isso foi implementado utilizando o javascript. Isso está no "footer.js":
+
+mostrando o footer
+
+A regra é que quando a pessoa clicar no botão de Newsletter ele cadastra a newsletter fazendo uma validação, chamando a API e ao terminar de fazer isso somos redirecionados para a página do cadastrado. É uma redirect. Esse cenário é um forte candidato para fazermos um prerender. Escreveremos o seguinte no "index.html":
+
+`<link rel="prerender" href="cadastrado.html">`
+
+Fazendo um gulp e carregando a página o que veremos é um prerender do "cadastrado":
+
+mostrando o prerender
+
+Outra técnica que podemos utilizar, já que o usuário só vai chegar ao prerender se ele preencher o campo das Newsletter é criar o link rel="prerender" de maneira dinâmica. Imagine que o usuário está na página e começa a preencher o campo, nesse caso, a chance de ele apertar o "ok" é altíssima. Podemos pegar esse evento para disparar o download. Vamos no "footer.js" e diremos que quando a pessoa der foco, aí se criará o elemento do prerender:
+
+```js
+inputEmail.onfocus = function() {
+    var prerender = document.createElement('link');
+    prerender.rel =`prerender`;
+    prerender.href = 'cadastrado.html';
+
+    document.head.appendChild(prerender);
+
+}
+```
+
+O ponto é tentar descobrir qual o melhor momento para fazer isso. E isso dependerá do cenário. Vamos testar isso! Antes ele dava prerender apenas de abrirmos a página, agora, ele disparará o prerender apenas quando dermos foco no campo do e-mail:
+
+## Dica final
+
+Use o page speed insights da google, ele é um ótimo parâmetro final pro seu site
+
+A página final ficou <https://github.com/alura-cursos/performance-web-2/archive/master.zip>
+
+Performance budget (quanto eu posso gastar de recursos): que é limitar qual o teto de performance que eu quero chegar no meu site, ai pode ser tempos variados ou tamanhos de pagina variadas e tentar manter nesse limite desde o começo ou ir chegando nesse limite para seu projeto e um site que faz isso é o performancebudget.io que me diz o que eu preciso gastar para que minha página carregue em x segundos, tanto de css, js, video, imagem e afins e com isso até poder se comparar com outros sites do seu ramo, outra forma é uma extensão chamada browser calories que te dá um budget padrão pros 100 sites mais acessados e isso pode ser mudado
