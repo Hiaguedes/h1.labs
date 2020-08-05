@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="fundo-grid-elementar.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="1.3 0.5 109 109"
+   height="110.38138mm"
+   width="111.63731mm">
+   <style>
+      @keyframes movimenta-direita-forte{
+         to{
+            transform: translate(100%);
+         }
+      }
+      #linha-vertical-forte{
+         animation: movimenta-direita-forte 5s ease-in-out alternate infinite;
+      }
+
+      @keyframes movimenta-baixo-forte{
+         to{
+            transform: translate(0,-100%);
+         }
+      }
+      #linha-horizontal-forte{
+         animation: movimenta-baixo-forte 4s ease-in-out alternate infinite;
+      }
+
+      @keyframes movimenta-cima-tracejada{
+         from{
+            transform: translate(0,20%);
+         }
+         to{
+            transform: translate(0,-80%);
+         }
+
+      }
+
+      #linha-horizontal-tracejada{
+         animation: movimenta-cima-tracejada 3s infinite;
+      }
+
+      @keyframes movimenta-esquerda-tracejada{
+         from{
+            transform: translate(28%);
+         }
+         to{
+            transform: translate(-67%);
+         }
+
+      }
+      #linha-vertical-tracejada{
+         animation: movimenta-esquerda-tracejada 3s infinite;
+      }
+
+   </style>
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2017"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path2015"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#ffc30b;fill-opacity:1;fill-rule:evenodd;stroke:#ffc30b;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#000000;fill-opacity:0;fill-rule:evenodd;stroke:#ffc30b;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1705" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     inkscape:guide-bbox="true"
+     showguides="true"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="-8"
+     inkscape:window-height="1057"
+     inkscape:window-width="1920"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     inkscape:lockguides="true"
+     inkscape:snap-global="false"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="160.63976"
+     inkscape:cx="80.691219"
+     inkscape:zoom="1.4142136"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base">
+    <sodipodi:guide
+       id="guide2067"
+       orientation="1,0"
+       position="134.25063,42.398703" />
+    <sodipodi:guide
+       id="guide2069"
+       orientation="0,-1"
+       position="128.3707,-9.9861248" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(274.56848,-60.710071)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="fundo">
+    <ellipse
+       ry="1.5119048"
+       rx="0.37797621"
+       cy="189.74405"
+       cx="235.47916"
+       id="path14"
+       style="fill:#ff0000;fill-rule:evenodd;stroke-width:0.264583" />
+    <rect
+       y="60.711346"
+       x="-273.30359"
+       height="110.36904"
+       width="110.37211"
+       id="fundo"
+       style="opacity:0.999;mix-blend-mode:normal;fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264586;stroke-opacity:1" />
+  </g>
+  <g
+     transform="translate(301.02681,40.587548)"
+     inkscape:label="linha-forte-vertical"
+     id="layer2"
+     inkscape:groupmode="layer">
+    <circle
+       r="0.39687499"
+       cy="-183.69643"
+       cx="-433.16074"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="path860" />
+    <circle
+       r="0.39687499"
+       cy="-43.089287"
+       cx="-427.86908"
+       style="fill:#000000;stroke:none;stroke-width:0.264583"
+       id="path862" />
+    <path
+       inkscape:label="linha-vertical-forte"
+       id="linha-vertical-forte"
+       d="M -299.76228,-40.586663 V 69.793161"
+       style="fill:none;stroke:#c8c8c8;stroke-width:2.52903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+  <g
+     transform="translate(301.02681,40.587548)"
+     inkscape:label="linha-forte-horizontal"
+     id="layer3"
+     inkscape:groupmode="layer">
+    <path
+       inkscape:label="linha-horizontal-forte"
+       id="linha-horizontal-forte"
+       d="m -299.76434,68.529322 h 110.36203"
+       style="fill:none;stroke:#c8c8c8;stroke-width:2.52903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+  <g
+     transform="translate(301.02681,40.587548)"
+     inkscape:label="linha-vertical-tracejada"
+     id="layer4"
+     inkscape:groupmode="layer">
+    <path
+       id="linha-vertical-tracejada"
+       d="m -224.51573,-40.587517 c 0,109.893363 0.189,110.270355 0.189,110.270355"
+       style="opacity:1;fill:none;fill-opacity:0;stroke:#ffc30b;stroke-width:0.564309;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.38586, 1.12862;stroke-dashoffset:0.959325;stroke-opacity:1" />
+  </g>
+  <g
+     transform="translate(301.02681,40.587548)"
+     inkscape:label="linha-horizontal-tracejada"
+     id="layer5"
+     inkscape:groupmode="layer">
+    <path
+       inkscape:label="linha-horizontal-tracejada"
+       id="linha-horizontal-tracejada"
+       d="m -299.6091,47.707606 110.22134,0.133642"
+       style="fill:none;stroke:#ffc30b;stroke-width:0.564257;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.38555, 1.12852;stroke-dashoffset:3.32912;stroke-opacity:1" />
+  </g>
+</svg>

@@ -1,0 +1,3 @@
+<!--0 0 111.63731 110.38138-->
+
+ <img class="animacao__imagem" src="./assets/img/fundo-grid-elementar.svg" alt="">
