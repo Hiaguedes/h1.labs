@@ -89,3 +89,13 @@ Por exemplo:
 O bootstrap trabalha com modelos, mas é impossível trabalhar com todos os modelos do mundo, então para deixar com a nossa cara precisaremos do css :)
 
 Mas usar o bootstrap é fácil, é basicamente ver o que queremos colocar no site, digitando no site deles como, vendo toda a documentação e brincando dentro de classes. Para certos elementos pode não ficar muito claro onde colocar, mas aí só pensar um pouco e ver qual elemento pai isso se encaixa melhor.
+
+## Sempre use tags semânticas
+
+Priorize o uso de tags como main, article, footer, header, ul, li, figure, ao invés de div e tags genéricas, o bootstrap coloca as coisas como div mas por que é a forma mais genérica de se mostrar o que está sendo feito mesmo, mas para garantirmos acessibilidade e indexamento do site é válido colocarmos tags semânticas para mostrarmos o que está sendo feito
+
+## Bootstrap grid
+
+O Bootstrap Grid, pois essa ferramenta permite um ajuste fino de leiaute para vários breakpoints de tela.
+
+O sistema de grid nos permite indicar individualmente qual a quantidade de colunas (em um espaço de 12 colunas) cada elemento irá ocupar, dependendo do tamanho da tela. Em telas menores o espaço total de colunas pode ser ocupado por somente um elemento, enquanto em telas mais largas, podemos acomodar uma quantidade maior de elementos por linha.

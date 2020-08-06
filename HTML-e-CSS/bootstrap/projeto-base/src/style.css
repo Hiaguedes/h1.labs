@@ -1,4 +1,4 @@
-.nome-loja, .texto-secao{
+#titulo, .texto-secao{
     font-family: 'Pacifico', cursive;
     color: rgb(131, 29, 29);
 }
@@ -13,4 +13,50 @@
     font-family: 'Pacifico', cursive;
     color: whitesmoke;
     font-size: 5rem;
+}
+
+.card{
+    display: inline-block;
+    border: 1px solid rgb(131, 29, 29);;
+    max-width: 18rem;
+    padding: 0;
+    margin-right:2rem;
+}
+
+.card-img{
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.btn{
+    background-color: rgb(131, 29, 29);
+    border:rgb(131, 29, 29) ;
+    color: azure;
+}
+
+.btn:hover{
+    background-color: rgb(141, 31, 31);
+    border:rgb(141, 31, 31);
+    color: azure;
+}
+
+.btn-fechar{
+    border: none;
+}
+
+footer{
+    padding: 2rem 1rem;
+}
+.content-footer{
+    color: aliceblue;
+}
+
+.footer-email{
+    color: bisque;
+}
+
+.footer-email:hover{
+    color: bisque;
+    
 }
