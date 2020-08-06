@@ -1,0 +1,16 @@
+.nome-loja, .texto-secao{
+    font-family: 'Pacifico', cursive;
+    color: rgb(131, 29, 29);
+}
+
+.imagem-carrossel{
+    height: 500px;
+    object-fit: cover;
+    object-position: 0 70%;
+}
+
+.texto-imagem {
+    font-family: 'Pacifico', cursive;
+    color: whitesmoke;
+    font-size: 5rem;
+}
