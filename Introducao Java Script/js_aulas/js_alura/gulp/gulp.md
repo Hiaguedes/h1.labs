@@ -176,3 +176,157 @@ gulp.task('copy',gulp.series('clean',()=>{
 No código exibido, a tarefa clean é dependência de copy, mas isso não garante que ela executará primeiro e no seu término seja executada a tarefa copy. O que acontecerá é a limpeza e código de arquivos ao mesmo tempo resultando em um erro no terminal. Isso acontece porque Gulp executa tarefas assincronamente para conseguir máxima performance, mas nem sempre isso é desejado como neste exemplo. Para que a tarefa copy espere a tarefa clean terminar, a tarefa clean precisa retornar seu stream. Quando uma tarefa retorna um stream ela sinaliza para o Gulp que a tarefa na qual ela é dependência tem que esperar seu processamento
 
 Ou seja a função copy só execute quando a função clean acaba e aí sim copia tudo que está na pasta src para a dist
+
+## Como muita coisa morreu com o HTTP2, muita coisa eu não vou anotar aqui por que tem no curso de performance
+
+é isso
+
+## Browser Sync
+
+Ele é tipo o live server do visual code, porém com a adição de um visualizador no celular. Pois é um servidor de fato.
+
+Para usarmos o BrowserSync precisamos instalá-lo como qualquer outro módulo do Node.js e importá-lo em nosso gulpfile.js. Quando formos configurar sua tarefa, precisamos passar um objeto como parâmetro para a função browserSync.init(). Qual das opções configura corretamente para servir todos os arquivos de projeto/src?
+
+** Lembre-se que o seu gulpfile.js fica na pasta projeto. (não no meu caso, por que dei mole mesmo)
+
+A resposta correta é:
+
+```js
+var browserSync = require('browser-sync');
+
+gulp.task('server', function() {
+    browserSync.init({
+        server: {
+            baseDir: 'src'
+        }
+    });
+});
+```
+
+A função init do BrowserSync recebe um objeto com a chave server. É no atributo baseDir deste objeto que indicamos a pasta que o BrowserSync considerará como raiz quando acessarmos o endereço padrão localhost:3000. Isso significa que se houver o arquivo projeto/src/index.html podemos acessa-lo como localhost:3000/index.html, porque a pasta raiz é src da pasta projetos. É importante lembrar que essa configuração ainda não é suficiente para o livereloading funcionar.
+
+Configurar o BrowserSync apenas indica qual pasta será servida através do navegador pelo pequeno servidor criado por esta ferramenta. Só essa configuração não realiza a mágica do livereloading. Precisamos chamar o método reload() do objeto BrowserSync sempre que quisermos que ele atualize a página no navegador. Para essa tarefa usamos watchers do Gulp que ao detectarem qualquer mudança nesse ou naquele arquivo, chamará o reload() do BrowserSync.
+
+Qual das configurações abaixo configura corretamente um watcher para recarregar o BrowserSync na mudança de qualquer arquivo?
+
+```js
+gulp.task('server', function() {
+    browserSync.init({
+        server: {
+            baseDir: 'src'
+        }
+    });
+
+    gulp.watch('src/**/*').on('change', browserSync.reload);
+});
+```
+
+A função gulp.watch recebe como primeiro parâmetro o evento que desejamos observar, em nosso caso, estamos interessados apenas nos arquivos que mudaram, por isso passamos change. Por fim, o útlimo parâmetro é a função que desejamos executar, nesse caso, passamos diretamente BrowserSync.reload. Como passamos a função e não a invocamos, será o watcher que a chamará toda vez que um arquivo for alterado.
+
+É por isso que não podemos fazer:
+
+` gulp.watch('src/**/*').on('change', browserSync.reload());`
+
+Neste exemplo, já estamos pedindo para o BrowserSync executar seu reload. Como esta função não retorna nada, nosso watcher não terá função alguma para executar. É por isso que devemos passar a função como browserSync.reload. Em JavaScript funções podem ser passadas como parâmetro. Uma alternativa mais verbosa é a seguinte:
+
+```js
+ gulp.watch('src/**/*').on('change', function() {
+      browserSync.reload();
+    });
+```
+
+Veja que não passamos mais diretamente a função browserSync.reload como parâmetro, em seu lugar, passamos uma função anônima e quando ela for executada pelo nosso watcher do Gulp ela chamará browserSync.reload(), recarregando assim nossa página. A primeira é menos verbosa que a segunda, mas ambas são válidas.
+
+## Antencipando erros
+
+Uma biblioteca boa para mostrar direto se eu errei no js ou não sem precisar ficar abrindo o console é o gulp-jshint e ele trabalha dentro do browser sync, o legal é que ele diz erros de maneira não tão verbosa basta configurarmos
+
+Pro css temos o gulp-csslint. Na computação, existe um termo para esse procedimento que procura alguma estrutura suspeita ou não conformante com determinada sintaxe, esse procedimento se chama lint.
+
+Descobrir erros antes que entrem em produção é importante, porque são mais baratos de se resolverem, isto é, imagine realizar todo o deploy de uma aplicação porque havia um erro de sintaxe em um de nossos scripts?
+
+Qual das opções abaixo configura um watcher do Gulp para corretamente executar o jshint quando um arquivo JS for modificado, e exibir as mensagens no terminal?
+
+Resposta
+
+```js
+var gulp = require('gulp'),
+    ,jshint = require('gulp-jshint');
+
+gulp.watch('src/js/**/*.js').on('change', function(event) {
+        console.log("Linting " + event.path);
+        gulp.src(event.path)
+       .pipe(jshint())
+       .pipe(jshint.reporter());
+    });
+```
+
+Precisamos ouvir o evento change e obter na função de callback, passada como segundo parâmetro para a função on, o objeto que tem informações sobre o evento. Demos o nome event para ele, mas como já sabemos, em JavaScript este parâmetro poderia ter qualquer nome. É através dele que acessamos o caminho do arquivo (path). Precisamos também indicar qual reporter usar, caso contrário não teremos nenhuma informação no terminal sobre o estado do nosso arquivo. É por isso que usamos jshint.reporter. Sem ele, nosso código não dá erro, mas também não temos qualquer informação
+
+## Prefixação de elementos css
+
+Como visto em aulas de css, certas estilizações somente são suportadas por alguns browsers enquanto para outros não, para isso temos que colocar prefixos como -webkit-, -ms, -o, -moz. E lembrar de colocar isso para todos os efeitos é bastante chato e repetitivo (principalmente se queremos dar suporte para browsers mais velhos), para isso existe uma biblioteca no node chamada `gulp-autoprefixer`, sua instalação e uso é bem parecido com qualquer outra biblioteca já instalada anteriormente, seu uso pode ser visto na documentação do npm o legal dele é que podemos criar uma chave valor no package.josn para dizer quais browsers iremos suportar no projeto como no exemplo
+
+```json
+  "browserslist": ["last 40 versions"]
+```
+
+Botar muitas versões para trás pode deixar o arquivo css criado um tanto maior, porém seu uso pode variar de forma a abrangermos o maior numero possível de browsers
+
+Sobre o arquivo browserslist:
+
+a) É nele que centralizamos as configurações de quais versões do browser serão suportadas pelo gulp-autoprefixer. Inclusive podemos dizer que queremos suportar as últimas 20 versões! O impacto disso, é que haverá mais prefixação no arquivo gerado, suportando assim esses navegadores e suas versões.
+
+b) Quando não é criado, o gulp-autoprefixer prefixará o arquivo CSS suportando todos os browsers do mercado, inclusive aqueles pré-históricos.
+
+c) Seu uso é opcional.
+
+Podemos afirmar que:
+
+Apenas a B é falsa
+
+O uso do arquivo browserslit é opcional, porém, sua ausência não faz com que o gulp-autoprefixer considere todos os navegadores desde de o seu lançamento, isto é, navegadores pré-históricos, versões antigas. Sua criação é necessária se quisermos ampliar ou restringir o leque de navegadores/versões suportados. Se quiser saber mais sobre esse arquivo e outras possíveis configurações acesse https://github.com/ai/browserslist.
+
+Parabéns, você acertou!
+
+## Podemos usar o compilador de css less
+
+Com o `gulp-less` conseguimos compilar arquivos css para isso fazemos a importação da biblioteca
+
+`less = require('gulp-less');`
+
+```js
+    gulp.watch('src/less/**/*.less').on('change', function(event) {
+       var stream = gulp.src(event.path)
+            .pipe(less().on('error', function(erro) {
+              console.log('LESS, erro compilação: ' + erro.filename);
+              console.log(erro.message);
+            }))
+            .pipe(gulp.dest('src/css'));
+    });
+```
+
+## watch
+
+Podemos criar uma observação no exemplo de function que colocamos com
+
+```js
+// Watch files
+function watchFiles() {
+  gulp.watch("./assets/scss/**/*", css);
+  gulp.watch("./assets/js/**/*", gulp.series(scriptsLint, scripts));
+  gulp.watch(
+    [
+      "./_includes/**/*",
+      "./_layouts/**/*",
+      "./_pages/**/*",
+      "./_posts/**/*",
+      "./_projects/**/*"
+    ],
+    gulp.series(jekyll, browserSyncReload)
+  );
+  gulp.watch("./assets/img/**/*", images);
+}
+```
+
+Projeto final do curso: <https://s3.amazonaws.com/caelum-online-public/gulp/stages/projeto-final.zip>
