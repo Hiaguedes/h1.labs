@@ -7,8 +7,10 @@ class NegociacaoController{
         this._inputQuantidade= $('#quantidade');
         this._inputValor= $('#valor');
 
-        this._listaNegociacoes=new ListaNegociacoes();
         this._negView= new NegociacaoView($('#negociacoesView'));//aqui setamos a construção da visão
+        this._listaNegociacoes=new ListaNegociacoes((model)=>{ // faço uma arrow function para garantir o escopo que ela foi criada que é NegociacaoController e te livrar de dar update toda vez que adicionar um negócio
+            this._negView.update(this._listaNegociacoes);//dou update na lista de negociações na tabela
+        });
 
         this._msg= new Mensagem();
         this._msgView= new MensagemView($('#mensagemView'));
@@ -17,8 +19,6 @@ class NegociacaoController{
         
     }
 
-
-    
     get inputData(){
         return this._inputData;
     }
@@ -27,6 +27,12 @@ class NegociacaoController{
     }
     get inputValor(){
         return this._inputValor;
+    }
+
+    apaga(){
+        this._listaNegociacoes.esvazia();
+        this._msg.texto='Tabela Excluída';
+        this._msgView.update(this._msg);
     }
         
     adiciona(event){  
@@ -37,7 +43,6 @@ class NegociacaoController{
         this._listaNegociacoes.adiciona(negociacao);
 
         //console.log(this._listaNegociacoes.negociacoes);
-        this._negView.update(this._listaNegociacoes);//dou update na lista de negociações na tabela
         this._msg.texto='Negociação adicionada com sucesso :D';//como a classe tem um setter podemos fazer isso fora dela
         this._msgView.update(this._msg);//dou update de mensagem bem sucedida a cada clique no botão para cada negociação feita
 
