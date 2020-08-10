@@ -3,14 +3,11 @@ class MensagemView extends View{
         super(elemento);
     }
     _template(model){
-
-        return `
-        
-        <span class="alert alert-info">
-        
+        console.log(model);
+        return `    
+        <span class="alert alert-info">       
         ${model.texto}
-        </span>
-        
+        </span>  
         `
     }
 

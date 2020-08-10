@@ -915,3 +915,348 @@ let pessoa = new Proxy(new Pessoa('Barney'), {
 
 });
 ```
+
+## setters
+
+Uma implementação possível:
+
+```js
+let funcionario= new Proxy(new Funcionario('abc@abc.com'),  {
+
+    set(target, prop, value, receiver) {
+        console.log(prop); // imprimindo a propriedade que está sendo alterada
+        console.log(`Valor antigo ${target[prop]}, valor atual: ${value}`);
+        return Reflect.set(target, prop, value, receiver);
+    }
+});
+
+funcionario.email = 'aaa@aaa.com';
+```
+
+Veja que usamos set no handler passado para o proxy. Além disso, muito cuidado que quando usamos set, a função deve receber quatro parâmetros e não três, como no caso do get.
+
+Reparou que a mensagem do proxy é exibida duas vezes? É que email é um setter. Nosso proxy irá executar seu código quando o setter for chamado e também para a propriedade _email, que é modificada pelo setter.
+
+## Será que cabe na cesta?
+
+Vimos o parâmetro rest (i.e. resto) nesse capítulo, quando enviamos diversos métodos para serem monitorados no Proxy. Agora, considere que um aluno está tentando usar rest, mas sem sucesso:
+
+```js
+// o código abaixo tem um problema, não funciona
+class Cesta{
+    constructor(tipo, [items...]){
+        //lógica
+    }
+}
+```
+
+E em algum outro lugar, alguém que cria uma instância da classe Cesta:
+
+`let cesta = new Cesta('fruta', ['banana', 'tomate', 'maçã']);`
+
+Vemos que tem algo errado! Como podemos consertar esse código com rest, para que possamos passar infinitas frutas, e no constructor declarar apenas uma variável para elas?
+
+Alteramos o constructor:
+
+```js
+constructor(tipo, ...items) {
+    //lógica
+}
+```
+
+E chamamos:
+
+`let cesta = new Cesta('fruta', 'banana', 'tomate', 'maçã');`
+
+No final, as variáveis no construtor ficarão:
+
+```js
+tipo : 'fruta';
+itens : ['banana', 'tomate', 'maçã'].
+```
+
+O rest lembra o spread, só que o spread fica dentro de um vetor, o rest cria o vetor
+
+## Padrão de projeto factory
+
+Por ser um tanto verbosa e dar um pouco de medo também, mas que tal colocar menos coisas no controller e criar algo ainda mais assustador? hahahah criando um esqueleto de proxys que podem ser usados de várias formas
+
+O padrão de projeto Factory
+
+Sobre o padrão de projeto Factory, julgue as afirmativas abaixo:
+
+1) Ele é utilizado quando precisamos facilitar a criação de um objeto.
+
+2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
+
+3) É bom para abstrair a criação de um objeto complexo, já que o programador que utilizar a Factory não precisa necessariamente saber como é feita esta operação.
+
+Todas as afirmativas são verdadeiras.
+
+O padrão de projeto Factory é um dos padrões mais utilizados no desenvolvimento. Ele é mais um da categoria dos patterns responsáveis por criar objetos, como o Builder e o Prototype.
+
+### Mais fábrica
+
+Vamos misturar os conceitos um pouco, afinal isso é um treinamento avançado, certo?
+
+Usamos o padrão Factory para isolar ou encapsular a complexidade da criação do proxy, mas uma fábrica pode fazer mais! Quero dizer que existem outros motivos para usar uma fábrica.
+
+Não sou especialista em bolsa de valores, no entanto sei que, além de ações de uma empresa, existem também opções para comprar. Uma opção dá o direito de comprar ou vender uma determinada ação/índice na bolsa de valores. Opções também são negociadas! Ou seja, além de ações podemos negociar, comprar e vender opções.
+
+Para representar isso no nosso modelo, poderíamos criar duas filhas da classe Negociacao: NegociacaoAcao e NegociacaoOpcao.
+
+Agora precisamos decidir no nosso código qual das duas classes devemos instanciar! Não vai ter jeito, e em algum lugar precisará ter um if:
+
+```js
+var negociacao = null;
+
+let tipoNegociacao = "opcao"; //isso poderia vir de um formulário web
+
+if(tipoNegociacao == "opcao") {
+    negociacao = new NegociacaoOpcao(/*passando params aqui*/);
+} else {
+    negociacao = new NegociacaoAcao(/*passando params aqui*/);
+}
+```
+
+Nesse exemplo, a decisão é relativamente simples, mas se tivesse mais parâmetros para avaliar? E se a gente precisasse desse if em mais de um lugar?
+
+Onde vamos colocar essa decisão?
+
+A resposta é: vamos colocar aquele if dentro de uma factory.
+
+Podemos criar uma classe NegociacaoFactory, que possui um método de criação:
+
+```js
+class NegociacaoFactory {
+
+    static create(tipoNegociacao, dados) {
+        if(tipoNegociacao == "opcao") {
+            return new NegociacaoOpcao(dados.data, dados.quantidade, dados.valor);
+        }
+        return new NegociacaoAcao(dados.data, dados.quantidade, dados.valor);
+    }
+}
+
+let n = NegociacaoFactory.create("acao", {'data': new Date(), 'quantidade': 2, 'valor': 34.3});
+```
+
+Repare que a Factory possui mais uma outra responsabilidade, instanciar `NegociacaoAcao` ou `NegociacaoOpcao`. A fábrica decide então qual implementação usar. Para quem chama, isso pouco importa, pois basta saber que recebemos uma Negociacao.
+
+## Fábricas na API JavaScript
+
+As fábricas não só fazem parte do nosso código, como também da API do JavaScript. Já existem várias classes que aproveitam esse padrão.
+
+Por exemplo, a classe String possui um método (ou factory method) para transformar vários CharCode em uma string:
+
+`let abc = String.fromCharCode(65, 66, 67);  // "ABC"`
+
+Outro exemplo é a classe Array, que pode receber uma string ou um iterável, como lista ou mapas, para criar um array:
+
+```js
+let d = Array.from("abc");
+["a", "b", "c"]
+```
+
+Teste os dois métodos de fábrica agora no seu navegador :)
+
+### DateHelper é um Factory?
+
+Hora da reflexão! Não é necessário responder este exercício, apenas "meditar" sobre o que é exposto.
+
+O que você acha de promovermos nosso DateHelper para Factory? Pode ser que isso tenha passado em sua cabeça, mas na verdade nosso DateHelper não é um Factory.
+
+O padrão de projeto Factory ocorre quando temos uma classe que nos ajuda a criar um objeto complexo, ou seja, ela esconde de nós os detalhes de criação desse objeto. É por isso que uma classe Factory possui apenas um método. Faz sentido, porque se tivéssemos que chamar mais de um para criar um objeto a responsabilidade de sua criação cairia em nosso colo.
+
+Já nosso DateHelper, que está mais para um DateConverter (por que não pensei nesse nome antes?!), tem como responsabilidade converter datas. Ele possui dois métodos que focam a criação de texto para data e data para texto. Apesar da classe isolar a complexidade de construção de uma data, ela atua mais como um conversor do que uma Factory.
+
+### Consolidando seu conhecimento 1
+
+Hora de praticar, implementando as novas funcionalidades apresentadas na seção. Como de costume, segue um resumo dos passos que devem ser executados:
+
+1 - Isole o código que constrói um Proxy e sua complexidade na classe ProxyFactory.
+
+2 - Esconda a construção do Proxy utilizando um objeto Bind.
+
+3 - Altere NegociacaoController para usar as classes que você acabou de criar.
+
+4 - Remova os atributos que representam as views do controller passando direto para o Proxy, afinal, apenas ele deverá manipular a view!
+
+## Consolidando seu conhecimento 2 (importante)
+
+Você deve ter estranhado esse exercício vir depois do exercício "Consolidando seu conhecimento 1". Isso não foi por acaso. Apesar de o código apresentado neste capítulo ser totalmente funcional, ele pode falhar em outros cenários que não sejam o dessa aplicação. Queremos um código genérico, não é mesmo? A alteração é ínfima, mas envolve uma revisão do que aprendemos de proxy. Preparado?
+
+Vamos revisitar a classe ProxyFactory:
+
+```js
+class ProxyFactory {
+
+    static create(objeto, props, acao) {
+
+        return new Proxy(objeto, {
+
+                get(target, prop, receiver) {
+
+                    if(props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
+
+                        return function() {
+
+                            console.log(`interceptando ${prop}`);
+                            Reflect.apply(target[prop], target, arguments);
+                            acao(target);
+                        }
+                    }
+
+                    return Reflect.get(target, prop, receiver);
+                },
+
+                set(target, prop, value, receiver) {
+
+                    if(props.includes(prop)) {
+                        target[prop] = value;
+                        acao(target);    
+                    }
+
+                    return Reflect.set(target, prop, value, receiver);
+                }
+        });
+    }
+
+    static _ehFuncao(func) {
+
+        return typeof(func) == typeof(Function);
+    }
+}
+```
+
+Com o projeto aberto no Chrome, abra o console e crie um objeto que possui um método que retorna um valor. Você pode cortar e colocar o código a seguir:
+
+```js
+let pessoa = { 
+    nome: 'Flávio', 
+    sobrenome: 'Almeida', 
+    getNomeCompleto() {
+        return `${this.nome} ${this.sobrenome}`;
+    }
+}
+```
+
+Se quisermos obter o nome completo fazermos `pessoa.getNomeCompleto()` o que exibirá no console a mensagem "Flávio Almeida". Perfeito.
+
+Agora vamos criar um proxy desse objeto. Ainda com o Chrome aberto, cole o seguinte código no seu terminal:
+
+```js
+let pessoaProxy = ProxyFactory.create(pessoa, ['getNomeCompleto'], () => console.log('armadilha aqui'));
+```
+
+Criamos nosso proxy! Agora vamos chamar o método `pessoaProxy.getNomeCompleto()`. O que deve acontecer? Três saídas devem acontecer. A primeira, da ProxyFactory que indica o que esta sendo interceptado, a segunda é armadilha aqui que nós definimos. Por fim, o retorno de getNomeCompleto que deve ser Flávio Almeida. Faça um teste e veja algo curioso:
+
+`pessoaProxy.getNomeCompleto()`;
+No lugar de exibir Flávio Almeida, o resultado é undefined! Isso acontece, porque em nossa ProxyFactory, quando interceptamos um método, não estamos fazendo com que o valor resultante da chamado do método seja retornado! Resumindo: do jeito que está, métodos com retorno de proxies criadas a partir da ProxyFactory retornarão sempre undefined! E agora?
+
+A correção é simples. Vamos na parte do nosso código que identificamos que a propriedade é uma função. Vou colocar apenas esse trecho de código:
+
+```js
+// ProxyFactory.js
+// código anterior omitido
+
+if(props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
+
+    return function() {
+
+        console.log(`interceptando ${prop}`);
+        Reflect.apply(target[prop], target, arguments);
+        acao(target);
+    }
+}
+// código posterior omitido
+```
+
+Veja que em nenhum momento retornamos o resultado de `Reflect.apply(target[prop], target, arguments)`. Não podemos simplesmente colocar um return na frente dessa instrução porque assim acao(target) nunca será executado. Vamos guardar o retorno em uma variável, chamar acao(target) e aí sim retornar o resultado da operação:
+
+```js
+// ProxyFactory.js
+// código anterior omitido
+
+if(props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
+
+    return function() {
+
+        console.log(`interceptando ${prop}`);
+        let retorno = Reflect.apply(target[prop], target, arguments);
+        acao(target);
+        return retorno;
+    }
+}
+// código posterior omitido
+```
+
+Se por acaso o método não retornar nada, não faz mal, o retorno será undefined, algo totalmente esperado.
+
+Agora, recarregue a página index.html mais uma vez cole o código abaixo para realizar um novo teste:
+
+```js
+let pessoa = { 
+    nome: 'Flávio', 
+    sobrenome: 'Almeida', 
+    getNomeCompleto() {
+        return `${this.nome} ${this.sobrenome}`;
+    }
+}
+
+let pessoaProxy = ProxyFactory.create(pessoa, ['getNomeCompleto'], () => console.log('armadilha aqui'));
+
+pessoaProxy.getNomeCompleto();
+```
+
+Agora sim! Interceptamos o método e o seu retorno agora é disponível para quem o chamou. Como nenhum dos métodos interceptados da nossa aplicação retornavam um valor, a ausência dessa mudança não impactava no resultado final. Mas como disse, queremos uma solução genérica que possa ser usada em qualquer situação, inclusive para métodos que retornam valor.
+
+Por fim, há ainda uma pequena alteração que envolve mais performance. Quando interceptamos a escrita em uma propriedade, nosso handler set é executado. Vejamos seu código:
+
+```js
+// ProxyFactory.js
+// código anterior omitido
+set(target, prop, value, receiver) {
+
+    if(props.includes(prop)) {
+        target[prop] = value;
+        acao(target);    
+    }
+    return Reflect.set(target, prop, value, receiver);
+}
+// código posterior omitido
+```
+
+O código funciona, mas um olhar atento percebe que se a propriedade é uma que estamos monitorando, aplicamos `target[prop]= value` para aplicar o valor recebido na propriedade. Mas veja que precisamos fazer a mesma coisa se a propriedade não é monitorada, caso contrário ela nunca receberá seu valor. É por isso que logo em seguida realizamos return `Reflect.set(target, prop, value, receiver)`. Veja que há um return porque uma atribuição em uma propriedade setter pode retornar um valor, apesar de isso não ser comum. Sendo assim, atualizamos o objeto original encapsulado duas vezes quando ele possui uma propriedade que queremos interceptar e executar uma armadilha. Otimizando nosso código:
+
+```js
+// ProxyFactory.js
+// código anterior omitido
+
+set(target, prop, value, receiver) {
+
+    let retorno = Reflect.set(target, prop, value, receiver);
+    if(props.includes(prop)) {
+        acao(target);    
+    }
+    return retorno;
+}
+// código posterior omitido
+Se quiser, ainda podemos remover o bloco do if:
+
+// ProxyFactory.js
+// código anterior omitido
+set(target, prop, value, receiver) {
+
+    let retorno = Reflect.set(target, prop, value, receiver);
+    if(props.includes(prop)) acao(target);    // só executa acao(target) se for uma propriedade monitorada
+    return retorno; 
+}
+// código posterior omitido
+```
+
+Agora a ProxyFactory está ainda mais redondinha!
+
+Por último implemente a classe Bind. Ela receberia três parâmetros apenas: o modelo, as propriedades que desejamos monitorar e a view. Não se esqueça de utilizar os parâmetros REST.
+
+## Ajax e APIs
