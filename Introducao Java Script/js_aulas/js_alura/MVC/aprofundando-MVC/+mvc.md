@@ -81,7 +81,7 @@ Que tal declararmos nossa função como uma arrow function, que é menos verbosa
 
 Um teste demonstra que nosso código deixa de funcionar. Primeiro, independente do elemento que eu clique, o this que é impresso no console é window e não aquele elemento do DOM. Segundo, como this é window e ele não possui a propriedade textContent, é exibido undefined para o usuário. Esse problema serve para demonstrar que uma arrow function vai além de uma sintaxe mais enxuta para declararmos funções.
 
-Diferente de uma função, que possui um this dinâmico, uma arrow function possui um this estático, ou seja, que nunca muda e que é determinado no momento em que é declarado! Veja que quando declararmos nossa arrow function, ela vai considerar o this do local onde é declarada. Sendo assim, como o this dentro da tag <script> é window, ela adotará window.
+Diferente de uma função, que possui um this dinâmico, uma arrow function possui um this estático, ou seja, que nunca muda e que é determinado no momento em que é declarado! Veja que quando declararmos nossa arrow function, ela vai considerar o this do local onde é declarada. Sendo assim, como o this dentro da tag `<script>` é window, ela adotará window.
 
 Resumindo:
 
@@ -522,3 +522,396 @@ O padrão de projeto Observer
 Usamos o padrão de projeto Observer sempre que queremos notificar partes do sistema interessadas quando um evento importante for disparado em nosso sistema.
 
 No contexto da nossa aplicação, entendemos um evento como o ato de adicionar ou esvaziar nossa lista de negociações. É a view que está interessada em observar esse evento e tomar uma ação, no caso, se atualizar com base no estado mais atual do modelo.
+
+## Padrão de projeto proxy
+
+A solução de jogar uma armadilha no construtor da lista é legal, funciona mas polui o código com responsabilidades que não eram para ser a dele, pois ele é um modelo e é a parte do código que é muito requisitada no código. E o update tem uma responsabilidade da view ( então isso é um fator que pode deixar nosso código mais confuso).
+
+Para isso eu chamo um modelo de mentirinha, que encapsula o modelo real que queremos acessar dentro do controller mesmo. A esse padrão de projeto chamamos de proxy, e aplicaremos a mesma armadilha dentro desse proxy
+
+E para chamar ela no js eu faço
+
+```js
+new negProxy(instancia do objeto(), {armadilhas});
+```
+
+E o que fica dentro das chaves é onde ficam as armadilhas (trap), e o conjunto de armadilhas é chamada de handlers
+
+### Vantagens do Proxy
+
+Sobre o padrão de projeto Proxy, podemos afirmar que:
+
+1) Ele é útil quando queremos deixar os nossos modelos mais limpos, sem várias armadilhas penduradas nos seus métodos. Por exemplo, evitando pendurar um código de infraestrutura em nossos modelos.
+
+2) Ele modifica o objeto original, enxertando nele todo aquele código que desejamos executar.
+
+3) Ele serve como um placeholder de um objeto real, servindo como uma interface para o objeto que queremos interagir, nos permitindo controlar o acesso às suas propriedades e métodos.
+
+Apenas as afirmativas 1 e 3 são corretas.
+
+O padrão de projeto Proxy nada mais é do que um objeto "falso", "mentiroso", que envolve e encapsula o objeto real que queremos interagir. É como se fosse uma interface, entre o objeto real e o resto do código. Conseguimos assim controlar o acesso aos seus atributos e métodos. Nele também podemos pendurar códigos que não cabem de estar alocados nos nossos modelos, mas que necessitam ser executados no caso de uma alteração ou atualização do mesmo.
+
+### Target, prop ou receiver ?
+
+Vejamos o seguinte exemplo:
+
+```js
+let pessoa = {
+    nome: 'Flávio'
+}
+
+let pessoaProxy = new Proxy(pessoa, {
+    get(target, prop, receiver) {
+         //...
+    }
+});
+```
+
+Como segundo argumento de um proxy, passamos um handler, que é um objeto JavaScript que contém as armadilhas (traps) do nosso Proxy. Neste objeto, podemos criar uma propriedade get e passar para ela uma função com 3 parâmetros.
+
+```js
+get(target, prop, receiver) {
+    //...
+}
+```
+
+Sobre estes 3 parâmetros, qual das afirmativas abaixo é completamente verdadeira?
+
+```r
+O target é o objeto real, que é encapsulado pelo proxy.
+
+O prop é a propriedade que está sendo lida.
+
+O receiver é uma referência ao próprio proxy.
+```
+
+O target é o objeto real que é encapsulado pela proxy. É este objeto que não queremos "sujar" com armadilhas ou qualquer código que não diga respeito ao modelo.
+
+O prop é a propriedade em si, que está sendo lida naquele momento.
+
+O receiver é a referência ao próprio proxy. É na configuração do handler do Proxy que colocamos armadilhas.
+
+Aprendemos neste capítulo a criar proxies, que nada mais são do que objetos mentirosos que encapsulam outros, mais notadamente objetos do nosso modelo. Pense em proxies como "cascas" que envolvem objetos. Dentro desse contexto, só podemos "tocar" os objetos encapsulados passando pelo proxy. É justamente essa característica que torna o uso desse padrão de projeto tão poderoso.
+
+Temos o seguinte objeto literal (aquele criado com chaves):
+
+let funcionario = {email: 'abc@abc.com'};
+Crie um proxy para este objeto, exibindo no console a mensagem "Armadilha aqui", toda vez que a propriedade email for lida.
+
+Uma implementação possível é:
+
+```js
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+console.log(funcionarioProxy.email);
+```
+
+Veja que a instrução a seguir é muito importante: return Reflect.get(target, prop, receiver). É ela que efetivamente realiza a operação no objeto real. Aliás, poderíamos ter conseguido o mesmo resultado da seguinte maneira:
+
+```js
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return target[prop];
+    }
+
+});
+console.log(funcionarioProxy.email);
+```
+
+Há uma ligeira diferença entre as duas. Na primeira, get retorna uma função que é invocada para obter o valor da propriedade original, na segunda, o valor é retornado diretamente. Entenda que `Reflect.get` cria algo semelhante a uma getter. Você ainda lembra que um getter é uma espécie de função?
+
+Segue uma implementação:
+
+```js
+let funcionario = new Proxy(new Funcionario('abc@abc.com'), {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+
+console.log(funcionario.email);
+```
+
+Veja que teremos três mensagens de log no console. As duas primeiras Armadilha aqui! e logo depois o email do usuário. Mas qual a razão dele escrever a primeira mensagem duas vezes?
+
+É que email é um getter. Nosso proxy irá executar seu código quando o getter for chamado e também para a propriedade _email, que é acessada pelo getter. Inclusive podemos deixar isso ainda mais claro, exibindo em nosso proxy o nome da propriedade:
+
+```js
+let funcionario = new Proxy(new Funcionario('abc@abc.com'), {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        console.log(prop);
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+
+console.log(funcionario.email);
+```
+
+## Mais um proxy, agora para lidar escrita!
+
+Olha o funcionário no formato literal novamente aí gente:
+
+`let funcionario = {email: 'abc@abc.com'};`
+
+Crie um proxy que exibe no console o valor da propriedade antes dela ser alterada e o valor novo.
+
+Opinião do instrutor
+
+Uma implementação possível:
+
+```js
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    set(target, prop, value, receiver) {
+        console.log(`Valor antigo ${target[prop]}, valor atual: ${value}`);
+        return Reflect.set(target, prop, value, receiver);
+    }
+
+});
+funcionarioProxy.email = 'aaa@aaa.com';
+```
+
+Veja que usamos set no handler passado para o proxy. Além disso, muito cuidado que quando usamos set, a função deve receber quatro parâmetros e não três, como no caso do get.
+
+Poderíamos conseguir o mesmo resultado desta forma:
+
+```js
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    set(target, prop, value, receiver) {
+        console.log(`Valor antigo ${target[prop]}, valor atual: ${value}`);
+        target[prop] = value;
+    }
+
+});
+funcionarioProxy.email = 'aaa@aaa.com';
+```
+
+A diferença é que essa última solução altera diretamente o valor o objeto encapsulado. A primeira forma, com `Reflect.set` sempre deve retornar um valor, que é uma função que será chamada para realizar a operação de atribuição. Por enquanto, podemos usar uma ou outra forma que o resultado será o mesmo.
+
+## Um esclarecimento extra é sempre bom!
+
+Durante o vídeo, para explicar como executar uma armadilha quando uma propriedade for modificada, eu usei como exemplo uma instância da classe Negociacao. Contudo, nossa classe era imutável porque usamos Object.freeze. Sendo assim, o seguinte código não teria efeito:
+
+```js
+n1._quantidade = 10;
+n1._valor = 10;
+```
+
+E realmente não tem, mas ainda sim a armadilha definida no proxy será executada! Resumindo a moral da história: armadilhas serão disparadas mesmo se tentarmos modificar uma propriedade congelada de um objeto, ainda que ele não seja modificado.
+
+## Arguments
+
+Aprendemos lá no jardim de infância em JavaScript a passar parâmetros para funções e métodos. Vejamos um exemplo:
+
+```js
+function exibeNomeCompleto(nome, sobrenome) {
+
+  alert(`${nome} ${sobrenome}`);
+}
+
+exibeNomeCompleto('Flávio', 'Almeida');
+```
+
+Contudo, podemos conseguir o mesmo resultado sem passar parâmetros para a função:
+
+```js
+function exibeNomeCompleto() {
+
+  alert(`${arguments[0]} ${arguments[1]}`);
+}
+
+exibeNomeCompleto('Flávio', 'Almeida');
+```
+
+Por mais que nossa função não receba parâmetros, podemos ter acesso aos parâmetros passados com `arguments`. É uma variável implícita que nos dá acesso a todos os parâmetros passados para a função ou método. É claro que a primeira forma, nomear os parâmetros da função, é menos verbosa e mais legível. Mas há muitos hacks em JavaScript que podem fazer uso de `arguments`.
+
+## Proxy Intercepta métodos?
+
+Temos a seguinte declaração de classe:
+
+```js
+class Pessoa {
+
+    constructor(nome) {
+        this._nome = nome;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    set nome(nome) {
+        this._nome = nome;
+    }
+
+    grita(frase) {
+            return `${this._nome} grita ${frase}`;
+    }
+}
+```
+
+Criando uma instância e chamando o método grita:
+
+```js
+let pessoa = new Pessoa('Barney');
+pessoa.grita('Olá');
+```
+
+E se quisermos interceptar a chamada do método grita? A má notícia é que toda proxy criada, por padrão, não esta preparada para interceptar métodos (getters e setters são exceções a este problema). Essa limitação ocorre porque sempre que um método de um objeto (que não deixa de ser uma propriedade que armazena uma função) é chamado, primeiro é realizado uma operação de leitura (get, do nosso handler da proxy) e depois os parâmetros são passados através de Reflect.apply. O problema é que, como o método é interceptado pelo get do handler passado para a proxy, não temos acesso aos seus parâmetros. E agora?
+
+Uma solução é implementar o seguinte código:
+
+```js
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+         // essa função retornada irá substituir o método 'grita' no proxy!!! Ou seja, estamos usando o handler do proxy para modificar o próprio proxy, que loucura!
+                return function() {
+                    console.log(`Método chamado: ${prop}`);    
+                    // Quando usarmos Reflect.apply, Reflect.get e Reflect.set precisamos retornar o resultado da operação com return
+                    // arguments é uma variável implícita que dá acesso à todos os parâmetros recebidos pelo método/função
+                    return Reflect.apply(target[prop], target, arguments);       
+                }
+            }
+            // só executa se não for função
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+
+   pessoa.grita('Olá');
+```
+
+No código acima, verificamos se a propriedade que está sendo acessada é uma função através de `typeof(target[prop]) == typeof(Function))`. Se for, trocaremos o valor da propriedade (nosso método) por outra função, e, essa sim, executa nosso código antes de o método ser executado.
+
+Sobre o código anterior, qual o papel de arguments?
+
+A variável arguments é uma variável implícita que pode ser acessada em métodos ou funções. Ele se comporta como um array onde cada posição equivale ao parâmetro que foi passado para o método ou função. Existe desde o ES5!
+
+Vejamos um exemplo:
+
+```js
+function geraNomeCompleto() {
+
+    alert(`Nome completo: ${arguments[0]} ${arguments[1]}`);
+}
+
+geraNomeCompleto('Flávio', 'Almeida');
+```
+
+Apesar de a função não receber parâmetros e estarmos passando dois, não haverá qualquer erro. Inclusive, dentro da função usamos a variável implícita arguments para termos acesso ao primeiro e ao segundo parâmetros passado para a função.
+
+Veja que no código do nosso proxy, como estamos substituindo o método grita por outra função e não sabemos se ela recebe ou não um parâmetro, usamos arguments na função substituta para chamarmos `Reflect.apply`, garantindo assim que a nova função, quando executada, receba corretamente seus parâmetros logo após executarmos o código que desejarmos (armadilha).
+
+## Qual é o resultado?
+
+Temos a já conhecida classe Pessoa que usamos em exercícios anteriores. Inclusive criamos mais uma vez uma proxy para interceptarmos a chamada ao método grita:
+
+```js
+class Pessoa {
+
+    constructor(nome) {
+        this._nome = nome;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    set nome(nome) {
+        this._nome = nome;
+    }
+
+    grita(frase) {
+        return `${this._nome} grita ${frase}`;
+    }
+}
+
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+                return function() {
+                    console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
+                    Reflect.apply(target[prop], target, arguments);       
+                }
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+
+   console.log(pessoa.grita('Olá'));
+```
+
+Qual das opções abaixo contém o resultado de `console.log(pessoa.grita('Olá'))`?
+
+undefined
+
+O resultado de console.log(pessoa.grita('Olá')) é undefined. Isso acontece porque estamos chamando `Reflect.apply(target[prop], target, arguments)` sem retornar seu valor. Uma solução é adicionar a cláusula return:
+
+```js
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+                return function() {
+                    console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);   
+
+                    // FALTAVA O RETURN AQUI!
+                    return Reflect.apply(target[prop], target, arguments);  // retorna o valor resultante da chamada da função
+                }
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+```
+
+Agora, quando fizemos console.log(pessoa.grita('Olá')) o retorno do método grita de pessoa será passado para console.log imprimindo seu resultado no console que é "Barney grita 'Olá'". E se quiséssemos exibir o valor que será retornado no console.log do nosso handler?
+
+```js
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+  get(target, prop, receiver) {
+
+    if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+
+      return function() {
+
+        console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
+
+        // aguarda o retorno em uma variável 
+        let retorno = Reflect.apply(target[prop], target, arguments);
+
+        console.log(`O valor retornado do método foi ${retorno}`);
+
+        return retorno; // retornando o resultado do método
+      }
+    }
+
+    return Reflect.get(target, prop, receiver);
+  }
+
+});
+```

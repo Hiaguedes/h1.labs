@@ -7,15 +7,39 @@ class NegociacaoController{
         this._inputQuantidade= $('#quantidade');
         this._inputValor= $('#valor');
 
-        this._negView= new NegociacaoView($('#negociacoesView'));//aqui setamos a construção da visão
+        
+        /*
         this._listaNegociacoes=new ListaNegociacoes((model)=>{ // faço uma arrow function para garantir o escopo que ela foi criada que é NegociacaoController e te livrar de dar update toda vez que adicionar um negócio
             this._negView.update(this._listaNegociacoes);//dou update na lista de negociações na tabela
         });
+        */
+        let self = this;//salva o contexto em uma variável, pois vai precisar dentro do proxy
+
+       this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
+
+        get(target, prop, receiver) {
+    
+            if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function)) {// se existe propriedade esvazia e adiciona (proprios da lista) e els são do tipo função retorne
+                //funcao que aplica na função real, a função com os argumentos dados e depois atualiza eles na tabela
+    
+                return function(){
+    
+                  //console.log(`método '${prop}' interceptado`);
+                  Reflect.apply(target[prop], target, arguments);
+                  self._negView.update(target);
+    
+                }
+         }
+    
+         return Reflect.get(target, prop, receiver);
+      }
+    });
 
         this._msg= new Mensagem();
         this._msgView= new MensagemView($('#mensagemView'));
 
-       // this._negView.update(this._listaNegociacoes);// dou um update na lista de negocios a cada vez que a classe é criada
+        this._negView= new NegociacaoView($('#negociacoesView'));//aqui setamos a construção da visão
+        this._negView.update(this._listaNegociacoes);// dou um update na lista de negocios a cada vez que a classe é criada
         
     }
 
