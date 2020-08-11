@@ -18,8 +18,8 @@ class NegociacaoController{
            new MensagemView($('#mensagemView')),
            'texto'
        );
-
        this.isImport =new Boolean(false);
+       
 
         //this._negView.update(this._listaNegociacoes);// dou um update na lista de negocios a cada vez que a classe é criada
     }
@@ -40,7 +40,8 @@ class NegociacaoController{
 
     apaga(){
         this._listaNegociacoes.esvazia();
-        this._msg.texto = 'Tabela Excluída';
+        this._msg.texto='Tabela Excluída';
+        this.isImport = Boolean(false);
     }
         
     adiciona(event){  
@@ -71,37 +72,70 @@ class NegociacaoController{
     }
 
     import(){
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET','negociacoes/semana');
-
         if(this.isImport.valueOf()==true) return;
+        this.isImport = Boolean(true);
+
+        let service = new NegociacaoService();
+
+        Promise.all(
+            [service.obterNegociacoes('negociacoes/semana'),
+            service.obterNegociacoes('negociacoes/anterior'),
+            service.obterNegociacoes('negociacoes/retrasada')]
+            )
+            .then( negociacoes =>{
+                negociacoes
+                .reduce((arrayReduzido, array)=> arrayReduzido.concat(array),[])
+                .forEach(neg => this._listaNegociacoes.adiciona(neg));
+                this._msg.texto = 'Negociações Importadas com Sucesso';
+            }).catch(err=>{
+                this._msg.texto = err;
+                console.log(err);
+            });
+
+        }
+
         /*
-        configurações da requisição
+            Solução possivel, só que a promisse realiza de forma síncrona
+            service.obterNegociacoes('negociacoes/semana')
+            .then( negociacoes =>{
+                negociacoes.forEach(neg => this._listaNegociacoes.adiciona(neg));
+                this._msg.texto = 'Negociações Importadas com Sucesso';
+            }).catch(err=>{
+                this._mensagem.texto = err;
+            });
 
-        Estados de uma requisição
 
-        1: requisição não iniciada
-        2: requisição recebida
-        3: processando requisição
-        4: requisição concluída e a resposta está pronta
-        */ 
-        xhr.onreadystatechange= ()=>{
-            if(xhr.readyState == 4){
-                if(xhr.status == 200){
-                    this.isImport = Boolean(true);
-                    this._msg.texto='Importando dados do servidor';
-                let negociacoesServer = JSON.parse(xhr.responseText);
+            service.obterNegociacoes('negociacoes/anterior')
+            .then( negociacoes =>{
+                negociacoes.forEach(neg => this._listaNegociacoes.adiciona(neg));
+                this._msg.texto = 'Negociações Importadas com Sucesso';
+            }).catch(err=>{
+                this._mensagem.texto = err;
+            });
 
-                  negociacoesServer.map(obj => new Negociacao(new Date(obj.data),obj.quantidade,obj.valor))
-                  .forEach(neg => this._listaNegociacoes.adiciona(neg));
-                }else{
-                    console.log('Não deu para buscar os dados lá não');
-                    console.log(xhr.responseText);
-                    this._msg.texto= 'Não foi possível obter informações';
-                }
-            }
-        };
-        xhr.send();
+            service.obterNegociacoes('negociacoes/retrasada')
+            .then( negociacoes =>{
+                negociacoes.forEach(neg => this._listaNegociacoes.adiciona(neg));
+                this._msg.texto = 'Negociações Importadas com Sucesso';
+            }).catch(err=>{
+                this._mensagem.texto = err;
+            });
+        /*
+        //console.log(NegociacaoService.abreXHR('GET','negociacoes/semana'));
     }
+
+
+    /* solucao com callback
+     _adicionaImportacaoNaLista = (err,negociacoes)=>{
+            if(err){ // error first
+                this._mensagem.texto = err;
+                return;
+            }
+
+            negociacoes.forEach(neg => this._listaNegociacoes.adiciona(neg));
+            this._msg.texto = 'Negociações Importadas com Sucesso';
+        }
+        */
+    
 }
 let negCtrl = new NegociacaoController();
