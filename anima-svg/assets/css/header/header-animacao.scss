@@ -1,6 +1,8 @@
 .header__animacao{
     display: grid;
     overflow-x: hidden;
+    opacity: 0.9;
+    filter: blur(2px);
 }
 
 .header__animacao--imagem{

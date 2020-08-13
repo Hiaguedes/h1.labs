@@ -1,0 +1,35 @@
+.container{
+    background-color: rgb(95, 95, 95);
+}
+
+.lista{
+    display: flex;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.lista__item{
+    padding: 1rem 0;
+    cursor: pointer;
+    width: 25%;
+    text-align: center;
+    color: rgb(233, 233, 233);
+    background-color: transparent;
+}
+
+.lista__item:nth-child(1),:nth-child(2),:nth-child(3){
+    border-right: none;
+}
+
+.lista__item--ativo{
+    padding: 1rem 0;
+    cursor: pointer;
+    width: 25%;
+    text-align: center;
+    background-color: rgb(248, 235, 58);
+    color: rgb(51, 51, 51);
+}
+
+.lista__item:hover{
+    background-color: rgba(168, 168, 168, 0.603);
+}
