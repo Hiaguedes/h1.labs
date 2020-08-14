@@ -166,4 +166,26 @@ A documentação ajuda no desenvolvimento porque ela contém todas as instruçõ
 
 Alternativa correta! Da mesma maneira que é complicado de lembrar todas as classes, valores e nomes, lembrar com precisão as estruturas de diversos componentes também pode ser uma tarefa complicada. Ter algum lugar para consultar como são montados os componentes é super importante para o desenvolvimento do projeto.
 
+## Mais com emmet
+
+- O `$` faz um contador
+
+- Com `{}` nós podemos colocar os textos que acompanham um h1 ou h2 por exemplo
+
+- Com `[]` colocamos um atributo como o atributo `src` da imagem
+
+Um exemplo seria `img[src={rrr}]` que daria
+
+```html
+<img src="rrr" alt="">
+```
+
+- Com `()` podemos agrupar mais códigos emmet
+
+- Usamos `\` para escapar caracteres que não devem ser interpretados pelo EMMET
+
+Mais dicas como essa [aqui](https://docs.emmet.io/cheat-sheet/)
+
  ***O projeto presente nessa página está somente para a versão mobile***
+
+ Conteúdo total do curso
