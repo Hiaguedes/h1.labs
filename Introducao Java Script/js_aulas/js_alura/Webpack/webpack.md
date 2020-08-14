@@ -248,6 +248,17 @@ No caso, usaremos o Webpack dev server, utilizado por diversos frameworks, singl
 
 E invés de criar uma pasta em disco como no webpack no meu server agora eu terei uma pasta criada em memória e que será acessível pela URL, não ocupando espaço em disco e sim em memória, o que é lindo e o arquivo js inicialmente será acessível em `localhost:8080/bundle.js` não funcionando inicialmente mas podemos configurar isso via webpack.config.js, e ele possui o live reload habilitado então podemos modificar ele com cada CTRL+S que for dado no projeto
 
+Marque as opções verdadeiras à respeito do Webpack Dev Server.
+
+Webpack Dev Server é um servidor capaz de ler as configurações de webpack.config.js ao ser carregado.
+
+Exato! Ele se encarregará de tornar o projeto acessível através do navegador e aplicará todas as regras definidas em webpack.config.js.
+
+Alternativa correta
+Webpack Dev server é baixado através do npm, pois é nada mais nada menos do que um módulo do Node.js.
+
+Correto, inclusive o Webpack e seus plugins são módulos do Node.js.
+
 ### Instalação e configuração
 
 Cleber decidiu utilizar o Webpack Dev Server para usufruir de um ambiente de desenvolvimento mais produtivo.
@@ -328,3 +339,77 @@ module.exports = {
 A propriedade publicPath, localizada no objeto de configuração da propriedade output, é importante para alterar o caminho gerado pelo webpack dev server. Com essa modificação, o bundle será acessível através de dist/bundle.js.
 
 Com esse `publicPath` conseguimos dizer que o arquivo bundle.js estará na pasta dist
+
+## Tratando arquivos css como módulos
+
+Podemos usar o node para baixar arquivos css como o bootstrap assim como outras depêndencias de front end tais como o angular e preparar esse ambiente com o webpack pode ser interessante até mesmo para projetos que não usam nenhum tipo de framework, ou seja com js vanilla, htmlzao e o css da massa
+
+Para baixar o bootstrap pelo npm use
+
+```node
+npm i bootstrap --save-dev
+```
+
+Marque a única alternativa correta à respeito do gerenciamento de dependências frontend e Webpack.
+
+Alternativa correta
+Podemos usar o npm da própria plataforma Node.js para gerenciar as dependências de frontend da nossa aplicação. Nesse sentido, Webpack será o responsável pelo carregamento dessas dependências adicionando-as no bundle da aplicação.
+
+Exato. Quem gerencia as dependências é o npm, o Webpack apenas permitirá adicioná-las ao bundle da aplicação tratando-os como módulos, contanto que haja um loader configurado para lidar com o tipo de arquivo em questão.
+
+Nos frameworks angular e react os arquivos css são carregados como módulos na distribuição da aplicação
+
+Para tratar os arquivos css como módulos precisamos do `css-loader` e o `style-loader` e em um arquivo js que esteja setado como entrada nesse caso o `app.js` importar os arquivos css que estão dentro da pasta node_modules da seguinte forma
+
+O css-loader vai transformar os arquivos css e transformar em um arquivo json e o style-loader vai pegar esse json em css inline, maaaaaaas dependendo do que você estiver utilizando (como o bootstrap) você precisará de outros loaders para poder carregar o bonitão lá no seu projeto.
+
+```js
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+```
+
+Quando não colocamos o ./ no path dessa importação o webpack entende que o bootstrap está dentro da pasta node_modules automaticamente
+
+No arquivo `webpack.config.js` precisamos aplicar a seguinte regra:
+
+```json
+{
+                test:/\.css/,
+                loader: 'style-loader!css-loader'
+            }
+```
+
+Onde primeiro será aplicado o css-loader e depois o style loader (e não o contrário)
+
+## E para modularizar os meus css?
+
+Basta colocar o caminho do css no app js que é a entrada pro webpack.config.js em:
+
+```js
+entry: './app-src/app.js',// entrada
+```
+
+Na hora de colocar o nome da pasta, coloque o caminho real dela, ou seja com `./` ou `../../qualquercoisadesdequecheguelá`, pois senão ele acha que está no node_modules
+
+```js
+import 'calopsita/dist/calop.css';
+import '../css/alecrim.css;
+```
+
+Correto. O primeiro import importará de node_modules e o seguindo de outra pasta.
+
+## O problema é o FOUC (Flash of Unstyled Content)
+
+Fazendo da maneira como fizemos temos a impressão de vermos a página entrando com um conteúdo não estilizado para depois termos um arquivo estilizado, isso é o FOUC e é isso que via várias vezes com a internet lenta num site da globo por exemplo.
+
+E para reaver esse problema temos o `extract-text-webpack-plugin`, para isso vamos colocar o link de um styles.css no index.html além de alterarmos o arquivo webpack.config.js
+
+FOUC significa flash of unstyled content. É quando há um hiato entre o carregamento do CSS e sua aplicação na página, permitindo que o usuário veja a página sem estar estilizada durante um breve tempo.
+
+Correto.
+
+Por mais que o webpack adicione arquivos CSS importados no bundle da aplicação, é interessante adicioná-los em um arquivo CSS separado para podermos usufruir de todas as otimizações realizadas pelos navegadores a respeito do carregamento de folhas de estilo.
+
+### Faltou minificar os css
+
+Para isso temos o `cssnano` e o plugin do webpack chamado `optimize-css-assets-webpack-plugin`
