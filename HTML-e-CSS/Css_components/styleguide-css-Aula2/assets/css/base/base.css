@@ -7,9 +7,35 @@ body {
 
     background: url(../../img/fundo-textura.png), url(../../img/fundo-linhas.png);
     background-position: center;
+    color: var(--cinza);
 }
 
 .container {
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding: 1rem 0;
+}
+
+.titulo{
+    margin-top: 1rem;
+    font-size: var(--tamanho-titulo);
+}
+
+.titulo--destaque{
+    font-family: var(--familia-titulo-destaque);
+    color: var(--preto);
+    font-size: var(--tamanho-titulo-destaque);
+    font-weight: var(--peso-titulo-destaque);
+    display: block;
+    margin: .75rem 0;
+}
+
+.alinhamento--esquerdo{
+    text-align: left;
+}
+
+.alinhamento--centro{
+    text-align: center;
+}
+
+.texto{
+    line-height: 26px;
 }

@@ -80,3 +80,90 @@ E assim como no sass eu posso fazer imports entre os css para isso faremos
 ```
 
 Porém coloque _ no começo do nome dos arquivos que forem importados dentro de outros
+
+## Nem sempre os componentes se repetem
+
+A montagem de componentes é legal e útil para componentes que se repetem na tela e assim serem utilizadas no decorrer do projeto. Então não adianta componetizarmos o elemento card se esse card não se repete no decorrer da guia de estilo.
+
+Porém se sei lá, o título é parecido então vale mais a pena componetizarmos o título e não o card inteiro. Essa é a sacada
+
+Durante o processo de desenvolvimento de uma página e quando vamos componentizar algo, precisamos entender e diferenciar componentes.
+
+Alguns dos passos para diferenciar componentes é isolar partes diferentes do que queremos componentizar e ver se são usadas em outros lugares. Se sim, quer dizer que dentro do componente existem outros possíveis componentes, e o que queremos extrair na verdade é apenas a "casca". Se não, então o conjunto inteiro forma um componente, tanto o conteúdo quanto o que contém essas informações.
+
+### Variações de componentes
+
+No curso nós montamos um botão com a seguinte estrutura e estilização:
+
+HTML
+
+```html
+<button class="botao">Assinar newsletter</button>
+```
+
+CSS
+
+```css
+.botao {
+    background-color: var(--amarelo);
+
+
+    text-align: center;
+    font-family: inherit;
+    font-weight: var(--peso-botao);
+    color: var(--branco);
+
+
+    width: 100%;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+
+
+    box-shadow: 10px 10px 30px var(--amarelo-transparente);
+
+
+    border: none;
+}
+```
+
+![Imagem do primeiro botão](https://caelum-online-public.s3.amazonaws.com/1808-guia-de-estilos/03/Aula3-img1.jpg)
+
+Depois tivemos que montar um outro botão com estilização diferente.
+
+![Imagem do segundo botão](https://caelum-online-public.s3.amazonaws.com/1808-guia-de-estilos/03/Aula3-img2.jpg)
+
+Qual seria a melhor maneira de fazer esse botão?
+
+Criar uma classe nova contendo as diferenças e depois usar em conjunto com a classe .botao já existente.
+
+Alternativa correta! Essa nova estilização é apenas uma variação do botão que já existe, então podemos reaproveitar a estilização que já existe e apenas criar uma nova classe contendo a nova estilização. Para o nome de classe, podemos usar o padrão BEM CSS e chamar de .botao--alternativo, por exemplo.
+
+## Perguntas
+
+Durante o desenvolvimento do componente de vídeo, tivemos uma discussão sobre o título do vídeo e se devemos componentizá-lo ou não. No final, optamos por não componentizar o título.
+
+Escolha as alternativas que melhor representam o porquê.
+
+A estilização do título do vídeo não se repete em nenhum outro lugar do conteúdo principal (tag `<main>`).
+
+Alternativa correta! O título do cartão de vídeo é algo muito específico para um componente, diferente do título composto que fizemos antes, que pode ser utilizado em diversas situações e em conjunto com outros componentes.
+
+Então já que se repete o bom é colocarmos variáveis com nome mais genéricos para que possamos associar-los a outros componentes da página
+
+A estilização do título do vídeo se repete no rodapé, mas ambos têm representações de conteúdo diferentes.
+
+Alternativa correta! Por mais que a estilização seja a mesma nos dois elementos, a representação de conteúdo é diferente. Isso cria uma grande dificuldade em dar nomes para as classes, já que os nomes devem representar o conteúdo. Um é título de vídeo, e outro é nome de unidade.
+
+## O bom de montar a página de componentes
+
+É bom não excluir a página onde você tem todos os componentes pois ela serve como uma espécie de documentação de como se usar cada componente estilizado que você criou, e assim fazemos o index html apenas criando e as seções e copiando e colando o que for interessante para a página
+
+Depois que terminamos a fase de criar cada um dos componentes que serão utilizados na página Home, nós renomeamos o arquivo que contém os componentes e criamos uma nova página index.html, fazendo uma espécie de documentação.
+
+Por que a criação dessa documentação é importante para o processo de desenvolvimento do projeto? Escolha a alternativa que melhor representa a justificativa.
+
+A documentação ajuda no desenvolvimento porque ela contém todas as instruções de como usar os componentes que criamos.
+
+Alternativa correta! Da mesma maneira que é complicado de lembrar todas as classes, valores e nomes, lembrar com precisão as estruturas de diversos componentes também pode ser uma tarefa complicada. Ter algum lugar para consultar como são montados os componentes é super importante para o desenvolvimento do projeto.
+
+ ***O projeto presente nessa página está somente para a versão mobile***
