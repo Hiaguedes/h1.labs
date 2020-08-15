@@ -412,4 +412,169 @@ Por mais que o webpack adicione arquivos CSS importados no bundle da aplicação
 
 ### Faltou minificar os css
 
-Para isso temos o `cssnano` e o plugin do webpack chamado `optimize-css-assets-webpack-plugin`
+Para isso temos o `cssnano` e o plugin do webpack chamado `optimize-css-assets-webpack-plugin` e como o nome do segundo diz esse é um plugin que temos que colocar apenas para quando setarmos a produção
+
+## Nossos scripts como módulos
+
+Marque a única alternativa correta sobre a importação de scripts e Webpack.
+
+Podemos importar scripts diretamente da pasta node_modules através da instrução import. E para isso vamos usar um gerenciador que já vem junto com o webpack que é o ProvidePlugin e para importar o jquery (além de instalar com `npm i jquery`) nós faremos
+
+```js
+plugins.push(new webpack.ProvidePlugin({
+    '$': 'jquery/dist/jquery.js',
+    'jQuery':'jquery/dist/jquery.js'
+}));
+```
+
+E com isso o jquery estará junto com seu bundle, devemos colocar tanto jQuery quanto $ como apelidos de se chamar o jquery, pois são as formas mais comuns de se atribuir a essa biblioteca, mas lembre-se que $ no dev tools não significa jquery.
+
+## Scope Hoisting
+
+Cada módulo do nosso bundle é envolvido por um wrapper, que resumidamente se trata de uma função. Contudo, a existência desses wrappers tornam a execução do script um pouco mais lenta no navegador .
+
+Entretanto, a partir do Webpack 3, podemos ativar o Scope Hoisting. Ele consiste em concatenar o escopo de todos os módulos em um único wrapper, permitindo assim que nosso código seja executado mais rapidamente no navegador.
+
+Vamos ativar esse recurso apenas no build de produção, adicionando uma instância de ModuleConcatenationPlugin em nossa lista de plugins:
+
+```js
+// client/webpack.config.js
+
+// código anterior omitido 
+
+if (process.env.NODE_ENV == 'production') {
+
+    // ATIVANDO O SCOPE HOISTING
+
+    plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+
+    plugins.push(new babiliPlugin());
+
+    plugins.push(new optimizeCSSAssetsPlugin({
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: { 
+            discardComments: {
+                removeAll: true 
+            }
+        },
+        canPrint: true
+    }));
+}
+// código posterior omitido
+```
+
+Isso já é suficiente. Contudo, devido à dimensão reduzida da nossa aplicação, teremos dificuldade de ver na prática as mudanças no tempo de execução da nossa aplicação. É normal o build de produção ter um tempo maior de execução (pois são mais funções para executar) e em um projeto muito grande (com muitos arquivos para concatenar) essa otimização vai ser muito bem vinda
+
+## Separar meus scripts de scripts de terceiros
+
+Por serem arquivos as vezes muitos grandes, o jquery, o bootstrap e afins podem estar em um tipo de bundle separado e para isso o webpack tem uma solução chamada `CommonsChunkPlugin`
+
+Lúcio decidiu separar todo o código JavaScript que programou das bibliotecas de terceiros utilizadas pela sua aplicação.
+
+Ele alterou seu webpack.config.js adicionando apenas o CommonsChunkPlugin:
+
+```js
+const path = require('path');
+const babiliPlugin = require('babili-webpack-plugin');
+const extractTextPlugin = require('extract-text-webpack-plugin');
+const optimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const webpack = require('webpack');
+
+let plugins = []
+
+// código anterior omitido 
+
+plugins.push(
+    new webpack.optimize.CommonsChunkPlugin(
+        { 
+            name: 'vendor', 
+            filename: 'vendor.bundle.js'
+        }
+    )
+);
+// código posterior omitido
+```
+
+Marque a única consideração verdadeira à respeito da modificação realizada por Lúcio.
+
+Não basta configurar o CommonsChunkPlugin, é necessário alterar o entry para que leve em consideração dois pontos de entrada da aplicação.
+
+Correto. Um ponto de entrada é o código que escrevemos e outro é o das bibliotecas de terceiros.
+
+Além disso devemos colocar no html o novo arquivo js que será em
+
+```html
+<script src="dist/vendor.bundle.js"></script>
+```
+
+E nossa entrada fica como
+
+```js
+    entry: {
+        app:'./app-src/app.js',// entrada
+        vendor:['jquery','bootstrap','reflect-metadata']
+    }
+```
+
+Onde colocamos no vendor (podia ser qq nome mas desde que o nome seja o mesmo no plugin) as bibliotecas de terceiros que queremos que fiquem separados das nossas
+
+## Não precisar colocar css e js na mão
+
+Com o `html-webpack-plugin`
+
+Marque as alternativas verdadeiras à respeito do code splitting e do lazy loading.
+
+Podemos usar System.import ou import. A última forma é que se tornará vigente e que se coaduna com a spec import do ECMASCRIPT.
+
+Correto. Podemos usar as duas formas. Webpack mantém System.import para não quebrar código legado. Todavia, se usamos Babel, precisamos instalar um plugin que ensine para Babel que a sintaxe import é uma sintaxe válida.
+
+Alternativa correta
+Basta usarmos System.import para carregarmos dinamicamente módulos em nosso aplicação no lugar da instrução import. O módulo não deve ser importado estaticamente em nenhum outro ponto da aplicação.
+
+Correto. É importante que o módulo carregado sob demanda não esteja estaticamente importado em nenhum outro ponto da aplicação, caso contrário ele fará parte do bundle.
+
+## Mudar nome de url para o nome do site em distribuição
+
+é um plugin do webpack chamado `webpack.DefinePlugin` assim definimos localhost:3000 para desenvolvimento e `nome-da-api` para desenvolvimento
+
+```js
+Gisele decidiu aplicar a técnica que permite trocar o endereço da API da aplicação no build de produção. Seu código:
+
+// client/webpack.config.js
+
+// código anterior omitido
+
+let SERVICE_URL = JSON.stringify('http://localhost:3000');
+
+if (process.env.NODE_ENV == 'production') {
+
+    SERVICE_URL = "http://enderecodasuaapi.com";
+
+    plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+    plugins.push(new babiliPlugin());
+    plugins.push(new optimizeCSSAssetsPlugin({
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: { 
+            discardComments: {
+                removeAll: true 
+            }
+        },
+        canPrint: true
+    })); 
+} 
+
+// ADICIONANDO O PLUGIN NA LISTA
+
+plugins.push(new webpack.DefinePlugin({
+    SERVICE_URL
+}));
+
+// código posterior omitido
+Quantos erros há no script de Gisele?
+```
+
+1
+
+Exato! Ela não usou JSON.stringify em uma das atribuições para a variável SERVICE_URL.
+
+Link do projeto final do [curso](https://s3.amazonaws.com/caelum-online-public/webpack/stages/07-projeto-webpack.zip)
