@@ -72,13 +72,14 @@ body {
 
 .lista {
   display: flex;
-  width: 70%;
+  flex-direction: column;
+  width: 100%;
   margin: 0 auto; }
 
 .lista__item {
   padding: 1rem 0;
   cursor: pointer;
-  width: 25%;
+  width: 100%;
   text-align: center;
   color: #e9e9e9;
   background-color: transparent; }
@@ -89,7 +90,7 @@ body {
 .lista__item--ativo {
   padding: 1rem 0;
   cursor: pointer;
-  width: 25%;
+  width: 100%;
   text-align: center;
   background-color: #f8eb3a;
   color: #333333; }
@@ -97,6 +98,16 @@ body {
 .lista__item:hover {
   background-color: rgba(168, 168, 168, 0.603); }
 
+@media (min-width: 500px) {
+  .lista {
+    flex-direction: row;
+    width: 70%; }
+
+  .lista__item {
+    width: 25%; }
+
+  .lista__item--ativo {
+    width: 25%; } }
 .caixa {
   position: absolute;
   padding: 0; }

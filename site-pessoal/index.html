@@ -14,7 +14,7 @@
         <h1 class="header__titulo">Hi, I'm Hiago Guedes</h1>
     </header>
     <nav class="container">
-        <ul class="lista">
+        <ul class="lista" onclick="navCTRL.update(event)">
             <li class="lista__item--ativo" data-item="lista__item">Home</li>
             <li class="lista__item" data-item="lista__item--ativo">Projects</li>
             <li class="lista__item" data-item="lista__item--ativo">Skills</li>
@@ -23,6 +23,7 @@
     </nav>
     <div class="body"></div>
     </body>
+    <script src="./assets/js/views/navView.js"></script>
+    <script src="./assets/js/controllers/navController.js"></script>
     <script src="./assets/js/putSvg.js"></script>
-    <script src="./assets/js/animate-nav.js"></script>
 </html>
