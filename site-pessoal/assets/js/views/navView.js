@@ -1,8 +1,8 @@
  class NavView{
-    constructor(){
-        this._lista =document.querySelector('.lista');
-        
-        
+    constructor(windowWidth){
+        this._lista =document.querySelector('.lista'); 
+        this._windowWidth = windowWidth;
+        this._time=20; 
     }
 
     _createDiv(width,height){
@@ -15,38 +15,82 @@
         return div;
     }
 
+    _myMoveX(x,element,paramInitial,paramFinal){
+        let pos = paramInitial;
+    
+        function atualizePosicaoX(){
+          pos= pos+x; 
+          element.style.marginLeft = pos + 'px'; 
+        }
+
+        switch(true){
+            case this._windowWidth >1400:
+                this._time = 3;
+            break;
+            case this._windowWidth >900 && this._windowWidth<=1400:
+                this._time = 6;
+            break;
+            case this._windowWidth >600 && this._windowWidth<=900:
+                this._time = 8;
+            break;
+            case this._windowWidth >=500 && this._windowWidth<=600:
+                this._time = 12;
+            break;
+
+        }
+        if(x>0){
+          let id = setInterval(frame, this._time);
+          function frame(){
+            pos >= paramFinal ? clearInterval(id):atualizePosicaoX();
+          }
+        }else{
+          let id = setInterval(frame, this._time);
+          function frame(){
+            pos <= paramFinal ? clearInterval(id):atualizePosicaoX();
+          }
+        }
+    }
+
     createRectX(width,height,indexItemAtivoAnterior,indexItemClicado,speed){
         const marginLeftInicial = indexItemAtivoAnterior *width;
         const marginLeftFinal = indexItemClicado*width; // o movimento vai do marginLeftInicial até o marginLeftFinal
 
         const div = this._createDiv(width,height);
         div.style.marginLeft= marginLeftInicial + 'px';
-    
-          function myMove(x){
-            let pos = marginLeftInicial;
-    
-            function atualizePosicao(){
-              pos= pos+x; 
-              div.style.marginLeft = pos + 'px'; 
-            }
-            
-            if(x>0){
-              let id = setInterval(frame, 5);
-              function frame(){
-                pos >= marginLeftFinal ? clearInterval(id):atualizePosicao();
-              }
-            }else{
-              let id = setInterval(frame, 5);
-              function frame(){
-                pos <= marginLeftFinal ? clearInterval(id):atualizePosicao();
-              }
-            }
-          }
-    
-        marginLeftFinal > marginLeftInicial ? myMove(speed) : myMove(-speed); // se a margem a esquerda da posição final for maior que a inicial movimente para a direita senão movimente para a esquerda
+        marginLeftFinal > marginLeftInicial ? this._myMoveX(speed,div,marginLeftInicial, marginLeftFinal) : this._myMoveX(-speed,div,marginLeftInicial, marginLeftFinal); // se a margem a esquerda da posição final for maior que a inicial movimente para a direita senão movimente para a esquerda
     
         this._lista.appendChild(div);//adiciona na lista
     
+    }
+
+    _myMoveY(y,element,paramInitial,paramFinal){
+        let pos = paramInitial;
+    
+        function atualizePosicaoY(){
+          pos= pos+y; 
+          element.style.marginTop = pos + 'px'; 
+        }
+
+        switch(true){
+            case this._windowWidth <500 && this._windowWidth >400:
+                this._time = 10;
+            break;
+            case this._windowWidth <=400 && this._windowWidth >300:
+                this._time = 15;
+            break;
+        }
+        
+        if(y>0){
+          let id = setInterval(frame, this._time);
+          function frame(){
+            pos >= paramFinal ? clearInterval(id):atualizePosicaoY();
+          }
+        }else{
+          let id = setInterval(frame, this._time);
+          function frame(){
+            pos <= paramFinal ? clearInterval(id):atualizePosicaoY();
+          }
+        }
     }
 
     createRectY(width,height,indexItemAtivoAnterior,indexItemClicado,speed){
@@ -54,30 +98,8 @@
         const marginTopFinal = indexItemClicado*height; // o movimento vai do marginTopInicial até o marginTopFinal
 
         const div =this._createDiv(width,height);
-        div.style.marginTop= marginTopInicial + 'px';
-    
-          function myMove(y){
-            let pos = marginTopInicial;
-    
-            function atualizePosicao(){
-              pos= pos+y; 
-              div.style.marginTop = pos + 'px'; 
-            }
-            
-            if(y>0){
-              let id = setInterval(frame, 10);
-              function frame(){
-                pos >= marginTopFinal ? clearInterval(id):atualizePosicao();
-              }
-            }else{
-              let id = setInterval(frame, 10);
-              function frame(){
-                pos <= marginTopFinal ? clearInterval(id):atualizePosicao();
-              }
-            }
-          }
-    
-        marginTopFinal > marginTopInicial ? myMove(speed) : myMove(-speed); // se a margem a esquerda da posição final for maior que a inicial movimente para a direita senão movimente para a esquerda
+        div.style.marginTop= marginTopInicial + 'px';    
+        marginTopFinal > marginTopInicial ? this._myMoveY(speed,div,marginTopInicial, marginTopFinal) : this._myMoveY(-speed,div,marginTopInicial, marginTopFinal); // se a margem a esquerda da posição final for maior que a inicial movimente para a direita senão movimente para a esquerda
     
         this._lista.appendChild(div);//adiciona na lista
     }

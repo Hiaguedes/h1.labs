@@ -1,12 +1,11 @@
 
 class NavController{
     constructor() {
-        this._itens = document.querySelectorAll('[data-item]');
-        this._itensActive =[0];//index do elemento ativo anteriormente e do atual
+        this._itens = document.querySelectorAll('[data-item]');//seleciona todos os itens da lista de navegação
         this._itensX=[];//coordenadas iniciais x
-        this._indexAtual=0;
-        this._rect =new NavView();
-        console.log(this._windowWidth);
+        this._indexAtual=0;//variável para saber qual a posição atual do menu
+        this._itensActive =[this._indexAtual];//index do elemento ativo anteriormente e do atual
+        
     }
 
     _changeAttr(obj){
@@ -22,6 +21,7 @@ class NavController{
 
     update(event){
     const windowWidth=window.innerWidth;
+    this._rect =new NavView(windowWidth);
     const item = event.target;
 
     this._itens.forEach((item,index) =>{
@@ -36,7 +36,7 @@ class NavController{
     
     this._changeAttr(this._itens[this._itensActive[0]]);//apago atributo do botão que estava ativo
      
-    windowWidth>500 ? 
+    windowWidth>=500 ? 
     this._rect.createRectX(item.getBoundingClientRect().width,item.getBoundingClientRect().height,this._itensActive[0],this._indexAtual,20) :
     this._rect.createRectY(item.getBoundingClientRect().width,item.getBoundingClientRect().height,this._itensActive[0],this._indexAtual,12)
 
