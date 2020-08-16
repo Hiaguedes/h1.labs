@@ -4,65 +4,41 @@
    let itensX=[];//coordenadas iniciais x
     const lista =document.querySelector('.lista');
 
-function _createRect(width,height,marginLeftInicial,marginLeftFinal){
+function _createRect(width,height,indexItemAtivoAnterior,indexItemClicado,speed){
+    const marginLeftInicial = indexItemAtivoAnterior *width;
+    const marginLeftFinal = indexItemClicado*width; // o movimento vai do marginLeftInicial até o marginLeftFinal
+
     const div = document.createElement('div');
     div.classList.add('lista__item--ativo');
     div.classList.add('caixa');
     div.style.width = width + 'px';
     div.style.height = height + 'px';
-    div.style.zIndex='1';
-    div.style.position = 'absolute';
-    div.style.padding='0';
     div.style.marginLeft= marginLeftInicial + 'px';
 
-    function myRightMove() {  
-        var pos = marginLeftInicial;
-        var id = setInterval(frame, 1);
-        function frame(){
-          if (pos >= marginLeftFinal) {
-            clearInterval(id);
-          } else {
-            pos= pos+5; 
-            div.style.marginLeft = pos + 'px'; 
+      function myMove(x){
+        let pos = marginLeftInicial;
+
+        function atualizePosicao(){
+          pos= pos+x; 
+          div.style.marginLeft = pos + 'px'; 
+        }
+        
+        if(x>0){
+          let id = setInterval(frame, 1);
+          function frame(){
+            pos >= marginLeftFinal ? clearInterval(id):atualizePosicao();
+          }
+        }else{
+          let id = setInterval(frame, 1);
+          function frame(){
+            pos <= marginLeftFinal ? clearInterval(id):atualizePosicao();
           }
         }
       }
 
-      function myLeftMove() {  
-        var pos = marginLeftInicial;
-        var id = setInterval(frame, 1);
-        function frame(){
-          if (pos <= marginLeftFinal) {
-            clearInterval(id);
-          } else {
-            pos= pos-5; 
-            div.style.marginLeft = pos + 'px'; 
-          }
-        }
-      }
+    marginLeftFinal > marginLeftInicial ? myMove(speed) : myMove(-speed); // se a margem a esquerda da posição final for maior que a inicial movimente para a direita senão movimente para a esquerda
 
-    const distancia= marginLeftFinal-marginLeftInicial;
-    const tempo = 500;
-    const speed = distancia/tempo;
-    //console.log(speed);
-
-
-    if(marginLeftFinal > marginLeftInicial){
-        //console.log('deslocamento para a direita');
-    
-                /*div.style.marginLeft= marginLeftInicial + 'px';
-                marginLeftInicial +=40;*/
-                myRightMove();
-    }else{
-        //console.log('deslocamento para a esquerda');
-        myLeftMove()
-    }
-
-    lista.appendChild(div);
-
-
-
-    //setTimeout(()=>div.remove(),500);
+    lista.appendChild(div);//adiciona na lista
 
 }
 
@@ -90,21 +66,16 @@ function _delRect(selector){
 
        item.addEventListener('click',()=>{
 
-           if(index == itensActive[0]) return;
+           if(index == itensActive[0]) return;//se elemento está ativo, não faz nada
            _changeAttr(itens[itensActive[0]]);//apago atributo do botão que estava ativo
-           _createRect(item.getBoundingClientRect().width,item.getBoundingClientRect().height,item.getBoundingClientRect().width*itensActive[0],item.getBoundingClientRect().width*index);
+           _createRect(item.getBoundingClientRect().width,item.getBoundingClientRect().height,itensActive[0],index,20);
 
            setTimeout(()=>{
                itensActive.push(index);
-               
-               
             _changeAttr(item);//acendo atributo de botão que vai ser acesso
-
-            //console.log(itensX[itensActive[0]],itensX[index])
-            _delRect(document.querySelector('.caixa'));
+            _delRect(document.querySelector('.caixa'));//depois do tempo percorrido deleto caixa animada
            itensActive.shift();//tiro index do botão que estava ativo antes
-       },300);//acendo o elemento clicado depois de 500ms
-       //_createRect(item.getBoundingClientRect().width,item.getBoundingClientRect().height);
+       },150);//acendo o elemento clicado depois de x ms
     });
        
    });

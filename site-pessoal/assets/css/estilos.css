@@ -97,4 +97,8 @@ body {
 .lista__item:hover {
   background-color: rgba(168, 168, 168, 0.603); }
 
+.caixa {
+  position: absolute;
+  padding: 0; }
+
 /*# sourceMappingURL=estilos.css.map */
