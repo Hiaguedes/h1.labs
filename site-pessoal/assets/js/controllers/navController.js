@@ -5,6 +5,8 @@ class NavController{
         this._itensX=[];//coordenadas iniciais x
         this._indexAtual=0;//variável para saber qual a posição atual do menu
         this._itensActive =[this._indexAtual];//index do elemento ativo anteriormente e do atual
+        this._windowWidth=window.innerWidth;
+        this._rect =new NavView(this._windowWidth);
         
     }
 
@@ -20,27 +22,26 @@ class NavController{
        }
 
     update(event){
-    const windowWidth=window.innerWidth;
-    this._rect =new NavView(windowWidth);
+
     const item = event.target;
 
     this._itens.forEach((item,index) =>{
-        if(item == event.target){
+        if(item === event.target){
             this._indexAtual=index;
         }
     });
         
     
-    if(this._indexAtual == this._itensActive[0]) return;//se elemento está ativo, não faz nada
+    if(this._indexAtual === this._itensActive[0]) return;//se elemento está ativo, não faz nada
     
     
     this._changeAttr(this._itens[this._itensActive[0]]);//apago atributo do botão que estava ativo
      
-    windowWidth>=500 ? 
+    this._windowWidth>=500 ? 
     this._rect.createRectX(item.getBoundingClientRect().width,item.getBoundingClientRect().height,this._itensActive[0],this._indexAtual,20) :
-    this._rect.createRectY(item.getBoundingClientRect().width,item.getBoundingClientRect().height,this._itensActive[0],this._indexAtual,12)
+    this._rect.createRectY(item.getBoundingClientRect().width,item.getBoundingClientRect().height,this._itensActive[0],this._indexAtual,20)
 
-    setTimeout(()=>{
+    setTimeout(() =>{
         this._itensActive.push(this._indexAtual);
         this._changeAttr(item);//acendo atributo de botão que vai ser acesso
         this._rect.delRect(document.querySelector('.caixa'));//depois do tempo percorrido deleto caixa animada

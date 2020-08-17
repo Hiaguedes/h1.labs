@@ -17,10 +17,14 @@
 
     _myMoveX(x,element,paramInitial,paramFinal){
         let pos = paramInitial;
-    
+
         function atualizePosicaoX(){
           pos= pos+x; 
           element.style.marginLeft = pos + 'px'; 
+        }
+
+        function frame() {
+            x > 0 ? (pos >= paramFinal ? clearInterval(id):atualizePosicaoX()):(pos <= paramFinal ? clearInterval(id):atualizePosicaoX());
         }
 
         switch(true){
@@ -38,17 +42,8 @@
             break;
 
         }
-        if(x>0){
-          let id = setInterval(frame, this._time);
-          function frame(){
-            pos >= paramFinal ? clearInterval(id):atualizePosicaoX();
-          }
-        }else{
-          let id = setInterval(frame, this._time);
-          function frame(){
-            pos <= paramFinal ? clearInterval(id):atualizePosicaoX();
-          }
-        }
+        let id = setInterval(frame, this._time);
+
     }
 
     createRectX(width,height,indexItemAtivoAnterior,indexItemClicado,speed){
@@ -71,6 +66,10 @@
           element.style.marginTop = pos + 'px'; 
         }
 
+        function frame(){
+          (y>0) ? (pos >= paramFinal ? clearInterval(id):atualizePosicaoY()) : (pos <= paramFinal ? clearInterval(id):atualizePosicaoY());
+        }
+
         switch(true){
             case this._windowWidth <500 && this._windowWidth >400:
                 this._time = 10;
@@ -80,17 +79,7 @@
             break;
         }
         
-        if(y>0){
-          let id = setInterval(frame, this._time);
-          function frame(){
-            pos >= paramFinal ? clearInterval(id):atualizePosicaoY();
-          }
-        }else{
-          let id = setInterval(frame, this._time);
-          function frame(){
-            pos <= paramFinal ? clearInterval(id):atualizePosicaoY();
-          }
-        }
+        let id = setInterval(frame, this._time);
     }
 
     createRectY(width,height,indexItemAtivoAnterior,indexItemClicado,speed){

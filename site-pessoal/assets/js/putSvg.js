@@ -1,4 +1,4 @@
-(()=>{
+(() =>{
 
     const divAnimacao=document.querySelector('.header__animacao');
     let larguraJanela=window.innerWidth;
@@ -19,13 +19,6 @@
             createImage();
             }
     }
-
-    resizeImg(larguraJanela);
-
-    window.addEventListener('resize',()=>{
-      larguraJanela=window.innerWidth;
-      resizeImg(larguraJanela);
-});
 
 function resizeImg(larguraJanela){
     switch (true){
@@ -53,5 +46,12 @@ function resizeImg(larguraJanela){
             break;
     }
 }
+
+resizeImg(larguraJanela);
+
+window.addEventListener('resize',() =>{
+  larguraJanela=window.innerWidth;
+  resizeImg(larguraJanela);
+});
 
 })();
