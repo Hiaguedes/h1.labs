@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="./assets/css/reset.css">
         <link rel="stylesheet" href="./assets/css/estilos.css">
         <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+        <title>Hiago Guedes</title>
     </head>
     <body>
     <header class="header">
@@ -22,9 +23,9 @@
         </ul>
     </nav>
     <div class="body">
-        <section class="home">
-        <div class="home__container">
-            <h2 class="titulo">Um título</h2>
+        <section class="home" data-section>
+        <div class="section__container">
+            <h2 class="titulo"></h2>
             <p class="texto texto--alinhado-esquerda">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam facilisis nec ante ac dignissim.
                  Suspendisse commodo vulputate turpis. Nullam accumsan magna turpis, mollis pretium ex laoreet non. Donec et lacus convallis arcu viverra cursus. Ut mollis, lacus sit amet fermentum venenatis, neque sem pharetra risus, ac fermentum lacus urna a purus. Maecenas et diam non risus porta consectetur. Aenean commodo fermentum nibh in tristique. Sed eleifend tortor ac dolor euismod pharetra. Suspendisse ut quam id ante sollicitudin scelerisque. Etiam aliquet convallis libero at fringilla. Suspendisse a pellentesque orci. Duis massa turpis, fringilla nec est sed, placerat vehicula ligula. Maecenas pulvinar gravida tortor, et vulputate ipsum.
@@ -53,10 +54,33 @@ Vivamus vel libero sit amet tortor facilisis consequat. Praesent urna nisi, pell
 Ut urna est, hendrerit quis condimentum eu, consectetur quis dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent ut ex erat. Fusce in diam in orci mattis sodales vel quis nibh. Ut ultricies ipsum eget enim lobortis, vitae laoreet purus pulvinar. Quisque vehicula convallis sem et pharetra. Fusce interdum vel dolor vel consectetur. Praesent sit amet nulla eleifend, posuere dolor sed, dapibus sapien. Suspendisse sodales enim ac lectus eleifend interdum. Donec et rutrum ipsum. Duis tincidunt ex ac ante auctor, ac suscipit arcu laoreet. Etiam fermentum nunc at dolor ullamcorper, et tincidunt lectus finibus. Donec eu mauris commodo, iaculis arcu quis, tincidunt ex. Suspendisse sagittis luctus mollis.
             </p>
         </div>
+
+        </section>
+        <section class="projects section--hide" data-section>
+            <div class="section__container">
+            <h2 class="titulo"></h2>
+            <p class="texto texto--alinhado-esquerda">Texto 1</p>
+        </div>
+        </section>
+
+        <section class="skills section--hide" data-section>
+            <div class="section__container">
+            <h2 class="titulo"></h2>
+                <p class="texto texto--alinhado-esquerda">Texto 2</p>
+            </div>
+        </section>
+
+        <section class="languages section--hide" data-section>
+            <div class="section__container">
+            <h2 class="titulo"></h2>
+                <p class="texto texto--alinhado-esquerda">Texto 3</p>
+            </div>
         </section>
     </div>
     </body>
-    <script src="./assets/js/views/navView.js"></script>
-    <script src="./assets/js/controllers/navController.js"></script>
-    <script src="./assets/js/putSvg.js"></script>
+    <script src="./assets/js/views/NavView.js"></script>
+    <script src="./assets/js/views/SectionsView.js"></script>
+    <script src="./assets/js/controllers/NavController.js"></script>
+
+    <script src="./assets/js/PutSvg.js"></script>
 </html>

@@ -25,6 +25,11 @@ body {
     font-weight: 700;
     margin: 2rem 0;
     display: inline-block;
+    padding-right: 0.5rem;
+}
+
+.titulo--cursor-active{
+    border-right: 2px solid goldenrod;
 }
 
 .container__imagem {
@@ -35,7 +40,7 @@ body {
 
 .imagem {
     margin: 2rem 0;
-    width: 30rem;
+    width: 75%;
     box-shadow: 10px 10px 20px #ffffff49;
 }
 
