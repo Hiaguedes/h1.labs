@@ -1,4 +1,41 @@
 body{
-    background: rgb(61,61,61);
     background: linear-gradient(127deg, rgba(61,61,61,1) 0%, rgba(30,30,31,1) 76%);
+    background-attachment: fixed;
 }
+
+.texto{
+    color: rgba(197, 197, 197, 0.849);
+    line-height: 24px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding-left: 1rem;
+}
+
+.texto--alinhado-esquerda{
+    text-align: left;
+}
+
+.texto--alinhado-centro{
+    text-align: center;
+}
+
+.titulo{
+    color: goldenrod;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    display: inline-block;
+}
+
+.container__imagem{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.imagem{
+    margin: 2rem 0;
+    width: 30rem;
+    box-shadow: 10px 10px 20px #ffffff49;
+}
+
