@@ -2,6 +2,24 @@
 
     const divAnimacao=document.querySelector('.header__animacao');
     let larguraJanela=window.innerWidth;
+
+    function createImage(){
+        const div=document.createElement('div');
+        div.classList.add('header__animacao--imagem');
+        divAnimacao.appendChild(div);
+    }
+    
+    function eraseContent(){
+        divAnimacao.innerHTML = '';
+    }
+    
+    function arrangeByRowsAndColumns(column,row){
+        eraseContent();
+        for(let i=0;i<column*row;i++){
+            createImage();
+            }
+    }
+
     resizeImg(larguraJanela);
 
     window.addEventListener('resize',()=>{
@@ -34,23 +52,6 @@ function resizeImg(larguraJanela){
             arrangeByRowsAndColumns(2,2);
             break;
     }
-}
-
-function createImage(){
-    const div=document.createElement('div');
-    div.classList.add('header__animacao--imagem');
-    divAnimacao.appendChild(div);
-}
-
-function eraseContent(){
-    divAnimacao.innerHTML = '';
-}
-
-function arrangeByRowsAndColumns(column,row){
-    eraseContent();
-    for(let i=0;i<column*row;i++){
-        createImage();
-        }
 }
 
 })();
