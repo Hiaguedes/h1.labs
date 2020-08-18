@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="./assets/css/estilos.css">
         <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
         <title>Hiago Guedes</title>
+        <link rel="shortcut icon" href="./assets/img/title.ico" type="image/x-icon">
     </head>
     <body>
     <header class="header">
@@ -16,63 +17,67 @@
     </header>
     <nav class="container">
         <ul class="lista" onclick="navCTRL.update(event)">
-            <li class="lista__item--ativo" data-item="lista__item">Home</li>
-            <li class="lista__item" data-item="lista__item--ativo">Projects</li>
+            <li class="lista__item" data-item="lista__item--ativo">Home</li>
+            <li class="lista__item--ativo" data-item="lista__item">Projects</li>
             <li class="lista__item" data-item="lista__item--ativo">Skills</li>
             <li class="lista__item" data-item="lista__item--ativo">Languages</li>
         </ul>
     </nav>
     <div class="body">
-        <section class="home" data-section>
-        <div class="section__container">
-            <h2 class="titulo"></h2>
-            <p class="texto texto--alinhado-esquerda">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam facilisis nec ante ac dignissim.
-                 Suspendisse commodo vulputate turpis. Nullam accumsan magna turpis, mollis pretium ex laoreet non. Donec et lacus convallis arcu viverra cursus. Ut mollis, lacus sit amet fermentum venenatis, neque sem pharetra risus, ac fermentum lacus urna a purus. Maecenas et diam non risus porta consectetur. Aenean commodo fermentum nibh in tristique. Sed eleifend tortor ac dolor euismod pharetra. Suspendisse ut quam id ante sollicitudin scelerisque. Etiam aliquet convallis libero at fringilla. Suspendisse a pellentesque orci. Duis massa turpis, fringilla nec est sed, placerat vehicula ligula. Maecenas pulvinar gravida tortor, et vulputate ipsum.
-                 Fusce volutpat eleifend congue. Fusce nec tristique sem, eu congue magna.
-            </p>
-            <br>
-            <p class="texto texto--alinhado-esquerda">
-                Mauris porttitor, orci vitae sollicitudin euismod, lectus turpis varius metus, gravida feugiat metus lorem ac leo. In sit amet augue eu metus volutpat rhoncus. Etiam non augue tincidunt, gravida lectus vitae, consectetur felis. Suspendisse nec risus in massa ornare sagittis sed ac metus. Integer justo purus, pretium sit amet viverra in, convallis non eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed tellus quam, tristique in venenatis eget, laoreet vel arcu. Cras ac tortor sit amet risus sodales lacinia ac non metus. Donec orci ante, varius nec diam at, vehicula tempor urna. Suspendisse commodo dui vel egestas pharetra. Mauris pretium nec ligula sed tempus. Suspendisse auctor ligula vel dui molestie, vitae eleifend velit varius.
-
-Nullam et malesuada arcu, vel hendrerit odio. Nulla commodo dignissim enim, bibendum fringilla enim. Etiam nibh nunc, finibus sit amet dapibus non, volutpat quis nibh. Sed eget consequat turpis. Fusce pellentesque elit at pretium porta. Nam tristique arcu malesuada varius lobortis. Curabitur vehicula at lorem ac euismod. Donec maximus tincidunt nibh in condimentum. Curabitur eleifend justo turpis, a hendrerit velit mattis ut. Curabitur lobortis urna lorem, vitae laoreet ligula feugiat fringilla.
-
-Vivamus vel libero sit amet tortor facilisis consequat. Praesent urna nisi, pellentesque at molestie eu, gravida et nunc. Donec ullamcorper, tortor nec vestibulum hendrerit, ipsum eros aliquet sem, sed volutpat sem dui ac urna. Nulla tristique leo sed nunc egestas, ut hendrerit urna tempus. Nullam quis odio non nibh auctor posuere eget nec elit. Nullam ut imperdiet nulla. Ut in lectus eget eros accumsan mattis id vitae elit. Maecenas vulputate pulvinar nunc, sit amet ornare sapien interdum ut. Vestibulum sit amet vestibulum dui, et molestie sem. Maecenas convallis lacus vitae tempus suscipit. Nam aliquam consectetur neque, et varius erat tincidunt sit amet. Curabitur lacinia efficitur erat, non blandit massa mollis in. Suspendisse placerat felis non vehicula varius.
-
-Ut urna est, hendrerit quis condimentum eu, consectetur quis dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent ut ex erat. Fusce in diam in orci mattis sodales vel quis nibh. Ut ultricies ipsum eget enim lobortis, vitae laoreet purus pulvinar. Quisque vehicula convallis sem et pharetra. Fusce interdum vel dolor vel consectetur. Praesent sit amet nulla eleifend, posuere dolor sed, dapibus sapien. Suspendisse sodales enim ac lectus eleifend interdum. Donec et rutrum ipsum. Duis tincidunt ex ac ante auctor, ac suscipit arcu laoreet. Etiam fermentum nunc at dolor ullamcorper, et tincidunt lectus finibus. Donec eu mauris commodo, iaculis arcu quis, tincidunt ex. Suspendisse sagittis luctus mollis.
-            </p>
-            <div class="container__imagem">
-                <img class="imagem" src="https://picsum.photos/700/500" alt="Uma imagem"> 
+        <section class="home section--hide" data-section>
+            <div class="section__title">
+                <h2 class="titulo"></h2>
             </div>
-            <p class="texto texto--alinhado-esquerda">
-                Mauris porttitor, orci vitae sollicitudin euismod, lectus turpis varius metus, gravida feugiat metus lorem ac leo. In sit amet augue eu metus volutpat rhoncus. Etiam non augue tincidunt, gravida lectus vitae, consectetur felis. Suspendisse nec risus in massa ornare sagittis sed ac metus. Integer justo purus, pretium sit amet viverra in, convallis non eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed tellus quam, tristique in venenatis eget, laoreet vel arcu. Cras ac tortor sit amet risus sodales lacinia ac non metus. Donec orci ante, varius nec diam at, vehicula tempor urna. Suspendisse commodo dui vel egestas pharetra. Mauris pretium nec ligula sed tempus. Suspendisse auctor ligula vel dui molestie, vitae eleifend velit varius.
+                <div class="section__container">
+                <p class="texto texto--alinhado-esquerda"> 
+                I am a Mechatronic Engineer with a passion for technology in general, because of that my areas of interest are in Electronics and Computing
+                </p>
+                <p class="texto texto--alinhado-esquerda"> 
+                Currently I'm into front end development, and I'm willing to progress into Back end development and Data Science development too and by that integrate these knowledges with my eletronics habilities.
+                But to that I want more experience from the market job.  
+                </p>
+                <br>
 
-Nullam et malesuada arcu, vel hendrerit odio. Nulla commodo dignissim enim, bibendum fringilla enim. Etiam nibh nunc, finibus sit amet dapibus non, volutpat quis nibh. Sed eget consequat turpis. Fusce pellentesque elit at pretium porta. Nam tristique arcu malesuada varius lobortis. Curabitur vehicula at lorem ac euismod. Donec maximus tincidunt nibh in condimentum. Curabitur eleifend justo turpis, a hendrerit velit mattis ut. Curabitur lobortis urna lorem, vitae laoreet ligula feugiat fringilla.
+                <div class="container__imagem">
+                    <img class="imagem" src="https://picsum.photos/700/500" alt="Uma imagem"> 
+                </div>
 
-Vivamus vel libero sit amet tortor facilisis consequat. Praesent urna nisi, pellentesque at molestie eu, gravida et nunc. Donec ullamcorper, tortor nec vestibulum hendrerit, ipsum eros aliquet sem, sed volutpat sem dui ac urna. Nulla tristique leo sed nunc egestas, ut hendrerit urna tempus. Nullam quis odio non nibh auctor posuere eget nec elit. Nullam ut imperdiet nulla. Ut in lectus eget eros accumsan mattis id vitae elit. Maecenas vulputate pulvinar nunc, sit amet ornare sapien interdum ut. Vestibulum sit amet vestibulum dui, et molestie sem. Maecenas convallis lacus vitae tempus suscipit. Nam aliquam consectetur neque, et varius erat tincidunt sit amet. Curabitur lacinia efficitur erat, non blandit massa mollis in. Suspendisse placerat felis non vehicula varius.
-
-Ut urna est, hendrerit quis condimentum eu, consectetur quis dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent ut ex erat. Fusce in diam in orci mattis sodales vel quis nibh. Ut ultricies ipsum eget enim lobortis, vitae laoreet purus pulvinar. Quisque vehicula convallis sem et pharetra. Fusce interdum vel dolor vel consectetur. Praesent sit amet nulla eleifend, posuere dolor sed, dapibus sapien. Suspendisse sodales enim ac lectus eleifend interdum. Donec et rutrum ipsum. Duis tincidunt ex ac ante auctor, ac suscipit arcu laoreet. Etiam fermentum nunc at dolor ullamcorper, et tincidunt lectus finibus. Donec eu mauris commodo, iaculis arcu quis, tincidunt ex. Suspendisse sagittis luctus mollis.
-            </p>
         </div>
 
         </section>
-        <section class="projects section--hide" data-section>
+        <section class="projects" data-section>
+            <div class="section__title">
+                <h2 class="titulo"></h2>
+            </div>
             <div class="section__container">
-            <h2 class="titulo"></h2>
-            <p class="texto texto--alinhado-esquerda">Texto 1</p>
+                <p class="texto texto--alinhado-esquerda">I put here some of the repositorys I worked on.</p>
+                <p class="texto texto--alinhado-esquerda">I actually working on better projects, you will see :D</p>
+                <ul class="projects__lista">
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/compilado-front-end">My front end codes</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/Compilado-Processing-codes">Robot Movimentation viewer</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/plasma-speaker">Plasma Speaker</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/PID-placa-de-Treinamento-ACEPIC">PID on PIC</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/compilado-eletronica">Compiled of Circuits</a> </li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/Lagann-Robot">Lagann Robot</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/fonte-eletrica-alternada">RLC Circuit</a></li>
+                </ul>
         </div>
         </section>
 
         <section class="skills section--hide" data-section>
-            <div class="section__container">
+        <div class="section__title">
             <h2 class="titulo"></h2>
+        </div>
+            <div class="section__container">
                 <p class="texto texto--alinhado-esquerda">Texto 2</p>
             </div>
         </section>
 
         <section class="languages section--hide" data-section>
+            <div class="section__title">
+                <h2 class="titulo"></h2>
+            </div>
             <div class="section__container">
-            <h2 class="titulo"></h2>
                 <p class="texto texto--alinhado-esquerda">Texto 3</p>
             </div>
         </section>

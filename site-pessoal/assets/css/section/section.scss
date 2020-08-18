@@ -1,0 +1,20 @@
+
+section{
+        display: grid;
+        grid-template-areas: "titulo" "container";
+        grid-template-rows: 7rem auto;
+}
+
+.section__title {
+        grid-area: titulo;
+        height: 100%;
+}
+
+.section--hide{
+        display: none;
+}
+.section__container {
+        grid-area: container;
+        background-color: transparent;
+        width: 100%;
+}

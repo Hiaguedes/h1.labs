@@ -9,6 +9,8 @@ body {
     font-size: 1.05rem;
     font-weight: 500;
     padding-left: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 3rem;
 }
 
 .texto--alinhado-esquerda {
@@ -23,9 +25,10 @@ body {
     color: goldenrod;
     font-size: 3rem;
     font-weight: 700;
-    margin: 2rem 0;
     display: inline-block;
     padding-right: 0.5rem;
+    margin: 2rem;
+
 }
 
 .titulo--cursor-active{

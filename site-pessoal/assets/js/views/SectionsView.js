@@ -31,31 +31,10 @@ class SectionView{
             if(i==this._title[index].length){
                 this._titulos[index].classList.remove('titulo--cursor-active');
             }
-        },150);
+        },50);
     }
 
     removeTitle(index){
         this._titulos[index].innerHTML = '';
     }
-
-    /*
-        this._titulos[index].classList.add('titulo--cursor-active');
-        console.log(this._titulos[index]);
-
-        if(this._i >0 && this._set.valueOf()=='true'){ 
-            this._i ==0;
-            this._set = Boolean(false);
-        };
-
-        if(this._i < this._title[index].length){
-            this._titulos[index].innerHTML += this._title[index].charAt(this._i);
-            this._i++;
-            setTimeout(this.writeTitle,100);
-        }
-
-        if(this._i == this._title[index].length){
-            this._set = Boolean(true);
-            this._titulos[index].classList.remove('titulo--cursor-active');
-        }
-    */
 }

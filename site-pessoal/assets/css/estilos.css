@@ -7,7 +7,9 @@ body {
   line-height: 24px;
   font-size: 1.05rem;
   font-weight: 500;
-  padding-left: 1rem; }
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 3rem; }
 
 .texto--alinhado-esquerda {
   text-align: left; }
@@ -19,9 +21,9 @@ body {
   color: goldenrod;
   font-size: 3rem;
   font-weight: 700;
-  margin: 2rem 0;
   display: inline-block;
-  padding-right: 0.5rem; }
+  padding-right: 0.5rem;
+  margin: 2rem; }
 
 .titulo--cursor-active {
   border-right: 2px solid goldenrod; }
@@ -145,11 +147,65 @@ body {
   position: absolute;
   padding: 0; }
 
+section {
+  display: grid;
+  grid-template-areas: "titulo" "container";
+  grid-template-rows: 7rem auto; }
+
+.section__title {
+  grid-area: titulo;
+  height: 100%; }
+
 .section--hide {
   display: none; }
 
 .section__container {
-  margin: 1rem 3rem;
-  background-color: transparent; }
+  grid-area: container;
+  background-color: transparent;
+  width: 100%; }
+
+.projects__lista {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 3rem 5rem;
+  align-items: center;
+  justify-content: space-around; }
+
+.projects__itens {
+  width: 80%;
+  height: 4rem;
+  font-weight: 600;
+  border: 2px solid white;
+  margin-bottom: 1rem; }
+
+.projects__itens:hover {
+  background-color: #686868;
+  cursor: pointer; }
+
+.projects__link {
+  padding: calc(2rem - 0.4rem) 0;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  font-size: 0.8rem;
+  text-align: center; }
+
+@media (min-width: 1200px) {
+  .projects__lista {
+    justify-content: space-between; }
+
+  .projects__itens {
+    width: 30%; } }
+@media (min-width: 800px) and (max-width: 1200px) {
+  .projects__lista {
+    justify-content: space-between; }
+
+  .projects__itens {
+    width: 40%; } }
+@media (min-width: 1000px) {
+  .projects__link {
+    font-size: 1rem;
+    padding: calc(2rem - 0.5rem) 0; } }
 
 /*# sourceMappingURL=estilos.css.map */
