@@ -1,3 +1,0 @@
-PIC
-50 a 300 HZ ajustavel com pot
-acionamento de leds
