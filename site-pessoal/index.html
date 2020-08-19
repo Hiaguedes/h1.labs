@@ -18,8 +18,8 @@
     <nav class="container">
     <ul class="lista" onclick="navCTRL.update(event)">
             <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
-            <li tabindex="0" class="lista__item--ativo" data-item="lista__item" onkeydown="navCTRL.acessibilityUpdate(event)">Projects</li>
-            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
+            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Projects</li>
+            <li tabindex="0" class="lista__item--ativo" data-item="lista__item" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
             <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
         </ul>
     </nav>
@@ -30,27 +30,27 @@
             </div>
                 <div class="section__container">
                 <p class="texto texto--alinhado-esquerda"> 
-                I am a Mechatronic Engineer with a passion for technology in general, because of that my areas of interest are in Electronics and Computing
+                I am a Mechatronic Engineer with a passion for technology in general, because of that my areas of interest are in Electronics and Computing.
                 </p>
                 <p class="texto texto--alinhado-esquerda"> 
                 Currently I'm into front end development, and I'm willing to progress into Back end development and Data Science development too and by that integrate these knowledges with my eletronics habilities.
                 But to that I want more experience from the market job.  
                 </p>
                 <br>
-
+                <!--
                 <div class="container__imagem">
                     <img class="imagem" src="https://picsum.photos/700/500" alt="Uma imagem"> 
                 </div>
-
+-->
         </div>
 
         </section>
-        <section class="projects" data-section>
+        <section class="projects section--hide" data-section>
             <div class="section__title">
                 <h2 class="titulo"></h2>
             </div>
             <div class="section__container">
-                <p class="texto texto--alinhado-esquerda">I put here some of the repositorys I worked on.</p>
+                <p class="texto texto--alinhado-esquerda">I will put here some of the repositorys I worked on.</p>
                 <p class="texto texto--alinhado-esquerda">I actually working on better projects, you will see :D</p>
                 <ul class="projects__lista">
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/compilado-front-end">My front end codes</a></li>
@@ -60,17 +60,64 @@
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/compilado-eletronica">Compiled of Eletric Circuits</a> </li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/Lagann-Robot">Lagann Robot</a></li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/fonte-eletrica-alternada">RLC Circuit</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/pwm-frequencia-ajustavel">Adjustable PWM</a></li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://gist.github.com/Hiaguedes">My gists</a></li>
                 </ul>
         </div>
         </section>
 
-        <section class="skills section--hide" data-section>
+        <section class="skills " data-section>
         <div class="section__title">
             <h2 class="titulo"></h2>
         </div>
             <div class="section__container">
-                <p class="texto texto--alinhado-esquerda">Texto 2</p>
+                <p class="texto texto--alinhado-esquerda">Well, from home and projects sections you could see I have a touch for eletronics and programming in general.</p>
+                <p class="texto texto--alinhado-esquerda">Here I will resume some of my abilities and what I want to learn from the day on.</p>
+                
+                <div class="skills__container">
+                <div class="skills__control" onclick="skillsCTRL.update(event)">
+                    <p class="skills__title">Programming</p>
+                    <div class="skills__image"></div>
+                </div>
+                    	<ul class="skills__cards">
+                            <li class="skills__itens">HTML 5</li>
+                            <li class="skills__itens">CSS3</li>
+                            <li class="skills__itens">SASS</li>
+                            <li class="skills__itens">JavaScript Vanilla</li>
+                            <li class="skills__itens">Bootstrap</li>
+                            <li class="skills__itens">Gulp</li>
+                            <li class="skills__itens">Java</li>
+                            <li class="skills__itens">C++</li>
+                            <li class="skills__itens">MatLab</li>
+                            <li class="skills__itens">Linux</li>
+                            
+                        </ul>
+                <div class="skills__control" onclick="skillsCTRL.update(event)">
+                    <p class="skills__title">Eletronics</p>
+                    <div class="skills__image skills__image--active"></div>
+                </div>
+                    	<ul class="skills__cards skills__cards--hide skills__cards--erase">
+                            <li class="skills__itens">Arduino</li>
+                            <li class="skills__itens">PIC</li>
+                            <li class="skills__itens">Isis Proteus</li>
+                            <li class="skills__itens">Spice Language</li>
+                            <li class="skills__itens">PCB Design</li>
+                        </ul>
+                <div class="skills__control" onclick="skillsCTRL.update(event)">
+                    <p class="skills__title">What I want to learn</p>
+                    <div class="skills__image skills__image--active"></div>
+                </div>
+                    	<ul class="skills__cards skills__cards--hide skills__cards--erase">
+                            <li class="skills__itens">React</li>
+                            <li class="skills__itens">Angular</li>
+                            <li class="skills__itens">Node.js</li>
+                            <li class="skills__itens">Mongo DB</li>
+                            <li class="skills__itens">Artificial Inteligence</li>
+                            <li class="skills__itens">Python</li>
+                            <li class="skills__itens">Android</li>
+                            <li class="skills__itens">Google and Amazon Cloud</li>
+                        </ul>
+                </div>
             </div>
         </section>
 
@@ -87,6 +134,8 @@
     <script src="./assets/js/views/NavView.js"></script>
     <script src="./assets/js/views/SectionsView.js"></script>
     <script src="./assets/js/controllers/NavController.js"></script>
+
+    <script src="./assets/js/controllers/SkillsController.js"></script>
 
     <script src="./assets/js/PutSvg.js"></script>
     <script src="./assets/js/headerTitleEffect.js"></script>

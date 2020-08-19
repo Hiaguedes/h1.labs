@@ -3,7 +3,7 @@ class NavController{
     constructor() {
         this._itens = document.querySelectorAll('[data-item]');//seleciona todos os itens da lista de navegação
         this._itensX=[];//coordenadas iniciais x
-        this._indexAtual=1;//variável para saber qual a posição atual do menu
+        this._indexAtual=2;//variável para saber qual a posição atual do menu
         this._itensActive =[this._indexAtual];//index do elemento ativo anteriormente e do atual
         this._secoes = new SectionView();
         this._secoes.writeTitle(this._indexAtual);
