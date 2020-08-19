@@ -16,11 +16,11 @@
         <h1 class="header__titulo">Hi, I'm Hiago Guedes</h1>
     </header>
     <nav class="container">
-        <ul class="lista" onclick="navCTRL.update(event)">
-            <li class="lista__item" data-item="lista__item--ativo">Home</li>
-            <li class="lista__item--ativo" data-item="lista__item">Projects</li>
-            <li class="lista__item" data-item="lista__item--ativo">Skills</li>
-            <li class="lista__item" data-item="lista__item--ativo">Languages</li>
+    <ul class="lista" onclick="navCTRL.update(event)">
+            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
+            <li tabindex="0" class="lista__item--ativo" data-item="lista__item" onkeydown="navCTRL.acessibilityUpdate(event)">Projects</li>
+            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
+            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
         </ul>
     </nav>
     <div class="body">
@@ -57,9 +57,10 @@
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/Compilado-Processing-codes">Robot Movimentation viewer</a></li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/plasma-speaker">Plasma Speaker</a></li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/PID-placa-de-Treinamento-ACEPIC">PID on PIC</a></li>
-                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/compilado-eletronica">Compiled of Circuits</a> </li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/compilado-eletronica">Compiled of Eletric Circuits</a> </li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/Lagann-Robot">Lagann Robot</a></li>
                     <li class="projects__itens"><a class="projects__link" target="_blank" href="https://github.com/Hiaguedes/fonte-eletrica-alternada">RLC Circuit</a></li>
+                    <li class="projects__itens"><a class="projects__link" target="_blank" href="https://gist.github.com/Hiaguedes">My gists</a></li>
                 </ul>
         </div>
         </section>
@@ -88,4 +89,5 @@
     <script src="./assets/js/controllers/NavController.js"></script>
 
     <script src="./assets/js/PutSvg.js"></script>
+    
 </html>

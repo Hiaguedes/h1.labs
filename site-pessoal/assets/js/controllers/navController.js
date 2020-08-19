@@ -20,6 +20,12 @@ class NavController{
         obj.classList.add(dataAttr);
        }
 
+    acessibilityUpdate(event){
+        if(event.keyCode ==13){
+           this.update(event);
+        }
+    }
+
     update(event){
     const windowWidth=window.innerWidth;
     this._rect =new NavView(windowWidth);
