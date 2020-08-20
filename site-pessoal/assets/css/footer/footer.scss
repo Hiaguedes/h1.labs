@@ -1,0 +1,33 @@
+.footer{
+    display: flex;
+    border-top: 1px solid rgba(211, 211, 211, 0.445);
+    margin: 2rem 2rem;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+    flex-direction: column;
+}
+
+.footer__link:nth-child(3){
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.footer__link {
+    margin-bottom: 2rem;
+}
+
+.footer__social{
+    width: 5rem;
+    height: 5rem;
+    filter: invert(0.8);
+}
+@media (min-width: 500px){
+    .footer {
+        flex-direction: row;
+        margin: 1rem 2rem;
+    }
+    .footer__link {
+        margin-right: 4rem;
+    }
+}

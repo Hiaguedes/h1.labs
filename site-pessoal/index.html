@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
@@ -17,14 +17,14 @@
     </header>
     <nav class="container">
     <ul class="lista" onclick="navCTRL.update(event)">
-            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
+            <li tabindex="0" class="lista__item--ativo" data-item="lista__item" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
             <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Projects</li>
-            <li tabindex="0" class="lista__item--ativo" data-item="lista__item" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
+            <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
             <li tabindex="0" class="lista__item" data-item="lista__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
         </ul>
     </nav>
     <div class="body">
-        <section class="home section--hide" data-section>
+        <section class="home section" data-section>
             <div class="section__title">
                 <h2 class="titulo"></h2>
             </div>
@@ -66,7 +66,7 @@
         </div>
         </section>
 
-        <section class="skills " data-section>
+        <section class="skills section--hide" data-section>
         <div class="section__title">
             <h2 class="titulo"></h2>
         </div>
@@ -130,6 +130,11 @@
             </div>
         </section>
     </div>
+    <footer class="footer">
+        <a class="footer__link" target="_blank" href="mailto:hiagorguedes@gmail.com"><img src="./assets/img/email-img.svg" alt="Email Logo" class="footer__social"></a>
+        <a class="footer__link" target="_blank" href="https://www.linkedin.com/in/hiagoguedes/"><img src="./assets/img/linkedin-logo.svg" alt="Linkedin Logo " class="footer__social"></a>
+        <a class="footer__link" target="_blank" href="https://github.com/Hiaguedes"><img src="./assets/img/github-logo.svg" alt="Github Logo " class="footer__social"></a>
+    </footer>
     </body>
     <script src="./assets/js/views/NavView.js"></script>
     <script src="./assets/js/views/SectionsView.js"></script>
