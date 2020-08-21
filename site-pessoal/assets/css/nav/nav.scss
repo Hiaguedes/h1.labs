@@ -16,6 +16,7 @@
     text-align: center;
     color: $cor-fonte-nav;
     background-color: transparent;
+    font-family: $fonte-texto-secao;
 }
 
 .nav__item:nth-child(1),:nth-child(2),:nth-child(3) {
@@ -29,6 +30,7 @@
     text-align: center;
     background-color: $cor-fundo-nav--ativo;
     color: $cor-fonte-nav--ativo;
+    font-family: $fonte-texto-secao;
 }
 
 .nav__item:hover {

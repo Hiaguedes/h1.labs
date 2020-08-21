@@ -13,14 +13,14 @@
 
 @media (min-width:1600px){
     .header__animacao{
-        grid-template-rows: 140px 140px 140px;
+        grid-template-rows: 130px 130px 130px;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
 
 @media (min-width:1280px) and (max-width:1600px){
     .header__animacao{
-        grid-template-rows: 140px 140px 140px;
+        grid-template-rows: 130px 130px 130px;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }

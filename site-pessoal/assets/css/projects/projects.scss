@@ -4,6 +4,7 @@
     margin: 0 5rem;
     align-items: center;
     justify-content: space-around;
+    margin-top: 2rem;
 }
 .projects__itens {
     width: 80%;
@@ -11,6 +12,7 @@
     font-weight: 600;
     border : 2px solid $cor-texto-generico;
     margin-bottom: 1rem;
+    font-family: $fonte-projects-itens;
 }
 
 .projects__itens:hover{
