@@ -9,8 +9,7 @@ body {
     font-size: 1.05rem;
     font-weight: 500;
     padding-left: 1rem;
-    margin-bottom: 1rem;
-    margin-left: 3rem;
+    margin: 0 3rem 1rem 3rem;
 }
 
 .texto--alinhado-esquerda {
@@ -23,12 +22,11 @@ body {
 
 .titulo {
     color: goldenrod;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     display: inline-block;
     padding-right: 0.5rem;
-    margin: 2rem;
-
+    margin:2rem;
 }
 
 .titulo--cursor-active{
@@ -45,5 +43,11 @@ body {
     margin: 2rem 0;
     width: 75%;
     box-shadow: 10px 10px 20px #ffffff49;
+}
+
+@media (min-width: 500px){
+    .titulo {
+        font-size: 3rem;
+    }
 }
 

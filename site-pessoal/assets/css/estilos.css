@@ -8,8 +8,7 @@ body {
   font-size: 1.05rem;
   font-weight: 500;
   padding-left: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 3rem; }
+  margin: 0 3rem 1rem 3rem; }
 
 .texto--alinhado-esquerda {
   text-align: left; }
@@ -19,7 +18,7 @@ body {
 
 .titulo {
   color: goldenrod;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   display: inline-block;
   padding-right: 0.5rem;
@@ -37,6 +36,9 @@ body {
   width: 75%;
   box-shadow: 10px 10px 20px #ffffff49; }
 
+@media (min-width: 500px) {
+  .titulo {
+    font-size: 3rem; } }
 .header__animacao {
   display: grid;
   overflow-x: hidden;
@@ -175,6 +177,7 @@ section {
   opacity: 1;
   margin: 0.5rem auto;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
 
@@ -204,6 +207,9 @@ section {
   transition: transform 0.5s ease-in-out;
   color: #383838; }
 
+@media (min-width: 730px) {
+  .skills__cards {
+    justify-content: normal; } }
 .skills__control {
   display: flex;
   justify-content: space-between;

@@ -9,6 +9,7 @@
     opacity: 1;
     margin: 0.5rem auto;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     transition: opacity 0.5s ease-in-out,
                 transform 0.5s ease-in-out;
@@ -43,6 +44,12 @@
     background-color: rgb(153, 153, 153);
     transition: transform 0.5s ease-in-out;
     color: rgb(56, 56, 56);
+}
+
+@media (min-width: 730px){
+    .skills__cards {
+        justify-content: normal;
+    }
 }
 
 @import './skill-control.scss';
