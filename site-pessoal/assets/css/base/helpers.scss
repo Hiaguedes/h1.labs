@@ -1,0 +1,58 @@
+/*Cores*/
+
+$cor-texto : rgba(197, 197, 197, 0.849);
+
+$cor-titulo-secao: goldenrod;
+
+$cor-fundo-nav: rgb(95, 95, 95);
+$cor-fonte-nav: rgb(233, 233, 233);
+$cor-fundo-nav--ativo: rgb(248, 235, 58);
+$cor-fonte-nav--ativo: rgb(51, 51, 51);
+$cor-fonte-nav--hover: rgba(168, 168, 168, 0.603);
+$cor-texto-generico: white;
+
+$cor-fundo-card-skill: rgb(187, 187, 187);
+$cor-fundo-card-skill--hover: rgb(153, 153, 153);
+$cor-letra-card-skill: rgb(49, 49, 49);
+
+/*Fontes*/
+
+$fonte-titulo-header: 'Pangolin', cursive;
+
+/*Distanciamentos e tamanhos de fontes*/
+
+$tamanho-titulo-header--generico: 1.15rem;
+$tamanho-titulo-header--1280px: 8rem;
+$tamanho-titulo-header--890px: 6rem;
+$tamanho-titulo-header--640px: 4rem;
+$tamanho-titulo-header--460px: 3rem;
+$tamanho-titulo-header--320px: 1.5rem;
+
+$tamanho-titulo-secao--generico: 2rem;
+$tamanho-titulo-secao--500px: 3rem;
+
+$tamanho-subtitulo-secao--generico: 1.5rem;
+$tamanho-subtitulo-secao--500px: 2.5rem;
+
+$tamanho-texto-padrao: 1.05rem;
+
+$largura-card-skill: 15rem;
+
+@mixin espacamento-texto-padrao {
+    padding-left: 1rem;
+    margin: 0 3rem 1rem 3rem;
+}
+
+@mixin espacamento-titulo-secao {
+    padding-right: 0.5rem;
+    margin:2rem;
+}
+@mixin altura-nav{
+    padding: 1rem 0;
+}
+
+@mixin altura-card-skill {
+    padding: 1rem 0;
+}
+
+

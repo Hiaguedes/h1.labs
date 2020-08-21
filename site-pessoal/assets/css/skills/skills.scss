@@ -27,11 +27,11 @@
 }
 
 .skills__itens {
-    color: rgb(49, 49, 49);
-    width: 15rem;
+    color: $cor-letra-card-skill;
+    width: $largura-card-skill;
     text-align: center;
-    padding: 1rem 0;
-    background-color: rgb(187, 187, 187);
+    @include altura-card-skill;
+    background-color: $cor-fundo-card-skill;
     margin: 1rem;
     border-radius: 5px;
     border: 1px solid black;
@@ -41,9 +41,8 @@
 .skills__itens:hover {
     z-index: 2;
     transform: scale(1.5);
-    background-color: rgb(153, 153, 153);
+    background-color: $cor-fundo-card-skill--hover;
     transition: transform 0.5s ease-in-out;
-    color: rgb(56, 56, 56);
 }
 
 @media (min-width: 730px){

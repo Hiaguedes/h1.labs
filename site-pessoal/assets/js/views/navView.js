@@ -1,13 +1,13 @@
  class NavView{
     constructor(windowWidth){
-        this._lista =document.querySelector('.lista'); 
+        this._lista =document.querySelector('.nav__lista'); 
         this._windowWidth = windowWidth;
         this._time=20; 
     }
 
     _createDiv(width,height){
         const div = document.createElement('div');
-        div.classList.add('lista__item--ativo');
+        div.classList.add('nav__item--ativo');
         div.classList.add('caixa');
         div.style.width = width + 'px';
         div.style.height = height + 'px';

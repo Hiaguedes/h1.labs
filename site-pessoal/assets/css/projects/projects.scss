@@ -9,7 +9,7 @@
     width: 80%;
     height: 4rem;
     font-weight: 600;
-    border : 2px solid white;
+    border : 2px solid $cor-texto-generico;
     margin-bottom: 1rem;
 }
 
@@ -20,7 +20,7 @@
 
 .projects__link {
     padding: calc(2rem - 0.4rem) 0;
-    color: white;
+    color: $cor-texto-generico;
     text-decoration: none;
     text-transform: uppercase;
     display: block;
