@@ -6,7 +6,6 @@ class NavController{
         this._indexAtual=0;//variável para saber qual a posição atual do menu
         this._itensActive =[this._indexAtual];//index do elemento ativo anteriormente e do atual
         this._secoes = new SectionView();
-        this._secoes.writeTitle(this._indexAtual);
     }
 
     _changeAttr(obj){
@@ -51,9 +50,9 @@ class NavController{
     this._secoes.removeTitle(this._itensActive[0]);
     setTimeout(() =>{
         this._secoes.changeSectionView(this._itensActive[0], this._indexAtual);
+
         this._secoes.removeTitle(this._indexAtual);
         this._secoes.writeTitle(this._indexAtual);
-
 
         this._itensActive.push(this._indexAtual);
         this._changeAttr(item);//acendo atributo de botão que vai ser acesso

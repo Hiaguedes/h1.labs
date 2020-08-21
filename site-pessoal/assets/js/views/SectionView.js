@@ -3,8 +3,12 @@ class SectionView{
         this._secoes = document.querySelectorAll('[data-section');
         this._titulos=document.querySelectorAll('.titulo');
         this._title =['About Me', 'My Projects', 'What skills I have?', 'My proficiency level'];
-        this._set= new Boolean(false);
     }
+
+    get title(){
+        return this._title;
+    }
+
 
     changeSectionView(indexAnterior, indexAtual){
         this._secoes[indexAtual].classList.remove('section--hide');
@@ -13,7 +17,6 @@ class SectionView{
         this._secoes[indexAnterior].classList.add('section--hide');
         this._secoes[indexAnterior].setAttribute('data-section','');
     }
-
 
     writeTitle(index){
         let i=0;
