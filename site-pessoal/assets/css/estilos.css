@@ -3,7 +3,8 @@
 /*Distanciamentos e tamanhos de fontes*/
 body {
   background: linear-gradient(127deg, #3d3d3d 0%, #1e1e1f 76%);
-  background-attachment: fixed; }
+  background-attachment: fixed;
+  overflow-y: scroll; }
 
 .texto {
   color: rgba(197, 197, 197, 0.849);
