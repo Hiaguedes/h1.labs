@@ -1,3 +1,10 @@
+Medidas que saíram do inkscape para a imagem
+
 <!--0 0 111.63731 110.38138-->
+
+O que deu certo (para não ficar listras pretas)
+   viewBox="2 1.5 109 109"
+   height="110mm"
+   width="111mm">
 
  <img class="animacao__imagem" src="./assets/img/fundo-grid-elementar.svg" alt="">
