@@ -2,7 +2,7 @@ class SectionView{
     constructor(){
         this._secoes = document.querySelectorAll('[data-section');
         this._titulos=document.querySelectorAll('.titulo');
-        this._title =['About Me', 'My Projects', 'What skills I have?', 'My proficiency level'];
+        this._title =['About Me', 'My Projects and Repositorys', 'What skills I have?', 'My proficiency level'];
     }
 
     get title(){
@@ -25,13 +25,13 @@ class SectionView{
     }
 
      _delay(i,index){
-        setTimeout(() =>{
+        setTimeout(() => {
             this._titulos[index].innerHTML += this._title[index].charAt(i);
             if(i<this._title[index].length){
                 i++;
                 this._delay(i,index);
             }
-            if(i==this._title[index].length){
+            if(i === this._title[index].length){
                 this._titulos[index].classList.remove('titulo--cursor-active');
             }
         },50);
