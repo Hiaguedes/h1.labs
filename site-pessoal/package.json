@@ -1,0 +1,29 @@
+{
+  "name": "site-pessoal",
+  "version": "0.8.0",
+  "description": "Meu site pessoal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp"
+  },
+  "author": "Hiago Guedes",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-csslint": "^1.0.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-svgmin": "^3.0.0",
+    "gulp-uglify-es": "^2.0.0",
+    "jshint": "^2.12.0",
+    "jshint-stylish": "^2.2.1"
+  },
+  "browserslist": [
+    "last 10 versions"
+  ]
+}

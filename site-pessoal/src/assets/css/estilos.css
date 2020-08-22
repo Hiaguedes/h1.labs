@@ -1,6 +1,6 @@
-/*Cores*/
-/*Fontes*/
-/*Distanciamentos e tamanhos de fontes*/
+/* Cores */
+/* Fontes */
+/* Distanciamentos e tamanhos de fontes */
 body {
   background: linear-gradient(127deg, #3d3d3d 0%, #1e1e1f 76%);
   background-attachment: fixed;
@@ -252,7 +252,7 @@ section {
 .skills__image {
   width: 1rem;
   height: 1rem;
-  background-image: url(../../../assets/img/arrow-down.svg);
+  background-image: url(/Hiaguedes.github.io/assets/img/arrow-down.svg);
   background-repeat: no-repeat;
   background-size: contain;
   filter: invert(1);

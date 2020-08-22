@@ -1,0 +1,1 @@
+(()=>{const e=document.querySelector(".header__titulo");setTimeout(()=>{e.innerHTML="Hi, I'm HiagoGuedes"},1e3),setTimeout(()=>{e.innerHTML='Hi, I\'m Hiag<span class="select">G</span>uedes'},1500),setTimeout(()=>{document.querySelector(".select").style.display="none"},2e3)})();
