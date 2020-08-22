@@ -13,6 +13,11 @@ body {
     font-family: $fonte-texto-secao;
 }
 
+.texto__acessibilty{
+    font-size: 0;
+    text-indent: -9999px;
+}
+
 .texto--alinhado-esquerda {
     text-align: left;
 }
