@@ -1,0 +1,19 @@
+{
+  "name": "casadocodigo",
+  "version": "1.0.0",
+  "description": "Livraria Casa do Código",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Hiago Guedes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "marko": "^4.22.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
