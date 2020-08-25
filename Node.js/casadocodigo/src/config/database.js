@@ -47,6 +47,15 @@ INSERT INTO livros (
 ) SELECT 'JavaScript na prática', 40.0, 'Como desenvolver com JavaScript.' WHERE NOT EXISTS (SELECT * FROM livros WHERE titulo = 'JavaScript na prática')
 `;
 
+const INSERIR_LIVRO_3 = 
+`
+INSERT INTO livros (
+    titulo, 
+    preco,
+    descricao
+) SELECT 'Turma da Mônica', 1.50, 'Edição numero 2' WHERE NOT EXISTS (SELECT * FROM livros WHERE titulo = 'Cascão não toma banho')
+`;
+
 bd.serialize(() => {
     bd.run("PRAGMA foreign_keys=ON");
     bd.run(USUARIOS_SCHEMA);
@@ -54,6 +63,7 @@ bd.serialize(() => {
     bd.run(LIVROS_SCHEMA);
     bd.run(INSERIR_LIVRO_1);
     bd.run(INSERIR_LIVRO_2);
+    bd.run(INSERIR_LIVRO_3);
 
     bd.each("SELECT * FROM usuarios", (err, usuario) => {
         console.log('Usuario: ');

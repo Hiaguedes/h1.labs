@@ -404,17 +404,156 @@ Incorreto! O MarkoJS disponibiliza essa sintaxe para possibilitar a introdução
 Alternativa correta
 O código não funcionará, pois o MarkoJS não disponibiliza um componente `<await>`.
 
-
 Incorreto! O MarkoJS disponibiliza um componente `<await>` que pode ser utilizado, como no exemplo, para carregamento de dados assíncronos! Para saber mais: <https://markojs.com/docs/core-tags/#async-content>
 
 Alternativa correta
 O código funcionará corretamente.
-
 
 Muito bem, aluno! Está correto! O código criará uma página com um cabeçalho de título "Casa do Código - Home", e exibirá uma listagem de livros 1 segundo após o carregamento da página.
 
 Alternativa correta
 O código não funcionará, pois o MarkoJS não disponibiliza um componente `<include>`.
 
-
 Incorreto! O MarkoJS disponibiliza um componente `<include>` que é ser utilizado, como no exemplo, para incluir um trecho de template definido em outro arquivo! Facilitando, assim, a reutilização de determinados trechos de código em diferentes páginas! Para saber mais: <https://markojs.com/docs/core-tags/#reusable-content>
+
+## Persistência de dados
+
+Pedro fez a seguinte implementação da funcionalidade de listagem de livros:
+
+```js
+// rotas.js
+
+const db = require('../../config/database');
+
+module.exports = (app) => {
+
+   app.get('/livros', function(req, resp) {
+       db.all('SELECT * FROM livros', function(erro, resultados) {
+           resp.marko(
+               require('../views/livros/lista/lista.marko')
+           );
+       });
+   });
+};
+```
+
+Sobre o código, podemos afirmar corretamente:
+
+O código não está correto pois faltou passar ao template os dados obtidos do banco de dados da seguinte forma:
+
+```js
+// rotas.js
+
+const db = require('../../config/database');
+
+module.exports = (app) => {
+
+   app.get('/livros', function(req, resp) {
+       db.all('SELECT * FROM livros', function(erro, resultados) {
+           resp.marko(
+               require('../views/livros/lista/lista.marko'),
+
+               // faltou adicionar as 3 linhas a seguir.
+               {
+                   livros: resultados
+               }
+           );
+       });
+   });
+};
+```
+
+Muito bem, aluno! Está correto! Realmente nosso colega acabou esquecendo de passar ao template os livros que pegou no banco de dados.
+
+### Padrão DAO (Data access object)
+
+Seguindo em frente, agora para implementar o padrão DAO com Promises, nosso colega Pedro fez o seguinte:
+
+```js
+// rotas.js
+
+const LivroDao = require('../infra/livro-dao');
+const db = require('../../config/database');
+
+module.exports = (app) => {
+   app.get('/livros', function (req, resp) {
+      livroDao.lista()
+         .then(livros => resp.marko(
+            require('../views/livros/lista/lista.marko'),
+            {
+               livros
+            }
+         ))
+         .catch(erro => console.log(erro));
+   });
+};
+```
+
+```js
+// livro-dao.js
+
+class LivroDao {
+
+   constructor(db) {
+       this._db = db;
+   }
+
+   lista() {
+       return new Promise((resolve, reject) => {
+           this._db.all(
+               'SELECT * FROM livros',
+               (erro, resultados) => {
+                   if (erro) return reject('Não foi possível listar os livros!');
+
+                   return resolve(resultados);
+               }
+           )
+       });
+   }
+}
+
+module.exports = LivroDao;
+```
+
+Sobre o código, podemos afirmar corretamente:
+
+O código não está correto, pois faltou criar uma instância da classe LivroDao definida no módulo livro-dao passando a ela um objeto representando o banco de dados utilizado. Portanto, o correto seria fazer:
+
+```js
+// rotas.js
+
+const LivroDao = require('../infra/livro-dao');
+const db = require('../../config/database');
+
+module.exports = (app) => {
+   app.get('/livros', function (req, resp) {
+      const livroDao = new LivroDao(db); // Criar a instância da classe LivroDao.
+      livroDao.lista()
+         .then(livros => resp.marko(
+            require('../views/livros/lista/lista.marko'),
+            {
+               livros
+            }
+         ))
+         .catch(erro => console.log(erro));
+   });
+};
+```
+
+Muito bem, aluno! Está correto! Realmente nosso colega acabou esquecendo desses detalhes o que acarretaria num erro ao executar a aplicação.
+
+### Vantagens do DAO
+
+Você entendeu as vantagens do padrão de projeto DAO? Vamos verificar isso marcando as respostas corretas!
+
+O padrão de projeto DAO permite dar maior semântica aos nossos códigos, como foi o caso do que ocorreu no módulo de rotas da nossa aplicação.
+
+Muito bem, aluno! Está correto! Essa é uma das utilidades do padrão DAO, e também da grande maioria dos padrões de projetos existentes.
+
+Quando implementamos o padrão DAO, como convenção, sempre criamos uma estrutura com um nome que se inicia pelo tipo de dados acessado (no nosso caso livro) e termina com a palavra DAO. Por isso, no nosso caso, criamos uma classe com o nome LivroDao. Isso é feito para facilitar o entendimento de que aquela classe se refere ao acesso de dados do tipo livro.
+
+Muito bem, aluno! Está correto! O objetivo das convenções é justamente facilitar a vida dos desenvolvedores e estabelecer um padrão comum a todos.
+a
+O padrão DAO permite que façamos acesso aos dados sem nos preocuparmos em como esse acesso é feito ou onde os dados estão armazenados.
+
+Muito bem, aluno! Está correto! Como visto em aula, o padrão DAO é para acesso a dados! Portanto, independentemente se dados estão armazenados num banco de dados, num arquivo xml ou numa planilha, esse padrão é muito bem vindo!
