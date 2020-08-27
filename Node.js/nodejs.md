@@ -777,3 +777,255 @@ app.use(bodyParser.urlencoded({
    extended: true
 }));
 ```
+
+Joana fez o seguinte código para implementar a funcionalidade de remoção de livros:
+
+```html
+<!-- lista.marko -->
+
+<html>
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body>
+       <h1> Listagem de livros </h1>
+
+       <table id="livros">
+           <tr>
+               <td>ID</td>
+               <td>Título</td>
+               <td>Preço</td>
+               <td>Editar</td>
+               <td>Remover</td>
+           </tr>
+           <tr id="livro_${livro.id}" for (livro in data.livros)>
+               <td>${livro.id}</td>
+               <td>${livro.titulo}</td>
+               <td>${livro.preco}</td>
+               <td><a href="#">Editar</a></td>
+               <td><a href="#" data-ref="${livro.id}" data-type="remocao">Remover</a></td>
+           </tr>
+       </table>
+
+       <script src="/estatico/js/remove-livro.js">
+       </script>
+   </body>
+</html>
+```
+
+```js
+// rotas.js
+
+module.exports = (app) => {
+
+   // demais rotas.
+
+   app.delete('/livros/:id', function(req, resp) {
+       const id = req.params.id;
+
+       const livroDao = new LivroDao(db);
+       livroDao.remove(id)
+               .then(() => resp.status(200).end())
+               .catch(erro => console.log(erro));
+   });
+};
+```
+
+Sobre o código de nossa colega, e considerando que, assim como na aula, o arquivo remove-livro.js está na pasta src/app/public/js e implementado da forma correta, marque as alternativas que indicam afirmativas corretas.
+
+O código não está completo, pois faltou configurar o middleware do Express para acesso a arquivos estáticos do projeto.
+
+Muito bem, aluno! Está correto! Foi exatamente isso que nossa colega deixou escapar! O código que ficou faltando foi:
+
+```js
+// custom-express.js
+
+const express = require('express');
+const app = express();
+
+app.use('/estatico', express.static('src/app/public'));
+```
+
+Seguindo em frente, Joana agora fez o seguinte código para implementar a última funcionalidade, a de edição de livros:
+
+```marko
+<!-- lista.marko -->
+
+<html>
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body>
+       <h1> Listagem de livros </h1>
+
+       <table id="livros">
+           <tr>
+               <td>ID</td>
+               <td>Título</td>
+               <td>Preço</td>
+               <td>Editar</td>
+               <td>Remover</td>
+           </tr>
+           <tr id="livro_${livro.id}" for (livro in data.livros)>
+               <td>${livro.id}</td>
+               <td>${livro.titulo}</td>
+               <td>${livro.preco}</td>
+               <td><a href="/livros/form/${livro.id}">Editar</a></td>
+               <td><a href="#" data-ref="${livro.id}" data-type="remocao">Remover</a></td>
+           </tr>
+       </table>
+
+       <script src="/estatico/js/remove-livro.js">
+       </script>
+   </body>
+</html>
+<!-- form.marko -->
+```
+
+```marko
+
+<html>
+   <body>
+       <h1>Cadastro de livros</h1>
+
+       <form action="/livros" method="post">
+
+           <input type="hidden" name="id" value="${data.livro.id}">
+           <div>
+               <label for="titulo">Titulo:</label>
+               <input type="text" id="titulo" name="titulo" value="${data.livro.titulo}"/>
+           </div>
+           <div>
+               <label for="capa">Capa:</label>
+               <input type="file" id="capa" name="capa" placeholder="imagem de capa"/>
+           </div>
+           <div>
+               <label for="preco">Preço:</label>
+               <input type="text" id="preco" name="preco" placeholder="150.25" value="${data.livro.preco}"/>
+           </div>
+           <div>
+               <label for="descricao">Descrição:</label>
+               <textarea cols="20" rows="10"  id="descricao" name="descricao" placeholder="fale sobre o livro">${data.livro.descricao}</textarea>
+           </div>
+
+           <input type="submit" value="Salvar"/>
+       </form>
+   </body>
+</html>
+```
+
+```js
+// rotas.js
+
+module.exports = (app) => {
+
+   // demais rotas.
+
+   app.get('/livros/form/:id', function(req, resp) {
+       const { id } = req.params;
+       const livroDao = new LivroDao(db);
+
+       livroDao.buscaPorId(id)
+               .then(livro => resp.marko(require('../views/livros/form/form.marko'), { livro }))
+               .catch(erro => console.log(erro));
+   });
+};
+```
+
+No entanto, ela está em dúvida sobre o resultado disso! Portanto, marque as alternativas que apresentam afirmações verdadeiras!
+
+Alternativa correta
+O código da forma que está irá inserir um novo livro em vez de editar o livro selecionado.
+
+Muito bem, aluno! Está correto! Foi exatamente esse o comportamento visto durante a aula e também será esse o comportamento do código de nossa colega! Esse enigma só será resolvido mais pra frente! Então siga em frente e vá correndo pra próxima aula!
+
+Assistindo a última aula, nossa colega Joana descobriu o motivo e a solução do nosso pequeno enigma sobre a misteriosa inclusão de um novo livro quando na verdade ele deveria ser alterado. E aí ela fez o seguinte código:
+
+```js
+// custom-express.js
+
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+
+app.use('/estatico', express.static('src/app/public'));
+
+app.use(methodOverride((req, res) => {
+
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        const method = req.body._method;
+        delete req.body._method;
+
+        return method;
+    }
+}));
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));`
+```
+
+```marko
+<!-- form.marko -->
+
+<html>
+    <body>
+        <h1>Cadastro de livros</h1>
+
+        <form action="/livros" method="post">
+
+            <div if(data.livro.id)>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" value="${data.livro.id}">
+            </div>
+
+            <div>
+                <label for="titulo">Titulo:</label>
+                <input type="text" id="titulo" name="titulo" value="${data.livro.titulo}"/>
+            </div>
+            <div>
+                <label for="capa">Capa:</label>
+                <input type="file" id="capa" name="capa" placeholder="imagem de capa"/>
+            </div>
+            <div>
+                <label for="preco">Preço:</label>
+                <input type="text" id="preco" name="preco" placeholder="150.25" value="${data.livro.preco}"/>
+            </div>
+            <div>
+                <label for="descricao">Descrição:</label>
+                <textarea cols="20" rows="10"  id="descricao" name="descricao" placeholder="fale sobre o livro">${data.livro.descricao}</textarea>
+            </div>
+
+            <input type="submit" value="Salvar"/>
+        </form>
+    </body>
+</html>
+```
+
+```js
+// rotas.js
+
+module.exports = (app) => {
+
+    // demais rotas.
+
+    app.put('/livros', function(req, resp) {
+
+        const livroDao = new LivroDao(db);
+
+        livroDao.atualiza(req.body)
+                .then(resp.redirect('/livros'))
+                .catch(erro => console.log(erro));
+    });
+};
+
+```
+
+Desse modo, avaliando uma última vez e dando uma mãozinha pra nossa colega, podemos afirmar:
+
+Alternativa correta
+O código não irá funcionar como esperado, pois, como visto durante o curso, a ordem da definição dos middlewares é importante e altera o resultado. E nossa colega Joana incorretamente definiu o middleware do method-override antes do middleware do body-parser, fazendo exatamente o oposto ao que é dito na documentação do method-override.
+
+
+Muito bem, aluno! Está correto! Foi exatamente isso que aconteceu! Dessa forma, como o middleware do body-parser foi definido apenas depois, todo o corpo da requisição estará com o valor undefined fazendo com que o method-override não funcione da maneira como nossa colega esperava.

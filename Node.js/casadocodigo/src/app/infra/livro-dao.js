@@ -67,7 +67,7 @@ remove(id){
     });
 }
 
-update(titulo,preco,descricao,id){
+update(livro){
     return new Promise((resolve,reject) => {
         this._db.run(`
         UPDATE livros
@@ -76,7 +76,7 @@ update(titulo,preco,descricao,id){
         preco = ?,
         descricao = ?
         WHERE id=?`,
-        [titulo,preco,descricao,id],
+        [livro.titulo,livro.preco,livro.descricao,livro.id],
         (err,res)=>{
             if(err){
                 return reject('Não foi possível atualizar o livro')
