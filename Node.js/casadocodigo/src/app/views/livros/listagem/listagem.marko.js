@@ -7,6 +7,7 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
     marko_forOf = require("marko/src/runtime/helpers/for-of"),
     helpers_escape_xml = require("marko/src/runtime/html/helpers/escape-xml"),
     marko_escapeXml = helpers_escape_xml.x,
+    marko_attr = require("marko/src/runtime/html/helpers/attr"),
     marko_loadTag = require("marko/src/runtime/helpers/load-tag"),
     init_components_tag = marko_loadTag(require("marko/src/core-tags/components/init-components-tag")),
     await_reorderer_tag = marko_loadTag(require("marko/src/core-tags/core/await/reorderer-renderer")),
@@ -15,25 +16,31 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
 function render(input, out, __component, component, state) {
   var data = input;
 
-  out.w("<!DOCTYPE html><html lang=pt-br><head><meta charset=UTF-8></head><body><h1> Livros da Casa do Código </h1><table><tr><th>ID</th><th>Títulos</th></tr>");
+  out.w("<!DOCTYPE html><html lang=pt-br><head><meta charset=UTF-8></head><body><h1> Livros da Casa do Código </h1><table id=livros><tr><th>ID</th><th>Títulos</th><th>Preço</th><th>Editar</th><th>Remover</th></tr>");
 
   var $for$0 = 0;
 
   marko_forOf(data.livros, function(livro) {
     var $keyScope$0 = "[" + (($for$0++) + "]");
 
-    out.w("<tr><td>" +
+    out.w("<tr" +
+      marko_attr("id", "livro_" + (livro.id == null ? "" : livro.id)) +
+      "><td>" +
       marko_escapeXml(livro.id) +
       "</td><td>" +
       marko_escapeXml(livro.titulo) +
-      "</td></tr>");
+      "</td><td>" +
+      marko_escapeXml(livro.preco) +
+      "</td><td><a href=#>Editar</a></td><td><a href=#" +
+      marko_attr("data-ref", livro.id) +
+      " data-type=remocao>Remover</a></td></tr>");
   });
 
-  out.w("</table>");
+  out.w("</table><script src=/static/js/remove-livro.js></script>");
 
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "12");
+  await_reorderer_tag({}, out, __component, "20");
 
   _preferred_script_location_tag({}, out);
 

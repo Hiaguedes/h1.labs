@@ -557,3 +557,223 @@ a
 O padrão DAO permite que façamos acesso aos dados sem nos preocuparmos em como esse acesso é feito ou onde os dados estão armazenados.
 
 Muito bem, aluno! Está correto! Como visto em aula, o padrão DAO é para acesso a dados! Portanto, independentemente se dados estão armazenados num banco de dados, num arquivo xml ou numa planilha, esse padrão é muito bem vindo!
+
+## Cadastrando livros com middlewares
+
+Para se aprofundar um pouco mais nas possibilidades que os middlewares nos oferecem, João pesquisou um pouco sobre o assunto e descobriu que o método use() do Express pode receber dois parâmetros, sendo o primeiro uma string que define as URLs que serão atendidas pelo middleware e como segundo parâmetro uma função. É essa função que irá definir o que o middleware deverá fazer e, por sua vez, recebe três parâmetros, a requisição, a resposta e uma função (normalmente chamada de next) que deve ser invocada para que o Express avance para o próximo middleware existente e caso não exista mais nenhum, passa a execução para a rota ativada. Sendo assim, a ordem em que os middlewares são definidos é de extrema importância! Além disso, um detalhe a ser observado, é que tudo que estiver antes da chamada da função next será executado antes da rota ativada e o que estiver após a chamada da função next será executado somente ao término da rota ativada!
+
+Para saber mais: <http://expressjs.com/pt-br/guide/using-middleware.html>
+
+Desse modo, para treinar o que aprendeu, nosso colega escreveu o seguinte código:
+
+```js
+// custom-express.js
+
+const express = require('express');
+const app = express();
+
+app.use('*', (req, res, next) => {
+   console.log('1.1');
+   next();
+   console.log('1.2');
+});
+
+app.use('*', (req, res, next) => {
+   console.log('2.1');
+   next();
+   console.log('2.2');
+});
+// rotas.js
+
+module.exports = (app) => {
+
+   app.get('/livros', function(req, resp) {
+       console.log('listagem livros')
+       const livroDao = new LivroDao(db);
+       livroDao.lista()
+               .then(livros => resp.marko(
+                   require('../views/livros/lista/lista.marko'),
+                   {
+                       livros: livros
+                   }
+               ))
+               .catch(erro => console.log(erro));
+   });
+};
+```
+
+A saída que nosso colega terá em seu terminal ao acessar a URL <http://localhost:3000/livros> será:
+
+1.1
+2.1
+listagem livros
+2.2
+1.2
+
+Muito bem, aluno! Está correto! É exatamente essa a saída que nosso colega irá obter!
+
+### Sobre middlewares, podemos afirmar corretamente:
+
+Como o próprio nome indica, são trechos intermediários de código que são executados entre o envio da requisição e seu tratamento pela rota ativada!
+
+Muito bem, aluno! Está correto! Essa é exatamente a definição de um middleware.
+
+Alternativa correta
+O middleware, de modo geral, é composto por um padrão de URLs que são usadas para o ativar e um callback que recebe a requisição, a resposta e uma função, normalmente chamada de next, que deve ser invocada para que o processamento da requisição siga em frente.
+
+
+Muito bem, aluno! Está correto! De modo geral, o padrão de um middleware é:
+
+```js
+const express = require('express');
+const app = express();
+
+app.use('*', (req, res, next) => {
+
+   // código do middleware.
+});
+```
+
+Alternativa correta
+Uma aplicação possível de um middleware seria a contagem de tempo gasto ao executar uma rota.
+
+
+Muito bem, aluno! Está correto! Dado que dentro do middleware tudo que está antes da chamada da função next é executado antes da rota ativada e o que estiver após a chamada de next é executado após a rota, então poderíamos fazer a contagem do tempo da seguinte forma:
+
+```js
+const express = require('express');
+const app = express();
+
+app.use('*', (req, res, next) => {
+   const inicio = new Date().getTime();
+   next();
+   const final = new Date().getTime();
+
+   const milissegundosDecorridos = final - inicio;
+});
+```
+
+### Implementando o cadastro
+
+Cristina fez o seguinte código para o cadastro de livros:
+
+```js
+// rotas.js
+
+const LivroDao = require('../infra/livro-dao');
+const db = require('../../config/database');
+
+module.exports = (app) => {
+
+   // demais rotas criadas.
+
+   app.get('/livros/form', function(req, resp) {
+       resp.marko(require('../views/livros/form/form.marko'));
+   });
+
+   app.post('/livros', function(req, resp) {
+
+       const livroDao = new LivroDao(db);
+
+       livroDao.adiciona(req.body)
+               .then(resp.redirect('/livros'))
+               .catch(erro => console.log(erro));
+   });
+};
+```
+
+```marko
+<!-- form.marko -->
+
+<html>
+   <body>
+       <h1>Cadastro de livros</h1>
+
+       <form action="/livros" method="post">
+
+           <input type="hidden" name="id" />
+
+           <div>
+               <label for="titulo">Titulo:</label>
+               <input type="text" id="titulo" name="titulo" />
+           </div>
+
+           <div>
+               <label for="preco">Preço:</label>
+               <input type="text" id="preco" name="preco" placeholder="150.25" />
+           </div>
+           <div>
+               <label for="descricao">Descrição:</label>
+               <textarea cols="20" rows="10"  id="descricao" name="descricao" placeholder="fale sobre o livro"></textarea>
+           </div>
+
+           <input type="submit" value="Salvar"/>
+       </form>
+   </body>
+</html>
+```
+
+```js
+// livro-dao.js
+
+class LivroDao {
+
+   constructor(db) {
+       this._db = db;
+   }
+
+   adiciona({titulo, preco, descricao}) {
+       return new Promise((resolve, reject) => {
+           this._db.run(`
+                   INSERT INTO livros (
+                       titulo,
+                       preco,
+                       descricao
+                   ) values (?,?,?)
+               `,
+               [
+                   titulo,
+                   preco,
+                   descricao
+               ],
+               erro => {
+                   if (erro) {
+                       return reject('Não foi possível adicionar o livro!');
+                   }
+
+                   resolve();
+               });
+       });
+   }
+
+   // demais métodos do dao.
+}
+
+module.exports = LivroDao;
+
+```
+
+No entanto, nossa colega não tem certeza se o código dela está correto e se os dados do livro serão efetivamente inseridos no banco de dados.
+
+Sobre isso, podemos afirmar como sendo correto:
+
+O código não irá funcionar, uma vez que o método adiciona() da classe LivroDao deveria receber um livro quando no código de nossa colega recebe de maneira incorreta {titulo, preco, descricao}.
+
+Incorreto! A sintaxe utilizada por nossa colega é permitida a partir do ES6 e se chama destructuring assignment ou object destructuring! Para saber mais: <https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Atribuicao_via_desestruturacao>
+
+Alternativa correta
+As informações não serão cadastradas como esperado, pois é necessário utilizar um middleware para obter as informações enviadas no corpo da requisição POST.
+
+Muito bem, aluno! Está correto! Nossa colega esqueceu de configurar o middleware body-parser da seguinte forma:
+
+```js
+// custom-express.js
+
+const express = require('express');
+const app = express();
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({
+   extended: true
+}));
+```

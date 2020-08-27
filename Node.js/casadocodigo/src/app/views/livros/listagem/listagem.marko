@@ -5,17 +5,24 @@
 </head>
 <body>
     <h1> Livros da Casa do Código </h1>
-    <table>
+    <table id="livros">
         <tr>
             <th>ID</th>
             <th>Títulos</th>
+            <th>Preço</th>
+            <th>Editar</th>
+            <th>Remover</th>
         </tr>
-        <tr for (livro in data.livros)>
+        <tr id="livro_${livro.id}" for (livro in data.livros)>
             <td>${livro.id}</td>
             <td>${livro.titulo}</td>
+            <td>${livro.preco}</td>
+            <td><a href="#">Editar</a></td>
+            <td><a href="#" data-ref="${livro.id}" data-type="remocao">Remover</a></td>
         </tr>
 
     </table>
+    <script src="/static/js/remove-livro.js"></script>
 </body>
 
 </html>
