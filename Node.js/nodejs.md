@@ -1029,3 +1029,5 @@ O código não irá funcionar como esperado, pois, como visto durante o curso, a
 
 
 Muito bem, aluno! Está correto! Foi exatamente isso que aconteceu! Dessa forma, como o middleware do body-parser foi definido apenas depois, todo o corpo da requisição estará com o valor undefined fazendo com que o method-override não funcione da maneira como nossa colega esperava.
+
+Link do curso completo <https://caelum-online-public.s3.amazonaws.com/980-nodejs-fundamentos/05/5-casadocodigo.zip>
