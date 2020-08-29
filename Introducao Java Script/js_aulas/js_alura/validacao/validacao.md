@@ -30,3 +30,7 @@ Alternativa correta
 O atributo minLength analisa os caracteres digitados, enquanto o min analisa um range dentro de um valor.
 
 Está correto, já que o minLength realmente valida os caracteres digitados, enquanto o min analisa o valor dentro de um range de valores
+
+## Começando com validação no js
+
+A primeira coisa que temos que saber é que a `input.setCustomValidity` que vai fazer aquele input ser validado ou não. Onde passamos uma string com o erro que será informado ao usuário, porém ele não é ideal, pois ele não destaca muito pro usuário que aquele campo está errado (falando de maneira de UX mesmo)
