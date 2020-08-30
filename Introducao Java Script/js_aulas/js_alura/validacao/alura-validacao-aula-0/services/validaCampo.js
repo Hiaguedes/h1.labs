@@ -1,9 +1,13 @@
 import {validarNascimento} from './validacaoData.js';
 import {validarSenha} from './validarSenha.js';
+import {validarCPF} from './validarCPF.js';
+import {recuperarEndereco} from './recuperarEndereco.js';
 
 export const validadores = {
         dataNascimento: (input) => validarNascimento(input),
-        senha: (input) => validarSenha(input)
+        senha: (input) => validarSenha(input),
+        cpf: input => validarCPF(input),
+        cep: input => recuperarEndereco(input)
 }
 
  const modifyElement = (input) => {
@@ -25,7 +29,7 @@ export const isValidFunction = (input)=>{
 
 const customMessage = (tipo,validade) => {
     let mensagemErro= "";
-    let tiposDeErro=["valueMissing", "typeMismatch","tooShort","customError","tooShort","rangeUnderflow"];
+    let tiposDeErro=["valueMissing", "typeMismatch","tooShort","customError","tooShort","rangeUnderflow","patternMismatch"];
     //console.log(validade); //para pegar o nome dos erros
 
     const mensagemDisplay ={
@@ -44,10 +48,13 @@ const customMessage = (tipo,validade) => {
             customError: "Precisa ter ao menos uma letra maiúscula, um número e um special Char (@-+!?ç)"
         },
         cpf: {
-            valueMissing: "o cpf é necessário"
+            valueMissing: "o cpf é necessário",
+            customError: "Este não é um CPF válido"
         },
         cep: {
-            valueMissing: "O cep é necessário"
+            valueMissing: "O cep é necessário",
+            patternMismatch: "O formato do CEP está errado",
+            customError: "O CEP informado está incorreto"
         },
         cidade: {
             valueMissing: "As cidade é necessária"
