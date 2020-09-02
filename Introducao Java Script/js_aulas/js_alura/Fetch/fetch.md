@@ -133,3 +133,23 @@ Alternativa correta
 ```
 
 Perfeito A função listarClientes() nos devolve uma promise que depois de resolvida nos retorna os dados dos clientes.
+
+E para postar o conteúdo? Não tão simples mas a resposta é:
+
+```js
+export const cadastroCliente = (nome,cpf) => {
+    return fetch('http://localhost:4000/clientes/cliente', {
+        method: 'POST', 
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            nome: nome,
+            cpf: cpf
+        })
+    })
+    .then(response => response.body);
+}
+```
+
+Onde primeiro passamos o link de onde está o json e depois os cabeçalhos da requisição, com o nome do método, os headers e o que será publicado no corpo dela
