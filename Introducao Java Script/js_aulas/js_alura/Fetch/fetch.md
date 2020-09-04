@@ -153,3 +153,53 @@ export const cadastroCliente = (nome,cpf) => {
 ```
 
 Onde primeiro passamos o link de onde está o json e depois os cabeçalhos da requisição, com o nome do método, os headers e o que será publicado no corpo dela
+
+Por padrão o fetch usa o metodo GET
+
+## Passando parâmetros pela URL e pegando eles em outro ponto
+
+Primeiro de tudo teremos que colocar no endereço algum tipo de href como em:
+
+```js
+`<a href="edita-clientes.html?id=${id}"><button type="button" class="btn btn-info">Editar</button></a>`
+```
+
+Onde dinamicamente conseguiremos colocar o id, depois disso nós resgatamos no script com:
+
+```js
+const pegaURL= new URL(window.location);
+const id = pegaURL.searchParams.get('id');
+```
+
+Simples assim
+
+Fizemos a comunicação com a API para podermos editar os dados do cliente:
+
+```js
+const editaCliente = (id, cpf, nome) => {
+   const json = JSON.stringify({
+      cpf: cpf,  
+      nome: nome
+})
+return fetch(`http://localhost:4000/clientes/cliente/${id}`, {
+    method: ‘put’,
+     headers: {
+      ‘Content-Type’: ‘application/json’
+  },
+  body: json
+})
+}
+```
+
+O que a gente quer agora é encontrar a localização de cada cliente que queremos editar.
+
+```js
+const pegaURL = new URL( window.location )
+const id = pegaURL.searchParams.get(‘id’)
+```
+
+Perfeito criamos um novo objeto URL que é capaz de nos dizer qual o endereço da página que estamos. Por meio da propriedade searchParams conseguimos acessar o método get e selecionar o id que vemos na url.
+
+Para reloadar a página fazemos `document.location.reload()`
+
+Ficou faltando algumas coisas que foram dadas no curso (como validador de cpf e mensagem de sucesso e erro) mas elas podem ser vistas [aqui](https://github.com/alura-cursos/1526-FetchAPI/tree/aula6)

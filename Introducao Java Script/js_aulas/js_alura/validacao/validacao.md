@@ -80,3 +80,5 @@ Outra coisa é que cpfs como 111.111.111-11 é válido matameticamente mas não 
 ## Validar CEP
 
 ViaCep
+
+Os arquivos da aula podem ser vistos [aqui](https://github.com/alura-cursos/alura-validacao/tree/aula-5)

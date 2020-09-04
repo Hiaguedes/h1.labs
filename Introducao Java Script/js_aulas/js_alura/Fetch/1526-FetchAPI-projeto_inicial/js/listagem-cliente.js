@@ -16,6 +16,7 @@ const conteudoLinha = `
 <td>${cpf}</td>
 <td>${nome}</td>
 <button type="button" class="btn btn-danger" data-id=${id}>Excluir</button>
+<a href="edita-clientes.html?id=${id}"><button type="button" class="btn btn-info">Editar</button></a>
 `
 
 linha.innerHTML = conteudoLinha;
@@ -34,6 +35,7 @@ const adicionaTabela = (() => {
 tabela.addEventListener('click', e=>{
     const button = e.target;
     removeClient(button.getAttribute('data-id'));
+    document.location.reload();
 })
 
 

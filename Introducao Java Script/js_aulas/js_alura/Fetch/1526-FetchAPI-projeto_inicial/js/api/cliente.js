@@ -23,3 +23,21 @@ export const deletaCliente = id => {
         method: 'DELETE'
     })
 }
+
+export const editaCliente = id => {
+    return fetch(`http://localhost:4000/clientes/cliente/${id}`)
+    .then(resp => resp.json())
+}
+
+export const edita = (id,cpf, nome) => {
+    return fetch(`http://localhost:4000/clientes/cliente/${id}`, {
+        method: 'PUT', 
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            nome: nome,
+            cpf: cpf
+        })
+    })
+}

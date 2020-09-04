@@ -7,7 +7,17 @@ export const validadores = {
         dataNascimento: (input) => validarNascimento(input),
         senha: (input) => validarSenha(input),
         cpf: input => validarCPF(input),
-        cep: input => recuperarEndereco(input)
+        cep: input => recuperarEndereco(input),
+        preco: input => SimpleMaskMoney.setMask(input,{
+            allowNegative: false,
+            negativeSignAfter: false,
+            prefix: 'R$',
+            fixed: true,
+            fractionDigits: 2,
+            decimalSeparator: ',',
+            thousandsSeparator: '.',
+            cursor: 'end'
+        })
 }
 
  const modifyElement = (input) => {
@@ -68,6 +78,13 @@ const customMessage = (tipo,validade) => {
         rg: {
             valueMissing: "O rg é necessário"
         },
+        preco: {
+            valueMissing: "É necessário ter um valor do preço do produto"
+        },
+        produto: {
+            valueMissing: "É necessário colocar o nome do produto"
+        }
+
     };
     
     tiposDeErro.forEach( erro => {
