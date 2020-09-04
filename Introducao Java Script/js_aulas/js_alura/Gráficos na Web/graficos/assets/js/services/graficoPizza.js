@@ -1,7 +1,7 @@
 
-google.charts.load('current', {'packages':['corechart']});
+export const desenharPizza = () => {
 
-const desenharPizza = () => {
+const divPizza = document.querySelector('.grafico-pizza');
 
 const tabela = new google.visualization.DataTable();
 tabela.addColumn('string','Categoria');
@@ -20,14 +20,25 @@ tabela.addRows(
 
 const options = {
     'title': 'Gastos do Mês',
-    'height': 350,
-    'width': 450,
-    'pieHole': 0.4
+    'height': 400,
+    'width': 1000,
+    is3D: true,
+    legend: 'labeled',
+    pieSliceText: 'value',
+    //colors: ['grey','red','violet','green','orange','yellow']
+    slices: {
+        0:{},
+        1:{color:'grey'},
+        2:{color:'#a6a6a6'},
+        3:{color: 'grey'},
+        4:{color: 'orange', offset:0.4},
+        5:{color:'#a6a6a6'}
+    }
 };
 
-const grafico = new google.visualization.PieChart(document.querySelector('.grafico-pizza'));
+const grafico = new google.visualization.PieChart(divPizza);
 grafico.draw(tabela,options);
 
 };
 
-google.charts.setOnLoadCallback(desenharPizza);
+
