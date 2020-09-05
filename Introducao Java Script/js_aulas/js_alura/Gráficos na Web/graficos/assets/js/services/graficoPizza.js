@@ -1,7 +1,8 @@
 
+const divPizza = document.querySelector('.grafico-pizza');
+
 export const desenharPizza = () => {
 
-const divPizza = document.querySelector('.grafico-pizza');
 
 const tabela = new google.visualization.DataTable();
 tabela.addColumn('string','Categoria');
@@ -40,5 +41,3 @@ const grafico = new google.visualization.PieChart(divPizza);
 grafico.draw(tabela,options);
 
 };
-
-

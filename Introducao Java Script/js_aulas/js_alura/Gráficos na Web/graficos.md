@@ -147,3 +147,88 @@ Fica [aqui](https://developers.google.com/chart/interactive/docs/gallery/piechar
 Somos informados de que não podemos combinar as opções pieHole e is3D; caso contrário, pieHole será ignorada ("You can't combine the pieHole and is3D options; if you do, pieHole will be ignored").
 
 Assim, podemos entender o motivo das duas propriedades não serem compatíveis: o pieHole será ignorado. Isso significa que, se usarmos as duas dentro das opções, sempre teremos um gráfico de pizza 3D ao invés de um donut.
+
+## O pulo do gato
+
+Se quisermos colocar mais tipos de gráficos, organização vai ser a chave do sucesso, aí coloque de uma forma minimamente organizada tal como está nesse projeto, com o arquivo de grafico em arquivo separado e chamando tabela, opções de estilo e grafico, e em um arquivo mais geral carregar os gráficos e fazer o callback da função
+
+Para mudar a linguagem dos gráficos para português nós fazemos:
+
+`google.charts.load('current', {'packages':['corechart'],'language':'pt-br'});`
+
+Criamos um novo gráfico de linha para um projeto de investimentos.
+
+Fizemos a tabela e customizamos suas opções, mas ao atualizarmos o navegador, vemos que as alterações não foram aplicadas, e o gráfico continua do mesmo jeito.
+
+O que pode ter acontecido?
+
+Esquecemos de passar as opções para o método chart.draw().
+
+Correto! É muito comum que, ao escrevermos as opções do gráfico, fiquemos empolgados e esqueçamos de adicioná-las ao método chart.draw(), o que irá deixar um de nossos gráficos sem a customização.
+
+## Gráfico de Linha
+
+Fizemos um gráfico de linha e vamos partir para a customização.
+
+Seguindo as boas práticas de visualização de dados, queremos fazer com que as linhas de grade não interfiram na visualização da nossa linha principal.
+
+Quais são as maneiras de fazermos isso?
+
+Usando `gridlines: { count: 0 }`.
+
+Correto! Ao usarmos o count, não só iremos remover as linhas de grade, como não exibiremos dados no eixo vertical.
+
+Alternativa correta
+Usando `gridlines: {color:'transparent'}`.
+
+Correto! Desse modo, não removemos os números do eixo vertical, mas escondemos as linhas, pois elas se tornam transparentes.
+
+Veja a documentação <https://developers.google.com/chart/interactive/docs/gallery/linechart>
+
+## Gráfico de colunas
+
+Vamos integrar mais visualizações à uma interface já existente do ByteBank. Eles fizeram divulgações do banco nas redes sociais e iremos colocar os resultados em um novo gráfico.
+
+Precisamos adicionar mais uma coluna chamada Número de acessos na tabela de dados abaixo.
+
+```js
+data.addColumn('string', 'plataforma');
+data.addColumn('number','quantidade de usuários' );
+
+data.addRows([
+    ['Facebook', 1.650.000],
+    ['Whatsapp', 1.000.000],
+    ['Messenger', 900.000],
+    ['Instagram', 500.000],
+    ['Pinterest', 100.000],
+    ['Twitter', 310.000]
+]);
+```
+
+Como podemos fazer isso?
+
+`data.addColumn('number', 'número de acessos');`
+
+Correto! Quando temos uma DataTable, para adicionar uma coluna, usamos `data.addColumn();` e passamos o tipo e nome da coluna entre os parênteses.
+
+Em outro exercício, já tínhamos adicionado uma coluna chamada Número de acessos em uma tabela.
+
+Nesse exercício, o nosso tipo de tabela era uma `dataTable`, mas agora, temos um gráfico que usa `arrayToDataTable` para facilitar a inclusão dos dados.
+
+Qual a diferença de adicionarmos uma coluna quando temos um `arrayToDataTable` ?
+
+Não precisamos definir o tipo de dado naquela coluna, a biblioteca definirá qual é.
+
+Correto! Uma das vantagens de usarmos o arrayToDataTable é que não precisamos definir o tipo, colocamos apenas um array inicial com o nome de cada coluna.
+
+Quando falamos sobre gráficos, é comum usarmos as nomenclaturas de eixo x e eixo y.
+
+Para facilitar, no Google Charts esses eixos têm outros nomes considerados mais diretos.
+
+Que nomes são esses?
+
+`hAxis` e `vAxis`, de eixo horizontal e eixo vertical.
+
+Correto! Como o eixo x é horizontal e o eixo y é vertical, a biblioteca achou melhor já nomeá-los assim.
+
+O conteúdo total da aula pode ser visto [aqui](https://github.com/alura-cursos/google-charts-1)

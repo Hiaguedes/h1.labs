@@ -19,6 +19,19 @@ export const desenharLinha = () => {
         ['dez',720],
 ]);
 
+const options = {
+    title: 'Gastos Por Mês',
+    width: 850,
+    height: 300,
+    vAxis: {
+            format: 'currency',
+            gridlines: {count:4, color: 'transparent'},
+            viewWindow: {min: 0, max:1700}
+        },
+    curveType: 'function',
+    legend: 'none'
+};
+
 const grafico = new google.visualization.LineChart(divLinha);
-grafico.draw(tabela);
+grafico.draw(tabela, options);
 }
