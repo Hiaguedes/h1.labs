@@ -2,14 +2,11 @@ const divGraficoLanguages = document.querySelector('.languages__graph');
 google.charts.load('current', {'packages':['corechart'],'language':'pt-br'});
 
 const desenharGrafico = () => {
-    const tabela = new google.visualization.arrayToDataTable(
-    [
-    ['Habilidade','Percentual',{role: 'annotation'},{role:'style'}],
-    ['Reading',	100,'100%', '#f8a028'],
-    ['Writing',	90,'90%', '#f8a028'],
-    ['Listening',85,'85%', '#f8a028'],
-    ['Speaking',75,'75%', '#f8a028']
-    ]);
+
+    const fetchFunc = async () => {
+            const response = await fetch('https://gist.githubusercontent.com/Hiaguedes/e89daa3ef9caa703066860ff43f51a11/raw/3d0a3dc6b711405ccc34b059ccb77f76c01ba3d0/languages.json');            
+            return response.text();
+            };
 
 const options = {
     height:400,
@@ -52,7 +49,11 @@ const options = {
 }
 
 const grafico = new google.visualization.ColumnChart(divGraficoLanguages);
-grafico.draw(tabela,options);
+
+fetchFunc().then(json => grafico.draw(
+    new google.visualization.DataTable(json)
+    ,options));
+
 
 }
 
