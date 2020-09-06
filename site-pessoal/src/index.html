@@ -9,7 +9,7 @@
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Scada:wght@700&display=swap&display=swap&family=Inter:wght@600;700&family=Merriweather&family=Pangolin&display=swap" as="style">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scada:wght@700&display=swap&display=swap&family=Inter:wght@600;700&family=Merriweather&family=Pangolin&display=swap">
         <title>Hiago Guedes</title>
-        <link rel="shortcut icon" href="/Hiaguedes.github.io/assets/img/title.ico"/>
+        <link rel="shortcut icon" href="hiaguedes.github.io/assets/img/title.ico"/>
     </head>
     <body>
     <header class="header">
@@ -19,14 +19,14 @@
     </header>
     <nav class="nav__container">
     <ul class="nav__lista" onclick="navCTRL.update(event)">
-            <li tabindex="0" class="nav__item" data-item="nav__item" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
+            <li tabindex="0" class="nav__item--ativo" data-item="nav__item" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
             <li tabindex="0" class="nav__item" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Projects</li>
             <li tabindex="0" class="nav__item" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
-            <li tabindex="0" class="nav__item--ativo" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
+            <li tabindex="0" class="nav__item" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
         </ul>
     </nav>
     <div class="body">
-    <section class="home section--hide" data-section>
+    <section class="home section" data-section>
             <div class="section__title">
                 <h2 class="titulo">About Me</h2>
             </div>
@@ -125,7 +125,7 @@
             </div>
         </section>
 
-        <section class="languages section" data-section>
+        <section class="languages section--hide" data-section>
             <div class="section__title">
                 <h2 class="titulo"></h2>
             </div>
@@ -142,14 +142,16 @@
         <a class="footer__link" target="_blank" href="https://github.com/Hiaguedes"><img src="./assets/img/github-logo.svg" alt="Github Logo " class="footer__social"></a>
     </footer>
     </body>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="./assets/js/PutSvg.js"></script>
+    <script src="./assets/js/headerTitleEffect.js"></script>
+
+
     <script src="./assets/js/views/NavView.js"></script>
     <script src="./assets/js/views/SectionView.js"></script>
     <script src="./assets/js/controllers/NavController.js"></script>
-    <script src="./assets/js/services/graphLanguages.js"></script>
-    <script src="./assets/js/controllers/SkillsController.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script async src="./assets/js/services/graphLanguages.js"></script>
+    <script async src="./assets/js/controllers/SkillsController.js"></script>
 
-    <script src="./assets/js/PutSvg.js"></script>
-    <script src="./assets/js/headerTitleEffect.js"></script>
     
 </html>

@@ -9,7 +9,7 @@ const desenharGrafico = () => {
             };
 
 const options = {
-    height:400,
+    height:300,
     width: 900,
     vAxis: {
                 gridlines:{color:'transparent'},
@@ -21,7 +21,8 @@ const options = {
         textPosition:'in',
         title: 'English',
         gridlines:{color:'transparent'},
-
+        fontName: 'Merriweather',
+        chartArea: {top:0},
         bar: {
                 groupWidth: '95%'
         },
@@ -32,13 +33,16 @@ const options = {
 
         titleTextStyle: {
                 color: 'white',
-                fontSize: 20
+                fontSize: 30.,
+                fontName: 'Merriweather',
+                italic: false
         }
     },
     annotations: {
                 alwaysOutside: false,
                 textStyle:{
-                    fontSize: 20
+                    fontSize: 20,
+                    fontName: 'Inter'
             }
     },
     legend: 'none',
@@ -53,7 +57,6 @@ const grafico = new google.visualization.ColumnChart(divGraficoLanguages);
 fetchFunc().then(json => grafico.draw(
     new google.visualization.DataTable(json)
     ,options));
-
 
 }
 
