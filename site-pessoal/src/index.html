@@ -19,14 +19,14 @@
     </header>
     <nav class="nav__container">
     <ul class="nav__lista" onclick="navCTRL.update(event)">
-            <li tabindex="0" class="nav__item--ativo" data-item="nav__item" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
+            <li tabindex="0" class="nav__item" data-item="nav__item" onkeydown="navCTRL.acessibilityUpdate(event)">Home</li>
             <li tabindex="0" class="nav__item" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Projects</li>
             <li tabindex="0" class="nav__item" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Skills</li>
-            <li tabindex="0" class="nav__item" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
+            <li tabindex="0" class="nav__item--ativo" data-item="nav__item--ativo" onkeydown="navCTRL.acessibilityUpdate(event)">Languages</li>
         </ul>
     </nav>
     <div class="body">
-        <section class="home section" data-section>
+    <section class="home section--hide" data-section>
             <div class="section__title">
                 <h2 class="titulo">About Me</h2>
             </div>
@@ -125,17 +125,14 @@
             </div>
         </section>
 
-        <section class="languages section--hide" data-section>
+        <section class="languages section" data-section>
             <div class="section__title">
                 <h2 class="titulo"></h2>
             </div>
             <div class="section__container">
-                <p class="texto texto--alinhado-esquerda">This section is under construction yet, but a short summary would be</p>
-                <br>
-                <p class="texto texto--alinhado-esquerda">Reading &#129094; 100%</p>
-                <p class="texto texto--alinhado-esquerda">Writing &#129094; 90%</p>
-                <p class="texto texto--alinhado-esquerda">Listening &#129094; 85%</p>
-                <p class="texto texto--alinhado-esquerda">Speaking &#129094; 75%</p>
+            <div class="languages__container">
+                <div class="languages__graph"></div>
+            </div>
             </div>
         </section>
     </div>
@@ -145,10 +142,11 @@
         <a class="footer__link" target="_blank" href="https://github.com/Hiaguedes"><img src="./assets/img/github-logo.svg" alt="Github Logo " class="footer__social"></a>
     </footer>
     </body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="./assets/js/views/NavView.js"></script>
     <script src="./assets/js/views/SectionView.js"></script>
     <script src="./assets/js/controllers/NavController.js"></script>
-
+    <script src="./assets/js/services/graphLanguages.js"></script>
     <script src="./assets/js/controllers/SkillsController.js"></script>
 
     <script src="./assets/js/PutSvg.js"></script>
