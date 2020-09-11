@@ -186,3 +186,108 @@ Isso é importante para perceber se a síndrome do impostor domina sua percepç�
 Perceber se ela sente que teve de exceder as expectativas dos outros.
 
 Caso contrário, seria submetida a um padrão mais alto ou mais baixo.
+
+## A imperfeição é a perfeição
+
+Você já ouviu falar da famosa técnica do Cubismo de Pablo Picasso.
+
+Como é que algumas figuras geométricas desiguais e recortadas podem se tornar tão fascinantes quando colocadas juntas?
+
+Pense nisso e deixe esse pensamento em mente, porque essa forma de arte conhecida se tornará uma metáfora para sua personalidade.
+
+Esse aspecto não é necessariamente ruim, pois é o que motiva o ser humano a melhorar, encontrar maneiras melhores e mais eficientes de fazer as coisas e alcançar a excelência.
+
+## Separe um tempo para você
+
+Pode ser difícil achar um tempo para si, mas fazer coisas que o deixam relaxado e feliz pode melhorar sua autoestima e sua produtividade no trabalho e em casa.
+
+Encontre um hobby que faça com que se sinta melhor física e mentalmente. Algumas pessoas dizem que fazer ioga, andar de bicicleta ou correr as ajuda a encontrar uma positividade calma e centrada.
+
+Cerque-se de pessoas positivas.
+
+Caso tenha influências negativas na sua vida que o fazem se sentir mal a respeito de si mesmo, tente minimizar ou eliminar o tempo que passa com elas e incluir pessoas positivas.
+
+- Informar a seus entes queridos a respeito de sua jornada para melhorar sua autoestima vai encorajá-los a agirem como um sistema de apoio para você.
+
+- Você pode dizer a seus amigos próximos ou à família algo como "Estou trabalhando para melhorar minha autoestima, e você pode ajudar apontando quando eu disser algo negativo sobre mim mesmo para que eu preste mais atenção na minha negatividade".
+
+## Reveja suas crenças
+
+Identifique quantos sonhos você deixou de realizar por medo e por não se sentir capaz. Em seguida, perceba quais foram os pensamentos que limitaram você. Pense um pouco mais e lembre-se onde essas crenças limitantes nasceram e quem disse a você essas coisas.
+
+Por fim, relembre momentos nos quais você foi vitorioso e desconstrua cada uma dessas crenças que paralisam sua vida. Perceba que a insegurança pode ser apenas uma forma de pensar, e que você pode substituir cada uma delas por crenças positivas e realizadoras.
+
+## Crenças Limitantes
+
+Alguns pensamentos negativos são cultivados de maneira inconsciente e interferem na confiança da pessoa, gerando insegurança emocional e obstáculos para o seu crescimento. São as chamadas crenças limitantes. Reflita sobre quais são as suas crenças limitantes e como elas têm afetado a sua vida.
+
+- Houve algum momento em que você não agiu da maneira mais oportuna porque não conseguiu acreditar em si mesmo?
+
+- Quais são os pensamentos pessimistas que você tem tido e de que forma eles estão impedindo o seu verdadeiro potencial?
+
+Procure as respostas e não permita que as crenças limitantes sejam donas das suas ações.
+
+***Descubra o porquê de sua falta de entusiasmo.***
+
+Poucas pessoas olham objetivamente para si mesmas e dizem: “Hmm, me pergunto por que não sou mais enérgico”. Mas, qualquer que seja a razão, você provavelmente tem uma curiosidade para sabê-la. É o seu trabalho? A vida amorosa? Ou é mais como algo que 24 horas por dia, 7 dias por semana, lhe arrasta para baixo?
+
+É natural se ver preso em uma rotina. Essas coisas acontecem. E também acabam em algum ponto. Mas ainda há a depressão clínica, que é outra lata cheia de minhocas. Se ela for algo em que você jamais pensou, faça-o agora.
+
+Trata-se apenas da falta de entusiasmo ou de um problema maior? O que lhe diz a intuição?
+
+## Para saber mais
+
+Lembre-se de que você, como todo mundo, é humano e não precisa ser perfeito para ter uma autoestima elevada. Se puder se aceitar do jeito que é, mesmo que esteja tentando melhorar em algumas áreas, terá uma autoestima bem mais alta.
+
+Crie um mantra para si mesmo, como "tudo bem, continuo sendo incrível".
+
+Por exemplo, caso perca sua paciência e grite com seu filho no parque, pode dizer a si mesma: "Não sou perfeita e vou trabalhar para manter minhas emoções no controle. Vou pedir desculpas ao meu filho por gritar e explicar para ele por que fiquei brava. Tudo bem, continuo sendo uma boa mãe".
+
+## Para saber mais
+
+Algumas vezes, essa é a única maneira de obter sucesso. Para ser bom na vida, você tem que encontrar experiências que o forcem a aprender. Você não pode ser incrível logo de cara. Se você continuar fazendo o que sempre fez, será impossível melhorar em qualquer coisa. Você precisa obter as chances de crescer.
+
+A falha é inevitável. Ela sempre acontece. E não importa. A única coisa que importa é se reerguer. Todos passam por decepções, mas nem todos se reerguem. É o renascimento das cinzas que cria confiança – e você precisa cair para que isso aconteça.
+
+## Faça um diário positivo
+
+Escreva suas conquistas, os elogios que receber e os pensamentos positivos que tiver sobre si mesmo. Embora os negativos possam não ir embora totalmente, passar mais tempo focando nos aspectos positivos vai melhorar seus sentimentos de valor próprio no geral.
+
+Escrever em um diário pode ser uma ferramenta poderosa para monitorar seu diálogo interno e melhorar sua autoestima.
+
+Tente se focar no diário positivo, em vez de nos pensamentos negativos normais. Por exemplo, se você tende a se insultar por não dar sua opinião a respeito de algo, escreva as vezes em que der sua opinião.
+
+## Atributos positivos
+
+Foque nas coisas que gosta a respeito de si mesmo para se lembrar que há mais do que aquilo em que sua voz interna negativa se foca. Dê os parabéns a si mesmo por suas conquistas sem qualificá-las.
+
+As pessoas com uma autoestima mais alta são capazes de aceitar que têm atributos positivos, mesmo que não sejam perfeitas.
+Coloque a lista em um local visível, como o espelho do banheiro, e olhe para ela diariamente. Você pode adicionar mais coisas a ela conforme sua voz interior ficar mais positiva.
+
+## Dicas finais
+
+Cerque-se de pessoas que se importem com seus sentimentos! Quem não se importa com você não o ajudará a ser mais confiante.
+
+Sua força interior o ajudará a atingir seus objetivos na vida. Caso caia, levante-se e tente novamente.
+
+Você é quem é, e ninguém pode mudar isso. Seja você mesmo e não tente copiar os outros.
+
+Não deixe as propagandas de revistas e outras mídias afetarem sua autoconfiança com estratégias de marketing: as campanhas muitas vezes procuram colocar sentimentos de medo e insegurança em destaque. Resista aos esforços do marketing com sua confiança interna e com o conhecimento sobre as táticas usadas.
+
+O mais importante de tudo é acreditar em si mesmo: se acreditar que consegue, você será capaz.
+
+Não se concentre em impressionar os outros; em vez disso, seja você mesmo. Dessa forma, as pessoas terão você e seu conforto consigo mesmo em alta estima.
+
+Seja assertivo. Para melhorar sua autoestima, você precisa conseguir o que deseja ou precisa, por isso faça coisas por si. Lembre-se de que deve se ajudar antes de poder ajudar os outros.
+
+Diga a si mesmo que é confiante e extrovertido, mesmo que não se sinta assim. Seus sentimentos e crenças vêm todos de seus pensamentos, portanto, se acreditar que é confiante e extrovertido, você será. Pense e aja como se nem soubesse o que é ter baixa autoestima.
+
+Olhe-se no espelho todo dia e tente encontrar algo para admirar em si: sua aparência ou suas conquistas.
+
+Fale consigo mesmo de maneira positiva sempre. Diga a si mesmo que está ótimo hoje e faça a positividade se tornar seu estado natural de ser.
+
+Como vimos, o Fenômeno Impostor foi identificado a partir de observações clínicas durante sessões terapêuticas com mulheres de alto desempenho pela Dra. Pauline Clance. Apesar da evidência objetiva de sucesso, essas mulheres tinham uma experiência psicológica abrangente, acreditando que eram fraudes intelectuais e temiam ser reconhecidas como impostoras. Eles sofriam de ansiedade, medo do fracasso e insatisfação com a vida.
+
+Este artigo (em inglês) revisa definições e características do traço da síndrome do impostor, alguns antecedentes, como personalidade e ambiente de realização familiar.
+
+Acesse: <https://www.tci-thaijo.org/index.php/IJBS/article/view/521>
