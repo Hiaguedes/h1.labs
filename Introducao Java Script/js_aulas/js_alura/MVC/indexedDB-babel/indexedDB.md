@@ -541,3 +541,179 @@ console.log(hoje.getDate()) ; // alterou o dia para 5!
 ```
 
 Ele explicou para Michele que neste caso não estamos atribuindo um novo valor a variável usando o operador =, mas estamos alterando as propriedades do objeto Date por meio de seus métodos. Sendo assim, const não garante a imutabilidade, apenas a atribuição de um novo valor para a variável.
+
+## O padrão DAO
+
+Vamos filosofar? Quais as vantagens de se usar classes com o padrão DAO?
+
+Pense sobre a responsabilidade dessa classe, o que ela faz e para que serve! Depois de ter meditado sobre o assunto, clique em "Ver opinião do instrutor".
+
+A vantagem está ligada com a capacidade de isolar todo o código que acessa seu repositório de dados em um único lugar. Assim, toda vez que o desenvolvedor precisar realizar operações de persistência ele verá que existe um único local para isso, seus DAO's.
+
+Falando um pouco mais técnico e nem por isso menos bonito, o DAO faz parte da camada de persistência, funciona como uma fachada para a API do IndexedDB. Repare que para usar o DAO não é preciso saber os detalhes do store ou cursor.
+
+## Método que devolve uma promise
+
+Vejamos nossa classe NegociacaoDao. O método adiciona que devolve uma promise:
+
+```js
+class NegociacaoDao {
+
+    constructor(connection) {
+
+        this._connection = connection;
+        this._store = 'negociacoes';
+    }
+
+    adiciona(negociacao) {
+
+        return new Promise((resolve, reject) => {
+
+            let request = this
+                ._connection
+                .transaction([this._store],"readwrite")
+                .objectStore(this._store)
+                .add(negociacao);
+
+        });
+    }
+
+   listaTodos() {
+        // ainda não implementado
+  }
+
+}
+```
+
+Veja que o método está incompleto, porque em nenhum momento chama a função resolve ou reject, fundamentais para que a promise retorne seu valor ou uma exceção.
+
+```js
+    adiciona(negociacao) {
+
+        return new Promise((resolve, reject) => {
+
+            let request = this
+                ._connection
+                .transaction([this._store],"readwrite")
+                .objectStore(this._store)
+                .add(negociacao);
+
+            request.onsuccess = e => resolve();
+            request.onerror = e => reject(e.target.error.name);
+
+        });
+    }
+```
+
+Qual das opções abaixo completa o método adiciona?
+
+Lembre-se que só temos certeza que a negociação foi adicionada apenas se o evento onsuccess da requisição de inclusão for disparado. Por isso é nele que chamamos o resolve da nossa promise. Por fim, no evento onerror chamamos o reject, aquela função de toda promise que recebe como parâmetro a razão da falha de sua execução.
+
+Qual das opções abaixo combina corretamente as classes ConnectionFactory e NegociacaoDao. Lembre-se que NegociacaoDao depende de uma connection e ConnectionFactory é a classe que possui a responsabilidade de devolver conexões.
+
+```js
+ConnectionFactory
+    .getConnection()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao => dao.adiciona(new Negociacao(new Date(), 1, 200.13)))
+    .then(() => console.log('adicionado com sucesso'))
+    .catch(() => console.log('não foi possível adicionar'));
+```
+
+Tudo começa invocando o método getConnection da nossa ConnectionFactory. Como o método retorna uma promise, quando encadeamos uma chamada à função then temos acesso à conexão. Veja, não queremos trabalhar com uma conexão diretamente, queremos um dao, é por isso que no mesmo then em que obtemos a conexão retornamos implicitamente (arrow function sem block) uma instância de NegociacaoDao.
+
+Como houve um retorno, o dao está disponível na próxima chamada à função then. Nele, chamamos dao.adiciona passando uma negociação como parâmetro.
+
+Como adiciona devolve uma promise e há um retorno implícito da nossa arrow function, encadeando mais uma vez a chamada da função then podemos executar um código com a certeza de que a negociação foi adicionada com sucesso. Caso algum erro ocorra, o código passado para o catch será executado.
+
+## Para saber mais: IndexedDB e transações
+
+Se você já trabalhou com algum banco de dados relacional deve ter reparado que em nenhum momento chamamos métodos como commit ou rollback para consolidar a transação ou abortá-la. Por mais que isso possa lhe causar certo espanto, o IndexedDB trabalha um pouquinho diferente.
+
+Transações do IndexedDB são auto commited
+É por meio de uma transação que temos acesso a uma store e dela podemos realizar operações como a inclusão de um objeto. Quando essa operação é realizada com sucesso, ou seja, quando o evento onsuccess é chamado a transação é fechada, ou seja, as transações do IndexedDB são auto commited. É por isso que cada método do nosso NegociacaoDao solicita uma transação toda vez que é chamado.
+
+Podemos cancelar uma transação através do método abort
+Ótimo, já sabemos quando uma transação é efetivada e que este é um processo automático, no entanto nem sempre queremos efetivá-la, ou seja, queremos abortá-la. Fazendo uma alusão aos bancos de dados relacionais, queremos ser capazes de realizar um rollback.
+
+Para cancelarmos (rollback) uma transação podemos chamar o método abort:
+
+```js
+ConnectionFactory.
+    .getConnection()
+    .then(connection => {
+
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+
+            let store = transaction.objectStore('negociacoes');
+
+            let negociacao = new Negociacao(new Date(), 1, 200);
+
+            let request = store.add(negociacao);
+
+            // #### VAI CANCELAR A TRANSAÇÃO. O evento onerror será chamado.
+            transaction.abort(); 
+
+            request.onsuccess = e => {
+
+                console.log('Negociação incluida com sucesso');
+            };
+
+            request.onerror = e => {
+
+                console.log('Não foi possível incluir a negociação');
+            };
+
+
+    })
+```
+
+Ao executar o código a seguinte mensagem de erro será exibida no console:
+
+DOMException: The transaction was aborted, so the request cannot be fulfilled.
+Não foi possível incluir a negociação
+Trate o cancelamento de uma transação no evento onabort de transaction
+Contudo, podemos tratar os erros de uma transação abortada no evento onabort da transação, ao invés de lidarmos com ele em onerror.
+
+```js
+ConnectionFactory.
+    .getConnection()
+    .then(connection => {
+
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+
+            let store = transaction.objectStore('negociacoes');
+
+            let negociacao = new Negociacao(new Date(), 1, 200);
+
+            let request = store.add(negociacao);
+
+            // #### VAI CANCELAR A TRANSAÇÃO. O evento onabort será chamado.
+
+            transaction.abort(); 
+            transaction.onabort = e => {
+                console.log(e);
+                console.log('Transação abortada');
+            };
+
+            request.onsuccess = e => {
+
+                console.log('Negociação incluida com sucesso');
+            };
+
+            request.onerror = e => {
+
+                console.log('Não foi possível incluir a negociação');
+            };
+
+
+    })
+```
+
+Apesar do que aprendemos aqui não ser útil dentro do cenário da aplicação Aluraframe, informações extras como essa são sempre bem-vindas!
+
+Criamos nossa própria solução de persistência aplicando padrões de projeto e combinando um pouco de tudo que vimos nos módulos anteriores, Procuramos esconder a complexidade de se lidar com o IndexedDB através das classes ConnectionFactory e NegociacaoDao. Contudo, repare que isso é um problema que todos aqueles que utilizaram o IndexedDB terão que lidar em algum ponto da aplicação.
+
+Para lidar também com o o IndexedDB outros desenvolvedores tornaram públicas suas bibliotecas. Por exemplo, há o Dexie e o Db.js, este último utiliza promises assim como fizemos.
+
+Como a ideia deste treinamento é que você se torne cangaceiro em JavaScript, não usamos nenhum biblioteca externa e fizemos tudo na mão!

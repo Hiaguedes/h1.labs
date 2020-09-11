@@ -17,21 +17,40 @@ class NegociacaoController {
             new Mensagem(), new MensagemView($('#mensagemView')),
             'texto');    
             
-        this._ordemAtual = ''               
+        this._ordemAtual = '';
+
+        ConnectionFactory.getConnection()
+                        .then(conc => new NegociacaoDao(conc))
+                        .then(dao =>dao.listaDados())
+                        .then(negs => 
+                                negs.forEach(neg => this._listaNegociacoes.adiciona(neg)
+                                ))
+                        .catch(erro => {
+                            console.log(erro);
+                            this._mensagem.texto = erro;
+                        })
     }
     
     adiciona(event) {
-       
+        
         event.preventDefault();
-        try {
-            this._listaNegociacoes.adiciona(this._criaNegociacao());
-            this._mensagem.texto = 'Negociação adicionada com sucesso'; 
-            this._limpaFormulario();   
-        } catch(erro) {
-            this._mensagem.texto = erro;
-        }
-    }
-    
+
+        ConnectionFactory
+            .getConnection()
+            .then(conc => {
+                let negociacao=this._criaNegociacao();
+
+                new NegociacaoDao(conc)
+                .adiciona(negociacao)
+                .then(() => {
+                    this._listaNegociacoes.adiciona(negociacao);
+                    this._mensagem.texto = 'Negociação adicionada com sucesso'; 
+                    this._limpaFormulario();
+                })
+            })
+            .catch(erro => this._mensagem.texto = erro);
+        };
+
     importaNegociacoes() {
         
 
@@ -47,16 +66,23 @@ class NegociacaoController {
     
     apaga() {
         
-        this._listaNegociacoes.esvazia();
-        this._mensagem.texto = 'Negociações apagadas com sucesso';
-    }
+        ConnectionFactory
+            .getConnection()
+            .then(conc => new NegociacaoDao(conc))
+            .then(dao => dao.apagaDados())
+            .then(msg => {
+                this._mensagem.texto=msg;
+                this._listaNegociacoes.esvazia();
+            });
+
+    };
     
     _criaNegociacao() {
         
         return new Negociacao(
             DateHelper.textoParaData(this._inputData.value),
-            this._inputQuantidade.value,
-            this._inputValor.value);    
+            parseInt(this._inputQuantidade.value),
+            parseFloat(this._inputValor.value));    
     }
     
     _limpaFormulario() {
