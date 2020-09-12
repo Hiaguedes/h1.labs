@@ -1,58 +1,61 @@
-var openRequest = window.indexedDB.open('bancoDados',3);
+'use strict';
+
+var openRequest = window.indexedDB.open('bancoDados', 3);
 var connection;
 
-openRequest.onupgradeneeded = e => {
+openRequest.onupgradeneeded = function (e) {
     console.log("Criando ou alterando um banco existente");
-    let minhaConnection = e.target.result;
+    var minhaConnection = e.target.result;
 
-    if (minhaConnection.objectStoreNames.contains('negociacoes')){
-        minhaConnection.deleteObjectStore('negociacoes')
+    if (minhaConnection.objectStoreNames.contains('negociacoes')) {
+        minhaConnection.deleteObjectStore('negociacoes');
     }
 
-    minhaConnection.createObjectStore('negociacoes',{autoIncrement: true});
-}
+    minhaConnection.createObjectStore('negociacoes', { autoIncrement: true });
+};
 
-openRequest.onsuccess = e=> {
+openRequest.onsuccess = function (e) {
     connection = e.target.result;
     //console.log(connection);
-}
+};
 
-openRequest.onerror = e=> {
+openRequest.onerror = function (e) {
     console.log(e.target.error);
-}
+};
 
-const adiciona = () => {
-    let transaction = connection.transaction(['negociacoes'], 'readwrite');
-    let store = transaction.objectStore('negociacoes');
-    let negociacao = new Negociacao(new Date(),1,200);
-    let request = store.add(negociacao);
-    request.onsuccess = e => {
-        console.log('Negociação incluida')
+var adiciona = function adiciona() {
+    var transaction = connection.transaction(['negociacoes'], 'readwrite');
+    var store = transaction.objectStore('negociacoes');
+    var negociacao = new Negociacao(new Date(), 1, 200);
+    var request = store.add(negociacao);
+    request.onsuccess = function (e) {
+        console.log('Negociação incluida');
     };
 
-    request.onerror = e => {
-        console.log('Negociação não incluida')
-    }
-}
+    request.onerror = function (e) {
+        console.log('Negociação não incluida');
+    };
+};
 
-const listaDados = () => {
-    let transaction = connection.transaction(['negociacoes'], 'readwrite');
-    let store = transaction.objectStore('negociacoes');
-    let cursor = store.openCursor();
-    let negociacoes = [];
+var listaDados = function listaDados() {
+    var transaction = connection.transaction(['negociacoes'], 'readwrite');
+    var store = transaction.objectStore('negociacoes');
+    var cursor = store.openCursor();
+    var negociacoes = [];
 
-    cursor.onsuccess = e => {
-       let atual = e.target.result;
-       if(atual){
-           var dado = atual.value;
-           negociacoes.push(new Negociacao(dado._data,dado._quantidade,dado._valor));
-           atual.continue();
-       }else {
-           console.log(negociacoes);
-       }
+    cursor.onsuccess = function (e) {
+        var atual = e.target.result;
+        if (atual) {
+            var dado = atual.value;
+            negociacoes.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
+            atual.continue();
+        } else {
+            console.log(negociacoes);
+        }
     };
 
-    cursor.onerror = e => {
+    cursor.onerror = function (e) {
         console.error(e.target.error.name);
     };
-}
+};
+//# sourceMappingURL=indexedDB.js.map

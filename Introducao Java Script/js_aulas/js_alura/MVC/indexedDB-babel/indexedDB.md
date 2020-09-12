@@ -717,3 +717,594 @@ Criamos nossa própria solução de persistência aplicando padrões de projeto 
 Para lidar também com o o IndexedDB outros desenvolvedores tornaram públicas suas bibliotecas. Por exemplo, há o Dexie e o Db.js, este último utiliza promises assim como fizemos.
 
 Como a ideia deste treinamento é que você se torne cangaceiro em JavaScript, não usamos nenhum biblioteca externa e fizemos tudo na mão!
+
+## Comparação entre objetos
+
+Temos a seguinte classe que define o retângulo:
+
+```js
+class Retangulo {
+
+    constructor(base, altura) {
+
+        this.base = base;
+        this.altura = altura;
+    }
+
+    areaCalculada() {
+        return this.base * this.altura;
+    }
+}
+```
+
+Em seguida, temos duas instâncias com valores iguais de base e altura:
+
+```js
+let r1 = new Retangulo(10,5);
+let r2 = new Retangulo(10,5);
+```
+
+Quais das opções abaixo retorna true ao compararmos um objeto com outro?
+
+`console.log(r1.base == r2.base && r1.altura == r2.altura);`
+
+Existem tipos primitivos em JavaScript chamado de literais que podem ser acessados como objetos quanto invocamos algum método. O encapsulamento de um primitivo por um objeto automaticamente pelo interpretador é chamado de autoboxing. Por mais que tenhamos um objeto representando um número, a comparação será pelo valor literal (primitivo) e não pela referência. Números são encapsulados pela função construtora Number.
+
+`console.log(JSON.stringify(r1) == JSON.stringify(r2));`
+
+Uma maneira de comparamos um objeto com outro é converter ambos os objetos envolvidos na comparação para String, com o auxílio de JSON.stringify, que está preparado para converter um objeto JavaScript para uma string. Essa solução é interessante quando o objeto possui muitas propriedades.
+
+## "Some"body help me!
+
+Gisele está desenvolvendo um sistema de controle de passageiros. Ela criou a simples classe que representa um passageiro, que pode ser de avião, ônibus, não importa:
+
+```js
+class Passageiro {
+
+    constructor(nome, profissao) {
+
+        this.nome = nome;
+        this.profissao = profissao;
+    }
+}
+```
+
+Em seguida, ela criou uma lista de passageiros:
+
+```js
+let passageiros = []
+
+passageiros.push(new Passageiro('Orlando', 'Dentista'));
+passageiros.push(new Passageiro('Suzada', 'Advogada'));
+passageiros.push(new Passageiro('Hélio', 'Médico'));
+passageiros.push(new Passageiro('Salen', 'Programador'));
+passageiros.push(new Passageiro('Francisca', 'Médica'));
+```
+
+A ideia de Gisele é poder acelerar a busca por médicos ou profissionais que sejam necessários em casos de emergência.
+
+Qual das opções abaixo utiliza corretamente a função some para encontrar um médico ou uma médica?
+
+```js
+let achou = passageiros.some(passageiro => /médic/i.test(passageiro.profissao));
+
+alert(achou);
+```
+
+A função some itera sobre o array, assim como forEach, filter e map. No entanto, seu retorno é true ou false. Ela retorna true logo assim que encontrar o primeiro elemento que for condizente com o critério de comparação utilizado. Quando dizemos, "logo assim", significa que a função parará de iterar nos elementos da lista, porque já encontrou pelo menos algum (some) que atenda ao critério.
+
+Veja que o critério de comparação usa a expressão regular criada literalmente com //. Nela, procuramos pela parte médic, sem levar em consideração se o caractere é maiúsculo ou minúsculo, com o modificador i.
+
+## Promise mais elegante
+
+Wittgenstein implementou as classes ConnectionFactory e NegociacaoDao como ensinado neste capítulo. Inclusive, ele teve certeza que seu código funcionava a partir do seguinte teste:
+
+```js
+ConnectionFactory
+    .getConnection()
+    .then(conexao => {
+
+        let dao = new NegociacaoDao(conexao);
+        dao.adiciona(new Negociacao(new Date(), 1, 100))
+            .then(() => {
+                alert('Negociação adicionada com sucesso');            
+            });
+
+    })
+    .catch(erro => console.log(erro));
+```
+
+Apesar de funcional, veja que se tivéssemos mais chamadas à then, cairíamos em algo parecido com o Callback Hell, assunto que tocamos no primeiro módulo de uma sequência de treinamentos avançados.
+
+Qual das opções abaixo reescreve elegantemente o código de Wittgenstein, evitando assim o aninhamento de chamadas à then?
+
+```js
+ConnectionFactory
+    .getConnection()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao => dao.adiciona(new Negociacao(new Date(), 1, 100)))
+    .then(() => alert('Negociação adicionada com sucesso'))
+    .catch(erro => console.log(erro));
+```
+
+Podemos escrever um código mais elegante com promises.
+
+## Experimento com promise
+
+Clóvis, desejando compreender melhor o efeito do encadeamento de promises (promise chainning) e o tratamento de erro, criou três funções que retornam promises. Ele simulou um processamento assíncrono usando setTimeout, ou seja, a chamada de resolve de cada promise será chamada depois de alguns segundos. Veja que cada função tem um tempo de espera diferente da outra:
+
+```html
+<!-- teste promise -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        function a(falhar) {
+
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+
+                    if(falhar) {
+
+                        reject('PROMISE A FALHOU');
+                    } else {
+
+                        console.log('PROMISE A RESOLVIDA');
+                        resolve('DADO A');
+                    }
+
+                }, 2000);
+            });
+        }
+
+        function b(falhar) {
+
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+
+                    if(falhar) {
+
+                        reject('PROMISE B FALHOU');
+                    } else {
+
+                        console.log('PROMISE B RESOLVIDA')
+                        resolve('DADO B');
+                    }
+
+                }, 1000);
+            });
+        }
+
+        function c(falhar) {
+
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+
+                    if(falhar) {
+
+                        reject('PROMISE C FALHOU');
+                    } else {
+
+                        console.log('PROMISE C RESOLVIDA')
+                        resolve('DADO C');
+                    }
+
+                }, 500);
+            });
+        }
+
+    </script>
+</body>
+```
+
+Clóvis, espertamente, fez com que cada função recebesse um parâmetro. Se o valor passado for true, a promise será rejeitada. Uma maneira de simular um erro durante seu processamento.
+
+Ele fez o seguinte teste:
+
+```html
+<!-- teste promise -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        // código das funções omitido 
+
+        // teste, fazendo a promise c ser rejeitada
+
+            a()
+            .then(dado => {
+                console.log(dado);
+                // O RETORNO DA PROMISE B ESTARÁ DISPONÍVEL NO PRÓXIMO THEN
+                return b(); 
+            })
+            .then(dado => {
+                console.log(dado);
+
+                /* FORÇANDO A REJEIÇÃO DA PROMISE. TEM QUE IR DIRETO PARA O CATCH. 
+                SE NÃO TIVESSE REJEITADO, O RETORNO DE C ESTARIA DISPONÍVEL NO PRÓXIMO THEN */
+                return c(true);  
+            })
+            .then(dado => {
+                console.log(dado);
+            })
+            .catch(erro => console.log(erro));
+
+    </script>
+</body>
+```
+
+O objetivo de Clóvis é saber se a função catch será chamada se a promise retornada por c for rejeitada, inclusive mostrando no console a mensagem de erro * PROMISE C FALHOU **. Dessa forma, ele terá certeza que durante o encadeamento das *promises, qualquer erro será capturado em um único lugar, no caso em .catch.
+
+Sobre o código acima, marque as alternativas que julgar verdadeira:
+
+A promise C demorará mais de 1 segundo para ser chamada, apesar do valor de setTimeout ser meio segundo (500ms).
+
+
+Cada promise só é executada depois que a anterior é resolvida. Sendo assim, por mais que a função c esteja com um valor de setTimeout de 500 ela só será executada depois da função a e b serem concluídas.
+
+Alternativa correta
+É exibida no console a mensagem "PROMISE C FALHOU".
+
+Sim, porque como passamos true para a função c, ela chamará reject. Isso fará com que a promise rejeitada passe sua mensagem de erro para a função .catch, local centralizado para tratar qualquer erro disparado por uma das promises encadeadas.
+
+Você deve estar se perguntando qual a diferença dessa estratégia para o uso de Promise.all, que usamos no módulo anterior. Promise.all resolve as promises em paralelo, ou seja, uma promise não aguarda a outra terminar para ser executada. Promise.all é interessante quando uma promise não depende do resultado da promise anterior. Nos casos onde há dependência, o encadeamento de promises é o caminho mais indicado.
+
+Faça um teste usando Promise.all. Você verá que as promises serão resolvidas fora da ordem em que foram passadas para Promise.all:
+
+```js
+Promise
+    .all([a(), b(), c()])
+    .then(arrayComResultadoDasPromises => console.log(arrayComResultadoDasPromises))
+    .catch(erroDeAlgumaDasPromises => console.log(erroDeAlgumaDasPromises));
+```
+
+## Para saber mais: Igualdade de objetos
+
+Vamos lembrar rapidamente como criamos o nosso filtro para saber se já existe uma negociação dentro da nossa lista de negociações.
+
+Segue o esboço de código do filtro, lembrando que o filtro recebe o critério de inclusão. Se o critério devolve true a negociação deve fazer parte da lista:
+
+```js
+//classe NegociacaoService no método importa
+
+
+negociacoes.filter(negociacao =>
+    !this._listaNegociacoes.negociacoes.some(negociacaoExistente => 
+        JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente) //criterio
+    )
+)
+```
+
+Para os amantes do paradigma OO, usarmos a comparação com `JSON.stringify(..)` pode representar uma quebra de um princípio importante: o Encapsulamento.
+
+A pergunta que devemos sempre fazer quando pensamos no mundo OO é: Quem possui essa responsabilidade? Nesse caso especifico, quem deve saber quando uma negociação é igual a uma outra negociação?
+
+Imagine que você precisa verificar a igualdade entre negociações em uma outra classe. Devemos realmente repetir JSON.stringify(..)? A resposta é não, pois devemos colocar esse comportamento em um único lugar, dentro da nossa classe Negociação! Em outras palavras, a classe Negociacao sabe quando uma negociação é igual a outra, essa regra fica encapsulada dentro da classe.
+
+No mundo JavaScript, não existe um nome padrão para esse tipo de método - o mais utilizado é equals ou isEquals. Vamos implementar esse método na classe Negociacao:
+
+```js
+class Negociacao {
+
+    //construtor e métodos omitidos
+
+    isEquals(outraNegociacao) {        
+        return JSON.stringify(this) == JSON.stringify(outraNegociacao)
+    }
+}
+```
+
+Repare que usamos `JSON.stringify(..)` dentro do método isEquals. Assim poderemos aproveitar esse método em qualquer lugar e melhorar no código do nosso filtro:
+
+```js
+class NegociacaoService {
+
+    constructor() {
+
+        this._http = new HttpService();
+    }
+
+    // código anterior omitido 
+
+    importa(listaAtual) {
+
+        return this.obterNegociacoes()
+            .then(negociacoes => 
+                negociacoes.filter(negociacao => 
+                    !listaAtual.some(negociacaoExistente => 
+                        negociacao.isEquals(negociacaoExistente)))
+            )
+            .catch(erro => {
+                console.log(erro);
+                throw new Error('Não foi possível buscar negociações para importar');
+            })
+    }
+}
+```
+
+Mais elegante e principalmente encapsulado!
+
+## Para saber mais: Outro critério de igualdade
+
+Agora já sabemos que é boa prática encapsular o critério de igualdade dentro de um método da classe do modelo. Na classe Negociacao criamos:
+
+```js
+class Negociacao {
+
+    //construtor e outros métodos omitidos
+
+    isEquals(outraNegociacao) {        
+            return JSON.stringify(this) == JSON.stringify(outraNegociacao)
+    }
+}
+```
+
+Assim podemos testar:
+
+```js
+var hoje = new Date();
+var n1 = new Negociacao(hoje, 1, 100);
+var n2 = new Negociacao(hoje, 1, 100);
+
+n1.isEquals(n2); //true
+```
+
+Agora imagine que o atributo quantidade não pudesse ser considerado na hora de comparar duas negociações. Ou seja, uma negociação deve ser igual a outra quando apenas a data e o valor são iguais:
+
+```js
+var hoje = new Date();
+var n1 = new Negociacao(hoje, 1, 100);
+var n2 = new Negociacao(hoje, 5, 100);
+
+n1.isEquals(n2); //retorna false, mas queremos true
+```
+
+Como encapsulamos o nosso código, já sabemos onde mexer. Mas não podemos mais usar o `JSON.stringify(..)` para testar a igualdade. Lembrando `JSON.stringify(..)` se baseia em todos os atributos! Usaremos cada atributo separadamente:
+
+```js
+class Negociacao {
+
+    //construtor e outros métodos omitidos
+
+    isEquals(outraNegociacao) {        
+        return this._data.getTime() == outraNegociacao.data.getTime()
+            && this._valor == outraNegociacao.valor;
+    }
+}
+```
+
+Agora podemos testar, mesmo com quantidades diferente os dois objetos são considerados iguais pelo método isEquals:
+
+```js
+var hoje = new Date();
+var n1 = new Negociacao(hoje, 1, 100);
+var n2 = new Negociacao(hoje, 5, 100);
+
+n1.isEquals(n2); //true
+```
+
+Repare na beleza do encapsulamento! Sempre chamaremos o método isEquals, indepentemente de qual seja o critério de igualdade concreto.
+
+## Marque todas as alternativas verdadeiras sobre a Fetch API.
+
+Alternativa correta
+A Fetch API usa o padrão de projeto promise.
+
+Podemos encadear chamadas do .then, inclusive tratar erros com .catch.
+
+Alternativa correta
+Existem polyfis disponíveis na internet que garantem a presença da Fetch API em navegadores que não a suportam, mas é importante que o navegador suporte no mínimo a API de promise.
+
+Programadores front-end têm ficado cada vez mais interessados nessa API, ao ponto de utilizá-la em seus projetos, tudo com auxílio de um polyfill.
+
+Alternativa correta
+Por mais que seja utilizada por muitos desenvolvedores, a Fetch API ainda está sujeita a mudanças, pois é experimental ainda (pelo menos até agosto/2016).
+
+O fato de ser experimental não afastou os desenvolvedores e muitos deles usam um polyfill para suportar esse recurso em navegadores que não o suportam. Mas é importante estar atento que o browser precisa suportar promises.
+
+Laércio reescreveu a classe HttpService utilizando a Fetch API:
+
+```js
+class HttpService {
+
+
+    _handleErrors(res) {
+
+        if (!res.ok) {
+            throw new Error(res.statusText);
+        }
+
+        return res;
+    }
+
+    get(url) {
+
+        fetch(url)
+            .then(res => this._handleErrors(res))
+            .then(res => res.json());
+    }
+
+    post(url, dado) {
+
+        fetch(url, { 
+            headers: { 'Content-Type': 'application/json' },
+            method: 'post',
+            body: JSON.stringify(dado)
+        })
+        .then(res => this._handleErrors(res)); 
+    }
+
+}
+```
+
+Contudo, quando os métodos get ou post são chamados, a seguinte mensagem de erro é exibida no console:
+
+Cannot read property 'then' of undefined
+Tente descobrir primeiro o erro do código e só depois continue para ver a resposta do instrutor.
+
+Veja que os dois métodos esqueceram de retornar uma promise, isso porque a função fetch retorna uma promise. Sem retorná-la, não é possível encadear uma chamada à then.
+
+## Dando suporte a js em navegadores mais antigos com Babel
+
+O babel é um transpiler opensource
+
+Que tal reforçar ainda mais o que aprendeu sobre transpiler? Vem comigo!
+
+Revisão
+Durante todo o treinamento usufruímos como desenvolvedores dos recursos do ES2015 visando a escrita de um código mais elegante e mais fácil de manter. Contudo, não é raro o próprio desenvolvedor se questionar sobre a compatibilidade do seu código em relação aos seus usuários ou visitantes do site.
+
+Normalmente é realizado um estudo (métricas do Google Analytics, por exemplo) para saber a predominância de determinados browsers para então deixar de suportar aqueles com uso mais tímido. Ainda assim, se algum browser com baixo suporte ao ES2015 for um dos mais usados alguma atitude deve ser tomada.
+
+Dentro desse contexto, o desenvolvedor tem que se equilibrar na balança que ora pesa para o lado do que há de mais moderno da linguagem e ora para a questão de compatibilidade, esta última, vencedora justa a maior parte do tempo.
+
+Para solucionar os problemas de compatibilidade e ainda permitir que o desenvolvedor utilize o que há de mais moderno da linguagem JavaScript foram criados compiladores de código fonte para código fonte comumente chamados de transcompiladores (transpilers). Com eles, é possível, por exemplo, converter um código fonte de Ruby para JavaScript e vice-versa. No entanto, no universo JavaScript a ideia é compilarmos um código-fonte escrito em ES2015 para ES5, garantindo assim a compatibilidade do nosso código em diferentes tipos de browsers.
+
+O resultado da transcompilação pode variar de transpiler para transpiler, mas o resultado final deve ser idêntico à funcionalidade original do código em ES2015. Inclusive não é raro o resultado da transcompilação para ES5 resulte em um código muito mais verboso.
+
+Vejamos a seguinte hierarquia de projeto:
+
+```fs
+app
+    js
+        es6 
+            a.js
+    css
+        a.css
+    img
+        logo.png
+index.html
+```
+
+Nessa estrutura, temos o arquivo `app/js/es6/a.js`. Sabemos que o index.html não pode importar diretamente o arquivo, pois se estivermos executando nosso código no IE 9, por exemplo, não teremos suporte para vários recursos do ES6. A ideia é converter o código escrito em ES6 para ES5, por exemplo, resultando na seguinte estrutura:
+
+```fs
+app
+    js
+        es6 
+            a.js <-- será transcompilado por um transpiler
+    css
+        a.css
+    img
+        logo.png
+index.html
+```
+
+Resultado da transcompilação:
+
+```fs
+app
+    js
+        es5
+            a.js <-- resultado da transcompilação
+        es6 
+            a.js 
+    css
+        a.css
+    img
+        logo.png
+index.html
+```
+
+Veja que é o arquivo `app/js/es5/a.js` que deve ser importado em index.html. Além disso, qualquer mudança deve ser empreendida no arquivo app/js/es6/a.js. Depois de efetuada a alteração, o arquivo precisa ser transcompilado para que `app/js/es5/a.js` reflita a transcompilação da versão mais nova do código.
+
+O processo de transcompilação normalmente não é feito manualmente, mas por meio de ferramentas que tornam transparentes esse processo para o desenvolvedor, evitando assim erros oriundos do esquecimento da compilação deste ou daquele arquivo que foi atualizado.
+
+Babel é um transcompilador muito famoso no cenário open source. Marque as opções verdadeiras sobre esta ferramenta:`
+
+Babel possui recursos nativos que permitem o monitoramento e compilação de scripts de maneira automática, sem a intervenção do desenvolvedor.
+
+O binário do Babel possui o modo watch que monitora mudanças de arquivo e quando configurado corretamente permite compilar nossos script sem que o desenvolvedor assuma essa responsabilidade.
+
+Alternativa correta
+Babel é um módulo do Node.js e depende dele para funcionar.
+
+Babel é um módulo do Node.js. Ele é baixado através do npm, o gerenciador de pacotes da plataforma Node.js.
+
+Babel é uma ferramenta que pode ser facilmente incluída em seu workflow de desenvolvimento. Mas como qualquer ferramenta, precisa ser configurada.
+
+Marcelo criou arquivo aluraframe/client/.babelrc configurando-o desta maneira:
+
+```json
+{
+  'presets': ['es2015']
+}
+```
+
+Contudo, a configuração não funciona. Antes de continuar e ver a explicação do instrutor tente descobrir o motivo dela não funcionar.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+O arquivo .babelrc deve estar no formato JSON e uma das exigências desse formato é usarmos aspas duplas para representar suas chaves, inclusive strings.
+
+```json
+{
+  "presets": ["es2015"]
+}
+```
+
+## Evitando Babel no escopo global
+
+Muitos tutoriais da internet instalam Babel e outros módulos do Node.js globalmente por uma questão de brevidade, mas que não é uma boa prática.
+
+Se você precisa da nova versão do Babel porque seu projeto A depende de um novo recurso, a atualização da instalação global será aplicada em todos os projetos. Ela pode funcionar perfeitamente em A, mas pode quebrar o projeto B que até então funcionava se algum BUG foi introduzido, um BUG que só afeta um recurso utilizado por B.
+
+Sendo assim, instalamos Babel local ao projeto, contudo não é nada elegante a forma com que chamaremos manualmente o binário do babel em nosso terminal. Para contornar esse problema e ainda termos o babel instalado localmente para cada um dos nosso projetos, podemos criar um script em package.json que chamará o Babel para nós.
+
+Qual das opções abaixo possui a chave script configurada corretamente para chamar Babel e compilar todos os nossos arquivos dentro da pasta aluraframe/client/js/app-es6 resultando na pasta aluraframe/client/js/app:
+
+```js
+{
+
+  // código omitido
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel js/app-es6 -d js/app "
+  },
+
+  // código omitido
+}
+```
+
+Dentro da pasta aluraframe/client, com o terminal aberto, se executarmos o comando npm run build o npm executará o comando definido para a chave build, aquele executa o Babel para nós passando seus parâmetros.
+
+### Sourcemap
+
+Marque a alternativa correta à respeito do arquivo sourcemap.
+
+Bônus: assim que você responder essa questão o instrutor explicará com mais detalhes o que acontece por debaixo dos panos quando usamos um sourcemap!
+
+São arquivos usados em ambiente de desenvolvimento que visam fazer um "de para" do arquivo transcompilado com o arquivo original, para que erros sejam apontados no arquivo original.
+
+ATENÇÃO: o carregamento do sourcemap no OSX usando Chrome está com problema. Ainda não há um fix. Verifique a cada atualização do Chrome.
+
+Veja que é possível debugar um código transpilado mais facilmente através do uso de sourcemaps.
+
+Mas como ele funciona por baixo dos panos? O arquivo sourcemap possui a estrutura do arquivo original, aliás, o arquivo original nem precisa existir em produção para que o sourcemap funcione.
+
+Se abrirmos o arquivo aluraframe/client/js/app/controllers/NegociacaoController.js, nosso arquivo transcompilador, no final dele temos o seguinte comentário especial:
+
+//# sourceMappingURL=NegociacaoController.js.map
+Veja que esse comentário indica para o browser qual sourcemap deve ser carregado.
+
+Outro ponto que você deve estar se perguntando é quando os arquivos sourcemaps serão baixados e se interferem no tempo de carregamento do site. Bem, sourcemaps são baixados apenas quando você abre a ferramenta de desenvolvimento do seu browse, ou seja, seu console ou dev tools. Claro, os arquivo só serão baixados se existirem. Veja que dessa maneira não há prejuízo do carregamento inicial do site.
+
+Vimos que o processo de transcompilação realizado pelo Babel convertendo nosso código em ES2015 (ES6) para ES5 o torna mais compatível, pois navegadores que não suportarem os recursos do ES2015 conseguirão interpretar nosso código. Contudo, nem tudo é resolvido por um transcompilador.
+
+Por exemplo, se usarmos promises, o código transcompilado continuará a não funcionar caso o navegador não suporte esse recurso, a mesma coisa da Fetch API que vimos. Nesses casos, é comum misturar o processo de transcompilação com o uso de um ou outro polyfill para tapar aquelas lacunas que o transpiler não consegue.
