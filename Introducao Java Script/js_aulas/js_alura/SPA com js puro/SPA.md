@@ -73,3 +73,5 @@ Uma SPA ou Single Page Application passa a impressão ao usuário que ele está 
 Utilizamos o método `pushState()` que vai adicionar um estado à pilha de histórico de navegação e o evento `onpopstate` que vai retirar o estado da pilha.
 
 Correto! push vem do inglês empurrar ou seja vamos colocar um estado na pilha, e pop no nosso contexto quer dizer retirar um estado da pilha.
+
+O link do projeto final pode ser visto [aqui](https://github.com/alura-cursos/spa_js/tree/projeto_final)

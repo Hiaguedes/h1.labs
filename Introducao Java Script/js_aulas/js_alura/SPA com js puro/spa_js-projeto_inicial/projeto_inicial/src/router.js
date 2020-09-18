@@ -1,12 +1,13 @@
-const { default: initCadastro } = require("./componentes/cadastro/componente-cadastro");
 
-//import initCadastro from './componentes/cadastro/componente-cadastro.js';
+import initCadastro from './componentes/cadastro/componente-cadastro.js';
 import  initTabela  from './componentes/lista/listagem-cliente.js';
+import inicializaFormEdicao from './componentes/edita/form-edicao.js'
 
 
 const rotas = {
     "/": initTabela,
-    "/cadastro":  initCadastro
+    "/cadastro":  initCadastro,
+    "/edita": inicializaFormEdicao
 };
 
 const rootDiv = document.querySelector('[data-container]');
