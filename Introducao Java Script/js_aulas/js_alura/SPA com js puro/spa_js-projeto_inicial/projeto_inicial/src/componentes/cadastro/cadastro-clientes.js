@@ -1,6 +1,9 @@
-const formCadastroCliente = document.querySelector("[data-form]")
+import validaCPF from '../valida/validaCPF.js';
+import {cadastrarClientes} from '../../api/cliente.js';
 
-formCadastroCliente.addEventListener("submit",
+
+ const eventoEnviar = (form) => {
+    form.addEventListener("submit",
     event => { 
         event.preventDefault()
 
@@ -12,8 +15,11 @@ formCadastroCliente.addEventListener("submit",
             } else { 
                 alert('O CPF não é válido')
             }
-           
-        
-        
+
     }
 )
+}
+
+
+
+export default eventoEnviar

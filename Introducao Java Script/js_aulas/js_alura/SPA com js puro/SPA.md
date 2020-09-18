@@ -45,3 +45,23 @@ Se tiver problema com o cors use o live-server que é sem ko
 ## Modularizando componentes com o webpack
 
 O webpack se faz muito presente em todos os frameworks modernos
+
+Fica o convite para a aula de webpack que eu já fiz e um resumo do que precisa no arquivo webpack.config.js na pasta do cliente aqui nesse repositório
+
+Aprendemos que por padrão o webpack só entende arquivos JavaScript. O que devemos fazer para que ele possa "entender" outras extensões de arquivos como .css e imagens.
+
+Devemos instalar e configurar os loaders, são eles que irão converter os arquivos em módulos válidos.
+
+Exatamente!!, são os loaders que fazem essa conversão de arquivos.
+
+Nessa aula vimos como funciona a refatoração na prática. Quais as vantagens que essa prática traz no nosso dia a dia como desenvolvedoras e desenvolvedores?
+
+A refatoração auxilia na manutenção, legibilidade do código e facilita a adição de novas funcionalidades na aplicação
+
+Correto! refatoração é um processo contínuo visando manter a saúde da nossa aplicação.
+
+### Informação importante
+
+Nesse projeto também colocamos a tabela de forma modularizada no webpack
+
+## Criando rotas

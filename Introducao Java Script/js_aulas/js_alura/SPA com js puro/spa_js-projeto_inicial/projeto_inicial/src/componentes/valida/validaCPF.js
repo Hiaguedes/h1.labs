@@ -55,10 +55,12 @@ function verificaSegundoDigito(cpf){
     )
 }
 
-function validaCPF(cpf){
+ function validaCPF(cpf){
     return(
         verificaPrimeiroDigito(cpf)&&
         verificaSegundoDigito(cpf)&&
         verificaCPFInvalidos(cpf)
     )
 }
+
+export default validaCPF;
