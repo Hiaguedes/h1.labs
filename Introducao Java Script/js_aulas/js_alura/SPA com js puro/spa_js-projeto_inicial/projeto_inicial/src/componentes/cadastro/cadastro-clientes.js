@@ -20,6 +20,4 @@ import {cadastrarClientes} from '../../api/cliente.js';
 )
 }
 
-
-
-export default eventoEnviar
+export default eventoEnviar;

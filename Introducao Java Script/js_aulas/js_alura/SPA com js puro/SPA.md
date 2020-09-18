@@ -65,3 +65,11 @@ Correto! refatoração é um processo contínuo visando manter a saúde da nossa
 Nesse projeto também colocamos a tabela de forma modularizada no webpack
 
 ## Criando rotas
+
+O código está em router.js
+
+Uma SPA ou Single Page Application passa a impressão ao usuário que ele está dentro de um aplicativo, ou seja, somente algumas partes da aplicação atualizam quando necessárias. Qual alternativa foi utilizada para simular esse comportamento na nossa aplicação?
+
+Utilizamos o método `pushState()` que vai adicionar um estado à pilha de histórico de navegação e o evento `onpopstate` que vai retirar o estado da pilha.
+
+Correto! push vem do inglês empurrar ou seja vamos colocar um estado na pilha, e pop no nosso contexto quer dizer retirar um estado da pilha.
