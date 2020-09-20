@@ -18,6 +18,8 @@ Esse programa vai baixar uma penca de dependencias (para cacete mesmo) e vai dei
 
 **A finalidade do react é criar interfaces para o usuário (UI)**
 
+Podemos ver a aplicação com `npm start`
+
 ## Limpando a casa
 
 Muito normal que quando estivermos criando o app que ele nos dê (até para nos impressionar no começo) códigos a mais desnecessários e que não farão parte da aplicação final, então podemos apagar o html dentro do app.js, arquivos de teste, service worker e coisa do tipo
@@ -39,6 +41,26 @@ This funny tag syntax is neither a string nor HTML.
 It is called JSX, and it is a syntax extension to JavaScript. We recommend using it with React to describe what the UI should look like. JSX may remind you of a template language, but it comes with the full power of JavaScript.
 
 JSX produces React “elements”. We will explore rendering them to the DOM in the next section. Below, you can find the basics of JSX necessary to get you started.
+
+Por padrão o jsx não compila dois elementos irmãos no html como
+
+```html
+<section>
+</section>
+<ul>
+</ul>
+```
+
+Para fazer com que isso funcione em tenho que encapsular os dois dentro de uma tag só como:
+
+```html
+<div>
+    <section>
+    </section>
+    <ul>
+    </ul>
+</div>
+```
 
 ### React e react
 
@@ -68,3 +90,111 @@ ReactDOM.render(
 ```
 
 óia o seletor lá.
+
+## Criando uma component, alias o que é component?
+
+Se formos ver o app.js é nada mais que uma generalização de um pequeno código html para dentro de um elemento JSX
+
+E podemos dividir uma componente usando componentes menores como em:
+
+```js
+import React, {Component} from 'react';
+
+class ListaNotas extends Component {
+ render(){
+     return(    
+     <header>
+        <h3>Título</h3>
+        <p>Escreva a nota</p>
+      </header>)
+ }
+}
+
+export default ListaNotas;
+```
+
+E importando isso para dentro de apps com:
+
+```js
+import ListaNotas from './components/ListaNotas'
+```
+
+E aplicando dentro de app com:
+
+```js
+function App() {
+  return (
+    <section>
+    <form>
+      <input type="text" placeholder="Título"/>
+      <textarea cols="50" rows="5" placeholder="Escreva a sua nota..."></textarea>
+      <button>Criar a Nota</button>
+    </form>
+    <ListaNotas/>
+    </section>
+  );
+}
+```
+
+Note que o arquivo pode estar escrito como js ou como jsx, tanto faz.
+
+Com a tag `<ListaNotas/>` que é o nome da classe e que dentro dela tem a função `render`
+
+Quando estamos criando uma página web é comum termo partes dessa aplicação que precisem ser repetidas para que o layout final fique como o esperado.
+
+Pensando nisso o React tem uma abordagem diferente em relação a como ele gera o HTML final para o navegador. Quais as vantagens da utilização de componentes para criação de interfaces?
+
+Ao usarmos componentes podemos reutilizar as diferentes partes do Layout de maneira mais simples do que se tivéssemos que reescrever a árvore de HTML novamente
+
+Isso mesmo, com essa abordagem temos menos duplicação de código dentro do nosso sistema.
+
+Essa abordagem permite a composição de diversos componentes para a criação de um comportamento complexo, isso facilita a compreensão do código
+
+Exatamente, a criação de componentes pequenos facilita na compreensão do código como um todo.
+
+Como cada componente tem um nome que a equipe desenvolvendo o sistema definiu é possível abstrairmos partes do código para que a comunicação entre o time melhore
+
+Sim, em projetos com equipes é muito normal usarmos termos que fazem sentido apenas dentro do contexto do projeto e isso ajuda a equipe a ter uma comunicação mais eficiente.
+
+Nesse sentido, nomes de classes, funções e variáveis que usamos no projeto são muito importantes
+
+## Dica de ouro!
+
+Instale no visual code a extensão Simple React Snippets ele facilita muito a criação de um component, basta digitar im ou imrc para importar o react ou importar o react com o component e cc para criar o resto.
+
+Temos a function componentes e a class componentes, a function é mais nova e você querer ela ou não
+
+## Colocando js na aplicação
+
+Dentro do JSX conseguimos colocar código javaScript dentro de chaves
+
+Então uma forma de termos uma função js para gerar uma função com js é com
+
+```jsx
+ render(){
+     return(    
+        <ul>
+         {this.Array.map( categoria => {
+        return(
+            <section>
+                <h3>{categoria}</h3>
+                <p>Escreva a nota</p>
+            </section>
+        )}
+        )}
+         
+      </ul>
+      );
+ }
+```
+
+Com `this.Array` sendo declarado no construtor da classe com
+
+```js
+    constructor(){
+        super();
+        this.Array= ['Estudo', 'Trabalho', 'Lazer'];
+    }
+```
+
+Para usarmos algumas coisas de uma classe o react pede para termos o `super()`

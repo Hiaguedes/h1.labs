@@ -1,9 +1,17 @@
-import React from 'react';
+import React , {Component} from 'react';
+import ListaNotas from './components/ListaNotas';
+import FormCadastro from './components/FormCadastro'
 
-function App() {
+class App extends Component {
+  
+  render(){
   return (
-    <h1>Aplicação React</h1>
+    <section>
+    <FormCadastro/>
+    <ListaNotas/>
+    </section>
   );
+  }
 }
 
 
