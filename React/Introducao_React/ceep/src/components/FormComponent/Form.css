@@ -1,0 +1,26 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(200,200,200,0.8);
+}
+
+.form__text-area{
+    width:70%;
+    margin: 0 5rem;
+}
+
+.form__titulo{
+    margin: 1rem 5rem;
+    width: 60%;
+    height: 1.5rem;
+}
+
+.form__button{
+    width: 30%;
+    margin: 1rem 5rem;
+    background-color: rgb(109, 111, 114);
+    color: aliceblue;
+    border-radius: 5%;
+    padding: 1rem;
+    border: none;
+}

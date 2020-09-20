@@ -1,0 +1,15 @@
+.content{
+    display: grid;
+    grid-template-areas: "form-cadastro" "lista-notas";
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 100vh;
+
+}
+
+.form-cadastro{
+    grid-area: form-cadastro;
+}
+.lista-notas{
+    grid-area: lista-notas;
+}
+

@@ -1,0 +1,16 @@
+.card__individual {
+    margin: 1rem 2rem;
+    border: 1px solid rgba(200,200,200,0.9);
+}
+
+.card__titulo{
+    font-size: 2rem;
+    padding: 1rem 0.5rem;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.card__desc{
+    padding: 0 0 0.5rem 0.5rem;
+    color: rgb(85, 85, 85)
+}

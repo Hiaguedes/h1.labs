@@ -198,3 +198,13 @@ Com `this.Array` sendo declarado no construtor da classe com
 ```
 
 Para usarmos algumas coisas de uma classe o react pede para termos o `super()`
+
+## Só que nossos componentes tão muito feios
+
+Dá para aplicar um css nisso ai? Dá e de maneira muito maneira pois assim como componetizamos os pedaços da nossa página nós também podemos importar css específicos para isso podemos colocar os componentes dentro de pastas e colocarmos um import do css com:
+
+```js
+import './estilos.css';
+```
+
+Com a parte que uma classe css é melhor sendo declarada com `className` já que definimos a classe do componente com essa mesma palavra, então para não haver esse choque de palavras colocamos className

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './estilos.css';
 
 class ListaNotas extends Component {
     constructor(){
@@ -8,12 +9,12 @@ class ListaNotas extends Component {
 
  render(){
      return(    
-        <ul>
-         {this.Array.map( categoria => {
+        <ul className="card">
+         {this.Array.map( (categoria,index) => {
         return(
-            <section>
-                <h3>{categoria}</h3>
-                <p>Escreva a nota</p>
+            <section className="card__individual" key={index}>
+                <h3 className="card__titulo">{categoria}</h3>
+                <p className="card__desc">Escreva a nota</p>
             </section>
         )}
         )}
