@@ -257,3 +257,64 @@ Quando passamos a referência a função `handleTitle`, com mais precisão o `th
 ```
 
 Assim dessa forma eu garanto que o objeto a ser instanciado é a própria classe, isso é um erro bem comum no react e que o dev deve (hue) ficar de olho
+
+## Passando dados de uma classe filha para a mãe
+
+Como o react costuma componetizar componentes menores e linkando esse componentes em um sistema mãe e filha é normal querermos passar componentes que estão nessas classes filhas para as mães sem nenhum problema, e para isso temos as `props` que são declaradas na classe filha da seguinte forma
+
+```jsx
+    constructor(props){
+        super(props);
+        this.titulo="";
+        this.nota="";
+    }
+```
+
+Com isso "habilitamos" a transferencia de propriedades da classe filha agora para capturar esses dados fazemos:
+
+```js
+    criarNota(e){
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('criando nota');
+        this.props.criarNota(this.titulo,this.nota)
+    }
+```
+
+Dessa forma colocamos no objetos props um método chamado criarNota que vai ser usado na classe mãe e que envelopa o `this.titulo` e `this.nota` definido no construtor dessa classe. Agora vamos para a classe mãe receber a transferencia desses valores.
+
+Na classe mãe criamos um método com o mesmo nome que será:
+
+```js
+  criarNota(titulo,nota){
+    console.log(titulo, nota)
+  }
+```
+
+Onde apenas colocaremos o que está sendo transferido na filha dentro do console
+
+E no onde criamos a instância da classe mãe fazemos
+
+```jsx
+<FormCadastro className="form-cadastro" criarNota={this.criarNota}/>
+```
+
+Onde chamamos a função dessa instância dessa forma a cada vez que formos chamar essa função.
+
+Nesse [link](https://stackoverflow.com/questions/30571875/whats-the-difference-between-super-and-superprops-in-react-when-using-e) vemos pq passar o `props` no constructor
+
+## States
+
+No decorrer do projeto, utilizamos state e props para compor a lógica da nossa aplicação, marque abaixo a alternativa que descreve a diferença entre esses dois objetos.
+
+State: Serve para guardar valores/estado que podem vir a mudar com a interação do usuário com o componente, tendo efeito na renderização do mesmo, o state pode ser passado como props!
+
+Props: Valores para a configuração de um componente, essas props são passadas pelo elemento acima (que utiliza o componente que irá receber) e são imutáveis, utilizado para a comunicação de componentes.
+
+Alternativa correta! Esse é justamente o uso desses dois objetos, Props para configuração de componentes e State armazenando estado/valores!
+
+Entenda o state como uma forma de atualizar a tela do usuário sem precisar renderizar toda a tela (pois isso demandaria muitos recursos do computador do usuário, render mesmo é só uma vez), o state quando atualizado atualiza a tela do usuário
+
+Os arquivos do curso podem ser vistos [aqui](https://github.com/alura-cursos/1817-react-classes/tree/aula5)
+
+Lembrando esse é o primeiro curso
