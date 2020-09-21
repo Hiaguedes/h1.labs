@@ -208,3 +208,52 @@ import './estilos.css';
 ```
 
 Com a parte que uma classe css é melhor sendo declarada com `className` já que definimos a classe do componente com essa mesma palavra, então para não haver esse choque de palavras colocamos className
+
+## Perdemos contexto ao tratar o html dentro de uma classe?
+
+Quando tinhamos as coisas separadas em js,css e html era comum termos uma classe js que podia ser chamado ou não no html com um evento em
+
+```js
+onchange="negCtrl.add(event)"
+```
+
+Onde declaramos a classe negociação controller em
+
+```js
+const negCtrl = new negociacaoController();
+```
+
+E esse negCtrl é a instancia da classe e que será passada para dentro de qualquer função que essa classe tenha, pois ela é uma instância da classe. Perfeito, quando temos esse html dentro da classe, a atribuição da classe pode ser feita com o `this` e isso não é novidade para ninguém que conheça um pouco de js.
+
+Ok, vamos fazer o que fazemos no html ao passar um evento como o `onchange` para nos mostrat o que está sendo digitado no input em um campo como em
+
+```js
+    handleTitle(e){
+        this.titulo = e.target.value;
+        console.log(this.titulo)
+    }
+```
+
+Onde `this.titulo` foi declarado no construtor como uma string vazia e o nosso render encontra-se como
+
+```jsx
+    render(){
+        return(    
+        <form className="form">
+            <input type="text" placeholder="Título" className="form__titulo" onChange={this.handleTitle}/>
+            <textarea cols="50" rows="15" placeholder="Escreva a sua nota..." className="form__text-area"></textarea>
+            <button className="form__button">Criar a Nota</button>
+        </form>
+          );
+    }
+```
+
+Note que o `onchange` é o evento que capta qualquer mudança nesse input, porém ao executarmos esse código nós teremos um erro mas porque?
+
+Quando passamos a referência a função `handleTitle`, com mais precisão o `this` de `this.handleTitle` está sendo chamado em outro contexto no caso dentro da função `render()` de forma que o this fica indefinido, para associar esse this ao objeto que o criou eu precio fazer o `bind` como em:
+
+```jsx
+<input type="text" placeholder="Título" className="form__titulo" onChange={this.handleTitle.bind(this)}/>
+```
+
+Assim dessa forma eu garanto que o objeto a ser instanciado é a própria classe, isso é um erro bem comum no react e que o dev deve (hue) ficar de olho
