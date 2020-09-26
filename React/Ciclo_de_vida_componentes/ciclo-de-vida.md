@@ -91,4 +91,24 @@ Isso mesmo! Ao renderizar um elemento o React também renderiza novamente os ele
 
 ## Probelmas de guardar tudo no state
 
-Imagina que sua aplicação vai crescendo e tudo que é de estado fica dentro do state em `App.js` quando um componente mudar, todo o objeto é reescrito e por isso mais e mais recursos da máquina vão reescritos sem necessidade. Isso acarreta em um custo de performance
+Imagina que sua aplicação vai crescendo e tudo que é de estado fica dentro do state em `App.js` quando um componente mudar, todo o objeto é reescrito e por isso mais e mais recursos da máquina vão reescritos sem necessidade. Isso acarreta em um custo de performance. Então o interessante é termos uma forma de atualizarmos somente aquilo que é necessário para não comprometer a aplicação toda
+
+### O padrão Observable (e as notificações do seu facebook)
+
+Então o certo a se fazer é capar o state do app.js e chamar classes (que são chamadas de fonte de dados) que vão cuidar da view para a gente, mas como fazer isso se o state é responsável por atualizar a tela para a gente?
+
+O padrão observable consiste em mudanças de acontecimentos de uma determinada fonte de dados, se essas mudanças forem feitas e eventos estiverem inscritas a receber essas mudanças então elas serão notificadas para isso, e dependendo do fluxo de dados o objeto pode se desinscrever ou não daquela fonte. Esse método simples e muito útil é chamado de Observable
+
+Ações como o de se inscrever são ações que causam efeitos no código, pois se eu me inscrevo automaticamente eu tenho que ser capaz de me desinscrever e por isso eu não inscrevo uma elemento no construtor e sim no `ComponentDidMount` que é relacionado com como o React renderiza as coisas por trás dos panos
+
+Todos componentes que criamos para uma aplicação React são gerenciados pelo próprio React, porém ele nos da acesso para colocarmos a execução de código em determinados momentos do ciclo de vida do React. Um desses pontos de acesso é o método componentDidMount.
+
+Quando o componentDidMount é chamado e o que podemos fazer dentro desse método?
+
+Esse método é chamado assim que o componente é criado e está pronto, é dentro desse método que devemos iniciar chamadas para API ou executar código que tem efeito colateral.
+
+Sim, nesse momento do ciclo de vida o React já nos deixar chamar a função setState e dessa maneira podemos atualizar o componente com o retorno de uma chamada para APIs por exemplo.
+
+Para desisncrever temos o component will Unmount, e ele é usado no processo de desmontagem
+
+O conteúdo completo pode ser visto [aqui](https://github.com/alura-cursos/1841-react-observable/tree/aula5)
