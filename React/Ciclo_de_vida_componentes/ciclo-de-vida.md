@@ -80,3 +80,15 @@ Qual é um bom exemplo de uso do State?
 Um array de nomes que será preenchido pelos dados que vierem de uma API.
 
 É isso mesmo! Como o estado serve para guardar valores que podem vir a mudar com a interação do usuário com o componente (por exemplo, ao consumir e alterar os dados que existem na API) e que tem efeito na renderização do mesmo (para que o Virtual DOM possa se encarregar de recarregar esse componente se necessário), esse é um ótimo uso!
+
+Dentro dos componentes temos um atributo especial que é o state normalmente usamos ele para guardar informações mutáveis do nosso elemento ao invés de usarmos atributos "comuns" de classes do JS.
+
+Porque preferimos guardar informações mutáveis dentro do state e não fora dele?
+
+Preferimos guardar informações mutáveis dentro do state porque ao fazermos isso o React cuida de fazer uma nova renderização do componente, e vemos as informações serem atualizadas no DOM
+
+Isso mesmo! Ao renderizar um elemento o React também renderiza novamente os elementos filhos daquele o qual o state foi alterado.
+
+## Probelmas de guardar tudo no state
+
+Imagina que sua aplicação vai crescendo e tudo que é de estado fica dentro do state em `App.js` quando um componente mudar, todo o objeto é reescrito e por isso mais e mais recursos da máquina vão reescritos sem necessidade. Isso acarreta em um custo de performance

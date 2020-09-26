@@ -9,7 +9,7 @@ class ListaDeNotas extends Component {
         {this.props.notas.map((nota, index) => {
           return (
             <li className="lista-notas_item" key={index}>
-              <CardNota apagarNota={this.props.apagarNota} titulo={nota.titulo} texto={nota.texto} indice={index}/>
+              <CardNota apagarNota={this.props.apagarNota} titulo={nota.titulo} texto={nota.texto} indice={index} categoria={nota.categoria}/>
             </li>
           );
         })}
