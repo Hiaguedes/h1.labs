@@ -1,13 +1,28 @@
-.titulo, .texto{
+.titulo{
     text-align: center;
 }
 
-.lista{
-    list-style: none;
-    display: flex;
+.texto{
+    text-align: left;
+    font-size: 20px;
+    font-weight: 450;
 }
 
-.lista_item{
-    margin-right: 1rem;
+.campo-digitacao{
+    font-size: 18px;
+    height: 150px;
+    outline: none;
+}
+
+.campo-digitacao:disabled{
+    background-color: rgb(189, 189, 189);
+}
+
+.certo{
+    border: 3px solid greenyellow;
+}
+
+.errado{
+    border: 3px solid red;
 }
 

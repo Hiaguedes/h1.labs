@@ -1,7 +1,9 @@
 const frase = $('.texto').text();
-const contadorPalavrasTextp = $('[data-contador-palavras-texto]');
+const contadorPalavrasTexto = $('[data-contador-palavras-texto]');
 const campoDigitação = $('.campo-digitacao');
-const tempoDigitacao = $('[data-tempo]').text();
+const tempoDigitacao = $('[data-tempo]');
+const butaoReiniciar = $('[data-reiniciar]');
+const valorTempo =  tempoDigitacao.text().split(' ')[0];
 
 const numeroPalavrasTexto = frase.split(/\s+/g).length;
 
@@ -11,8 +13,9 @@ const temS = numeroPalavras => {
 }
 
 
-contadorPalavrasTextp.text(`${numeroPalavrasTexto} palavra${temS(numeroPalavrasTexto)}`)
+contadorPalavrasTexto.text(`${numeroPalavrasTexto} palavra${temS(numeroPalavrasTexto)}`)
 
+const handleUpdateWordAndCharCounter = ()=>{
 campoDigitação.on('input',(e) => {
     let qtdLetras = e.target.value.split('').length;
     let qtdPalavras = e.target.value.split(/\s+/g).filter(n => n != '').length;
@@ -21,9 +24,11 @@ campoDigitação.on('input',(e) => {
     $('[data-contador-letras-textArea]').text(`${qtdLetras} letra${temS(qtdLetras)}`);
     $('[data-contador-palavras-textArea]').text(`${qtdPalavras} palavras${temS(qtdPalavras)}`);
 })
+}
 
+const handleUserInput = () => {
 campoDigitação.one('focus', e => { 
-    let tempo = tempoDigitacao.split(' ')[0];
+    let tempo = valorTempo;
     
     const id=setInterval(()=> {
         tempo--;
@@ -34,4 +39,34 @@ campoDigitação.one('focus', e => {
             clearInterval(id);
         } 
     },1000 )
+})
+}
+
+campoDigitação.on('input',() => {
+    let fraseDigitada = campoDigitação.val();
+    let comparavel = frase.substr(0,fraseDigitada.length);
+    
+    fraseDigitada == comparavel ? 
+    (campoDigitação.addClass('certo'),campoDigitação.removeClass('errado')) : 
+    (campoDigitação.addClass('errado'),campoDigitação.removeClass('certo'))
+})
+
+const handleResetGame = ()=> {
+butaoReiniciar.on('click', () => {
+    campoDigitação.attr("disabled",false);
+    campoDigitação.val('');
+
+    tempoDigitacao.text(`${valorTempo} segundos`);
+    $('[data-contador-letras-textArea]').text('0 letras')
+    $('[data-contador-palavras-textArea]').text('0 palavras');
+    handleUserInput();
+    campoDigitação.removeClass('errado');
+    campoDigitação.removeClass('certo');
+})
+}
+
+$(document).ready( ()=> {
+    handleUpdateWordAndCharCounter();
+    handleResetGame();
+    handleUserInput();
 })

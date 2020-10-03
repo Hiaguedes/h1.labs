@@ -167,3 +167,45 @@ campoDigitação.attr('disabled',true);
 ```
 
 Onde o disabled do text area não recebe um valor (que é o segundo parâmetro) então apenas colocamos ele como verdadeiro, muito parecido com o dataset
+
+## Simplificando mais ainda os eventos
+
+Eventos comuns como click, focus, blur podem ser chamados com
+
+```js
+elemento.click(() => {
+
+})
+```
+
+## Uma alternativa pro window.load
+
+Para inicializar funções no momento que a página foi carregada temos o `$(document).ready(() => {})` ou a forma mais famosa que é
+
+```js
+$(() => {
+
+})
+```
+
+Sem a necessidade do `document.ready` e é um atalho bem interessante
+
+## Estilos do css
+
+Podemos alterar o estilo do css com a função advinha? `.css` mas não é bom alterar o style no js e sim adicionar uma classe a ela e para isso temos o equivalente ao `classList.add` com `addClass`
+
+Devemos usar a função `css()` do jQuery que recebe o nome da propriedade:
+
+`var cor = $("div").css("background-color");`
+
+Também é possivel recuperar mais de um valor passando um array de propriedades, por exemplo:
+
+```js
+var valores = $("div").css(["background-color","width"]);
+```
+
+O resultado é um objeto que possui todos os valores. Por exemplo para acessar o width podemos escrever:
+
+```js
+valores.width
+```
