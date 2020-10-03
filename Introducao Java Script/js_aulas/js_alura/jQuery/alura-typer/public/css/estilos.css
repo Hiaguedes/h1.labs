@@ -1,0 +1,13 @@
+.titulo, .texto{
+    text-align: center;
+}
+
+.lista{
+    list-style: none;
+    display: flex;
+}
+
+.lista_item{
+    margin-right: 1rem;
+}
+

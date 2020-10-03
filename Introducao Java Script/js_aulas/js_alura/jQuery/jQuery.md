@@ -18,6 +18,8 @@ Dominá-la é essencial para se tornar um profissional front-end completo e este
 
 Olha, com tantos frameworks sendo utilizados como o React, Angular e outros. pode se afirmar que sim o jQuery deu uma boa diminuida, uma pesquisada no google analytics nos mostra que o jQuery está em puro declínio, até por que o React por exemplo soluciona problemas muito mais estruturais e de repetição de arquitetura do que o jQuery, só que um dos motivos de fazer esse curso é que muitas dúvidas que eu tenho em js tem solução (em um stackOverflow da vida) em um código em jQuery. E como sempre tem que respeitar a histórias das tecnologias saber sobre o jQuery acaba entrando na mesma laia que saber um pouco sobre o gulp.
 
+Além de que muitos projetos existentes ainda o utilizam, então estranhar essa tecnologia não é uma boa coisa
+
 Fora que algumas APIs acabam recomendando o uso do jQuery, uma vez que ele abstrai bem o ajax (mesmo que o fetch solucione muito os problemas, com o problema de navegadores mais antigos nem saberem o que é isso)
 
 ## Usando o jQuery nos projetos
@@ -54,3 +56,114 @@ ou a mais comum que é utilizando o atalho conhecido para a função jQuery, o $
 `$();`
 
 Como este segundo modo é muito mais fácil de digitar e muito mais utilizado no mercado de desenvolvimento Web, é ele que utilizaremos ao longo deste treinamento.
+
+O jQuery não retorna exatamente o elemento como no javaScript, ele retorna um objeto que contém algumas funções a mais.
+
+Para pegar um texto (o textContent) apenas colocamos `$('.classe').text()` e para atribuir `$('.classe').text('blabla')`
+
+A programadora Ana está montando um site que tem como objetivo ser o template para a sua primeira página. O HTML do template está com essa cara:
+
+```html
+<body>
+    <h1> Meu primeiro website! </h1>
+    <p>Olá, eu sou a <span id="nome">Ana</span> e estou aprendendo  o básico sobre desenvolvimento Web.</p>
+
+    <script src="jquery.js"></script>
+    <script src="main.js"></script>
+</body>
+```
+
+E acompanha, além do jQuery, o seguinte Javascript:
+
+```js
+//main.js
+
+var nome = $("#nome");
+console.log("Seu nome é:" + nome );
+```
+
+Ana gostaria que no console fosse exibido o nome que está no HTML, ficando assim: Seu nome é Ana
+
+Porém o resultado é :Seu nome é:`[object Object]`
+
+Qual alternativa abaixo corrige o erro de Ana ?
+
+Se queremos ter acesso ao contéudo textual de um elemento selecionado pelo jQuery, devemos utilizar a função .text(), que nos retorna exatamente isto.
+
+Neste exemplo, Ana até selecionou corretamente o elemento, porém pecou tentando imprimir o elemento em si, e não seu texto.
+
+O método `text` muda o que está escrito lá dentro também
+
+## Mas e se precisarmos dar suporte ao IE 8 e versões antigas?
+
+Se você está desenvolvendo algum tipo de sistema que deve atender o máximo de usuários possíveis, talvez seja bom você utilizar uma versão especial do jQuery: a versão 1.12.
+
+Esta versão específica do jQuery ficou muito famosa, e recebe updates até hoje. Ela é focada para dar suporte aos navegadores antigos, como Internet Explorer 6-8, Opera 12.1x ou Safari 5.1+.
+
+## Escutador de eventos no jQuery
+
+Invés de usar addEventListener você usa algo como
+
+```js
+$('.campo-digitacao').on('input',(e) => {
+
+})
+```
+
+Simples assim, o on tem a mesma semântica que o addEventListener, no primeiro argumento você coloca o tipo do evento e no segundo parâmetro a função anônima ou a função nomeada
+
+## .text() e .val()
+
+É valor ou texto ?
+
+Sobre as funções .val() e .text() , quais ou qual das afirmativas abaixo está certa?
+
+A função .text() pode ser usada para pegar de elementos como `<h1>, <span> e <p>.`
+
+A função .val() pode ser usada para pegar de elementos como` <input>, <textarea> e <select>.`
+
+As funções .val() e .text() servem tanto para alterar como para pegar o valor do texto de elementos.
+
+Ambas as funções .val() e .text() podem manipular os valores de texto dos elementos, mas a .val() funciona em elementos de `<input>` que são campos aonde o usuário do site insere dados , como os campos de `<input>`(todos os tipos), `<textarea> e <select>`.
+
+Já a função .text() pega o conteúdo de texto de tags HTML que tem texto dentro, como as `<h1>, <span> e <p>`
+
+Ambas as funções podem atribuir novos valores a determinados elementos, ou apenas pegar os valores deles.
+
+## one para escutar o evento apenas uma vez
+
+Podemos limitar o escutador de eventos para escutar apenas uma vez, não toda vez que aquele evento ocorrer, para isso invés de chamar o `on` chamamos o `one` como em
+
+```js
+ampoDigitação.one('focus', e => {})
+```
+
+Um equivalente para o js vanilla é:
+
+```js
+document.getElementById('btn').addEventListener('click', () => {
+  console.log('Hello and goodbye');
+}, {
+  once: true,
+});
+```
+
+Um dia testarei isso
+
+Sobre as funções .one() e .on() do jQuery, marque as afirmativas verdadeiras:
+
+Ambas as funções servem para escutar eventos com jQuery.
+
+A função .one() possuí a mesma sintaxe da função .on().
+
+A função .one() só escuta o evento por uma vez, e a função .on() continua escutando os eventos indefinidamente.
+
+## Setar um atributo com o attr
+
+Invés de usarmos dataset ou setAttribute podemos colocar um atributo como em
+
+```js
+campoDigitação.attr('disabled',true);
+```
+
+Onde o disabled do text area não recebe um valor (que é o segundo parâmetro) então apenas colocamos ele como verdadeiro, muito parecido com o dataset
