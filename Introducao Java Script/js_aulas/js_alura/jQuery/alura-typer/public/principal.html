@@ -28,18 +28,33 @@
 
     <ul class="lista center">
         <i class="small material-icons">description</i><li class="lista_item" data-contador-palavras-texto></li>
-        <i class="small material-icons">query_builder</i><li class="lista_item" data-tempo>10 segundos</li>
+        <i class="small material-icons">query_builder</i><li class="lista_item" data-tempo>3 segundos</li>
     </ul>
 
     <textarea name="" class="campo-digitacao" cols="50" rows="10"></textarea>
     <div class="butoes">
         <a class="btn-floating btn-large waves-effect waves-light red" data-reiniciar><i class="material-icons">restore</i></a>
     </div>
+    <input type="text" data-nome value="UserAnon">
    
     <ul class="center">
         <li data-contador-letras-textArea>Nenhuma letra escrita</li>
         <li data-contador-palavras-textArea>Nenhuma palavra escrita. Escreva o texto que está abaixo do Alura Typer :)</li>
     </ul>
+    <section class="placar" data-placar>
+        <h3 class="center">Placar</h3>
+        <table class="centered bordered">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Número de palavras</th>
+                    <th>Remover</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
 </main>
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"

@@ -209,3 +209,67 @@ O resultado é um objeto que possui todos os valores. Por exemplo para acessar o
 ```js
 valores.width
 ```
+
+## append para colocar um código html
+
+Invés do innerHTML usamos o append e podemos usar ele da seguinte forma
+
+```js
+const inserePlacar = (nome,pontuacao) => {
+    let corpoTabela = $('[data-placar]').find('tbody');
+    console.log(corpoTabela)
+    corpoTabela.append(`
+    <tr>
+        <td>${nome}</td>
+        <td>${pontuacao}</td>
+    </tr>
+    `)
+
+}
+```
+
+Além do append temos a prepend, a append adiciona no final enquanto a prepend adiciona antes de todo o conteúdo que está lá
+
+O find é uma busca de um elemento que está dentro do que você acabou de selecionar
+
+## Criar um objeto jQuery
+
+Caso eu queira utilizar um this esse this não é do jQuery e sim do js e para fazer com que ele receba as funções do jQuery eu faço
+
+```js
+$(this). blablabla
+```
+
+## Outras coisas interessantes
+
+Podemos pegar o elemento pai do elemento com o `parent()` e remover com o `remove()`, alem de que podemos adicionar eventos no momento que criamos uma linha em uma tabela (valido para js puro também) e para isso devemos criar um objeto jQuery como se quiséssemos criar um elemento no documento, com algo como
+
+```js
+$('<tr>')
+```
+
+## Algumas questõeszitas
+
+Dado o seguinte HTML:
+
+`<p id="descricao">jQuery - write less, do more</p>`
+
+e este código Javascript(com jQuery importado previamente):
+
+```js
+$('#descricao').click(function() {
+    //AQUI
+});
+```
+
+Como podemos selecionar o texto do parágrafo no lugar de //AQUI com jQuery?
+
+` var texto = $(this).text();`
+
+Temos que lembrar que dentro de um evento do Javascript e do jQuery, a palavra reservada this sempre se refere ao elemento que sofreu o evento, neste caso ao elemento clicado. Como o elemento clicado é um elemento do HTML, ele se torna um objeto tradicional do Javascript dentro de nosso código. E como já sabemos, a função .text() é exclusiva de objetos jQuery, logo temos de convertê-lo antes.
+
+Para converter um objeto tradicional do Javascript em um objeto jQuery, devemos fazer uso da função jQuery, passando o this para ela, deste modo:
+
+` var texto = $(this).text();`
+
+O link do projeto do módulo 1 do curso de jQuery pode ser visto [aqui](https://s3.amazonaws.com/caelum-online-public/jquery-alura-typer/stages/jquery-modulo-1-final.zip)

@@ -1,3 +1,4 @@
+// TODO separar o código em partes menores
 const frase = $('.texto').text();
 const contadorPalavrasTexto = $('[data-contador-palavras-texto]');
 const campoDigitação = $('.campo-digitacao');
@@ -36,6 +37,7 @@ campoDigitação.one('focus', e => {
         //console.log(tempo) // para ver o tempo rolando
         if(tempo<1){
             campoDigitação.attr('disabled',true);
+            inserePlacar($('[data-nome]').val(), $('[data-contador-palavras-textArea]').text().split(' ')[0])
             clearInterval(id);
         } 
     },1000 )
@@ -64,6 +66,26 @@ butaoReiniciar.on('click', () => {
     campoDigitação.removeClass('certo');
 })
 }
+
+const inserePlacar = (nome,pontuacao) => {
+    let linha = $('<tr>');
+    let corpoTabela = $('[data-placar]').find('tbody');
+
+    let botaoRemover = $('<td>');
+    botaoRemover.attr('data-remove',true);
+    botaoRemover.append(`<i class="material-icons clickable">delete_forever</i>`);
+    linha.append($('<td>').text(nome));
+    linha.append($('<td>').text(pontuacao));
+    linha.append(botaoRemover);
+
+    corpoTabela.prepend(linha)
+
+    botaoRemover.click(() => {
+        linha.remove()
+    })
+
+}
+
 
 $(document).ready( ()=> {
     handleUpdateWordAndCharCounter();
