@@ -1,0 +1,15 @@
+@import url(_var.css);
+@import url(_reset.css);
+@import url(_normalize.css);
+
+html{
+    background-color: var(--laranja);
+}
+
+body{
+    font-family: 'Overpass', sans-serif;
+}
+
+.container {
+    padding: 0 2rem;
+}
