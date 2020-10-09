@@ -44,9 +44,9 @@
                 <h2 class="outros-produtos_titulo">nossos outros produtos</h2>
 
                 <article class="carousel">
-                    <button class="carousel_botao carousel_botao--anterior" aria-label="Botão para ir ao slide anterior"></button>
-                    <button class="carousel_botao carousel_botao--proximo" aria-label="Botão para ir ao próximo slide"></button>
-                    <ul class="carousel_lista-produtos">
+                    <button class="carousel_botao carousel_botao--anterior" data-anterior aria-label="Botão para ir ao slide anterior"></button>
+                    <button class="carousel_botao carousel_botao--proximo" data-proximo aria-label="Botão para ir ao próximo slide"></button>
+                    <ul class="carousel_lista-produtos" data-lista-produtos>
                         <a href="#" class="carousel_produto">
                             <li class="carousel_imagem-container"><img src="./assets/img/produto1.png" alt="" class="carousel_imagem"></li>
                         </a>
@@ -63,12 +63,12 @@
                             <li class="carousel_imagem-container"><img src="./assets/img/produto5.png" alt="" class="carousel_imagem"></li>
                         </a>
                     </ul>
-                    <div class="carousel_indicadores">
-                        <button class="carousel_indicador carousel_indicador--ativo" aria-label="Slide 1"></button>
-                        <button class="carousel_indicador" aria-label="Slide 2"></button>
-                        <button class="carousel_indicador" aria-label="Slide 3"></button>
-                        <button class="carousel_indicador" aria-label="Slide 4"></button>
-                        <button class="carousel_indicador" aria-label="Slide 5"></button>
+                    <div class="carousel_indicadores" data-navegacao>
+                        <button class="carousel_indicador carousel_indicador--ativo" data-slider='0' aria-label="Slide 1"></button>
+                        <button class="carousel_indicador" aria-label="Slide 2" data-slider='1'></button>
+                        <button class="carousel_indicador" aria-label="Slide 3" data-slider='2'></button>
+                        <button class="carousel_indicador" aria-label="Slide 4" data-slider='3'></button>
+                        <button class="carousel_indicador" aria-label="Slide 5" data-slider='4'></button>
                     </div>
                 </article>
             </section>
