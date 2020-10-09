@@ -85,7 +85,7 @@ export class Carousel {
     }
 
     pularParaSlide(e){
-        if(e.targer === e.currentTarget) return;
+        if(e.target === e.currentTarget) return;
 
         const sliderSelecionado = Number(e.target.getAttribute('data-slider'));
         this.vaParaSlide(sliderSelecionado)

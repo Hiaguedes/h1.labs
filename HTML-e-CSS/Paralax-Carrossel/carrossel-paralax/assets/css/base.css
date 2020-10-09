@@ -2,8 +2,17 @@
 @import url(_reset.css);
 @import url(_normalize.css);
 
+html{
+    height: 100vh;
+    overflow: hidden;
+}
+
 body{
     font-family: 'Overpass', sans-serif;
+    perspective: 5px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .container {
