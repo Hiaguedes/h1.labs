@@ -99,3 +99,104 @@ Para isso adicionamos um simples watcher no script com
 `"start": "tsc -w"`
 
 E por se tratar do start podemos escrever direto no terminal com `npm start` e assim ele começa a compilação em modo watch, e a cada vez que atualizarmos um ts temos a compilação automática
+
+## Os tipos do tiposcript ou typescript
+
+Quando não definimos um tipo para a variável implicitamente é definido o tipo `any`
+
+Como se ele fizesse isso aqui
+
+```ts
+private _inputValor: any;
+```
+
+Note que o tipo é feito depois da variável e não antes e que tem os dois pontos, uma característica um tanto diferente, isso ajuda para quando tivermos migrando um projeto já inteiramente pronto e eu preciso ir fazendo as alterações de forma gradativa, aí não preciso tipar ele por completo
+
+Para forçar a tipagem do projeto eu coloco nas opções do compilador `"noImplicitAny": true`
+
+Quando estamos começando um projeto do zero, a boa prática é desabilitarmos o tipo implícito any e usarmos os tipos corretos em nosso projeto. Contudo, se estamos em um projeto legado que estamos migrando de JavaScript para TypeScript, adotar o tipo implícito any nos ajudará no processo de migração, pois não precisaremos sair tipando todas as variáveis de uma só vez.
+
+Durante nossas aulas, é provável que vocês tenham reparado que o Visual Studio Code, durante o processo de autocomplete, nos permite escolhermos além dos tipos string e number, os tipos String e Number. Há diferença?
+
+Os tipos que começam em minúsculo equivalem a declaração literal. Vejamos um exemplo:
+
+```js
+let nome = 'Flávio';
+let idade = 20;
+```
+
+O TypeScript infere o tipo, sendo assim, a sintaxe é a mesma coisa que:
+
+```js
+let nome: string = 'Flávio';
+let idade: number = 20;
+```
+
+Se fizermos `typeof` nas duas variáveis temos como resultado string e number respectivamente:
+
+```js
+let nome: string = 'Flávio';
+console.log(typeof(nome));  // string
+let idade: number = 20; 
+console.log(typeof(idade));// number
+```
+
+Contudo, JavaScript permite criar strings e números não como literais, mas como objetos:
+
+```js
+let nome = new String('Flávio');
+console.log(typeof(nome)); // Object
+let idade = new Number(20);
+console.log(typeof(idade)); // Object
+```
+
+Qual a diferença?
+
+Os tipos string e number são literais e guardam um valor primitivo. Contudo, se tentarmos chamar algum método em variáveis declaradas com esses tipos, eles são empacotados automaticamente (auto-boxing) para String e Number respectivamente.
+
+É por isso que esse código funciona:
+
+```js
+let nome = 'Flávio';
+nome.replace('/vio/', 'vião'); // faz auto-boxing
+```
+
+Dessa forma, TypeScript permite distinguir entre o tipo literal e o tipo objeto. Contudo, a boa prática é usarmos os tipos literais number e string, porque em JavaScript new String() e new Number() são raramente usados.
+
+## Casting explícito
+
+Em TypeScript, podemos referenciar um dado de um tipo mais especializado através de um tipo mais genérico. Por exemplo:
+
+```js
+let x: Element;
+let y: HTMLInputElement;
+x = y; // funciona!
+```
+
+O código acima é possível, porque todo HTMLInputElement é um Element. O que ocorre é um casting implícito, no qual o desenvolvedor não precisa atuar. Contudo, nem todo Element é um HTMLInputElement.
+
+Por isso não podemos fazer:
+
+```js
+let x: Element;
+let y: HTMLInputElement;
+y = x; // erro
+```
+
+Temos o erro:
+
+Type 'Element' is not assignable to type 'HTMLInputElement'.
+  Property 'accept' is missing in type 'Element'.
+Contudo, quando usarmos document.querySelector() o TypeScript considera que o retorno será sempre do tipo Element. Justo, pois document.querySelector pode retornar um HTMLInputElement, HTMLTableElement, HTMLAnchorElement, etc. O que todos eles possuem em comum, são elementos do DOM, por isso podem ser tratados como Element.
+
+Contudo, Element não expõe propriedades e métodos de cada um dos tipos específicos que listamos no parágrafo anterior e isso pode nos causar problemas em nosso código, por exemplo, para pegar o value de um HTMLInputElement.
+
+Aprendemos que podemos realizar um casting explícito de um tipo mais genérico para um tipo mais específico.
+
+Marque a opção abaixo que realiza corretamente um casting explícito:
+
+`let tabela = <HTMLTableElement> document.querySelector('table');`
+
+Correto! Realizamos o casting explícito de Element para HTMLTableElement. Inclusive, devido ao casting, o TypeScript infere que o tipo de tabela será HTMLTableElement.
+
+O tipo element é o tipo mais geral, enquanto outros elementos do DOM como input, ancora e afins são 'filhos' da classe elemento e definir seus tipos ajuda muito o visual code a identificar as funções que podemos usar para esse elemento
