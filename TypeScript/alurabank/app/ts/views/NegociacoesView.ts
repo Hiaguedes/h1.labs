@@ -1,15 +1,7 @@
 import { ArrayNegociacao } from "../models/ArrayNegociacao";
+import {View} from './View.js';
 
-export class NegociacoesView {
-    private _elemento: Element;
-
-    constructor(seletor: string){
-        this._elemento = document.querySelector(seletor)
-    }
-
-    update(negociacoes: ArrayNegociacao): void{
-        this._elemento.innerHTML = this.template(negociacoes);
-    }
+export class NegociacoesView extends View<ArrayNegociacao>{
 
     template(negociacoes: ArrayNegociacao): string{
 

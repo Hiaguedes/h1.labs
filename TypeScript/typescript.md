@@ -200,3 +200,208 @@ Marque a opção abaixo que realiza corretamente um casting explícito:
 Correto! Realizamos o casting explícito de Element para HTMLTableElement. Inclusive, devido ao casting, o TypeScript infere que o tipo de tabela será HTMLTableElement.
 
 O tipo element é o tipo mais geral, enquanto outros elementos do DOM como input, ancora e afins são 'filhos' da classe elemento e definir seus tipos ajuda muito o visual code a identificar as funções que podemos usar para esse elemento
+
+## Extensão de classes com TS
+
+Mônica decidiu criar um jogo em JavaScript, mas optou por utilizar TypeScript devido aos recursos extras da linguagem. Ela criou três classes:
+
+Humanoide
+Humano
+Alienigena
+Em termos de design, tanto Humano quanto Alienigena são humanóides, por isso herdam dessa classe:
+
+```ts
+class Humanoide {
+
+    private _energia: number = 100;
+    private _nome: string = '';
+
+    get energia() {
+
+        return this._energia;
+    }
+
+    get nome() {
+
+        return this._nome;
+    }
+
+    set nome(nome) {
+
+        this._nome = nome;
+    }
+
+}
+
+class Humano extends Humanoide {
+
+    private _idade: number = 0;
+
+    get idade() {
+
+        return this._idade;
+    }
+
+    set idade(idade) {
+
+        this._idade = idade;
+    }
+}
+
+class Alienigena extends Humanoide {
+
+    private _energiaExtra: number = 100;
+
+    get energia() {
+
+        return this._energia + this._energiaExtra;
+    }
+}
+```
+
+A classe Alienigena não compila
+
+Correto. Ela tenta acessar no através do seu getter get energia() uma propriedade privada da classe pai.
+
+Para reaproveitar variáveis que estão no pai e usar na filha usamos o tipo `protected` invés de `private`
+
+### Tipos genéricos para a classe pai
+
+Fernando utiliza muito o IndexedDB, um banco de dados que vive no próprio navegador. Com forte influência de padrões de projeto, decidiu criar um GenericDAO:
+
+```ts
+class GenericDAO {
+
+    adiciona(objeto: Negociacao): number {
+
+        /* implementação do método omitida */
+    }
+
+    apaga(objeto: Negociacao): void {
+
+        /* implementação do método omitida */
+    }
+
+    buscaPorId(id: number): Negociacao {
+
+        /* implementação do método omitida */
+    }
+
+    atualiza(objeto: Negociacao): void {
+
+        /* implementação do método omitida */
+    }
+
+    listaTodos(): Negociacao[] {
+
+        /* implementação do método omitida */
+    }
+}
+
+// exemplo de uso
+let dao = new GenericDao();
+let negociacao = new Negociacao(new Date(), 1, 200);
+// recebe o ID da negociação gerada
+let id = dao.adiciona(negociacao);
+let negociacaoBuscada = dao.buscaPorId(id);
+```
+
+O código escrito por Fernando não é genérico, pois esta amarrado ao tipo Negociacao. Além disso, o ID do elemento no IndexedDB pode ser um número ou uma string, e esse tipo esta fixo na definição da classe.
+
+Marque a opção que torna a classe realmente genérica, permitindo persistir outros tipos, inclusive a definir um outro tipo de ID.
+
+```ts
+class GenericDAO<T, K> {
+
+    adiciona(objeto: T): K {
+
+        /* implementação do método omitida */
+    }
+
+    apaga(objeto: T): void {
+
+        /* implementação do método omitida */
+    }
+
+    buscaPorId(id: K): T {
+
+        /* implementação do método omitida */
+    }
+
+    atualiza(objeto: T): void {
+
+        /* implementação do método omitida */
+    }
+
+    listaTodos(): T[] {
+
+        /* implementação do método omitida */
+    }
+}
+```
+
+Correto! Pode indicar mais de um tipo genérico. No caso T, será o tipo da classe e K, o tipo do ID.
+
+## classe abstrata para deixar os códigos mais bonitos
+
+Quando eu não implemento a classe pai com um `new Pai()` então eu posso escrever as classes pais e seus métodos que serão sobrescritos com `abstract` como em:
+
+```ts
+export abstract class View<T> {
+    private _elemento: Element;
+
+    constructor(seletor: string){
+        this._elemento = document.querySelector(seletor);
+    }
+
+    update(model: T):void{
+        this._elemento.innerHTML = this.template(model);
+    }
+    
+    abstract template(model: T):string;
+
+}
+```
+
+Deixando o código muito mais limpo e organizado
+
+Eduardo tem que lidar com a geração de boleto bancário para diversos bancos. Contudo, apesar dos boletos serem muito parecidos, cada banco possui um cabeçalho diferente.
+
+Ele decidiu então escrever o seguinte código:
+
+```ts
+class Boleto {
+
+    geraLinhaDigitavel(): string {
+
+        /* lógica comum dos bancos */
+    }
+
+    geraCabecalho(): string {
+
+        throw new Error('Você precisa implementar a cabeçalho');
+    }
+}
+
+class BoletoBancoA extends Boleto {
+
+    geraCabecalho(): string {
+
+        /* lógica de geração do cabeçalho do banco A */
+    }
+
+}
+
+class BoletoBancoB extends Boleto {
+
+    geraCabecalho(): string {
+
+        /* lógica de geração do cabeçalho do banco B */
+    }
+
+}
+```
+
+Marque a afirmativa verdadeira a respeito do código de Eduardo.
+
+Não faz sentido haver instâncias de Boleto, pois a classe não define a implementação de geraCabecalho(). Essa responsabilidade é das classes filhas, mas nada obriga o desenvolvedor a implementá-las em tempo de desenvolvimento e só será avisado caso tenha esquecido de implementá-lo em tempo de execução, no runtime da aplicação.

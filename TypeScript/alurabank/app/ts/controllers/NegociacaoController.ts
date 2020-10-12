@@ -1,6 +1,7 @@
 import { Negociacao } from "../models/Negociacao.js";
 import {ArrayNegociacao} from '../models/ArrayNegociacao.js';
 import { NegociacoesView } from "../views/NegociacoesView.js";
+import { MensagemView } from "../views/MensagemView.js";
 
 export class NegociacaoController {
 
@@ -9,6 +10,7 @@ export class NegociacaoController {
     private _inputValor:HTMLInputElement;
     private _negociacoes = new ArrayNegociacao();
     private _negociacaoView = new NegociacoesView('[data-negociacoes-view]');
+    private _mensagemView = new MensagemView('[data-mensagem]')
 
     constructor() {
         this._inputData = <HTMLInputElement>document.querySelector('[data-data]');
@@ -27,6 +29,7 @@ export class NegociacaoController {
        //this._negociacoes.negociacoesArray.length = 0; // para provar que não altero o array em outra classe
        //this._negociacoes.negociacoesArray.forEach(neg => console.log(neg));
        this._negociacaoView.update(this._negociacoes);
+       this._mensagemView.update('Negociação Adicionada com Sucesso')
     }
     
 }
