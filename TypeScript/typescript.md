@@ -405,3 +405,19 @@ class BoletoBancoB extends Boleto {
 Marque a afirmativa verdadeira a respeito do código de Eduardo.
 
 Não faz sentido haver instâncias de Boleto, pois a classe não define a implementação de geraCabecalho(). Essa responsabilidade é das classes filhas, mas nada obriga o desenvolvedor a implementá-las em tempo de desenvolvimento e só será avisado caso tenha esquecido de implementá-lo em tempo de execução, no runtime da aplicação.
+
+## E se eu quiser usar jQuery com typescript
+
+O simples document.querySelector da massa troca para $, mas o $ no jQuery fica no escopo global e o ts sabe disso? não, então o que posso fazer? Declarar essa variável é uma opção, aí faremos
+
+```ts
+declare var $
+```
+
+E assim o código passa, mas e o textContent que troca para text, o innerHtml que troca para html(), muita coisa e dessa forma estaremos corrompendo o compilador e fazendo com que o visual studio não identifique mais os métodos daquela função, a solução mais simples é o type script definitions ou tsd, que são arquivos que mapeiam os tipos que o typescript deve suportar para cada biblioteca
+
+Esse tsd pode ser escrito pelos autores do typescript ou de terceiros, pelo proprio npm tem types para o jquery no typescript
+
+O tsd é nada mais que um de/para
+
+E para usar você fala que é o tipo `jQuery` invés de `Element` e por aí vai

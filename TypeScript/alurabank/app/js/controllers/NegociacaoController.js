@@ -16,8 +16,6 @@ export class NegociacaoController {
         e.preventDefault();
         const neg = new Negociacao(new Date(this._inputData.value.replace(/-/g, ',')), parseInt(this._inputQuantidade.value), parseFloat(this._inputValor.value));
         this._negociacoes.adiciona(neg);
-        //this._negociacoes.negociacoesArray.length = 0; // para provar que não altero o array em outra classe
-        //this._negociacoes.negociacoesArray.forEach(neg => console.log(neg));
         this._negociacaoView.update(this._negociacoes);
         this._mensagemView.update('Negociação Adicionada com Sucesso');
     }
