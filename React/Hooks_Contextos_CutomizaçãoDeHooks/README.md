@@ -77,3 +77,47 @@ Essa maneira de trabalhar com propriedades é chamada de prop drilling e é cons
 Quando um componente recebe uma propriedade que ele não irá utilizar isso aumenta a complexidade dele sem gerar nenhum benefício. Além disso essa abordagem gera um acoplamento muito grande entre os componentes da aplicação.
 
 Correto! Esse acoplamento muito forte entre os componentes dificulta a reutilização deles.
+
+### Context para utilizar dados vindos do pai e que se usa no neto sem precisar sem que o filho saiba
+
+Para usar um contexto primeiramente eu tenho que criar um contexto dentro de um arquivo em separado da seguinte forma
+
+```jsx
+import React from 'react';
+
+const validacoesCadastro = React.createContext();
+
+export default validacoesCadastro;
+```
+
+Aí tiraremos qualquer passagem de bastão de informação como em ser
+
+```jsx
+                        <DadosUsuario aoEnviar={coletarDados} validacoes={validacoes}/>,
+                        <DadosPessoais aoEnviar={coletarDados} validacoes={validacoes} />,
+                        <DadosEntrega aoEnviar={coletarDados} validacoes={validacoes}/>,
+```
+
+Aqui apenas estamos passando as validacoes e não necessariamente a usando, então capa essa parte `validacoes={validacoes}`
+
+E aí no pai onde se cria a informação nós englobamos o elemento onde queremos contextualizar da seguinte format
+
+```jsx
+        <validacoesCadastro.Provider value={{cpf:validarCPF, senha:validarSenha}}>
+
+            <FormularioCadastro aoEnviar={aoEnviarForm}/>
+        </validacoesCadastro.Provider>
+```
+
+E aí não importa quem for filho de FormularioCadastro, ele vai subir a hierarquia para pegar o valor que no caso é {cpf:validarCPF, senha:validarSenha}
+
+E para utilizarmos esse contexto nós faremos com
+
+```jsx
+import validacoesCadastro from "../../contexts/validacoes";
+import React, { useState, useContext } from "react";
+
+function ... {
+     const validacoes = useContext(validacoesCadastro)
+}
+```
