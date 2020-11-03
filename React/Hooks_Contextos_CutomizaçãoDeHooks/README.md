@@ -121,3 +121,27 @@ function ... {
      const validacoes = useContext(validacoesCadastro)
 }
 ```
+
+Caso você não queira passar o provider por que isso coloca mais complexidade no código você pode passar as informações dentro do createContext como email
+
+```jsx
+const MyContext = React.createContext(defaultValue);
+```
+
+Olhe a documentação do react [aqui](https://reactjs.org/docs/context.html#reactcreatecontext)
+
+Você pode fazer dessa forma já que você está importando o contexto de qualquer forma
+
+## Aquecendo para hooks customizados
+
+Vimos que muito da lógica entre os componentes do formulário estava duplicada e precisávamos fazer uma refatoração para extrair essa lógica. Para isso criamos um hook customizado dentro do nosso projeto. Por que precisamos de um hook e não podemos usar uma função JS padrão para isso?
+
+Precisamos de um hook customizado porque precisávamos utilizar outros o useState e isso só é possível dentro de componentes React ou hooks customizados.
+
+Exatamente, se não fizéssemos isso a abstração criada teria que receber tudo a partir de parâmetros e o código ficaria mais complicado do que usando essa abordagem.
+
+### Agora sobre os hooks customizados
+
+Por padrão todo hook customizado tem que começar com use alguma coisa, e os hooks customizados estão aí para combatermos repetição de código por parte de estados repetidos, hooks repetidos e retornos e funções parecidas, sendo uma ótima para se organizar o código e deixar-lo mais suscinto
+
+Os arquivos da aula podem ser vistos [aqui](https://github.com/alura-cursos/1898-react-multpartForm/tree/aula5)
