@@ -1,18 +1,39 @@
 import React, { useState } from "react";
 import { TextField, Button, Switch, FormControlLabel } from "@material-ui/core";
 
-function DadosPessoais({aoEnviar, validarCPF}) {
+function DadosPessoais({aoEnviar, validacoes}) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [cpf, setCpf] = useState("");
   const [promocoes, setPromocoes] = useState(true);
   const [novidades, setNovidades] = useState(false);
   const [erros, setErros] = useState({cpf:{valido:true, texto:""}})
+
+
+  function possoEnviar(){
+        
+    for(let campo in erros){
+        if(!erros[campo].valido) return false;
+    }
+
+    return true;
+}
+
+  function validarCampos(e){
+        const {name,value} = e.target
+        const ehValido = validacoes[name](value);
+        const novoEstado = {...erros}
+        novoEstado[name] = ehValido;
+        setErros(novoEstado);
+      
+  }
+
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        aoEnviar({nome, sobrenome, cpf, novidades, promocoes});
+
+        possoEnviar() && aoEnviar({nome, sobrenome, cpf, novidades, promocoes});
       }}
     >
       <TextField
@@ -42,11 +63,8 @@ function DadosPessoais({aoEnviar, validarCPF}) {
         onChange={(event) => {
           setCpf(event.target.value);
         }}
-
-        onBlur={(event)=>{
-          const ehValido = validarCPF(cpf);
-          setErros({cpf:ehValido})
-        }}
+        name='cpf'
+        onBlur={e => validarCampos(e)}
         error={!erros.cpf.valido}
         helperText={erros.cpf.texto}
         id="CPF"
@@ -85,7 +103,7 @@ function DadosPessoais({aoEnviar, validarCPF}) {
       />
 
       <Button type="submit" variant="contained" color="primary">
-        Cadastrar
+        Avançar
       </Button>
     </form>
   );

@@ -67,3 +67,13 @@ Isso mesmo, o valor esperado é o valor da variável idade antes dela ser altera
 Quando trabalhávamos com classes no react nós usávamos o ComponentDidMount para saber se o componente era montado e assim poder realizar operações sobre ele, quando falamos de funções no react isso não existe mas existe algo mais poderoso que é o useEffect que faz o componentDidMount, componentDidUpdate e o componentWillUnmount (sendo uma boa para depurar o código com o console.log)
 
 O useEfect aceita dois parâmatros, uma função e um array esse array é usado como atualização dos dados caso algum dos elementos que estejam dentro desse array se atualizem, reescrevendo os setters que estejam dentro da função
+
+## Aquecendo para o context
+
+Da maneira que temos nosso componente FormularoCadastro até esse momento ele recebe algumas propriedades que ele não faz nada com elas, o único que ele faz é repassar essas propriedades para os componentes filhos dele.
+
+Essa maneira de trabalhar com propriedades é chamada de prop drilling e é considerada uma má prática. Reflita sobre o problema e assinale a alternativa que mostra o problema com essa abordagem.
+
+Quando um componente recebe uma propriedade que ele não irá utilizar isso aumenta a complexidade dele sem gerar nenhum benefício. Além disso essa abordagem gera um acoplamento muito grande entre os componentes da aplicação.
+
+Correto! Esse acoplamento muito forte entre os componentes dificulta a reutilização deles.
