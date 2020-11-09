@@ -1,7 +1,6 @@
-import { Negociacao } from "../models/Negociacao.js";
-import {ArrayNegociacao} from '../models/ArrayNegociacao.js';
-import { NegociacoesView } from "../views/NegociacoesView.js";
-import { MensagemView } from "../views/MensagemView.js";
+
+import { ArrayNegociacao, Negociacao } from '../models/index.js';
+import { NegociacoesView, MensagemView } from "../views/index.js";
 
 export class NegociacaoController {
 
