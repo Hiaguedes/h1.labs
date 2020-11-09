@@ -1,7 +1,7 @@
 
 import { ArrayNegociacao, Negociacao } from '../models/index.js';
 import { NegociacoesView, MensagemView } from "../views/index.js";
-import { tempoExecucao, domInject } from '../helpers/decorators/index.js'
+import { tempoExecucao, domInject, demora } from '../helpers/decorators/index.js'
 
 enum DiaSemana {
     Domingo,
@@ -12,6 +12,13 @@ enum DiaSemana {
     Sexta,
     Sabado
 }
+
+interface Dado {
+    vezes: number;
+    montante: number;
+}
+
+let timer : NodeJS.Timer;
 
 export class NegociacaoController {
     @domInject('[data-data]')
@@ -30,6 +37,26 @@ export class NegociacaoController {
     constructor() {
         this._negociacaoView.update(this._negociacoes);
     }
+    @demora(500)
+    importarDados(){
+
+        const isOk = (res: Response)=>{
+            if(res.ok) return res;
+
+            throw new Error(res.statusText)
+        }
+
+            fetch('http://localhost:5000/dados')
+                .then(res => isOk(res))
+                .then(res => res.json())
+                .then((dados: Dado[]) => {
+                    dados
+                        .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
+                        .forEach(negociacao => this._negociacoes.adiciona(negociacao))
+                    this._negociacaoView.update(this._negociacoes);
+                })
+                .catch(err => console.log(err));
+            }
 
     @tempoExecucao()
     adiciona(e:Event){

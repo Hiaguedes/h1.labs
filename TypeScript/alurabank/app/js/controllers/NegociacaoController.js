@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { ArrayNegociacao, Negociacao } from '../models/index.js';
 import { NegociacoesView, MensagemView } from "../views/index.js";
-import { tempoExecucao, domInject } from '../helpers/decorators/index.js';
+import { tempoExecucao, domInject, demora } from '../helpers/decorators/index.js';
 var DiaSemana;
 (function (DiaSemana) {
     DiaSemana[DiaSemana["Domingo"] = 0] = "Domingo";
@@ -17,12 +17,30 @@ var DiaSemana;
     DiaSemana[DiaSemana["Sexta"] = 5] = "Sexta";
     DiaSemana[DiaSemana["Sabado"] = 6] = "Sabado";
 })(DiaSemana || (DiaSemana = {}));
+let timer;
 export class NegociacaoController {
     constructor() {
         this._negociacoes = new ArrayNegociacao();
         this._negociacaoView = new NegociacoesView('[data-negociacoes-view]');
         this._mensagemView = new MensagemView('[data-mensagem]');
         this._negociacaoView.update(this._negociacoes);
+    }
+    importarDados() {
+        const isOk = (res) => {
+            if (res.ok)
+                return res;
+            throw new Error(res.statusText);
+        };
+        fetch('http://localhost:5000/dados')
+            .then(res => isOk(res))
+            .then(res => res.json())
+            .then((dados) => {
+            dados
+                .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
+                .forEach(negociacao => this._negociacoes.adiciona(negociacao));
+            this._negociacaoView.update(this._negociacoes);
+        })
+            .catch(err => console.log(err));
     }
     adiciona(e) {
         e.preventDefault();
@@ -46,6 +64,9 @@ __decorate([
 __decorate([
     domInject('[data-valor]')
 ], NegociacaoController.prototype, "_inputValor", void 0);
+__decorate([
+    demora(500)
+], NegociacaoController.prototype, "importarDados", null);
 __decorate([
     tempoExecucao()
 ], NegociacaoController.prototype, "adiciona", null);
