@@ -8,6 +8,6 @@ export class ArrayNegociacao {
     }
 
     get negociacoesArray():Negociacao[]{
-        return [].concat(this._negociacoesArray);
+        return ([] as Negociacao[]).concat(this._negociacoesArray);
     }
 }

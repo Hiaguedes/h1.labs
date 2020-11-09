@@ -2,6 +2,16 @@
 import { ArrayNegociacao, Negociacao } from '../models/index.js';
 import { NegociacoesView, MensagemView } from "../views/index.js";
 
+enum DiaSemana {
+    Domingo,
+    Segunda,
+    Terça,
+    Quarta,
+    Quinta,
+    Sexta,
+    Sabado
+}
+
 export class NegociacaoController {
 
     private _inputData:HTMLInputElement;
@@ -20,9 +30,17 @@ export class NegociacaoController {
 
     adiciona(e:Event){
        e.preventDefault();
-       const neg = new Negociacao(new Date(this._inputData.value.replace(/-/g,','))
-                                            ,parseInt(this._inputQuantidade.value),
-                                            parseFloat(this._inputValor.value));
+       let data = new Date(this._inputData.value.replace(/-/g,','))
+
+       const neg = new Negociacao(data,
+       parseInt(this._inputQuantidade.value),
+       parseFloat(this._inputValor.value));
+
+        if(data.getDay() === DiaSemana.Domingo || data.getDay() === DiaSemana.Sabado){
+            this._mensagemView.update('Por favor cadastre somente negocições em dias de semana!')
+            return;
+        }
+
        this._negociacoes.adiciona(neg)
 
        //this._negociacoes.negociacoesArray.length = 0; // para provar que não altero o array em outra classe

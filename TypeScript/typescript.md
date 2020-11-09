@@ -421,3 +421,228 @@ Esse tsd pode ser escrito pelos autores do typescript ou de terceiros, pelo prop
 O tsd é nada mais que um de/para
 
 E para usar você fala que é o tipo `jQuery` invés de `Element` e por aí vai
+
+## Readonly para enxugar uma classe que só tem getOuterSizes
+
+Podemos enxugar uma boa parte do código que está abaixo a
+
+```ts
+export class Negociacao {
+
+    constructor(private _data:Date,private _quantidade: number,private _valor: number){
+
+    }
+
+    get data(){
+        return this._data;
+    }
+    get quantidade(){
+        return this._quantidade;
+    }
+    get valor(){
+        return this._valor;
+    }
+    get volume(){
+        return this._quantidade * this._valor;
+    }
+}
+```
+
+De modo a ter apenas um tipo readonly em todas as variáveis do constructor
+
+```ts
+export class Negociacao {
+
+    constructor(readonly data:Date,readonly quantidade: number,readonly valor: number){
+
+    }
+    get volume(){
+        return this.quantidade * this.valor;
+    }
+}
+```
+
+Dessa forma podemos tirar os _ de antes da variáveis
+
+Temos a seguinte classe que define duas propriedades `readonly`.
+
+```ts
+class Conta {
+
+    constructor(readonly titular: string, readonly numero: string) {}
+}
+
+let conta = new Conta('Almeida', '171');
+console.log(conta.titular);
+conta.titular = 'Ted'; // erro de compilação, a propriedade é readonly.
+```
+
+Marque a opção que define a mesma classe, mas que usa o modificador de acesso privateem vez de readonly. Ela deve permitir a leitura das propriedades.
+
+Alternativa correta
+
+```ts
+class Conta {
+
+    constructor(private _titular: string, private _numero: string) {}
+
+    get titular() {
+
+        return this._titular;
+    }
+
+    get numero() {
+
+        return this._numero;
+    }
+}
+```
+
+## Parâmetros opcionais
+
+Basicamente é o ? que você coloca depois da variável
+
+Sobre parâmetros opcionais, marque a única opção que não compila.
+
+```ts
+function(a?: number, b?:number, c:number): void {
+
+}
+```
+
+Perfeito, esse código não compila. Parâmetros opcionais devem ser sempre os últimos parâmetros.
+
+O compilador do TypeScript possui uma série de configurações e uma delas é a strictNullChecks. Neste modo, null e undefined não fazem parte do domínio dos tipos e só podem ser atribuídos a eles mesmos. Com a exceção de undefined que pode ser atribuído a void. Isso pode ser interessante para evitarmos valores nulos e indefinidos em nosso projeto.
+
+Que tal vermos mais um exemplo no qual ele pode nos ajudar a detectar erros em nosso código?
+
+Vamos buscar em um HTML hipotético um elemento com ID cartao_1e a partir dele acessar seu elemento pai através de parentNode:
+
+```ts
+const elCartao: HTMLDivElement = <HTMLDivElement> document.querySelector('#cartao_1');`
+let elPai = elCartao.parentElement;
+```
+
+Excelente. Mas o mesmo código não compilará com strictNullChecks com a seguinte alteração:
+
+```ts
+const elCartao: HTMLDivElement = <HTMLDivElement> document.querySelector('#cartao_1');
+let elPaiDoPai = elCartao.parentElement.parentElement; // [ts] Object is possibly 'null'
+```
+Veja que o aviso do compilador TypeScript faz todo sentido, porque pode ser que o elemento pai do pai do elemento elCartao não exista e, se não existir, o valor de parentNode será null.
+
+Dessa forma, o programador terá que lidar antecipadamente com essa situação em seu código:
+
+```ts
+const elCartao: HTMLDivElement = <HTMLDivElement> document.querySelector('#cartao_1');
+let elPaiDoPai;
+if(elCartao.parentElement) {
+    elPaiDoPai = elCartao.parentElement.parentElement;
+}
+console.log(elPaiDoPai);
+```
+
+Temos a seguinte função:
+
+```ts
+function minhaFuncao(flag: boolean) {
+
+    let valor = null;
+    if(flag) return null;
+    return true;
+}
+
+let x = minhaFuncao(false);
+```
+
+O código compila, pois minhaFuncao pode retornar `null` ou um `boolean` dependendo do valor do parâmetro flag passado. O TypeScript também consegue inferir os dois tipos retornados pela função.
+
+Mas se quisermos tipar o retorno de minhaFuncao como boolean? Teremos um erro de compilação:
+
+```ts
+function minhaFuncao(flag: boolean): boolean {
+
+    let valor = null;
+
+    // erro aqui! 
+    // Type 'null' is not assignable to type 'boolean'.
+
+    if(flag) return null;
+    return true;
+}
+
+let x = minhaFuncao(false);
+```
+
+Com strictNullChecks ativado não podemos retornar `null` para uma função que explicitamente indicamos que retorna ``boolean``. Se a opção do compilador não estivesse ativa, funcionaria pois null pode ser atribuído a qualquer tipo do TypeScript. Mas será que conseguimos fazer esse código compilar sem termos que desativar esta `strictNullChecks` no compilador?
+
+Podemos indicar que a função pode devolver mais de um tipo, no caso ela devolverá `boolean` ou `null`:
+
+```ts
+// deixarmos explícitos que a função pode retornar boolean ou null
+function minhaFuncao(flag: boolean): boolean | null{
+
+    let valor = null;
+    if(flag) return null;
+    return true;
+}
+
+let x = minhaFuncao(false);
+```
+
+Agora, como explicitamos que seu retorno pode ser também `null`, nosso código passará pelo strictNullChecks. Curiosamente, linguagens como a Golang permitem uma função ou método ter mais de um tipo de retorno.
+
+### Curiosidade: o tipo never
+
+TypeScript possui um tipo curioso, o tipo `never`. Este tipo é aplicável à métodos ou funções que por algum motivo, planejado ou não, podem não terminar sua execução de seu bloco.
+
+Exemplos clássicos são os de métodos que caem em um loop infinito ou de métodos que sempre retornam exceções. Exceções fazem com que o método não execute até o fim.
+
+Não confundir o tipo `never` com o tipo void. O segundo, apesar de indicar que a função ou método nada retorna, indica que a função ou método executará até o fim, mesmo que não retorne nada.
+
+Geralmente não usamos esse tipo em nosso código, mas ele pode aparecer como aviso do compilador. Quando aparecer, você já saberá que a execução do seu método nunca chegará até o fim, sendo um forte indicativo de um bug em seu código.
+
+## Enum para melhorar visibilidade do código
+
+A função getDay() retorna 0 para domingo, 1 para segunda e por aí vai, até o 6 que é sabado e se quisermos fazer uma regra de negócio que utiliza esses números nós teríamos que fazer algo como
+
+`data.getDay() ===0 || data.getDay() ===6`
+
+O que pode deixar o código menos fácil de ser lido, para isso o typescript tem o enum que pode ser usado como
+
+```ts
+enum DiaSemana {
+    Domingo,
+    Segunda,
+    Terça,
+    Quarta,
+    Quinta,
+    Sexta,
+    Sabado
+}
+
+        if(data.getDay() === DiaSemana.Domingo || data.getDay() === DiaSemana.Sabado){
+            ...
+        }
+```
+
+Já que dessa forma Domingo=0, Segunda=1 e por aí vai
+
+Temos a seguinte enum:
+
+```ts
+enum MinhaEnum {
+    A,
+    B = 3,
+    C,
+    D,
+    F
+}
+```
+
+Qual o valor de MinhaEnum.D?
+
+5
+
+
+Correto! As enum começam de 0, porém, se modificarmos o valor de alguma das enum, os próximos valores passarão a contar a partir do novo valor.
