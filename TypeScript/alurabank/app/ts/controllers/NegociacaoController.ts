@@ -1,6 +1,7 @@
 
 import { ArrayNegociacao, Negociacao } from '../models/index.js';
 import { NegociacoesView, MensagemView } from "../views/index.js";
+import { tempoExecucao, domInject } from '../helpers/decorators/index.js'
 
 enum DiaSemana {
     Domingo,
@@ -13,21 +14,24 @@ enum DiaSemana {
 }
 
 export class NegociacaoController {
-
+    @domInject('[data-data]')
     private _inputData:HTMLInputElement;
+
+    @domInject('[data-qte]')
     private _inputQuantidade:HTMLInputElement;
+
+    @domInject('[data-valor]')
     private _inputValor:HTMLInputElement;
+
     private _negociacoes = new ArrayNegociacao();
     private _negociacaoView = new NegociacoesView('[data-negociacoes-view]');
     private _mensagemView = new MensagemView('[data-mensagem]')
 
     constructor() {
-        this._inputData = <HTMLInputElement>document.querySelector('[data-data]');
-        this._inputQuantidade = <HTMLInputElement>document.querySelector('[data-qte]');
-        this._inputValor = <HTMLInputElement>document.querySelector('[data-valor]');
         this._negociacaoView.update(this._negociacoes);
     }
 
+    @tempoExecucao()
     adiciona(e:Event){
        e.preventDefault();
        let data = new Date(this._inputData.value.replace(/-/g,','))

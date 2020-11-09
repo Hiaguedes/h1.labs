@@ -646,3 +646,37 @@ Qual o valor de MinhaEnum.D?
 
 
 Correto! As enum começam de 0, porém, se modificarmos o valor de alguma das enum, os próximos valores passarão a contar a partir do novo valor.
+
+Vejamos o seguinte exemplo de enum:
+
+```ts
+enum Tipo {
+
+    ESPECIAL,
+    PADRAO
+}
+```
+
+Sabemos que o valor de Tipo.ESPECIAL e Tipo.PADRAO serão 0 e 1 respectivamente.
+
+Agora, em nosso código fazemos:
+
+`let tipo: Tipo = Tipo.ESPECIAL;`
+É uma sintaxe totalmente válida. E agora?
+
+`let tipo: Tipo = 4;`
+O código anterior compila? Compila! Se você vem de outra linguagem como Java ou C#, este código não compilaria, porque só poderíamos utilizar os tipos Tipo.ESPECIAL e Tipo.PADRAO.
+
+A questão é que a enum tem como subtipo number, por isso pode receber qualquer outro número que não esteja dentro do escopo da Enum.
+
+Há até uma issue sobre esta situação
+
+<https://github.com/Microsoft/TypeScript/issues/11772>
+
+Não é bem um erro, mas um comportamento esperado de como o TypeScript lida com Enum.
+
+## decorators
+
+Os decorators são experimentais mas é uma boa coisa pois o javaScript pretende utilizar eles em breve (isso se já não utiliza)
+
+Para usar no tsconfig eu coloco `"experimentalDecorators": true`, a ideia do decorator é chamar um pedaço de código antes e depois de um método ser chamado, podendo ser util para rodar um código de performance

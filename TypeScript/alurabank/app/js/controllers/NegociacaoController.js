@@ -1,5 +1,12 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import { ArrayNegociacao, Negociacao } from '../models/index.js';
 import { NegociacoesView, MensagemView } from "../views/index.js";
+import { tempoExecucao, domInject } from '../helpers/decorators/index.js';
 var DiaSemana;
 (function (DiaSemana) {
     DiaSemana[DiaSemana["Domingo"] = 0] = "Domingo";
@@ -15,9 +22,6 @@ export class NegociacaoController {
         this._negociacoes = new ArrayNegociacao();
         this._negociacaoView = new NegociacoesView('[data-negociacoes-view]');
         this._mensagemView = new MensagemView('[data-mensagem]');
-        this._inputData = document.querySelector('[data-data]');
-        this._inputQuantidade = document.querySelector('[data-qte]');
-        this._inputValor = document.querySelector('[data-valor]');
         this._negociacaoView.update(this._negociacoes);
     }
     adiciona(e) {
@@ -33,3 +37,15 @@ export class NegociacaoController {
         this._mensagemView.update('Negociação Adicionada com Sucesso');
     }
 }
+__decorate([
+    domInject('[data-data]')
+], NegociacaoController.prototype, "_inputData", void 0);
+__decorate([
+    domInject('[data-qte]')
+], NegociacaoController.prototype, "_inputQuantidade", void 0);
+__decorate([
+    domInject('[data-valor]')
+], NegociacaoController.prototype, "_inputValor", void 0);
+__decorate([
+    tempoExecucao()
+], NegociacaoController.prototype, "adiciona", null);
