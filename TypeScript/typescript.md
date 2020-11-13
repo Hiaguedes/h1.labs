@@ -680,3 +680,43 @@ Não é bem um erro, mas um comportamento esperado de como o TypeScript lida com
 Os decorators são experimentais mas é uma boa coisa pois o javaScript pretende utilizar eles em breve (isso se já não utiliza)
 
 Para usar no tsconfig eu coloco `"experimentalDecorators": true`, a ideia do decorator é chamar um pedaço de código antes e depois de um método ser chamado, podendo ser util para rodar um código de performance
+
+## Interfaces
+
+```ts
+function executaAssincrono(cb: Function) {
+
+    setTimeout(() => cb('terminou'), 0);
+}
+
+let callback1 = ((resultado: any) => alert(resultado));
+let callback2 = ((resultado: any) => alert(`**${resultado}**`));
+
+executaAssincrono(callback1);
+executaAssincrono(callback2);
+```
+
+O problema é que ele não sabe como criar agora a inteface MeuCallback que substitua o Function adotado por executaAssincrono.
+
+Marque a opção que cria e utiliza corretamente a interface:
+
+```ts
+interface MeuCallback {
+
+    (mensagem: string): void;
+}
+
+
+function executaAssincrono(cb: MeuCallback) {
+
+    setTimeout(() => cb('terminou'), 0);
+}
+
+let callback1: MeuCallback = resultado => alert(resultado);
+let callback2: MeuCallback = resultado => alert(`**${resultado}**`);
+
+executaAssincrono(callback1);
+executaAssincrono(callback2);
+```
+
+Conteúdo completo do curso <https://s3.amazonaws.com/caelum-online-public/typescript/11-final-alurabank.zip>
