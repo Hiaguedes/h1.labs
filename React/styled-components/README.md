@@ -116,3 +116,43 @@ Alternativa correta
 Os componentes criados com Styled Components devem se preocupar apenas com a definição do estilo daquele componente e não de como ele deve se comportar.
 
 Sim, ao adicionarmos código de comportamento dentro da definição do componente estilizado estamos quebrando o princípio da única responsabilidade.
+
+## Heranças de Estilos
+
+Existem certos componentes que tem uma estilização externa, como um display flex, uma margin e coisas do tipo e para isso podemos herdar estilos de outros componentes como em:
+
+```js
+const Wrapper = styled(OutroWrapper)`
+    margin: 1rem;
+`
+```
+
+Com isso o componente wrapper herda o estilo de OutroWrapper e adiciona a margin, isso é bem útil.
+
+A ideia do styled components é enxugarmos o css dentro de componentes e fazendo isso da maneira mais performática possível
+
+## Utilizando media queries
+
+Para fazer a media query de um elemento css nós fazemos
+
+```js
+const Conteudo = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+}
+`;
+```
+
+Simples assim
+
+## Problema de Performance
+
+Sempre que possível devemos evitar colocarmos a declaração de componentes dentro do método render dentro de componente baseados em classes e no caso de componentes funcionais não devemos declarar um componente dentro do outro.
+
+Isso porque, caso um componente seja declarado dentro do método render ou dentro de um outro componente funcional ele será re-declarado a cada nova renderização e o React não conseguirá fazer cache desse componente, o que pode atrasar e muito a renderização da página.
+
+Por isso, lembre-se de declarar seus componentes e styled components fora dos métodos de renderização do React.
