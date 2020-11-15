@@ -83,3 +83,36 @@ Dentro do Styled Componenets utilizamos o método createGlobalStyle para consegu
 Recebemos como retorno um novo componente estilizado que não possui as restrições de escopo para o CSS que aplicamos nele.
 
 Isso mesmo! Normalmente quando criamos um componente estilizado as regras de CSS que aplicamos nele estão guardadas dentro do escopo daquele componente, dessa forma sabemos que elas não irão interferir com CSS de outros componentes. No caso do createGlobalStyle essa proteção é retirada e assim o CSS dele tem acesso global.
+
+Rodrigo está muito acostumado a trabalhar com o React e durante o trabalho dele ele costuma passar pelas propriedades do componente partes do conteúdo que deve ser renderizado ou mesmo funções de manipulação de eventos.
+
+Rodrigo precisa agora criar um componente de formulário que lide com o evento de submit dentro do componente, esse é o código q ele fez:
+
+```js
+const Form = styled.form`
+   width: 100%;    
+   onSubmit:${(props)=> props.aoEnviar} 
+`;
+
+
+<Form aoEnviar={**Função que quer chamar**}>
+...
+</Form>
+```
+
+Apesar de funcionar dessa maneira, a equipe de trabalho dele diz que essa não é uma boa prática. Qual o problema desse código?
+
+Não precisamos dessa propriedade aoEnviar já que o componente que estamos criando será uma tag form do html, então poderíamos passar diretamente a propriedade onSubmit na hora de usarmos o componente e não na declaração dele.
+
+<Form onSubmit={**Função que quer chamar**}>
+...
+</Form>
+
+Sim, dessa maneira fica mais claro para quem usa esse componente o que ele fará quando o evento de formulário for enviado.
+
+Podemos fazer isso já que o Styled Components passa todas as props de um elemento HTML para o DOM na hora de renderizar.
+
+Alternativa correta
+Os componentes criados com Styled Components devem se preocupar apenas com a definição do estilo daquele componente e não de como ele deve se comportar.
+
+Sim, ao adicionarmos código de comportamento dentro da definição do componente estilizado estamos quebrando o princípio da única responsabilidade.
