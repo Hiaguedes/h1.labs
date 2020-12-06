@@ -327,3 +327,376 @@ Qualquer uma das frases abaixo é muito vaga e, assim, corre um risco bem maior 
 - Fazer 80% dos pontos estimados para essa Sprint;
 - Não causar mais bugs no projeto
 - Fazer um deploy todo dia
+
+## Histórias e tarefas (tasks)
+
+Histórias são itens que representa um item de negócio, esses itens podem estar em qualquer padrão porém o modo de história é o mais recomendado pois ele é uma historinha que conta um pouco sobre o comportamento da função, histórias tem um porque, um pra que e o pedido (o que quero que ela faça)
+
+As tarefas são subitens de uma história, são passos que são dados em uma história para chegar no final da história (são tarefas que um time de tech consegue fazer), ou seja uma série de tasks fazem parte para montar um item de negócio
+
+## Artefato do scrum, product backlog
+
+Um product backlog é uma lista priorizada (algumas histórias tem uma prioridade maior do que outras, estão no topo dessa lista) dos itens de negócio (história) que são os itens que se pretende a fazer no final do projeto, é normal o product backlog mudar. O processo de priorizar se chama grooming, quebrar uma história em tarefas mostra a complexidade daquela tarefa, muitas dessas tarefas surgem durante o planning. Cliente não dá pitaco no backlog
+
+O artefato padrão no Scrum é o Product Backlog, uma lista ordenada, que prioriza todos os itens de negócio e histórias até o final do projeto.
+
+Quem cuida dessa lista é quem tem o domínio sobre o que entra e sai, e essa pessoa, o Product Owner, também estabelece prioridades nessa lista. O P.O. é o dono - owner - e manda nela, mas o cliente, os desenvolvedores e o Scrum Master podem influenciar o P.O. através de sugestões de re-priorização, colocando um item a mais ou tirando outro... Todo mundo pode dar sua opinião! Mas quem decide é o Product Owner.
+
+Resumindo, a lista é do P.O., e nela constam os itens que devem ser desenvolvidos no projeto como um todo. Os itens mais prioritários são aqueles que estão no topo da lista e provavelmente já pensamos melhor a respeito deles quebrando-os em funcionalidades menores. Fica até mais fácil estimá-los e levá-los para o planning.
+
+O processo de quebrar histórias muito grandes em menores de maneira que cada uma siga agregando valor ao usuário final, é um processo que chamamos de refinamento - o grooming - do Product Backlog.
+
+Os itens menos prioritários, mais abaixo na lista de prioridade, não precisam ser todos refinados. É até bom que eles não estejam, pois não sabemos se serão úteis para o projeto futuramente. Pode ser que apareça algo mais urgente ou que agregue maior valor ao projeto, e neste caso o P.O. pode desconsiderar um item no qual já investimos certa quantidade de trabalho de refinamento.
+
+Se algo perde importância no Backlog o item acaba ficando para baixo na lista de prioridade, e isso vai sendo deixado de lado até que o projeto acabe. Se ainda for interessante realizar itens e tarefas que ficaram para fora do prazo estimado, pode ser feito um adendo de contrato, prosseguindo-se a execução desses itens caso agregarem valor suficiente.
+
+Ao chegar no planning, o P.O. traz o topo do Product Backlog, e isso é discutido com o time e quebrado em histórias e tarefas, fazendo com que seja mais simples estimá-las. Ao quebrarmos as tarefas em histórias, fica ainda mais simples de compreendermos suas complexidades.
+
+É bastante natural que no Sprint Backlog não existam só histórias, mas também tarefas. Isso inclusive é esperado. No "Scrum Guide", comenta-se que cerca de 70% das tarefas vão surgir do planning.
+
+O Sprint Backlog, diferentemente, é do time como um todo, e a regra é que a equipe pode renegociar prioridades (lembrando que o time é composto de desenvolvedores, P.O. e Scrum Master). Assim, é possível mudar o escopo de maneira a agregar valor - essa é uma decisão interna do time.
+
+O Sprint Backlog possui a regra de que o cliente não pode dar sua opinião. Se algo entrou para ser feito nessa Sprint, então é porque são itens de maior prioridade. Se o cliente pensa em mexer nisso é porque o P.O. não conversou direito com ele, ou as prioridades não estão bem estabelecidas, e ele muda de opinião o tempo inteiro.
+
+A única razão pela qual se faz um cancelamento de Sprint no Scrum é quando o Sprint Backlog se altera tanto a ponto da meta não fazer mais sentido. Os cancelamentos também podem ocorrer no caso de problema de comunicação grave, um cliente muito indeciso ou eventualmente outro tipo de razão externa, como uma justificativa legal. No entanto tais situações não são comuns ou não devem ser recorrentes.
+
+Retomando:
+
+O Product Backlog é a lista priorizada das histórias que agregam valor para o cliente. São histórias que envolvem o projeto inteiro. Somente o P.O. mexe nele, mas todo o time pode palpitar;
+
+O Sprint Backlog engloba histórias e tarefas que estão no topo das prioridades. Conforme os itens entram nele, já quebramos as histórias em tarefas. No Sprint Backlog o time altera essas tarefas sem que o cliente palpite sobre elas.
+
+### Sprint Backlog
+
+Uma vez que itens cheguem ao topo do Product Backlog, eles serão discutidos em uma Planning Meeting, quebrados em alguns sub-itens técnicos e, se escolhidos para serem executados, esses itens e sub-itens comporão o chamado Sprint Backlog: a lista ordenada de itens funcionais e seus sub-itens técnicos que serão feitos durante essa Sprint.
+
+Diferente do Product Backlog, apenas o time pode influenciar e alterar o Sprint Backlog. Existe uma razão para isso: o Sprint Backlog é formado dos itens mais prioritários do Product Backlog e é uma indicação séria de problemas sistêmicos se os itens mais prioritários precisarem sofrer grandes modificações. Se os itens mais prioritários não fizerem sentido nas, digamos, 2 semanas de Sprint, isso indica que o P.O. não fez um bom trabalho de refinamento e de descobrir com usuários o que eles realmente precisam.
+
+### Histórias e tarefas
+
+Cada item que compõe um Product Backlog representa uma funcionalidade, algo que agrega valor para o usuário final -- note, portanto, que "documentação técnica" não é um item válido, já que o usuário não se beneficia disso.
+
+Esses itens podem ter o formato que você quiser -- por exemplo, um conjuntinho de casos de uso do sistema pode ser um item válido. Há uma forte preferência entre agilistas, no entanto, de usar um formato especial para representar esses itens: uma história de usuário (user story).
+
+Uma história é um formato criado em eXtreme Programming (XP) para representar um item que agrega valor a usuários e agrega, de uma forma bastante simples, três informações importantíssimas para a priorização e posterior desenvolvimento da funcionalidade: por que é importante, para quem é importante e, só então, o que a pessoa quer, em si. O modelo que costumamos preencher é o seguinte:
+
+```
+[TÍTULO]
+
+**Para...** [por que o pedido é importante]
+**No papel de...** [para quem é importante]
+**Quero...** [o pedido em si]
+```
+
+Em um sistema de vagas online como o OndeTrabalhar.com, por exemplo, poderíamos ter a história:
+
+```
+            VAGAS POR LOCALIDADE
+**Para...** não perder tempo olhando cada vaga para descobrir se é na minha cidade
+**No papel de...** pessoa procurando trabalho
+**Quero...** ter a opção de filtrar as vagas de trabalho por cidade
+```
+
+Durante o Planning é comum verificarmos o entendimento da história quebrando ela em itens menores, técnicos, que não necessariamente agregam valor ao usuário individualmente. Esses sub-itens técnicos de histórias são chamados tarefas. A história acima poderia ser quebrada nas seguintes tarefas:
+
+Cadastro de cidades no banco de dados;
+Mudança no formulário de postagem de vaga para limitar à lista de cidades;
+Filtro de busca de vagas no menu principal.
+Muito comumente também, embora não seja regra, é vermos histórias em cartões (fichas pautadas) e tarefas em post-its.
+
+#### Perguntas
+
+Nesse capítulo estudamos histórias ou, em inglês, user story. Mas o que chamamos de uma história de usuário?
+
+um item que agrega valor pro usuário
+
+Uma história representa algo que agrega valor para o usuário da aplicação. Seja no Product Backlog, como um item a fazer, ou no nosso histórico do que foi feito no projeto, histórias representam o valor que agrega(re)mos para o usuário!
+
+Além de histórias, estudamos nesse capítulo as tarefas ou, em inglês, tasks. Mas o que são elas, mesmo?
+
+um subitem técnico da história, para conseguirmos dividir o trabalho entre diversos desenvolvedores
+
+Tarefas são subitens de uma história, mais focados na parte técnica. Eles servem para conseguirmos trabalhar paralelamente sobre uma história e, assim, aumentar a velocidade de produção de valor para o usuário!
+
+Afinal... se tenho 3 desenvolvedores no meu time e cada um puder contribuir com a mesma história, terminaremos ela mais rapidamente e antes de atacar um próximo problema de negócios.
+
+Há algumas diferenças no conteúdo dos backlogs descritos no Scrum. O que diferencia o conteúdo do Product Backlog e o do Sprint Backlog?
+
+o product backlog só tem histórias e o sprint backlog tem histórias e tarefas
+
+Enquanto o Product Backlog foca no que agrega valor para o usuário (histórias), o Sprint Backlog acrescenta a isso as subdivisões técnicas das histórias (tarefas), já que ele já foca no planejamento para execução das histórias!
+
+Como o Scrum não se limita a projetos de software, vamos exercitar esse pensamento fora da caixa: nosso projeto aqui é a sua casa dos sonhos!
+
+Escreva uma história que descreva sua Sala de Estar, sem esquecer de seguir o formato da história que vimos em aula: comece pelo porquê, siga se identificando e termine, aí sim, com o que você quer na sua sala. Para isso, complete o template abaixo:
+
+Minha resposta: 
+
+Sala de Estar
+
+Para... que eu posso me sentir confortável assistindo TV
+
+Eu, como... Hiago, proprietário da caso Quero...uma poltrona super mega master blaster 3000
+
+Instrutor: 
+
+Sala de Estar
+
+Para... receber meus amigos para degustar queijos e vinhos com conforto
+
+Eu, como... morador
+
+Quero... uma sala de estar de 20m², com carpete de madeira, grandes almofadas soltas pelo chão, uma mesinha central retrátil, uma mini adega para 6 vinhos e sistema de som ambiente.
+
+Considere a seguinte história:
+
+Mesinha retrátil
+
+Para... ter onde colocar petiscos sem medo de que alguém vá pisar neles
+
+Eu, como... morador que gosta de receber visitas
+
+Quero... uma mesinha central que fica escondida na maior parte do tempo, mas emerge do chão quando necessário.
+
+Lembrando que tarefas são subitens técnicos de uma história, quebre essa história em tarefas que poderiam ser desenvolvidas preferencialmente paralelamente por membros do time.
+
+Tarefas poderiam ser:
+
+1. mesa em si;
+2. mecanismo de esconder a mesa;
+3. ligação do botão para expor a mesa.
+
+Além das diferenças no conteúdo, os backlogs também têm diferenças nos papéis de quem pode alterá-los ou influenciá-los. O Product Backlog apenas o P.O. pode mexer, mas o restante do time pode influenciar. Já o Sprint Backlog é gerenciado pelo time.
+
+E o cliente? Como é sua relação com os backlogs?
+
+o cliente pode pedir que o PO altere o Product Backlog, mas não o Sprint Backlog
+
+O resumão é o seguinte:
+
+Product Backlog: apenas o P.O. altera, mas todos podem influenciá-lo, tanto desenvolvedores, scrum master e clientes
+
+Sprint Backlog: o cliente não pode alterá-lo ou influenciá-lo. Apenas o time altera esse backlog, renegociando internamente o escopo quando necessário, quebrando melhor as histórias em tarefas, etc.
+
+## Integrantes
+
+Falamos dos devs, PO, scrum master, falta falar melhor sobre eles
+
+### Scrum master
+
+Ele é um facilitador das reuniões, ele educa sobre o processo do scrum, ele friza o bom comportamento e o cumprimento de todas as etapas, ele tenta otimizar a reunião de modo a fazer com que as pessoas absorvam o máximo das reuniões. O papel de scrum master é legal quando ele varia entre as pessoas do time. Um dos maiores papéis do scrum master é sobre a comunicação e que é bem difícil, o scrum master resolve impedimentos.
+
+Impedimento é diferente de problema, todo impedimento é um problema que evoluiu, problemas são incomodos que podem ser resolvidos pelo time, quando se tenta resolver e não consegue, nem você consegue e nem o time conseguiu resolver esse problema então ele vira um impedimento. Resolver problemas é problema do time
+
+O dia-a-dia de um Scrum Master
+Durante o andamento do projeto que usa Scrum, o Scrum Master deve:
+
+Facilitar as reuniões, quando necessário;
+Atentar para o cumprimento dos time-boxes e explicar o porquê deles;
+Educar desenvolvedores, product owner e clientes sobre o processo;
+Remover ou reduzir impedimentos (não problemas!);
+Buscar continuamente ferramentas para ajudar o time a evoluir.
+E no que pode estar impedindo o time de melhorar sua performance.
+
+O Scrum Master não é, contudo, chefe do time e não deve agir como tal. Um bom Scrum Master é um facilitador e coach excelente, que atua como Líder Servidor, isto é, livrando o time dos problemas que o impede de ter uma melhor performance.
+
+Há uma enorme confusão em implantações do Scrum pelo mundo sobre o que é um problema e o que é um impedimento. O mau entendimento da diferença entre eles faz com que diversos Scrum Masters se comportem mais como babás de times do que deveriam - e isso também prejudica a evolução do time.
+
+Assim, lembre-se que Scrum Master não é a pessoa que vai resolver problemas técnicos (ele nem precisa ser técnico!) ou cotidianos ("Acabou o café!"). O time deve trabalhar junto para resolver esses problemas.
+
+Você, Scrum Master, evite acostumar mal o time: isso pode tirar o senso de responsabilidade das pessoas e você pode acabar se tornando uma muleta.
+
+Como é a atuação do Scrum Master nas reuniões do time?
+
+ele age apenas quando necessário, para ajudar o time a chegar no objetivo da reunião dentro do timebox
+
+O Scrum Master age para manter a reunião produtiva e dentro do timebox combinado. Ele não coordena reuniões como faria um chefe tradicional, apenas ajuda o time a manter o foco!
+
+Enquanto problemas são feitos de qualquer coisa que atrapalhe o time, eles só se tornam impedimentos quando o time tentou resolvê-lo e não conseguiu.
+
+Exemplos
+Problema: estamos há 3 sprints sem bater a meta por bugs que aparecem no meio do caminho.
+
+Impedimento: o setor de infra não responde nossos pedidos (tentamos e-mail e conversa cara-a-cara) e precisamos de acesso ao serviço xpto pra prosseguir.
+
+De que forma você, como Scrum Master, poderia tratar o seguinte impedimento?
+
+Impedimento: o setor de infra não responde nossos pedidos (tentamos e-mail e conversa cara-a-cara) e precisamos de acesso ao serviço xpto para prosseguir.
+
+RESPONDA
+Opinião do instrutor
+
+Talvez um Scrum Master possa estabelecer um acordo (algo semelhante a um Acordo de Nível de Serviço - SLA - Service Level Agreement) de como serão as comunicações entre projeto e infra para que, na próxima ocasião que for aberta uma solicitação, fique claro para ambos os times como fazer o pedido, com qual antecedência, e quais seriam os prazos de resposta esperados para cada solicitação feita.
+
+### Product Owner
+
+Ele tá bem ligado com o cliente, ele é o representante do cliente dentro do time, está na mão dele o quanto de valor entrega-se para o cliente, ele adiciona ideias vindas do cliente para o topo ou mais embaixo na product backlog, por mais que ele seja influenciavel do time e do cliente é responsabilidade dele o que entra ou sai do backlog, a palavra final sempre é do PO
+
+O po faz a comunicação, cliente pros devs, mas não devs para clientes
+
+O dia-a-dia de um Product Owner
+
+Durante o andamento do projeto que usa Scrum, o Product Owner (P.O.) deve:
+
+participar das reuniões;
+responder dúvidas dos desenvolvedores sobre histórias ou indicar quem poderia respondê-las melhor;
+deixar claro para o time qual o valor de negócios de cada Sprint;
+obter feedback e expectativas dos diversos clientes e extrair delas as necessidades;
+manter o Product Backlog atualizado, isto é:
+adicionar itens novos;
+remover itens desatualizados;
+revisar a priorização do backlog constantemente;
+refinar histórias mais importantes em preparação para o próximo Planning.
+
+Uma pessoa só!
+Outra informação importante sobre o P.O. é que ele é uma pessoa, não um comitê. A razão para isso é bastante simples: o time precisa saber quem está no comando do que será feito e, se tivéssemos diversos P.O.s correríamos um maior risco de informações conflitantes atrapalharem o time.
+
+Assim, consideramos essas várias pessoas como clientes e tanto elas quanto o time podem influenciar o P.O., mas a palavra final e o plano de como maximizar o valor entregue pelo time é do Product Owner.
+
+Papéis: Product Owner (P.O.)
+Agora que já vimos os timeboxes e artefatos do Scrum, também já falamos um bocado da atuação de cada um dos três papéis que pessoas desenvolvem no Scrum. Nessa e nas próximas sessões, faremos uma grande revisão e consolidação do conhecimento já visto até agora, focando nos papéis do Scrum.
+
+Certamente, o papel mais comentado nas sessões anteriores é o do Product Owner. Essa terminologia é bastante expressiva e, até por isso, acabou sendo utilizada informalmente mesmo em equipes que não trabalham com Scrum, mas cuidado para não entendê-la errado: quando trabalhamos com métodos ágeis o time todo se sente responsável pelo produto que está sendo produzido e o cliente se interessa por ele, portanto a palavra Owner do nome do papel não exime o resto do time dessa responsabilidade. O P.O. é, no entanto, o dono do Product Backlog.
+
+Refinamento do backlog
+Uma dúvida frequente é o que o P.O. faz durante a maior parte da Sprint, quando os desenvolvedores estão trabalhando em incrementos de software. Há várias atividades listadas acima que tornam a disponibilidade diária do P.O. como para tirar dúvidas, repriorizar o Sprint backlog conforme necessidade, etc. Conforme o time amadurece e aprende a lidar consigo mesmo e com a organização, no entanto, é comum que esses trabalhos diminuam consideravelmente.
+
+Algo que não diminui tanto, contudo, é o refinamento do topo do Product Backlog.
+
+Vimos que, para que o planejamento de uma Sprint caiba nos 5% da duração da Sprint, é preciso que o P.O. saiba explicar histórias e que elas estejam em uma granularidade (tamanho) adequado para desenvolvedores conseguirem estimá-las. Portanto, para o próximo Planning correr bem, o P.O. já começa a se preparar para a reunião refinando os itens mais prioritários do Product Backlog, isto é, quebrando eles nas menores histórias possíveis e fazendo perguntas relevantes aos clientes.
+
+Pense que a segunda história mais importante de nosso Backlog é a seguinte:
+
+Opção de boleto
+
+**Para...** atender aos pedidos de 15 pessoas que foram na conferência ano passado
+**No papel de...** organização da Agile Brazil
+**Quero...** oferecer a opção de pagamento em boleto no site e controlar as inscrições feitas com essa forma de pagamento no sistema.
+Essa simples história já poderia ser quebrada em pelo menos duas menores, que individualmente já agregam valor para papéis diferentes e nem mesmo precisam ser feitos no mesmo Sprint!
+
+Inscrição em boleto
+
+**Para...** conseguir pagar minha inscrição no caixa eletrônico do meu banco
+**No papel de...** participante da Agile Brazil
+**Quero...** escolher pagar minha inscrição em boleto e emití-lo direto da próxima página
+E, também:
+
+Pagamentos de boleto
+
+**Para...** não vender mais ingressos do que devia, nem menos do que podia
+**No papel de...** organizador da Agile Brazil
+**Quero...** reservar vagas na conferência quando alguém gerar um boleto e, ou criar a inscrição quando receber a confirmação do pagamento do gateway, ou abrir a vaga para vendas novamente, quando o boleto vencer sem ser pago.
+Note que, graças ao refinamento, foi preciso perguntar melhor os porquês daquela história original e o que exatamente está sendo pedido. Assim, será mais fácil gerenciar essas histórias no Planning Meeting que está por vir.
+
+Qual a diferença entre um cliente e um product owner?
+
+RESPONDA
+Opinião do instrutor
+
+Diferentemente de clientes/usuários, o P.O. é uma pessoa só e trabalha diariamente com o time no decorrer do projeto. Product Owner é uma pessoa que faz parte do time e está disponível para ajudá-lo a produzir o maior valor possível para os clientes.
+
+Como o time deve proceder quando um usuário ou cliente pede uma funcionalidade diretamente para o desenvolvedor?
+
+leva o cliente até o P.O. e eles conversarão para adicionar o pedido ao Product Backlog se fizer sentido
+
+O Product Owner mantem o Product Backlog atualizado com o objetivo de agregar o maior valor possível a cada momento. Se esse pedido não foi priorizado, pode haver excelentes razões para isso e deixar o cliente se intrometer sem passar pelo P.O. pode ser prejudicial para a entrega de valor do projeto.
+
+O P.O. adiciona novos itens, remove itens que não fazem mais sentido e, muito frequentemente, reprioriza as histórias para aumentar o valor a ser agregado pelo time.
+
+Outra atividade é o refinamento das histórias mais prioritárias do Product Backlog em histórias menores que ainda agreguem valor para o cliente.
+
+Note que a história abaixo é bastante inchada e é possível entregar valor para o usuário com bem menos do que o proposto nessa enorme história, ou, como preferimos chamar, desse épico.
+
+Sala de Estar
+
+Para... receber meus amigos para degustar queijos e vinhos com conforto
+
+Eu, como... morador
+
+Quero... uma sala de estar de 20m², com carpete de madeira, grandes almofadas soltas pelo chão, uma mesinha central retrátil, uma mini adega para 6 vinhos e sistema de som ambiente.
+
+Um bom Product Owner quebraria o épico, antes do planning, em histórias menores e mais fáceis de estimar!
+
+Escreva os títulos das histórias menores que conseguimos tirar do épico acima.
+
+Derivando do épico da Sala de Estar, conseguimos as seguintes histórias que já agregam valor:
+
+Sala básica com almofadas
+Mesinha central retrátil
+Mini adega
+Sistema de som ambiente
+
+### Desenvolvedores ou devs
+
+São todos que ajudam o projeto a ir para frente (front end, back end, dba, tester, analista), é super normal encontrar scrum master que é dev, aqui o dev tem responsabilidades a mais que simplesmente codar, eles que estimam o esboço da historia, ou seja ele define o seu tempo de produção, pois fazer mais rápido é diminuir a qualidade então dosar o tempo é primordial aqui.
+
+Estima o esforço para realização das histórias e negocia quais tarefas que serão realizadas no sprint. Os desenvolvedores definem quem faz o que, e não mais um gerente que coloca um cracházinho, os devs sabem as capacidades de cada um, o legal é que trata-se os devs como adultos
+
+Papéis: desenvolvedor
+Enquanto em ambientes mais tradicionais os executores das tarefas apenas fazem o trabalho que lhes é atribuido, tentando respeitar os prazos já decididos por eles e da forma como alguém definiu... essa não é nossa realidade em times ágeis.
+
+Como vimos nos capítulos anteriores, desenvolvedores discutem histórias tecnicamente, estimam o esforço para fazê-las e negociam o que cabe na Sprint durante o planning. Daí, nos daily scrums, eles decidem qual tarefa vão pegar para si, considerando o resultado esperado da Sprint.
+
+A vida dos desenvolvedores dentro de um ambiente ágil é mais complexa do que em um ambiente tradicional, onde eles podem apenas seguir ordens e já fazem seu trabalho. Ao mesmo tempo, as possibilidades de crescimento pessoal aqui são muitas e a autonomia dada a esse grupo é muito interessante, especialmente dado que tratamos aqui com trabalhadores do conhecimento. Em um time ágil, há espaço para criatividade no desenvolvimento.
+
+Em resumo, no dia-a-dia dos desenvolvedores em times ágeis...
+
+Desenvolvedores devem:
+Decidir a abordagem técnica para os problemas apresentados;
+Trocar informações e ajudar os companheiros de time;
+Estimar as histórias durante o planning;
+Escolher sua próxima tarefa a ser feita, considerando as prioridades da Sprint;
+Buscar a qualidade do projeto e a redução de erros.
+
+E desenvolvedores não devem:
+Considerar dúvidas técnicas como impedimentos - elas são apenas problemas;
+Esperar que alguém decida as atividades a serem feitas por eles;
+Se recusar a aprender um pouco sobre outras áreas de desenvolvimento.
+
+O grupo de desenvolvimento é apenas uma parte do time no Scrum: além deles, há ainda P.O. e Scrum Master. Quais especialistas compõem um grupo de desenvolvimento usual em uma empresa?
+
+RESPONDA
+Opinião do instrutor
+
+Programadores, arquitetos, DBAs, analistas, testers, pessoas de usabilidade e quaisquer outros papéis que ajudem o produto a evoluir.
+
+Qual dessas opções não é responsabilidade dos desenvolvedores dentro de um contexto de Scrum?
+
+Pegar pedidos do cliente
+
+Enquanto em um ambiente ágil há muitas atividades pelas quais os desenvolvedores se tornam responsáveis, a liberdade para crescer na carreira e a autonomia são pontos extremamente positivos.
+
+Apenas, não vale passar por cima das decisões do P.O. sobre o Product Backlog! ;-)
+
+Devs agora são tratados como adultos
+
+### O time todo
+
+O time pode ajudar a contratar pessoas, todo mundo deve pensar em melhoria
+
+Papéis: time todo
+Vimos anteriormente que há atividades e responsabilidades que são específicas para P.O., Scrum Master ou desenvolvedores. Há também as que são responsabilidade do time como um todo.
+
+Poderíamos citar aqui diversos itens: participar das reuniões, definir e executar ações das retrospectivas, criar e manter uma definição de pronto clara para todos, definir a duração da Sprint, manter o ambiente do time organizado e informativo, identificar necessidades de estudo, contratação, etc.
+
+Poderíamos também dar dois passos para trás e olhar para essas ações de uma forma mais sistêmica e simplificar essa enorme lista em apenas um termo: o time é responsável por sua própria Melhoria contínua. E é por conta disso que lemos nos princípios ágeis que "As melhores arquiteturas, requisitos e design emergem de times auto-organizados."
+
+#### Uma única restrição
+
+Os papéis de Scrum Master e Product Owner têm funções complementares em um time de Scrum e provêm uma dualidade saudável, que incentiva melhorias no processo e no produto em desenvolvimento. Quando uma pessoa acumula as duas funções, a tendência é que uma delas seja deixada de lado e que o Scrum se desbalanceie.
+
+Isso não quer dizer que eles devem batalhar um contra o outro no dia-a-dia, mas sim que devem manter em mente o que favorece cada parte e achar, junto aos desenvolvedores, um estado que agrada ao time todo e favorece a entrega de valor para o cliente sem perder qualidade de vida para o time.
+
+Muitas vezes ouvimos sobre o confronto Scrum Master x Product Owner, mas é importante que não se leve essa palavra ao pé da letra. É meramente uma questão de acúmulo de funções e, se há mais o que fazer do que uma pessoa consegue, ela tende a abandonar um dos lados, ou a sacrificar sua própria qualidade de vida no processo.
+
+Tanto P.O. quanto Scrum Master, contudo, podem ser também desenvolvedores, já que desenvolvedores são um grupo. Assim, ele pode se dedicar ao desenvolvimento após terminar suas tarefas do papel específico que ocupa. Nesse caso, é recomendado que as pessoas que ocupam outros papéis além de desenvolvedores não se comprometam em fazer tarefas grandes ou que não possam ser facilmente transferidas para outra pessoa, caso surja alguma atividade do seu papel principal.
+
+Por que os papéis de Scrum Master e Product Owner não podem ser ocupados pela mesma pessoa?
+
+Há muitas responsabilidades focadas na entrega de valor que são dos Product Owners. Há muitas responsabilidades focadas em processos que são do Scrum Master.
+
+Juntar ambos os papéis é um acúmulo muito grande de responsabilidades e frequentemente leva ao abandono de um dos lados, desbalanceando o equilíbrio do Scrum.
+
+Qualquer ponto que causa dor ao time no momento é uma oportunidade de melhoria para o futuro -- e é um treino contínuo enxergar problemas como oportunidades.
+
+Melhoria contínua é também, na minha opinião, uma forma de pensar que nos torna mais responsáveis pelo estado em que nos encontramos no momento. É uma responsabilização que ajuda a sair do hábito de reclamar e procurar culpados. E é algo que pode ser levado para outros aspectos da vida facilmente.
