@@ -9,15 +9,18 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
+import Header from './src/components/Header'
 
 const largura = Dimensions.get('screen').width;
 const altura = Dimensions.get('screen').height;
 
 const informacoes = [
   {
+    id: 1,
     usuario: 'Hiago',
   },
   {
+    id: 2,
     usuario: 'Maria',
   },
 ];
@@ -29,9 +32,10 @@ const App = () => {
       <View style={styles.view}>
         <FlatList
           data={informacoes}
+          keyExtractor={({id}) => id.toString()}
           renderItem={({item}) => (
             <>
-              <Text style={styles.text}>{item.usuario}</Text>
+              <Header userName={item.usuario}/>
               <Image
                 source={require('./res/img/alura.jpg')}
                 style={styles.img}
@@ -48,14 +52,8 @@ const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
   },
-  text: {
-    color: 'red',
-    marginTop: 15,
-    marginBottom: 15,
-    fontSize: 20,
-  },
   img: {
-    width: 0.5 * largura,
+    width: 0.8 * largura,
     height: 0.5 * altura,
   },
 });
