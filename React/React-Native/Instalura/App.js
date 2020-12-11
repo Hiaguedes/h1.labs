@@ -1,44 +1,33 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  StatusBar,
-  Image,
-  ScrollView,
-  Dimensions,
-  FlatList,
-} from 'react-native';
-import Header from './src/components/Header'
-
-const largura = Dimensions.get('screen').width;
-const altura = Dimensions.get('screen').height;
-
-const informacoes = [
-  {
-    id: 1,
-    usuario: 'Hiago',
-  },
-  {
-    id: 2,
-    usuario: 'Maria',
-  },
-];
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, StatusBar, ScrollView, FlatList} from 'react-native';
+import Header from './src/components/Header';
+import Photo from './src/components/Photo';
 
 const App = () => {
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    const lerFotos = async () => {
+      const fotosURL = await fetch('http://10.0.2.2:3030/feed');
+      const fotosJson = await fotosURL.json();
+      setPhotos(fotosJson);
+    };
+    lerFotos();
+  });
   return (
     <ScrollView>
       <StatusBar />
       <View style={styles.view}>
         <FlatList
-          data={informacoes}
+          data={photos}
           keyExtractor={({id}) => id.toString()}
           renderItem={({item}) => (
             <>
-              <Header userName={item.usuario}/>
-              <Image
-                source={require('./res/img/alura.jpg')}
-                style={styles.img}
+              <Header userName={item.userName} userPhoto={item.userURL} />
+              <Photo
+                photoPost={item.url}
+                description={item.description}
+                likes={item.likes || 0}
               />
             </>
           )}
@@ -51,10 +40,6 @@ const App = () => {
 const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
-  },
-  img: {
-    width: 0.8 * largura,
-    height: 0.5 * altura,
   },
 });
 

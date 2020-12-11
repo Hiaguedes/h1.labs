@@ -3,13 +3,10 @@ import {Text, StyleSheet, Image, Dimensions, View} from 'react-native';
 const altura = Dimensions.get('screen').height;
 const largura = Dimensions.get('screen').width;
 
-const Header = ({userName}) => {
+const Header = ({userName, userPhoto}) => {
   return (
     <View style={styles.view}>
-      <Image
-        style={styles.imgProfile}
-        source={require('../../../res/img/alura.jpg')}
-      />
+      <Image style={styles.imgProfile} source={{uri: userPhoto}} />
       <Text style={styles.nomeUsuario}>{userName}</Text>
     </View>
   );
