@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, StatusBar, ScrollView, FlatList} from 'react-native';
 import Header from './src/components/Header';
 import Photo from './src/components/Photo';
+import Comments from './src/components/Comments';
 
 const App = () => {
   const [photos, setPhotos] = useState([]);
@@ -29,6 +30,7 @@ const App = () => {
                 description={item.description}
                 likes={item.likes || 0}
               />
+              <Comments comment={item.comentarios} />
             </>
           )}
         />
