@@ -111,3 +111,33 @@ Como encontrar o commit em que determinada alteração foi aplicada, utilizando 
 Como encontrar o responsável por determinada linha ou bloco de código, utilizando o git blame;
 Que jamais devemos apontar um culpado por determinado bug. Uma equipe deve ser unida e se ajudar;
 Que o comando git show {hash} mostra todas as alterações aplicadas pelo commit com o hash informado.
+
+## Estratégias de ramificação
+
+A master (ou main agora) é a branch onde vai o código final, para produção. Então não devemos programar nada nela, somente garantir que o que vai lá é o código que está 100% correto e testado, sem falhas, então por isso eu devo ter outras estratégias de ramificação para trabalhar em meus projetos com outras pessoas.
+
+Para remover uma branch eu uso `git branch -d <nome da branch>` ou -D caso essa branch esteja a frente da master (com commits a mais)
+
+## Git flow
+
+Aprendemos de forma bem resumida sobre a estratégia de organização de branches, chamada Git Flow.
+
+Quais as branches presentes nesta estratégia?
+
+Master, Develop, Branches de feature, Branches de Hotfix e Branches de release
+
+Alternativa correta! Cada uma das branches tem um propósito bem definido e nos ajudam a manter o nosso controle de versões bem organizado.
+
+Que é uma convenção bem seguida que a branch master tenha apenas os commits prontos para ir para produção;
+Que não é interessante realizar trabalho e commitar diretamente na branch master;
+Como remover uma branch:
+git branch -d {nome_branch} remove uma branch que já tem seu trabalho unido à branch atual;
+git branch -D {nome_branch} remove uma branch mesmo que os commits desta branch ainda não estejam na branch atual, ou seja, força a remoção;
+Um pouco do processo chamado de Git Flow:
+Entendemos que o estado do código representado pela branch master deve ser o mesmo que estará em produção
+Vimos que deve haver uma branch de desenvolvimento (comumente chamado de develop), onde todas as funcionalidades e correções devem ser muito bem testadas antes de ir para produção (master)
+Vimos que cada funcionalidade deve ser feita em uma branch separada, e que é comum que esta branch tenha feature/ como prefixo
+Aprendemos também que bugs normalmente são corrigidos em branches separadas, com o prefixo hotfix/
+Além disso, branches específicas para cada release são criadas para realizar os testes e correções de bugs específicos
+
+A branch de hotfix tem que solucionar um problema de versão e mandar a resposta para a master e para a develop
