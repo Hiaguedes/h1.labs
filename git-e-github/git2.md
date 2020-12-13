@@ -64,3 +64,50 @@ E elas são:
 - GitLab (um github com mais superpoderes que o github para equipes, servidores de CI e CD de maneira muito mais simples, ela é mais robusta só isso)
 
 O GitHub lançou recentemente a opção de ter repositórios privados para projetos com até 3 colaboradores.
+
+## Cherry picking 
+
+conforme vamos trabalhando, acabamos nos deparando com um cenário que possui uma linha de desenvolvimento master (principal), com vários commits, uma correção de bug, com merge para o master. Porém, temos um release, com a qual estamos trabalhando, cujos commits ainda não trouxemos ao master por não estarem prontos.
+
+Então, não poderemos simplesmente aplicar um merge ou um rebase destes commits; queremos pegar apenas as alterações feitas no segundo commit, pois precisaremos deles para algo no master. Poderemos, então, copiar o hash do commit desejado, e trazer manualmente para onde queremos, que seria o branch atual. Para fazermos isto, usaremos `git cherry-pick 8f7c801` no Visualizing Git, sendo 8f7c801 o hash.
+
+O cherry pick é uma solução de conflito onde ele traz um único commit para a branch que eu quiser
+
+No último vídeo, vimos como podemos trazer um único commit específico de outra branch para a branch em que estamos trabalhando.
+
+Em que caso faz sentido trazer um commit específico para a branch atual?
+
+Quando um bug que afeta a branch atual já foi solucionado em outra branch
+
+Alternativa correta! Se uma implementação é necessária em sua branch e já foi feita em outra branch, pode fazer sentido trazer um commit específico, utilizando o git cherry-pick.
+
+## Bisect
+
+No último vídeo, nós utilizamos o git bisect para encontrar determinado ponto na história do código em que alguma alteração foi introduzida. Fizemos isso, informando os estados do commit (se estava "bom" ou "ruim").
+
+Para que o git bisect pode ser útil?
+
+Para encontrar o commit em que um bug foi introduzido
+
+Alternativa correta! Encontrando o exato commit em que determinado bug foi introduzido, podemos revertê-lo ou até mesmo tentar entender o motivo daquele bug ter sido introduzido.
+
+## Blame
+
+Com o comando `git blame` eu consigo ver quem foi o responsável por alterar cada linha do projeto (ou culpar fulano pelo erro introduzido), mas não use ele para dar uma bronca em alguém por algo e sim pra ensinar ou até mesmo aprender caso você encontra a irregularidade
+
+Com o git blame, podemos ver quem é o responsável por cada linha no código.
+
+Para que isso pode ser útil?
+
+Alternativa correta
+Para saber para quem perguntar sobre determinado bloco de código que não entendemos
+
+Alternativa correta! Com o git blame, nós podemos saber quem é o responsável por determinada linha ou bloco de código que nós não entendemos, e com isso sabemos com quem tirar a dúvida!
+
+## Resumo
+
+Que o comando git cherry-pick pode trazer um commit específico para a branch atual;
+Como encontrar o commit em que determinada alteração foi aplicada, utilizando o git bisect;
+Como encontrar o responsável por determinada linha ou bloco de código, utilizando o git blame;
+Que jamais devemos apontar um culpado por determinado bug. Uma equipe deve ser unida e se ajudar;
+Que o comando git show {hash} mostra todas as alterações aplicadas pelo commit com o hash informado.
