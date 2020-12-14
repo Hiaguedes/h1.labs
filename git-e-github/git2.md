@@ -141,3 +141,26 @@ Aprendemos também que bugs normalmente são corrigidos em branches separadas, c
 Além disso, branches específicas para cada release são criadas para realizar os testes e correções de bugs específicos
 
 A branch de hotfix tem que solucionar um problema de versão e mandar a resposta para a master e para a develop
+
+## Ferramentas visuais
+
+Git Cola -> Primeira interface gráfica multiplataforma para o git, o git cola te mostra separado todas as branchs do projeto e as diffs de forma bem mais amigável do que se fosse em um terminal, ela só não é muito bonita e não abarcar tudo o que o git pode fazer
+
+GitHub Desktop -> é um aplicativo feito pelo próprio pessoal do github, o que é bem legal. nele você pode ver PRs, criar branches e outras coisitas mas, esse é um pouco mais interessante que o git cola
+
+GitKraken -> Uma ferramenta que nos ajuda muito a implementar o git flow em nossos projetos, além de ter visualizações bem mais anteriores que os softwares anteriores
+
+Na última aula, nós conhecemos algumas ferramentas que podem nos auxiliar com o controle de versões do nosso código utilizando Git. Isso pode levar ao questionamento: "Será que preciso mesmo aprender os comandos, se há ferramentas visuais que fazem o mesmo trabalho?"
+
+Bom, é verdade que você conseguiria fazer quase todo o trabalho utilizando estas ferramentas, mas também é verdade que nem sempre elas estarão disponíveis.
+
+Em algum momento da sua vida, você precisará acessar um servidor que não possui interface gráfica, ou manter o código de uma máquina que não é sua, logo, não tem suas ferramentas instaladas.
+
+A questão é: em algum momento, você precisará saber como executar o trabalho direto pela linha de comando.
+
+Aprenda a utilizar ferramentas que possam agilizar seu trabalho, mas aprenda a fazer o trabalho sem elas também! ;-)
+
+Que há ferramentas visuais que podem nos auxiliar com o trabalho com o Git;
+O Git Cola foi uma das primeiras ferramentas visuais multiplataforma. Embora não seja a mais complexa ou visualmente atraente, é bem completa e pode nos ajudar bastante;
+O GitHub Desktop pode ser interessante para gerenciar os projetos do GitHub de forma mais ágil e facilitada, sem a necessidade de acessar o site;
+O GitKraken é uma ferramenta extremamente completa, que nos auxilia inclusive com a implementação do Git Flow.
