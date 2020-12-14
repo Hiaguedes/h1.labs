@@ -164,3 +164,41 @@ Que há ferramentas visuais que podem nos auxiliar com o trabalho com o Git;
 O Git Cola foi uma das primeiras ferramentas visuais multiplataforma. Embora não seja a mais complexa ou visualmente atraente, é bem completa e pode nos ajudar bastante;
 O GitHub Desktop pode ser interessante para gerenciar os projetos do GitHub de forma mais ágil e facilitada, sem a necessidade de acessar o site;
 O GitKraken é uma ferramenta extremamente completa, que nos auxilia inclusive com a implementação do Git Flow.
+
+## Hooks e deploy com o git
+
+Os hooks ficam dentro de uma pasta .git de todo o projeto que segue o git e são arquivos que são executados sempre antes ou depois de algum evento (como commit, push e afins), dentro dessa pasta temos arquivos .sample e aí colocamos os mesmo nomes que tem lá, criar um novo arquivo shell e só ser feliz.
+
+Um hook bastante feito é antes de commitar fazer os testes para o projeto, ou linter, ou executar o deploy no hook do pre commit.
+
+Vimos no último vídeo que o Git nos permite, através dos hooks, executar algum código quando determinado evento acontece.
+
+Como podemos escrever um código que será executado em algum evento?
+
+Criando um arquivo Shell Script, onde seu nome representa o evento, dentro da pasta .git/hooks
+
+Alternativa correta! Para ver com mais detalhes os possíveis hooks (eventos), confira este site: <https://githooks.com/>.
+
+### O deploy com o github
+
+Nos hooks do servidor que a aplicação tem temos um hook chamos pre-receive, agora temos que criar um chamado post-receive e nela colocarmos o comando git com a work tree do prjeto e o diretório do servidor com o comando
+
+```git
+git --git-dir="<caminho>"  --work-tree="<caminho> checkout -f"
+```
+
+Essa é a forma mais rudimentar de fazer o deploy contínuo de uma aplicação, fica a dica dos cursos de entrega contínua, integração contínua, docker e gitlab CI e jenkins para processos mais legais
+
+Na última aula, vimos de forma bem rudimentar como configurar um processo de entrega contínua do nosso código.
+
+Por que chamamos o resultado que alcançamos de entrega contínua?
+
+Porque a cada commit (a cada mudança significativa na base de código), podemos fazer um push e entregar o sistema em produção
+
+Alternativa correta! Entrega contínua é uma série de práticas que permitem que o código esteja de forma rápida e simples em produção. Tão rápido e simples quanto rodar um git push. Para saber mais sobre o assunto, confira o curso Integração Contínua: Maturidade e Produtividade no Desenvolvimento de Software aqui na Alura.
+
+Que o Git trabalha com eventos e os chama de hooks;
+Que podemos definir códigos a serem executados quando determinado evento (hook) ocorrer;
+A criar hooks dentro da pasta .git/hooks, utilizando Shell Script;
+Que o nome do arquivo indica em qual hook (evento) ele será executado;
+Que, com hooks, podemos executar os testes automatizados do nosso código, ou até mesmo colocar uma aplicação em produção.
