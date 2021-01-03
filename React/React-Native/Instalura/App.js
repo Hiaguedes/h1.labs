@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, StatusBar, ScrollView, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  ScrollView,
+  FlatList,
+  Platform,
+} from 'react-native';
 import Header from './src/components/Header';
 import Photo from './src/components/Photo';
 import Comments from './src/components/Comments';
@@ -8,16 +15,21 @@ const App = () => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
+    let url = '';
+    Platform.OS === 'ios' ? (url = 'localhost') : (url = '10.0.2.2');
     const lerFotos = async () => {
-      const fotosURL = await fetch('http://10.0.2.2:3030/feed');
+      const fotosURL = await fetch(`http://${url}:3030/feed`);
       const fotosJson = await fotosURL.json();
       setPhotos(fotosJson);
     };
     lerFotos();
   });
+
+  let altura = 0;
+  Platform.OS === 'ios' ? (altura = 35) : (altura = 0);
   return (
-    <ScrollView>
-      <StatusBar />
+    <ScrollView style={{marginTop: altura}}>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View style={styles.view}>
         <FlatList
           data={photos}

@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   wrapper: {
     marginTop: 10,
     marginBottom: 5,
+    marginLeft: 10,
   },
   viewUserComments: {
     flexDirection: 'row',

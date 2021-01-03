@@ -84,3 +84,36 @@ Qual é uma melhor abordagem para essas situações?
 Podemos criar arquivos com o nome do componente e manter esses arquivos organizados em pastas juntos com seus estilos, utilizando a index.js apenas para exportar as partes necessárias para o resto do sistema
 
 Como desenvolvedores, devemos pensar em nossa experiência de uso e alteração do sistema. Ter um monte de arquivos com o mesmo nome nos confunde na hora de editar os arquivos e dificulta sabermos que parte do sistema estamos alterando
+
+## A api Platform do react native
+
+Com o Platform importado da lib do react native conseguimos distinguir entre sistemas operacionais dentro no celular com o Platform.OS e requisiçoes http que com o android devem ser feitas com 10.0.2.2 no ios devemos fazer com o localhost. Entao para termos o desenvolvimento pleno nos dois sistemas nós devemos adotar essa diferenciação com o platform, pois é um problema bem comum
+
+Durante o desenvolvimento da nossa app React Native, percebemos alternando entre as duas plataformas (ios/android), que o endereço do host da API precisava ser alterado manualmente. No ios, usamos o endereço `http://localhost:8080/api/...`, enquanto que no Android, usamos `http://10.0.2.2:8080/api/....`
+
+De que maneira podemos minimizar este esforço e testar as o código nas duas plataformas sem ter que alterar o código?
+
+Podemos usar a API Platform, e definindo dinamicamente o endereço adequado para cada plataforma:
+
+```js
+const caminho = Platform.OS === 'ios' ? 'http://localhost:8080/api' : 'http://10.0.2.2:8080/api';
+
+fetch(`${caminho}/feed`)
+    ...
+```
+
+Boa! Podemos usar a API Platform como fizemos na aula e programar a alteração do endereço dinamicamente.
+
+Podemos evitar a necessidade de alterarmos o código do host se tivermos um host publicado na web. Assim os emuladores poderiam acessá-lo diretamente.
+
+Boa! Usando o endereço do host remoto onde a API está implantada para ajudar nosso desenvolvimento podemos abstrair esse trabalho.
+
+PRÓXIMA ATIVIDADE
+
+Ao compararmos nossa aplicação nas duas plataforma ( IOS e Android ) reparamos que visualmente as duas aplicações tinham pequenas diferenças. No Android por exemplo o horário do relógio e a informação de bateria estavam com uma cor de texto e de fonte diferentes do que tínhamos na plataforma IOS.
+
+Qual componente usamos para ajustar essas diferenças?
+
+Usamos o StatusBarpara ajustar as diferenças entre as plataformas e aproveitamos de suas propriedades para definir a cor de fundo e a cor da letra desse cabeçalho
+
+Exatamente! O único ponto que precisamos tomar cuidado é que algumas das propriedades da StatusBar só são aplicadas em um das duas plataformas. A propriedade BackgroundColor, por exemplo, só funciona no Android.
