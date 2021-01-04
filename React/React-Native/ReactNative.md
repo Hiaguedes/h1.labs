@@ -128,3 +128,19 @@ Para diminuir a quantidade de lugares que gerenciam estado em nossa aplicação 
 
 Exatamente, injeção de dependências é algo muito importante e que nos ajuda muito a manter a qualidade de código e a criar código que é facilmente testavel.
 Para diminuir a quantidade de lugares que gerenciam estado em nossa aplicação podemos focar em deixar os Componentes mais isolados e com menos acoplamento de outras classes, para isso injetamos pelo construtor do componente as funções e propriedades que ele deve usar.
+
+## Ao chamar a requisição de tentar logar usamos um try...catch para capturar possíveis erros de login e avisar o usuário do que ele deve fazer para corrigir o erro ou se o erro está do lado do servidor.
+
+No caos, usamos uma cláusula catch de uma forma que não é a ideal. O que faltou para seguirmos as boas práticas de tratamento de erros?
+
+Alternativa correta
+Devemos sempre validar as informações de um formulário antes de enviar a requisição para o backend. Assim evitamos chamadas que contém erros óbvios como o não preenchimento de um campo.
+
+
+Sim, essa é uma boa prática que evita enviarmos requisições com erros para o backend. Não adianta mandar o backend validar um usuário em branco, por exemplo
+
+Alternativa correta
+Precisamos sempre tratar erros específicos e evitar ao máximos tratar genericamente qualquer tipo de erro em uma única cláusula catch.
+
+
+Exatamente, cada tipo de erro deve ter um tratamento especifico, nem que seja para que a mensagem de erro para o usuário tenha um texto diferente. Isso porque se for um erro no lado do servidor a pessoa precisa saber que não tem muito o que fazer a não ser esperar o servidor ser ajustado.Ao chamar a requisição de tentar logar usamos um try...catch para capturar possíveis erros de login e avisar o usuário do que ele deve fazer para corrigir o erro ou se o erro está do lado do servidor.

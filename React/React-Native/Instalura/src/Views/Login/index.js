@@ -1,33 +1,56 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
   StatusBar,
-  ScrollView,
   Platform,
   Text,
   TextInput,
   Button,
   Dimensions,
 } from 'react-native';
+import loginCommunication from '../../api/Login';
+let altura = 0;
+Platform.OS === 'ios' ? (altura = 35) : (altura = 0);
 
-const {width, height} = Dimensions.get('screen');
+const {width, height} = Dimensions.get('window');
 
 const Feed = () => {
-  let altura = 0;
-  Platform.OS === 'ios' ? (altura = 35) : (altura = 0);
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [mensagemErro, setMensagemErro] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      await loginCommunication(user, password);
+      setMensagemErro('');
+    } catch (e) {
+      setMensagemErro(e.message);
+    }
+  };
+
   return (
-    <ScrollView style={{marginTop: altura}}>
+    <>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View style={styles.container}>
-        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Text style={styles.title}>Login</Text>
-        <TextInput style={styles.input} placeholder="Usuário" />
-        <TextInput style={styles.input} placeholder="Senha" secureTextEntry />
+        <Text style={styles.erroMessage}>{mensagemErro}</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Usuário"
+          onChangeText={(text) => setUser(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+        />
         <View style={styles.button}>
-          <Button title="Login" color="green" />
+          <Button title="Login" color="green" onPress={handleLogin} />
         </View>
       </View>
-    </ScrollView>
+    </>
   );
 };
 
@@ -37,11 +60,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     flexGrow: 2,
-    height: 0.9 * height,
+    height: height,
     width: width,
+    marginTop: altura,
   },
   title: {
     fontSize: 20,
+  },
+  erroMessage: {
+    color: 'red',
+    marginTop: 5,
   },
   button: {
     backgroundColor: 'green',
