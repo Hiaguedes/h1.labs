@@ -12,7 +12,7 @@ import {
 
 const largura = Dimensions.get('screen').width;
 
-const Comments = ({comment}) => {
+const Comments = ({comment, userName}) => {
   const [comentarioInput, setComentarioInput] = useState('');
   const [comentarios, setComentarios] = useState(comment);
   const inputRef = useRef();
@@ -21,7 +21,7 @@ const Comments = ({comment}) => {
       ...comentarios,
       {
         date: Date.now(),
-        userName: 'Anônimo',
+        userName: userName,
         text: comentarioInput,
       },
     ]);

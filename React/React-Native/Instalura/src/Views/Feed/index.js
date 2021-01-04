@@ -11,7 +11,8 @@ import Header from '../../components/Header';
 import Photo from '../../components/Photo';
 import Comments from '../../components/Comments';
 
-const Feed = () => {
+const Feed = ({route}) => {
+  const {user} = route.params;
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const Feed = () => {
                 description={item.description}
                 likes={item.likes || 0}
               />
-              <Comments comment={item.comentarios} />
+              <Comments userName={user} comment={item.comentarios} />
             </>
           )}
         />

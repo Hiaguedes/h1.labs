@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {StackActions} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
@@ -28,7 +29,7 @@ const Login = ({navigation}) => {
       await AsyncStorage.setItem('appToken', token);
       setMensagemErro('');
 
-      navigation.navigate('Feed');
+      navigation.dispatch(StackActions.replace('Feed', {user: user}));
     } catch (e) {
       setMensagemErro(e.message);
     }
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     flexGrow: 2,
-    height: height,
+    height: 0.6 * height,
     width: width,
     marginTop: altura,
   },

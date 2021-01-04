@@ -1,5 +1,7 @@
 # React Native
 
+Usuário de teste: Usuário:Alura Senha:123456
+
 IMPORTANTE: Usando sistemas Windows não é possível desenvolver apps com código nativo para a plataforma IOS.
 
 Veja na página do react-native get started quais as dependencias você precisa pro seu SO para criar um projeto com react-native, mas se você já tem o react native cli na sua máquina use o comando
@@ -142,5 +144,38 @@ Sim, essa é uma boa prática que evita enviarmos requisições com erros para o
 Alternativa correta
 Precisamos sempre tratar erros específicos e evitar ao máximos tratar genericamente qualquer tipo de erro em uma única cláusula catch.
 
-
 Exatamente, cada tipo de erro deve ter um tratamento especifico, nem que seja para que a mensagem de erro para o usuário tenha um texto diferente. Isso porque se for um erro no lado do servidor a pessoa precisa saber que não tem muito o que fazer a não ser esperar o servidor ser ajustado.Ao chamar a requisição de tentar logar usamos um try...catch para capturar possíveis erros de login e avisar o usuário do que ele deve fazer para corrigir o erro ou se o erro está do lado do servidor.
+
+## React navigations para navegar entre telas
+
+Fique atento na documentação pois toda a versão trata a navegação como componentes, o que é diferente da versão 4, e para isso se atente também de instalar todas as dependencias, como o reanimation o stack o gesture e outros. A documentação do navigaation é bem extensa e cheia de nuancias e você pode ficar um tempo perdido nos erros que estão dando
+
+Documentação: <https://reactnavigation.org/docs/getting-started>
+
+Após a instalação do React-Navigation conseguimos configurar a tela de Login e de Feed como ponto de entrada para a aplicação. Só que para navegar entre essas telas a bliblioteca precisa nos dar acesso a algum ponto de comunicação entre a aplicação e ela.
+
+Qual é esse ponto de comunicação e como ele é fornecido para cada componente?
+
+Alternativa correta
+O React-navigation nós fornecer um objeto navigation que é passado para os componentes através de uma propriedade.
+
+Exatamente, confirmando que essa injeção de dependências é uma boa prática quando buscamos desacoplamento do nosso código com outros componentes.
+
+Atente-se no header que o navigation cria que as coisas são um tanto diferentes para o android e para o ios
+
+Use o stack actions para fazer a movimentação entre telas, sabendo que o push, coloca mais uma tela na pilha de informações, podendo voltar ela ou não. O replace tira toda a stack de movimentação para colocar uma nova tela como a principal.
+
+Durante o fluxo de navegação de uma aplicação é muito comum precisarmos passar pequenas informações de uma Tela para outra. Existem diversas forma de se fazer isso em uma aplicação, marque os métodos que vimos no curso e que podemos usar para transmitir informações entre telas.
+
+Uma opção é passarmos informações através do método de navegação entre telas. O segundo parâmetro do método "navigate", por exemplo, guarda as informações que quisermos.
+
+Exatamente. Quando precisamos de uma informação pontual apenas para a próxima tela que vamos navegar essa é uma boa maneira de transmitir dados.
+
+Alternativa correta
+Podemos usar o AsyncStorage para guardar informações localmente no aparelho e recuperar ao carregar outro componente, usando o useEffect
+
+Sim, essa é uma ótima opção quando precisamos de uma informações em diferentes telas do sistema
+
+O asyncStorage é uma forma de você guardar dados dentro da sua aplicação de modo a ele persistir no celular
+
+Link do conteudo do curso: <https://github.com/bugan/instalura-react-native-2/archive/aula5.zip>
