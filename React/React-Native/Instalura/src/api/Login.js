@@ -11,14 +11,15 @@ const loginCommunication = async (user, password) => {
       password: password,
     }),
     headers: {
-      "content-type": 'application/json',
+      'content-type': 'application/json',
     },
   };
   const resposta = await fetch(`http://${url}:3030/users/login`, headerHTTP);
 
-  console.warn(resposta);
+//   console.warn(resposta);
   if (resposta.ok) {
-    console.warn('logando');
+    // console.warn('logando');
+    return resposta.headers.get('x-access-token');
   } else {
     throw new Error('Erro ao tentar logar, usuário não encontrado');
   }

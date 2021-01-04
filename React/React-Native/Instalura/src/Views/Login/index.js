@@ -9,21 +9,26 @@ import {
   Button,
   Dimensions,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import loginCommunication from '../../api/Login';
 let altura = 0;
 Platform.OS === 'ios' ? (altura = 35) : (altura = 0);
 
 const {width, height} = Dimensions.get('window');
 
-const Feed = () => {
+const Login = ({navigation}) => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
 
   const handleLogin = async () => {
     try {
-      await loginCommunication(user, password);
+      const token = await loginCommunication(user, password);
+      await AsyncStorage.setItem('appToken', token);
       setMensagemErro('');
+
+      navigation.navigate('Feed');
     } catch (e) {
       setMensagemErro(e.message);
     }
@@ -86,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Feed;
+export default Login;

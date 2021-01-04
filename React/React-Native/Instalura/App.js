@@ -1,9 +1,19 @@
 import React from 'react';
-import Feed from './src/Views/Feed';
-import Login from './src/Views/Login';
+import {Feed, Login} from './src/Views';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const App = () => {
-  return <Login />;
-}
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Feed" component={Feed} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;
