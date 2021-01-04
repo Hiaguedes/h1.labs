@@ -117,3 +117,14 @@ Qual componente usamos para ajustar essas diferenças?
 Usamos o StatusBarpara ajustar as diferenças entre as plataformas e aproveitamos de suas propriedades para definir a cor de fundo e a cor da letra desse cabeçalho
 
 Exatamente! O único ponto que precisamos tomar cuidado é que algumas das propriedades da StatusBar só são aplicadas em um das duas plataformas. A propriedade BackgroundColor, por exemplo, só funciona no Android.
+
+## Facilitando manutenção
+
+Sempre que estamos em um projeto a quantidade de código e componentes dele tende a aumentar e em muitos casos acabamos com repetição de código em diferentes lugares da aplicação. Isso acaba dificultando a manutenção do projeto quando uma alteração não é repicada diretamente em todos os lugares que gostariamos pois não estamos reutilizando código.
+
+Outro fator importante e que pode dificultar a manutenção do projeto e a correção rápida de bugs é o gerenciamento de estado da aplicação. Como podemos diminuir a quantidade de lugares onde gerenciamos estado em nossa aplicação?
+
+Para diminuir a quantidade de lugares que gerenciam estado em nossa aplicação podemos focar em deixar os Componentes mais isolados e com menos acoplamento de outras classes, para isso injetamos pelo construtor do componente as funções e propriedades que ele deve usar.
+
+Exatamente, injeção de dependências é algo muito importante e que nos ajuda muito a manter a qualidade de código e a criar código que é facilmente testavel.
+Para diminuir a quantidade de lugares que gerenciam estado em nossa aplicação podemos focar em deixar os Componentes mais isolados e com menos acoplamento de outras classes, para isso injetamos pelo construtor do componente as funções e propriedades que ele deve usar.
