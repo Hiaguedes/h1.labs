@@ -1,10 +1,13 @@
-import * as Font from 'expo-font';
+import { useFonts } from '@use-expo/font';
 
 export default FontLoader = () => {
-
-     const [loaded] = useFonts({
+     const [isLoaded] = useFonts({
         'openSansBold': require('./OpenSans-Bold.ttf'),
+        'openSansExtraBold': require('./OpenSans-ExtraBold.ttf'),
+        'openSansLight': require('./OpenSans-Light.ttf'),
+        'openSanRegular': require('./OpenSans-Regular.ttf'),
+        'openSansSemiBold': require('./OpenSans-SemiBold.ttf'),
     })
 
-    return loaded? loaded : null;
+    return isLoaded;
 }

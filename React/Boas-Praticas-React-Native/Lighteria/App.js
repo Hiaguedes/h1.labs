@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import AppLoading from 'expo-app-loading';
 import { Text, View,  Image, StyleSheet, Dimensions } from 'react-native';
 import Home from './src/pages/Home';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,11 +8,12 @@ import FontLoader from './assets/fonts/fontLoader';
 
 const { width } = Dimensions.get('window');
 
-export default function App() {
-  useEffect(async() => {
-    await FontLoader();
-});
-  return (
+export default App = ()  => {
+
+    const isLoaded = FontLoader();
+
+ return !isLoaded? <AppLoading /> : 
+  (
     <>
     <StatusBar backgroundColor="#f1f1f1"/>
     <SafeAreaView style={styles.areaView}>
