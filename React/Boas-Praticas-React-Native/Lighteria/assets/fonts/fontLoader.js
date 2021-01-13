@@ -5,7 +5,7 @@ export default FontLoader = () => {
         'openSansBold': require('./OpenSans-Bold.ttf'),
         'openSansExtraBold': require('./OpenSans-ExtraBold.ttf'),
         'openSansLight': require('./OpenSans-Light.ttf'),
-        'openSanRegular': require('./OpenSans-Regular.ttf'),
+        'openSansRegular': require('./OpenSans-Regular.ttf'),
         'openSansSemiBold': require('./OpenSans-SemiBold.ttf'),
     })
 
