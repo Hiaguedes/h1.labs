@@ -1,0 +1,304 @@
+# GraphQl
+
+Para começarmos, por favor baixe o repositório inicial e faça a instalação do projeto com o comando npm install. Por enquanto, só temos duas dependências para instalar: json-server e nodemon.
+
+Para começarmos já focando no GraphQL, sem nos preocuparmos com a base de dados, vamos utilizar os dados do json que está na pasta .api/data.
+
+Navegue pelo terminal até a pasta raiz do projeto (depois de instalar com npm install) e rode o comando: npx json-server --watch api/data/dados.json. O json-server vai “mocar” esses dados e disponibilizar dois endpoints:
+
+```path
+Resources
+http://localhost:3000/users
+http://localhost:3000/roles
+```
+
+/users e /roles foram gerados a partir das propriedades-raiz do json que está na pasta. O json-server utiliza a porta 3000 por padrão, então certifique-se que não tenha nada rodando nessa porta.
+
+A outra dependência que estamos instalando agora é o Nodemon, que vai ouvir automaticamente as alterações nos arquivos sem precisarmos derrubar e subir nosso servidor local a cada alteração. Mas a API ainda não tem nada (por enquanto!), então vamos em frente.
+
+O graphQL é uma especificação de apis que tem a sua própria linguagem de query e ele nao está ligado a nenhuma base de dados, o graphQL tem um ambiente que executa queries
+
+Os schemas são baseados em como os dados são usados e nao como eles estao armazenados, importante para o front
+
+O graphql resolve alguns problemas do rest que é o underfetching ou overfetching que é o fato do endpoint nos informar alguns dados que não vamos usar ou não nos retorna alguns dados que queremos usar e com o graphql nós conseguimos obter exatamente as informações que quisermos com uma requisição apenas, entao ele otimiza a relacao front e back.
+
+O graph ajuda o front e o back pois o seu desenvolvimento é mais ágil, pois não precisa de inúmeros endpoints
+
+## Usando o graphql para construir o servidor de graphQL
+
+Instale as dependencias
+
+```cmd
+npm i graphql;
+npm i apollo-server;
+```
+
+Conceitos importantes: 
+
+O GraphQL faz uma separação clara entre estrutura e comportamento.
+
+A estrutura do GraphQL está no schema, no qual especifica-se o que o servidor GraphQL está estruturado para fazer, com seus tipos e objetos.
+
+Essa estrutura precisa ser implementada de alguma forma para que possa funcionar. No GraphQL, isso se dá através do que chamamos de funções resolver, ou só resolvers. É nos resolvers que implementamos o comportamento. Cada campo em um schema GraphQL é implementado através de um resolver.
+
+É aqui que entram ferramentas como Apollo, que vamos utilizar no curso. Elas servem para nos ajudar a implementar a especificação GraphQL em nossa aplicação.
+
+Documentação do apollo <https://www.apollographql.com/docs/apollo-server/>
+
+### typeDefs (definições de tipos)
+
+Uma forma básica de escrever uma definição de tipo é a que está abaixo
+
+```js
+const { ApolloServer, gql } = require('apollo-server');
+
+const users = [
+    { 
+        nome: 'Ana',
+        ativo: true,
+    },
+    { 
+        nome: 'Xoão',
+        ativo: false,
+    },
+];
+
+const typeDefs = gql`
+    type Users {
+        nome: String!
+        ativo: Boolean!
+        email: String
+    }
+
+`;
+
+
+const server = new ApolloServer({typeDefs, resolvers});
+```
+
+Onde o typedef é a definição dos tipos de users (escrito em js)
+
+## Para saber mais: Tipos básicos do GraphQL
+
+O GraphQL tem sua própria linguagem, chamada de SDL, ou Schema Definition Language, linguagem de definição de schema. Isso porque é possível implementar o GraphQL em conjunto com qualquer outra linguagem, então a SDL serve para fazer essa integração de forma agnóstica.
+
+Para entender como essa linguagem funciona, sempre temos que ter em mente que o GraphQL trabalha com tipos, e saber quais tipos são esses.
+
+SCALAR TYPES
+São tipos que refletem alguns dos tipos de dados que já conhecemos. Para o GraphQL, são os tipos que se resolvem em dados concretos (ao contrário de objetos, por exemplo, que são conjuntos de dados). São eles:
+
+Int - inteiro de 32 bits
+Float - tipo ponto flutuante
+String - sequência de caracteres no formato UTF-8
+Boolean - true ou false
+ID - identificador único, usado normalmente para localizar dados É possível criar tipos scalar customizados, estudaremos mais adiante neste curso.
+OBJECT TYPE
+Quando trabalhamos com GraphQL, o ideal é pensarmos no uso dos dados, mais do que na forma em que estão armazenados. Pensando nisso, nem sempre queremos retornar um dado concreto, mas sim um conjunto de dados com propriedades específicas — ou seja, um objeto.
+
+Um exemplo de tipo Objeto (Object type) em GraphQL:
+
+type Livro {
+    id: ID!
+    titulo: String!
+    autoria: String!
+    paginas: Int!
+    colecoes: [Colecao!]!
+}COPIAR CÓDIGO
+No exemplo acima, estamos definindo o tipo Objeto Livro.
+
+As propriedades — que no GraphQL são chamadas de campos — retornam tipos scalar, como strings e inteiros, e também podem retornar arrays compostas de outros objetos, como no caso de colecoes: [Colecao!]!.
+
+Note que na definição do objeto não está especificado de qual base de dados virão esses dados, apenas quais dados o GraphQL espera receber, e de que tipos.
+
+Os campos marcados com exclamação ! são campos que não podem ser nulos. Ou seja, qualquer query que envolva estes campos sempre devem ter algum valor do tipo esperado. No caso de colecoes: [Colecao!]! a exclamação após o fechamento da array significa que o campo colecoes sempre vai receber uma array (tendo ou não elementos dentro dela); a exclamação em Colecao! significa que qualquer elemento dentro da array sempre vai ser um objeto Colecao.
+
+QUERY TYPE
+Os tipos Query definem os pontos de entrada (entry points) da API; indicam quais dados o cliente pode receber e de que forma — de certa forma, são como queries do tipo GET quando trabalhamos com REST, a diferença aqui é que o cliente tem mais liberdade para montar as queries para receber apenas os dados que precisa — lembrando que, para o GraphQL e também para o cliente, não importa a origem desses dados. os dados podem vir de diversas fontes: endpoints REST, bancos SQL e NoSQL, outro servidor GraphQL.
+
+Um exemplo de tipo Query:
+
+type Query {
+    livros: [Livro!]!
+    livro(id: ID!): Livro!
+}COPIAR CÓDIGO
+Aqui definimos a query livros, que retorna uma array composta por tipos objeto Livro, e a query livros, que recebe um número de ID por parâmetro e retorna um objeto Livro referente ao ID informado.
+
+Uma vez que as queries são os pontos de entrada de uma API GraphQL, toda aplicação vai ter pelo menos uma Query em seu schema.
+
+MUTATION TYPE
+Mutations são os tipos GraphQL utilizados para adicionar, alterar e deletar dados, de forma similar às operações de POST, PUT e DELETE nos CRUDs desenvolvidos em REST.
+
+Os tipos Query são obrigatórios em qualquer serviço GraphQL, porém Mutations são opcionais. Um exemplo de tipo Mutation para adicionar um novo livro:
+
+type Mutation {
+    adicionaLivro(titulo: String!, autoria: String!, paginas: Int!, colecoes: Colecao!): Livro!
+}COPIAR CÓDIGO
+Neste exemplo temos somente uma Mutation, que chamamos de adicionaLivro e recebe por parâmetro os dados necessários. Confira os parâmetros com o tipo Livro definido anteriormente!
+
+Além dos tipos acima, o GraphQL ainda tem mais tipos básicos que trabalharemos com mais detalhes durante o curso:
+
+Enum,
+Input,
+Interface,
+Union.
+
+## Usar mais de um squema
+
+É possível que você queira trabalhar com mais de um schema durante seu projeto. Nesse caso, como é possível passar mais de um schema para o ApolloServer, com a variável typeDefs?
+
+No caso dos resolvers, exportando cada objeto como módulo, importando e passando para a variável resolvers como variável já é o suficiente. No arquivo de entrada da API (api/index.js), vamos fazer um exemplo com uma aplicação que envolve schemas de usuários e produtos:
+
+const userResolvers = require('./user/resolvers/userResolvers')
+const produtoResolvers = require('./produtos/resolvers/produtoResolvers')
+
+const resolvers = [userResolvers, produtoResolvers]COPIAR CÓDIGO
+Ao contrário dos resolvers, quando é necessário trabalhar com mais de um schema no mesmo servidor GraphQL, é preciso “fundir” (merge) os schemas em uma única string, para ser passada ao servidor com a variável typeDefs.
+
+Para isso, precisamos instalar uma biblioteca auxiliar:
+
+npm install graphql-toolsCOPIAR CÓDIGO
+Após a instalação, vamos utilizar um módulo de graphql-tools chamado mergeTypeDefs para fazer o “merge” dos schemas, passando o resultado para a variável typeDefs.
+
+Primeiro importamos o módulo para api/index.js:
+
+const { mergeTypeDefs } = require('graphql-tools')COPIAR CÓDIGO
+Após importarmos o módulo necessário, importamos para api/index.js os arquivos de schema que serão utilizados:
+
+const userSchema = require('./user/schema/user.graphql')
+const produtoSchema = require('./produto/schema/produto.graphql')COPIAR CÓDIGO
+Por fim, passamos como parâmetro do módulo mergeTypeDefs uma array com os schemas que serão utilizados:
+
+const typeDefs = mergeTypeDefs([userSchema, produtoSchema]);COPIAR CÓDIGO
+A variável typeDefs já deve fazer parte das propriedades que passamos para ApolloServer:
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    // restante das propriedades
+})COPIAR CÓDIGO
+O trecho de código com a importação e declaração de typeDefs e resolvers fica da seguinte forma:
+
+const { mergeTypeDefs } = require('graphql-tools')
+
+const userResolvers = require('./user/resolvers/userResolvers')
+const produtoResolvers = require('./produtos/resolvers/produtoResolvers')
+
+const userSchema = require('./user/schema/user.graphql')
+const produtoSchema = require('./produto/schema/produto.graphql')
+
+const resolvers = [userResolvers, produtoResolvers]
+const typeDefs = mergeTypeDefs([userSchema, produtoSchema]);
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    // restante das propriedades
+})COPIAR CÓDIGO
+Caso tenha qualquer dúvida, pode mandar no fórum!
+
+## Para saber mais: Introspecção
+
+Quando desenvolvemos uma API, é sempre bom disponibilizar documentação sobre ela, para que clientes (por exemplo, quem for fazer o front-end do produto) saibam quais dados podem ser trabalhados e de que forma.
+
+O GraphQL tem uma ferramenta que nos permite visualizar os tipos e queries disponíveis em uma API, o que facilita muito a vida de quem vai trabalhar com ela. É chamada de introspecção, ou introspection.
+
+Podemos fazer um teste com a API do GitHub que vimos anteriormente: o GitHub's GraphQL Explorer. No playground, digite:
+
+{
+    __schema {
+        types {
+            name
+        }
+    }
+}COPIAR CÓDIGO
+E você terá acesso a todos os types definidos na API do GitHub. Ou, como se trata de uma API pública, a todos os tipos que estão disponíveis:
+
+Scalars, como “Boolean”,
+Tipos definidos na construção da API, como “Users” e tipos relacionados a “User”;
+Tipos iniciados com __, que são parte do sistema de introspecção.
+Outro teste interessante que podemos fazer é verificar qual é o ponto de entrada da API:
+
+{
+    __schema {
+        queryType {
+            name
+        }
+    }
+}COPIAR CÓDIGO
+Fazendo o teste no playground do GitHub, o retorno é "name": "Query". O que significa que a API tem um type Query, onde estão definidos os pontos de entrada para consulta à API… Vale notar aqui que poderia ser adotado qualquer nome para o tipo, mas utilizar Query é uma convenção, então vamos utilizá-lo.
+
+Podemos passar mais subcampos para ter mais informações ainda sobre os tipos disponíveis nessa API:
+
+query {
+    __schema {
+        types {
+            name
+            kind
+            fields {
+                name
+            }
+        }
+    }
+}COPIAR CÓDIGO
+Essa query vai nos retornar informações mais completas sobre cada tipo: nome, se é objeto, scalar, input; no caso de objetos, quais campos estão associados, e muito mais.
+
+Confira, por exemplo, os types Boolean e User e verifique as informações de cada um (é possível fazer buscas com “ctrl + f” / “cmd + f”).
+
+Um último teste: Como saber de que se trata certo tipo, por exemplo “Actor”, que aparece na lista de tipos disponíveis na API:
+
+{
+    __type(name: "Actor") {
+        name
+        kind
+    }
+}COPIAR CÓDIGO
+O retorno aqui é:
+
+{
+    "data": {
+        "__type": {
+            "name": "Actor",
+            "kind": "INTERFACE"
+        }
+    }
+}COPIAR CÓDIGO
+Ou seja, Actor é um tipo Interface. Vamos ver o que é esse tipo mais para a frente neste curso.
+
+Por definição, tanto o playground quanto a introspecção não devem ficar disponíveis na versão da API que está em produção, como uma boa prática. Porém, caso queira disponibilizar — por exemplo, se for desenvolver uma API pública, é possível declarar isso explicitamente na instância de ApolloServer:
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    introspection: true,  
+    playground: true,
+});COPIAR CÓDIGO
+Há muito mais coisa que podemos fazer com a introspecção! À medida em que desenvolvemos nossa API durante o curso, você pode testar com ela tudo o que foi feito aqui com a API do GitHub.
+
+Uma vez que o GraphQL é somente uma especificação, utilizamos algumas ferramentas para implementar essa especificação. Existem várias disponíveis, para o nosso projeto estamos usando o Apollo e GraphQL-Tools.
+
+
+Alternativa correta! Estamos usando Apollo para subir um servidor GraphQL e GraphQL-Tools para carregar os arquivos de schema e resolvers, e convertê-los para um formato de string que o ApolloServer espera receber.
+
+Alternativa correta
+É possível definir os schemas tanto utilizando o módulo gql dentro de um objeto JavaScript, quanto separando em arquivos .graphql.
+
+
+Alternativa correta! Embora seja possível utilizar o gql para escrever os schemas dentro de uma string, é uma boa prática separar em arquivos .graphql para que o código fique mais bem organizado e prevendo o desenvolvimento futuro da API.
+
+Alternativa correta
+A implementação do schema vai depender da linguagem escolhida para o backend e da lib de ferramentas utilizada.
+
+
+Alternativa incorreta. Ao utilizarmos a SDL (linguagem de definição de schema) do GraphQL, é possível definir os schemas da API de forma independente do restante da aplicação. A linguagem escolhida é utilizada nos resolvers e nas camadas de manipulação de dados, mas não para escrever os tipos que compõem o schema.
+
+Alternativa correta
+Da mesma forma que utilizamos uma array “hardcoded” com alguns dados, o mesmo schema vai funcionar para dados vindos de outras fontes.
+
+
+Alternativa correta! Aqui usamos uma variável, mas o GraphQL pode ser utilizado independente da origem dos dados: um banco SQL, endpoints REST, outro servidor GraphQL. A camada do schema não “sabe” e nem precisa saber de onde estes dados virão.
+
+Alternativa correta
+O GraphQL trabalha com três conceitos principais: schemas, resolvers e tipos.
+
+
+Alternativa correta! É nos schemas (usando a linguagem de query do GraphQL) que definimos os tipos que precisamos para que a API retorne os dados esperados. Nos resolvers (implementados na própria linguagem da aplicação, no caso JS) é implementada a lógica necessária para retornar estes dados.
