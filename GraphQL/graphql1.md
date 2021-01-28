@@ -302,3 +302,123 @@ O GraphQL trabalha com três conceitos principais: schemas, resolvers e tipos.
 
 
 Alternativa correta! É nos schemas (usando a linguagem de query do GraphQL) que definimos os tipos que precisamos para que a API retorne os dados esperados. Nos resolvers (implementados na própria linguagem da aplicação, no caso JS) é implementada a lógica necessária para retornar estes dados.
+
+## GraphQL e dados
+
+O GraphQL pode ser usado em combinação com qualquer base de dados e até mesmo utilizar várias ao mesmo tempo.
+
+Existem diversas plataformas para conectar sua API a determinadas bases de dados, e como já vimos, existem algumas libs que oferecem ferramentas para isso. Neste curso usamos Apollo, que no momento deste curso é uma das mais utilizadas.
+
+Além de módulos para uso com REST (o caso do projeto deste curso), existem também libs para utilizar outras fontes de dados em conjunto com as ferramentas da Apollo, de forma similar à que estamos fazendo:
+
+SQL DataSource: para bancos SQL
+Mongo DataSource: para MongoDB
+GraphQL DataSource: para utilizar outra API GraphQL como fonte de dados.
+Se você quiser testar outras bases em seu projeto, este [artigo](https://www.apollographql.com/blog/a-deep-dive-on-apollo-data-sources/) do blog da Apollo dá maiores detalhes de implementação para as três libs acima.
+
+Uma outra opção para utilizar o GraphQL com SQL é a Prisma, que integra bancos SQL (Postgres, MySQL ou SQLite) ao GraphQL, abstraindo as conexões com o banco e as queries.
+
+Além dessas, no momento em que escrevemos este texto, temos mais algumas opções como:
+
+Hasura para Postgres, outros serviços GraphQL e APIs REST;
+AWS AppSync para DynamoDB, Elasticsearch e Aurora;
+Stitch para MongoDB.
+Aproveite para testar outras ferramentas!
+
+## Para saber mais: Parâmetro info
+
+Já conferimos quatro parâmetros do resolver e qual tipo de dado cada um deles carrega:
+
+root (ou parent): o resultado da chamada no “nível” anterior da query;
+args: os argumentos que o resolver pode receber da query, por exemplo os dados para um novo User ou um ID;
+context: um objeto com o contexto para o GraphQL, como dados sobre a conexão, permissões de usuário, etc;
+info: a representação em árvore da query ou da mutation.
+Na maior parte dos casos podemos trabalhar sem prestar muita atenção ao parâmetro info ou ao que ele faz. Mas é importante sabermos um pouco mais sobre o que ele faz e como funciona.
+
+Podemos alterar um pouco o resolver users e incluir uma chamada no console que nos mostre o que o resolver está recebendo em info:
+
+```js
+users: (root, args, { dataSources }, info) => {
+    console.log(info)
+    return dataSources.usersAPI.getUsers()
+},COPIAR CÓDIGO
+```
+
+Fazendo a chamada da query users no playground:
+
+```graphql
+query {
+    users {
+        nome
+    }
+}COPIAR CÓDIGO
+```
+
+Além da lista de nomes no playground, agora deve mostrar no console um objeto com várias propriedades, algumas com nomes que a gente reconhece, por exemplo fieldName: 'users', returnType: [User!]! e algumas propriedades iniciando com __, como __Schema: __Schema.
+
+Então, podemos afirmar que info é um objeto que contém a estrutura em árvore da query solicitada. Com essas informações, o resolver sabe quais campos deve retornar, os tipos de dados destes campos, quais são os níveis acima na query e etc.
+
+Para informações detalhadas sobre cada uma das propriedades recebidas através do parâmetro info, você pode consultar este artigo no blog da Prisma que está bem completo.
+
+## Para saber mais: Campos nulos
+
+Já vimos que, quando queremos que o valor de um campo nunca seja nulo, utilizamos exclamação ( ! ). Como no campo nome no tipo User:
+
+type User {
+    nome: String!
+    .
+    .
+    .
+}COPIAR CÓDIGO
+Aqui deixamos explícito que o valor de nome sempre deve retornar algum valor; ou seja, nunca pode ser null. O contrário fará com que o GraphQL lance um erro.
+
+E quando trabalhamos com listas de dados? Nesse caso, existe uma diferença na parte do código onde declaramos !.
+
+Primeiro caso: uma query que pede uma lista de usuários. O ponto de exclamação está somente depois dos colchetes []. Ou seja, a query users em si não pode retornar null, mas pode conter null entre os itens retornados na lista.
+
+type Query {
+    users: [User]!
+}COPIAR CÓDIGO
+Exemplos de retorno:
+
+users: [{user}, null, {user}] //retorno válido
+users: null //retorna erroCOPIAR CÓDIGO
+Segundo caso: o ponto de exclamação está dentro dos colchetes da lista, junto ao tipo que queremos retornar na lista. Ou seja, a lista em si pode ser nula, mas não pode retornar itens nulos.
+
+type Query {
+    users: [User!]
+}COPIAR CÓDIGO
+Exemplos de retorno:
+
+users: null //retorno válido
+users: [{user}, {user}] //retorno válido
+users: [{user}, null, {user}] //retorna erroCOPIAR CÓDIGO
+Terceiro caso: o ponto de exclamação aparece junto ao tipo de retorno e também junto ao fechamento dos colchetes da lista. Ou seja, deve retornar obrigatoriamente uma lista que não contenha null entre seus itens.
+
+Atenção: uma lista vazia é um retorno válido!
+
+type Query {
+    users: [User!]!
+}COPIAR CÓDIGO
+Exemplos de retorno:
+
+users: [] //retorno válido
+users: null //retorna erro
+users: [{user}, {user}] //retorno válido
+users: [{user}, null, {user}] //retorna erroCOPIAR CÓDIGO
+No GraphQL, todos os campos são definidos como “anuláveis” por padrão. Ao definir os campos de um tipo como obrigatórios (não-nulos), devemos pensar em como os dados serão utilizados e também em como estão definidos na base de dados. Por exemplo, definir como obrigatório um campo cuja origem dos dados seja uma coluna SQL sem a restrição NOT NULL pode nos trazer erros.
+
+Pode parecer uma boa ideia sempre declarar todos os campos possíveis como não-nulos, mas isso pode fazer com que fique difícil evoluir o schema, especialmente quando trabalhamos com diversas fontes de dados.
+
+No projeto que estamos implementando, a camada dataSource é responsável por se conectar aos endpoints REST através de seus métodos, como .get().
+
+
+Alternativa correta! O módulo RESTDataSource traz métodos para fazermos o CRUD e definir como os dados serão retornados de acordo com o que é pedido no schema.
+
+Alternativa correta
+Os tipos que indicam os possíveis pontos de entrada de uma API GraphQL são Query Types ou também chamados de root types.
+
+
+Alternativa correta! O tipo Query, com seus campos (no caso do projeto do curso, users e user) é o ponto de entrada e o tipo que sempre está no top level de um servidor GraphQL.
+
+Alternativa correta! O objeto passado no argumento context pode receber, por exemplo, uma instância ou método para se conectar a uma base de dados, informações sobre permissões do usuário logado, etc.
