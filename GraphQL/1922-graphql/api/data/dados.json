@@ -4,8 +4,8 @@
       "id": 1,
       "nome": "Ana Torre",
       "ativo": true,
-      "email": "a@a.com",
-      "role": 1
+      "email": "a@a.com.br",
+      "role": 3
     },
     {
       "id": 2,
@@ -41,6 +41,13 @@
       "ativo": true,
       "email": "m@m.com",
       "role": 2
+    },
+    {
+      "nome": "Hiago",
+      "ativo": true,
+      "email": "hiago@cs.com",
+      "role": 1,
+      "id": 7
     }
   ],
   "roles": [

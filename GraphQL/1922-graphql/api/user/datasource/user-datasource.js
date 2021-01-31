@@ -25,6 +25,39 @@ class UsersAPI extends RESTDataSource {
         return user
     }
 
+    async adicionaUser(user) {
+        const users = await this.get('/users');
+        const role = await this.get(`/roles?type=${user.role}`)
+        user.id = users.length + 1;
+        await this.post('users', {...user, role: role[0].id})
+
+        return ({
+            ...user, 
+            role: role[0]
+        })
+    }
+
+    async editaUser(newData) {
+        const role = await this.get(`/roles?type=${newData.role}`)
+        await this.put(`users/${newData.id}`, {...newData, role: role[0].id})
+
+        return ({
+            ...newData, 
+            role: role[0]
+        })
+    }
+
+    async deletUser(id){
+        await this.delete(`users/${id}`)
+        return id; // nao precisa passar nada no graphql
+
+        /* 
+        mutation {
+            deletUser(id: 8)
+        }
+        */
+    }
+
 }
 
 module.exports  = UsersAPI;
