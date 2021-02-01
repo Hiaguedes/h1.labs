@@ -3,17 +3,22 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 class UsersAPI extends RESTDataSource {
     constructor(){
         super();
-        this.baseURL = 'http://localhost:3000'
+        this.baseURL = 'http://localhost:3000';
+        this.respostaCustom = {
+            code: 200,
+            mensagem: 'Successo'
+        };
     }
 
     async getUsers() {
         const users = await this.get('/users');
-        return users.map(async ({id,nome,email,ativo, role}) => {
+        return users.map(async ({id,nome,email,ativo, role, createdAt}) => {
             return {
                 id,
                 nome,
                 email,
                 ativo,
+                createdAt,
                 role: await this.get(`/roles/${role}`)
             }
         })
@@ -38,18 +43,22 @@ class UsersAPI extends RESTDataSource {
     }
 
     async editaUser(newData) {
-        const role = await this.get(`/roles?type=${newData.role}`)
-        await this.put(`users/${newData.id}`, {...newData, role: role[0].id})
+        const {id, user} = newData;
+        const role = await this.get(`/roles?type=${user.role}`)
+        await this.put(`users/${id}`, {...user, role: role[0].id})
 
         return ({
-            ...newData, 
+            ...this.respostaCustom,
+            user: {
+            ...user, 
             role: role[0]
+            }
         })
     }
 
     async deletUser(id){
         await this.delete(`users/${id}`)
-        return id; // nao precisa passar nada no graphql
+        return this.respostaCustom; // nao precisa passar nada como retorno no graphql
 
         /* 
         mutation {

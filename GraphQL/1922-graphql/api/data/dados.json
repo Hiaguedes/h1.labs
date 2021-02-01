@@ -1,25 +1,20 @@
 {
   "users": [
     {
-      "id": 1,
-      "nome": "Ana Torre",
-      "ativo": true,
-      "email": "a@a.com.br",
-      "role": 3
+      "nome": "aaaaaa",
+      "ativo": false,
+      "email": "a@aaaa.com",
+      "role": 1,
+      "createdAt": "1111-11-01T03:06:28.000Z",
+      "id": 2
     },
     {
-      "id": 2,
-      "nome": "Gabriel Costa",
-      "ativo": true,
-      "email": "g@g.com",
-      "role": 1
-    },
-    {
-      "id": 3,
-      "nome": "Flavia Lins",
-      "ativo": true,
-      "email": "f@f.com",
-      "role": 1
+      "nome": "aaaaaa",
+      "ativo": false,
+      "email": "a@aaaa.com",
+      "role": 1,
+      "createdAt": "1111-11-01T03:06:28.000Z",
+      "id": 3
     },
     {
       "id": 4,
@@ -48,6 +43,14 @@
       "email": "hiago@cs.com",
       "role": 1,
       "id": 7
+    },
+    {
+      "nome": "Xonas",
+      "ativo": true,
+      "email": "xonas@lo.com",
+      "role": 1,
+      "createdAt": "2021-01-31T00:00:00.000Z",
+      "id": 8
     }
   ],
   "roles": [

@@ -474,3 +474,125 @@ Mais sobre campos nulos e não nulos neste link da documentação do GraphQL.
 Ainda há mais práticas listadas na documentação, relacionadas a temas que não estamos abordando neste curso.
 
 Caso queira ver cada uma com mais detalhes, pode conferir a parte de práticas na documentação oficial e este artigo sobre boas práticas e design patterns em GraphQL<https://graphql.org/learn/best-practices/>.
+
+## Unions e interfaces
+
+O último dos tipos do GraphQL, Union, é útil em casos em que existem campos similares em mais de um tipo.
+
+Usando como base o exemplo da documentação:
+
+```graphql
+union Resultado = Livro | Autoria
+
+type Livro {
+    titulo: String
+}
+
+type Autoria {
+    nome: String
+}
+
+type Query {
+    busca: [Resultado]
+}
+```
+
+No exemplo acima foi definido um campo busca no tipo Query, que pode retornar tanto Livro quanto Autoria. Como passamos isso para o resolver?
+
+```js
+const resolvers = {
+    Resultado: {
+        __resolveType(obj, context, info){
+            if(obj.nome){
+                return 'Autoria'
+            }
+
+            if(obj.titulo){
+                return 'Livro'
+            }
+
+            return null
+        },
+    },
+    Query: {
+        busca: () => { // código aqui }
+    },
+}
+```
+
+No exemplo de resolver acima, foi adicionada uma nova propriedade no objeto resolvers: a propriedade Resultado, que é o nome do tipo Union que criamos no schema.
+
+Nessa propriedade, chamamos o campo __resolveType, um campo do GraphQL que vai ser usado para resolver se o objeto retornado será Livro ou Autoria.
+
+Dessa forma, é possível fazer queries que retornam objetos diferentes dependendo dos subcampos pedidos:
+
+```js
+{
+    busca(contains: "") {
+        ... on Livro {
+            titulo
+        }
+        ... on Autoria {
+            nome
+        }
+    }
+}
+```
+
+Nós vimos anteriormente um uso do tipo Interface para customizar os dados retornados ao cliente em uma Mutation. Um outro uso possível para Interface é lidar com casos onde existe mais de um tipo com campos similares, assim como Union.
+
+Neste curso introdutório de GraphQL, não vamos abordar este uso específico, mas vai ficar o desafio: você pode ver os exemplos na documentação e implementar esta funcionalidade.
+
+## missing resolver
+
+Depois de implementar o tipo interface, pode ser que você passe a receber a seguinte mensagem de aviso no terminal onde está rodando o servidor GraphQL:
+
+Type "respostaCustom" is missing a "__resolveType" resolver. Pass false into "resolverValidationOptions.requireResolversForResolveType" to disable this warning.
+
+Este aviso tem a ver com o desafio que passamos no final da aula, para que você refatore a implementação básica que fizemos da interface!
+
+Mas, se você não quiser resolver este desafio agora, podemos fazer uma modificação nos resolvers para lidar com o aviso.
+
+Tanto interfaces quanto unions têm por padrão um resolver chamado __resolveType; você pode ver um exemplo desse resolver na seção “Para Saber Mais” anterior, onde falamos sobre estes dois tipos, e conferir como ele é utilizado.
+
+Neste momento não estamos definindo __resolveType em lugar nenhum, mas a leitura do início do aviso já dá uma dica. Em uma tradução livre: “está faltando um resolver chamado __resolveType para o tipo respostaCustom”.
+
+Então, podemos criar esse resolver junto com os outros resolvers do tipo User, lembrando que é no schema userSchema.graphql que definimos o tipo respostaCustom. Em api/user/resolvers/userResolvers.js:
+
+const userResolvers = {
+ respostaCustom: {
+   // código aqui
+ },
+
+// restante dos resolvers
+}COPIAR CÓDIGO
+Continuando com a leitura do aviso: “Declare false como valor da propriedade resolverValidationOptions.requireResolversForResolveType para desabilitar este aviso”. Uma forma de fazer isso é passando false direto no resolver que acabamos de criar:
+
+ respostaCustom: {
+   __resolveType(obj, context, info) {
+     return false
+   },
+ },COPIAR CÓDIGO
+Dica: você vai utilizar este resolver quando for resolver o desafio! Então já podemos deixá-lo no lugar, com os parâmetros.
+
+Boa sorte!
+
+## Pergunta Final
+
+Aqui concluímos este curso de introdução ao GraphQL com NodeJS. Vamos fazer uma última revisão de alguns pontos que vimos durante o curso.
+
+Selecione as alternativas corretas.
+
+O ideal é não adicionar campos no schema de forma prematura, pois é sempre possível adicionar de forma incremental quando necessário.
+
+
+Alternativa correta! A tendência que temos muitas vezes é já ir inserindo de início todos os campos que “achamos” que podem ser usados. Por exemplo, campos de ID que normalmente só são utilizados internamente para a construção de um objeto. Isso normalmente não é necessário, pois o GraphQL reduz bastante a complexidade na hora de adicionar novos campos a um tipo existente ou criar um novo tipo no schema.
+
+Alternativa correta
+É prática comum não permitir introspecção em APIs em produção, a não ser em caso de APIs públicas ou compartilhada com parceiros.
+
+Alternativa correta! A introspecção é desativada por padrão no ApolloServer, mas você pode ativar essa opção se quiser, como vimos nas aulas anteriores.
+
+O schema pode ser descrito como a representação de um produto.
+
+Alternativa correta! Lembrando sempre que o schema reflete como os dados serão usados no lado do cliente, o que pode fazer bastante sentido dependendo do seu produto.
