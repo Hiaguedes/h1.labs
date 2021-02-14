@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const SidebarBase = styled.aside`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 100%;
     background-color: lightgrey;
     padding: 2rem; 
     overflow-y: scroll;
@@ -23,8 +24,9 @@ const Content = styled.div`
 
 const LayoutContainer = styled.div`
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: 300px calc(100vw - 300px);
     grid-template-rows: 100vh;
+    overflow-x: hidden;
 `;
 
 export const LayoutStyles = {SidebarBase, Content, LayoutContainer} ;
