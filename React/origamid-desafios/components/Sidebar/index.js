@@ -37,6 +37,7 @@ const ReactInicianteLinks = [
 const ReactHooksLinks = [
     {title: 'Desafio useState 3', href: '/ReactHooks/useState3'},
     {title: 'Desafio useEffect 2', href: '/ReactHooks/useEffect2'},
+    {title: 'Desafio Context', href: '/ReactHooks/useContext2'},
 ];
 
 

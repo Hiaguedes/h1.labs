@@ -7,11 +7,16 @@ const SidebarBase = styled.aside`
     background-color: lightgrey;
     padding: 2rem; 
     overflow-y: scroll;
+    top: 0;
+    position: sticky;
 
     &::-webkit-scrollbar {
-        width: 6px;
+        width: 3px
     }
 
+    &::-webkit-scrollbar-thumb {
+            background: #53e;
+    }
 `;
 
 SidebarBase.Content = styled.div``;
