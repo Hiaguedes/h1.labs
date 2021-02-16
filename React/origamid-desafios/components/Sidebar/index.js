@@ -40,11 +40,16 @@ const ReactHooksLinks = [
     {title: 'Desafio Context', href: '/ReactHooks/useContext2'},
 ];
 
+const FomrulariosLinks = [
+    {title: 'Desafio Input', href: '/Formularios/Input2'},
+];
+
 
     return (
         <SidebarBase>
             {newAccordionStructure('React Iniciante', ReactInicianteLinks)}
             {newAccordionStructure('React Hooks', ReactHooksLinks)}
+            {newAccordionStructure('Formulários', FomrulariosLinks)}
       </SidebarBase>
     );
 }
