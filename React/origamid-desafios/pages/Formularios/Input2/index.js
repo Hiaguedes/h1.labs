@@ -43,8 +43,8 @@ export default function InputsQuestion() {
             firstInput.current.focus();
         })
             .catch(e => {
-            setFeedbackMensagem('Feels bad Man, usuário não criado');
-            firstInput.current.focus();
+                setFeedbackMensagem('Feels bad Man, usuário não criado');
+                firstInput.current.focus();
         })
             .finally(() => setTimeout(() => {
                 setFeedbackMensagem('');

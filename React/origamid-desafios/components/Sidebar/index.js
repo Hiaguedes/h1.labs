@@ -42,6 +42,8 @@ const ReactHooksLinks = [
 
 const FomrulariosLinks = [
     {title: 'Desafio Input', href: '/Formularios/Input2'},
+    {title: 'Desafio Checkbox', href: '/Formularios/Checkbox2'},
+    {title: 'Desafio Quiz', href: '/Formularios/Quiz'},
 ];
 
 
