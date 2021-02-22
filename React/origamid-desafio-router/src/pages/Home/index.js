@@ -26,7 +26,7 @@ const Home = () => {
             {
             data.map(res => {
                 return (
-                    <div style={{display: 'flex', flexDirection: 'column', width: '30%',marginBottom: '1rem'}}>
+                    <div key={res.id} style={{display: 'flex', flexDirection: 'column', width: '30%',marginBottom: '1rem'}}>
                         <Link to={`produto/${res.id}`}>
                             <Image src={res.fotos[0].src}/>
                         </Link>

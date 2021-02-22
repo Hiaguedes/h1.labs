@@ -23,24 +23,32 @@ function App() {
           Produtos
         </Button>
       </Link>
-      <Link to="contato">
+      <Link to="/contato">
       <Button>
           Contato
         </Button>
       </Link>
+
+
+
        <Switch>
+
           <Route exact path="/">
             <Home />
           </Route>
+
           <Route path="/contato">
             <Contato />
           </Route>
+
           <Route path="/produto/:id">
             <ProdutoDetalhe />
           </Route>
+
           <Route>
             <NotFound />
           </Route>
+
         </Switch>
       </BrowserRouter>
     </>
