@@ -1,7 +1,7 @@
 const Atendimento = require('./atendimento.model')
 
 module.exports = app => {
-    app.get('/atendimentos', (req, res) => {
+    app.get('/atendimentos', (req, res) => { // req -> o que nós recebemos e res a resposta
         // res.send('<title>Api Petshop | Atendimento</title>')
         Atendimento.lista(res)
     })
