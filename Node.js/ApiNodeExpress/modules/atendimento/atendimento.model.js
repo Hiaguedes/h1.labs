@@ -1,9 +1,10 @@
 const conexao = require('../../infra/conexao')
 const moment = require('moment');
+const axios = require('axios');
 
 class Atendimento {
     adiciona(atendimento, res) {
-        const createdDate = new Date();
+        const createdDate = moment(new Date()).format('YYYY-MM-DD HH:MM:SS');
         const formatDate = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS');
         const isDateValid = moment(atendimento.data).isSameOrAfter(createdDate);
         const isClientValid = atendimento.cliente.length >= 5;
@@ -49,9 +50,17 @@ class Atendimento {
         const idNumber = Number(id);
         const sql = `SELECT * FROM Atendimentos WHERE id=${idNumber}`;
 
-        conexao.query(sql, (err, result) => { 
+        conexao.query(sql, async (err, result) => { 
             const atendimento = result[0];
-            err ? res.status(400).json(err) : res.status(200).json(atendimento)
+            const cpf = atendimento.cliente;
+            
+            if(err) {
+                res.status(400).json(err)
+            } else {
+                const novoCliente = await axios.get(`http://localhost:8082/${cpf}`)
+                atendimento.cliente = novoCliente.data;
+                res.status(200).json(atendimento)
+            }
         })
     }
 
