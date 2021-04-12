@@ -3,7 +3,9 @@ const Atendimento = require('./atendimento.model')
 module.exports = app => {
     app.get('/atendimentos', (req, res) => { // req -> o que nós recebemos e res a resposta
         // res.send('<title>Api Petshop | Atendimento</title>')
-        Atendimento.lista(res)
+        Atendimento.lista()
+            .then(results => res.json(results))
+            .catch(err => res.status(400).json(err));
     })
 
     app.get('/atendimentos/:id', (req, res) => {
@@ -13,7 +15,9 @@ module.exports = app => {
     app.post('/atendimentos', (req, res) => {
         const atendimento = req.body;
         console.log('ATENDIMENTO',atendimento)
-        Atendimento.adiciona(atendimento, res);
+        Atendimento.adiciona(atendimento)
+        .then(result => res.status(201).json(result))
+        .catch(err => res.status(400).json(err));
 
     })
 
