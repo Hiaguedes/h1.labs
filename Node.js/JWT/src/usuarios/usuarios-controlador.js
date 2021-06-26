@@ -40,5 +40,9 @@ module.exports = {
     } catch (erro) {
       res.status(500).json({ erro: erro });
     }
+  },
+
+  login: (req, res) => {
+    res.status(204).send();
   }
 };
