@@ -1,6 +1,7 @@
 const app = require('./app');
 const port = 3000;
 const db = require('./database');
+require('dotenv').config()
 
 const routes = require('./rotas');
 routes(app);
