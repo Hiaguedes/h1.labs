@@ -9,7 +9,7 @@ const createJWT = usuario => {
 
   // require('crypto').randomBytes(256).toString('base64') o secret foi gerado com isso
 
-  const token = jwt.sign(payload, process.env.SECRET_JWT);
+  const token = jwt.sign(payload, process.env.SECRET_JWT, { expiresIn: '15m' });
 
   return token;
 }
