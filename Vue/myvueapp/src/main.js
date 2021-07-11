@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
 
-import styled from 'vue-styled-components'
+import { routes } from './routes'
 
-export const Title = styled.h1`
-  color: red;
-`
+Vue.use(VueResource)
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes,
+  mode: 'history',
+})
 
 new Vue({
   el: '#app',
   render: h => h(App),
+  router
 })
