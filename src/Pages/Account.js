@@ -1,13 +1,23 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 import React from "react";
 import Title from "../Components/Title/Title";
 import image1 from "../Images/1.webp";
-import * as moment from "moment";
+import { formatDistance } from "date-fns";
 
-import { onCsvClick } from "../Utils/worker";
+import worker from "workerize-loader!../Utils/worker";
 
 export default function Account() {
 
-  const getProcessedData = () => onCsvClick();
+  const { onCsvClick } = worker();
+
+  const getProcessedData = async () => {
+    try {
+      await onCsvClick()
+
+    }  catch(e) {
+      console.error(e);
+    }
+  }
 
   return (
     <div>
@@ -40,7 +50,7 @@ export default function Account() {
             </svg>
             <h1 className="px-2 text-sm">
               Account create {" "}
-              {moment(new Date(2015,10,31)).fromNow()}
+              {formatDistance(new  Date(2015, 10, 31), new Date())}
             </h1>
           </div>
 

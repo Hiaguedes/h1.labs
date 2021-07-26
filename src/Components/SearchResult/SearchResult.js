@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Menu({
+export function BearerMenu({
   items,
   getMenuProps,
   getItemProps,
@@ -18,14 +18,16 @@ export function Menu({
           isSelected={selectedItem?.id === item.id}
           isHighlighted={highlightedIndex === index}
         >
-          <SearchResults name={item.name} />
+          <MemoizedSearchResults name={item.name} />
         </ListItem>
       ))}
     </ul>
   );
 }
 
-export function ListItem({
+export const Menu = React.memo(BearerMenu)
+
+export function BearerListItem({
   getItemProps,
   item,
   index,
@@ -47,6 +49,8 @@ export function ListItem({
     />
   );
 }
+
+export const ListItem = React.memo(BearerListItem)
 
 
 const SearchResults = ({ name }) => {
@@ -73,5 +77,7 @@ const SearchResults = ({ name }) => {
     </div>
   );
 };
+
+export const MemoizedSearchResults = React.memo(SearchResults)
 
 
