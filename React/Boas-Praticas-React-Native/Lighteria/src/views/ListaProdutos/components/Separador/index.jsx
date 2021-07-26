@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 const Separador = () => {
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
       }
 })
 
-export default Separador;
+export default memo(Separador);

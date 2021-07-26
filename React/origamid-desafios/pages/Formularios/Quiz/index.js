@@ -13,7 +13,7 @@ const Quiz = () => {
     const [perguntaAtual,setPerguntaAtual] = useState(0);
 
     const handleClickNext = () => {
-        if(perguntaAtual > numeroPerguntas) return;
+        if(perguntaAtual +1 > numeroPerguntas) return;
         setAnswersRight([...answersRight, perguntas[perguntaAtual].resposta === checked]);
         setPerguntaAtual(perguntaAtual + 1);
         setChecked('');
@@ -26,7 +26,7 @@ return (
     <title>Desafio do Quiz</title>
     </Head>
     <Layout>
-        {perguntaAtual +1 > numeroPerguntas ? <>Você acertou: {answersRight.filter(n => n).length}</> : (
+        {perguntaAtual +1 > numeroPerguntas ? <>Você acertou: {answersRight.filter(n => n).length} de {numeroPerguntas}</> : (
             <>
                 <Widget checked={checked} 
                         setChecked={setChecked} 

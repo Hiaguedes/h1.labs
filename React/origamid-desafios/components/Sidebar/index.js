@@ -16,7 +16,7 @@ const Sidebar = () => {
                     </Accordion.Toggle>
                 {links.map(link => {
                     return(
-                        <Accordion.Collapse eventKey="0" key={link.src}>
+                        <Accordion.Collapse key={link.href} eventKey="0">
                         <Card.Body>
                         <Link href={link.href}>
                                 {link.title}
@@ -47,11 +47,17 @@ const FomrulariosLinks = [
 ];
 
 
+const RouterLinks = [
+    {title: 'Desafio Router 1', href: '/ReactRouter/DesafioRouter1'},
+    {title: 'Desafio Router 2', href: '/ReactRouter/DesafioRouter2'},
+];
+
     return (
         <SidebarBase>
             {newAccordionStructure('React Iniciante', ReactInicianteLinks)}
             {newAccordionStructure('React Hooks', ReactHooksLinks)}
             {newAccordionStructure('Formulários', FomrulariosLinks)}
+            {newAccordionStructure('React Router', RouterLinks)}
       </SidebarBase>
     );
 }

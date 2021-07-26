@@ -6,10 +6,9 @@ const Radio = ({options, checked, setChecked}) => {
         <>
             {options.map(option => {
                 return(
-                        <label style={{ width: '100%'}}>
+                        <label key={option} style={{ width: '100%', fontFamily: 'monospace', fontSize: '1.5rem'}}>
                             <input style={{marginRight: '0.5rem'}} 
                                    type="radio" 
-                                   name={options}
                                    value={option}
                                    checked={checked === option}
                                    onChange={() => setChecked(option)} />

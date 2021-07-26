@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 import { Request, Response, Express } from 'express';
 const PessoaController = require('../controllers/Pessoa.controller')
 const pessoasRotas = require('./pessoas.route')
+const turmasRotas = require('./turmas.route')
 
 module.exports = (app: Express) => {
     app.use(bodyParser.json());
@@ -13,4 +14,5 @@ module.exports = (app: Express) => {
     })
 
     app.use(pessoasRotas)
+    app.use(turmasRotas)
 }
