@@ -5,43 +5,70 @@ void main() => runApp(MainApp());
 class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: FormularioTransferenciaScreen(),
+      home: ListagemTransferencia(),
     );
   }
 }
 
-class ListagemTransferencia extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Transferências'),
-          backgroundColor: Colors.green[400],
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return FormularioTransferenciaScreen();
-            }));
-          },
-          backgroundColor: Colors.green[400],
-        ),
-        body: ListaTransferencia(),
-      ),
-    );
-  }
+class Transferencias {
+  String numeroConta;
+  String value;
+
+  Transferencias(this.numeroConta, this.value);
 }
 
 class FormularioTransferenciaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Criação de Transferências'),
-          backgroundColor: Colors.green[400],
-        ),
-        body: FormularioTransferencia(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Criação de Transferências'),
+        backgroundColor: Colors.green[400],
+      ),
+      body: FormularioTransferencia(),
+    );
+  }
+}
+
+class ListagemTransferencia extends StatefulWidget {
+  final List<Transferencias> _transferencias = [];
+  @override
+  State<StatefulWidget> createState() {
+    return ListaTransferenciasState();
+  }
+}
+
+class ListaTransferenciasState extends State<ListagemTransferencia> {
+  // final List<Transferencias> _transferencias = [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Transferências'),
+        backgroundColor: Colors.green[400],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green[400],
+        child: Icon(Icons.add),
+        onPressed: () async {
+          final future = await Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FormularioTransferenciaScreen()));
+
+          setState(() {
+            widget._transferencias
+                .add(Transferencias(future.numeroConta, future.value));
+            print('FUTURE  ' + future.value + ' ' + future.numeroConta);
+          });
+        },
+      ),
+      body: new ListView.builder(
+        itemCount: widget._transferencias.length,
+        itemBuilder: (context, index) {
+          print(
+              'AAAAAAAAAAAAAAA ${widget._transferencias[index].numeroConta}  ${widget._transferencias[index].value}');
+          final Transferencias transferencia = widget._transferencias[index];
+          return ItemListaTransferencia(
+              Transferencias(transferencia.numeroConta, transferencia.value));
+        },
       ),
     );
   }
@@ -54,7 +81,8 @@ class FormularioTransferencia extends StatelessWidget {
       new TextEditingController();
 
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
+    return SingleChildScrollView(
+        child: Column(children: <Widget>[
       InputForm(
           controller: _controladorCampoNumConta,
           label: 'Número da conta',
@@ -70,14 +98,11 @@ class FormularioTransferencia extends StatelessWidget {
           final String numeroConta = _controladorCampoNumConta.text;
           final String valor = _controladorCampoValor.text;
 
-          Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text('valor: ${valor} numeroConta: ${numeroConta}')));
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return ListagemTransferencia();
-          }));
+          final transferenciaCriada = Transferencias(numeroConta, valor);
+          Navigator.of(context).pop(transferenciaCriada);
         },
       )
-    ]);
+    ]));
   }
 }
 
@@ -113,22 +138,12 @@ class InputForm extends StatelessWidget {
   }
 }
 
-class ListaTransferencia extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ItemListaTransferencia('Hiago', '150.00'),
-      ],
-    );
-  }
-}
-
 class ItemListaTransferencia extends StatelessWidget {
-  final String nomeConta;
-  final String valor;
+  final Transferencias transf;
 
-  ItemListaTransferencia(this.nomeConta, this.valor);
+  ItemListaTransferencia(
+    this.transf,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -137,8 +152,8 @@ class ItemListaTransferencia extends StatelessWidget {
       borderOnForeground: true,
       child: ListTile(
         leading: Icon(Icons.monetization_on),
-        title: Text('R\$' + valor),
-        subtitle: Text(nomeConta),
+        title: Text('R\$' + '${transf.value}'),
+        subtitle: Text('${transf.numeroConta}'),
       ),
     );
   }
