@@ -2,11 +2,18 @@ import React from "react";
 import { Text, StyleSheet, View, TextInput, FlatList } from "react-native";
 import Button from "../components/Button";
 
+interface SkillObject {
+  id: number;
+  skill: string;
+}
+interface ItemProps {
+  item: SkillObject;
+}
 const Home = () => {
-  const [newSkill, setNewSkill] = React.useState("");
-  const [mySkills, setMySkills] = React.useState([]);
+  const [newSkill, setNewSkill] = React.useState<string>("");
+  const [mySkills, setMySkills] = React.useState<SkillObject[]>([]);
 
-  const SkillsItems = ({ item: { skill } }) => {
+  const SkillsItems = ({ item: { skill } }: ItemProps) => {
     return (
       <Text style={[styles.title, , { backgroundColor: "#222" }]}>{skill}</Text>
     );
@@ -35,7 +42,7 @@ const Home = () => {
           <FlatList
             renderItem={SkillsItems}
             data={mySkills}
-            keyExtractor={({ id }) => id}
+            keyExtractor={({ id }) => String(id)}
           />
         )}
       </View>
