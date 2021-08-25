@@ -13,9 +13,18 @@ const Home = () => {
   const [newSkill, setNewSkill] = React.useState<string>("");
   const [mySkills, setMySkills] = React.useState<SkillObject[]>([]);
 
-  const SkillsItems = ({ item: { skill } }: ItemProps) => {
+  const SkillsItems = ({ item: { skill, id } }: ItemProps) => {
     return (
-      <Text style={[styles.title, , { backgroundColor: "#222" }]}>{skill}</Text>
+      <Text
+        onPress={() => {
+          setMySkills((prevSkills) => [
+            ...prevSkills.filter((skill) => skill.id !== id),
+          ]);
+        }}
+        style={[styles.title, , { backgroundColor: "#222" }]}
+      >
+        {skill}
+      </Text>
     );
   };
   return (
