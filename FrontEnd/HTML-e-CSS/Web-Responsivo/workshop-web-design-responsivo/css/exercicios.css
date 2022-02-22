@@ -1,0 +1,150 @@
+body{
+    font-size: 0.8em;
+}
+
+header .container{
+    display: flex;
+    align-items: center;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.logo{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.logo img{
+    width: 200px;
+
+}
+
+.logo, .bar-nav{
+    margin:5% 0;
+}
+
+.menu-principal{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5% 0;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.destaques{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding-top: 2%;
+}
+.secao{
+    padding: 0 2%;
+}
+
+.mini{
+    float: left;
+    width: 50%;
+}
+
+@media (min-width:790px){
+
+    body{
+        font-size: 1em;
+    }
+
+    .logo, .bar-nav, .menu-principal{
+        margin:0;
+    }
+
+    header .container, .menu-principal, .barra-nav{
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    header .container{
+        width: 98%;
+        margin: 0 auto;
+    }
+}
+
+.menu-abrir:before, .menu-fechar:before{
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+.menu-abrir{
+    background: url(../img/menu.png);
+    background-size: cover;
+}
+
+.menu-fechar{
+    display: inline-block;
+    background: url(../img/close.svg) no-repeat;
+    background-size: contain;
+}
+
+@media (min-width:900px){
+
+    body{
+        font-size: 1em;
+    }
+
+    .destaques{
+        width:85%;
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 790px) {
+    .barra-nav { /* Aqui criaremos o menu na mão*/
+        background: #f0f0f0;
+        padding: 1em;
+        margin: 0;
+
+        height: 100%; /*Onde ocupa toda a altura */
+        width: 90%;/*Ocupa uma parte da tela*/
+        max-width: 320px;/*Porém para um dispositivo maior ele ocupa apenas a largura fixa de 320px*/
+
+        position: fixed;/*posição fixa para fica acima dos elementos*/
+        z-index: 1;/*Aqui certificamos que ele está acima dos elementos de fato*/
+        top: 0;
+        left: -90%;/*Começa fora da tela. com o mesmo comprimento da tela inicial*/
+
+        transition: left 0.3s ease-out;/*e com uma transição para o elemento left, ou seja ele leva 0.3s para preencher a tela*/
+    }
+        .menu-ativo .barra-nav {/*Quando menu ativo o left é 0*/
+            left: 0;
+        }
+
+    .busca{
+        display: flex;
+        justify-content: center;
+    }
+
+    .menu-ativo:after { /*Adiciona fundo mais escuro quando o menu está ativo*/
+        content: "";
+        display: block;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        background: rgba(0,0,0,0.4);
+    }
+}
+
+@media not all and (max-width: 790px) { /*Some com os botões caso a tela não esteja nessas codições, para isso colocamos a media not all*/
+    .menu-abrir,
+    .menu-fechar {
+        display: none;
+    }    
+}
